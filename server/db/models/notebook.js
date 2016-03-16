@@ -10,7 +10,7 @@ var notebookSchema = new mongoose.Schema({
         enum: ['private', 'public'],
         default: 'private'
     }, 
-    name: {
+    title: {
         type: String 
     }, 
     date: {

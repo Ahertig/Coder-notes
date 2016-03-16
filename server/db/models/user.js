@@ -17,7 +17,7 @@ var userSchema = new mongoose.Schema({
     password: {
         type: String
     },
-    notebook:  [{
+    notebooks:  [{
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Notebook'
     }],
@@ -31,6 +31,13 @@ var userSchema = new mongoose.Schema({
         id: String
     }
 });
+
+userSchema.methods.getAllNotes = function() {
+    this.deepPopulate('notebooks notebooks.notes')
+    .then(function(user) {
+        return user.notebooks.notes,
+    })
+}
 
 // method to remove sensitive information from user objects before sending them out
 userSchema.methods.sanitize =  function () {

@@ -11,7 +11,7 @@ var noteSchema = new mongoose.Schema({
     },
     state: {
         type: String // saved, trash 
-    } 
+    },
     subject: {
         type: String 
     }, 
@@ -33,5 +33,8 @@ var noteSchema = new mongoose.Schema({
         type: [String]
     }
 });
+
+
+
 
 mongoose.model('Note', noteSchema);
