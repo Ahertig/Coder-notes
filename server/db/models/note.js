@@ -17,7 +17,7 @@ var noteSchema = new mongoose.Schema({
     }, 
     body: {
         type: String
-    }
+    },
     dateCreated: {
         type: Date, 
         default: Date.now
@@ -33,8 +33,5 @@ var noteSchema = new mongoose.Schema({
         type: [String]
     }
 });
-
-
-
 
 mongoose.model('Note', noteSchema);

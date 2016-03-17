@@ -2,7 +2,7 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
-var Notes = mongoose.model('Notes');
+var Note = mongoose.model('Note');
 
 var notebookSchema = new mongoose.Schema({
     type:  { 

@@ -2,7 +2,7 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
-var Notebook = mongoose.model('Notebook');
+var Schema = mongoose.Schema;
 
 var userSchema = new mongoose.Schema({
     firstName: {
@@ -32,12 +32,12 @@ var userSchema = new mongoose.Schema({
     }
 });
 
-userSchema.methods.getAllNotes = function() {
-    this.deepPopulate('notebooks notebooks.notes')
-    .then(function(user) {
-        return user.notebooks.notes,
-    })
-}
+// userSchema.methods.getAllNotes = function() {
+//     this.deepPopulate('notebooks notebooks.notes')
+//     .then(function(user) {
+//         return user.notebooks.notes;
+//     })
+// }
 
 // method to remove sensitive information from user objects before sending them out
 userSchema.methods.sanitize =  function () {
