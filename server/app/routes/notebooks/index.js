@@ -4,3 +4,7 @@ module.exports = router;
 var mongoose = require('mongoose');
 var Notebook = mongoose.model('Notebook');
 
+// :userid
+// :userId
+
+// notebooks

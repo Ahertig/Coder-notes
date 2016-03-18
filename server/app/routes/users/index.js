@@ -21,3 +21,16 @@ router.get('/', function(req, res, next){
   })
   .then(null, next);
 });
+
+// Get one user
+router.get('/:userId', function(req, res, next){
+  User.findOne(req.params.userId)
+  .then(function(user){
+    res.json(user);
+  })
+  .then(null, next);
+});
+
+
+
+
