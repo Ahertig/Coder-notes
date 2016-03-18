@@ -6,20 +6,13 @@
  -->
 <html>
   <head>
-    <title>Getting Started Extension's Popup</title>
+    <title>Save to [NAME HERE]</title>
     <style>
-      body {
-        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
-        font-size: 100%;
-      }
-      #status {
-        /* avoid an excessively wide status text */
-        white-space: pre;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        max-width: 400px;
+      textarea {
+        width: 450px;
       }
     </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
     <!--
       - JavaScript and HTML must be in separate files: see our Content Security
@@ -30,24 +23,44 @@
     <!-- <script src="popup.js"></script>-->
   </head>
   <body>
-    <h3>New note</h3>
+    <div class="container">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Add a note</h3>
+        </div>
+        <div class="panel-body">
+          <form role="form" action="/newNote" method="post">
+            <div class="form-group">
+              <textarea placeholder="Describe this note"></textarea autocomplete="on">
+            </div>
+            <hr></hr>
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input type="text" id="title" name="title" value="Note#">
+            </div>
+            <div class="form-group">
+              <label for="notebook">Notebook:</label>
+              <select id="notebook" name="notebook">
+                <option>Notebook 1</option>
+                <option>Notebook 2</option>
+                <option>Notebook 3</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <textarea></textarea>
+            </div>
+            <hr></hr>
+            <div class="form-group">
+              <label for="tags">Tags:</label>
+              <input type="text" id="tags" name="tags">
+            </div>
+            
+            <input type="submit" value="Save">
+          </form>
+        </div>
+      </div>
 
-    <form action="/newNote" method="post">
-      <textarea placeholder="Describe this note"></textarea autocomplete="on">
-      <hr></hr>
-      <label for="title">Title</label>
-      <input type="text" id="title" name="title" value="Note#">
-      <textarea></textarea>
-
-      <hr></hr>
-      
-      <input type="submit" value="Submit">
-    </form>
-
-    
-    
-    
-
+    </div>
   </body>
 </html>
 
