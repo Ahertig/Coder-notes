@@ -16,12 +16,15 @@ router.get('/', function(req, res,next){
 	.populate('notebooks')
 	.then(function(user){
 		if(user) { 
-			if (user.user.notebooks) res.send(user.notebooks);
+			if (user.notebooks) res.send(user.notebooks);
 		} 
-		else console.log("can't find the user")
+		else console.log("can't find the user");
 	})
 	.then(null, next)
 })
+
+//get all notebooks for a user
+
 
 //Create a notebook
 router.post('/', function(req, res, next) {
