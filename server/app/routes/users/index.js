@@ -31,6 +31,18 @@ router.get('/:userId', function(req, res, next){
   .then(null, next);
 });
 
+// Update one user
+router.put('/:userId', function(req, res, next){
+	User.findOne(req.params.userId)
+	.then(function (user) {
+		user.set(req.body).save();
+		res.send(user)
+	})
+
+	.then(null, next)
+
+});
+
 // Delete one user
 router.delete('/:userId', function(req, res, next){
   User.remove(req.params.userId)
