@@ -2,7 +2,7 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
-var Schema = mongoose.Schema;
+//var Schema = mongoose.Schema;
 
 var userSchema = new mongoose.Schema({
     firstName: {
@@ -12,7 +12,9 @@ var userSchema = new mongoose.Schema({
         type: String
     },
     email: {
-        type: String
+        type: String,
+        unique: true,
+        required: true
     },
     password: {
         type: String
