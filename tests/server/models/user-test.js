@@ -1,4 +1,4 @@
-var dbURI = 'mongodb://localhost:27017/testingDB';
+var dbURI = 'mongodb://localhost:27017/testingDB-evercode';
 var clearDB = require('mocha-mongoose')(dbURI);
 
 var sinon = require('sinon');
