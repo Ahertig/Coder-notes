@@ -26,4 +26,13 @@ var notebookSchema = new mongoose.Schema({
 
 });
 
+notebookSchema.methods.addNote = function(body) {
+    var notebook = this
+    return mongoose.model('Note').create(body)
+    .then(function(note) {
+        notebook.notes.push(note._id)
+        return notebook.save();
+    })
+}
+
 mongoose.model('Notebook', notebookSchema);

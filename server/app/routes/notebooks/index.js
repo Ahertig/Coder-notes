@@ -4,7 +4,13 @@ module.exports = router;
 var mongoose = require('mongoose');
 var Notebook = mongoose.model('Notebook');
 
-// :userid
-// :userId
+// Route: /api/:userId
 
-// notebooks
+//Create a notebook
+router.post('/', function(req, res, next) {
+	Notebook.create(req.body)
+	.then(function(newNotebook) {
+		res.send(newNotebook)
+	})
+	.then(null, next)
+})

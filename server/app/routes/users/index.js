@@ -31,6 +31,16 @@ router.get('/:userId', function(req, res, next){
   .then(null, next);
 });
 
+// Delete one user
+router.delete('/:userId', function(req, res, next){
+  User.remove(req.params.userId)
+  .then(function(deletedUser){
+    res.json(deletedUser);
+  })
+  .then(null, next);
+});
+
+
 
 
 
