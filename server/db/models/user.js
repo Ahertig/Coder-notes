@@ -34,12 +34,12 @@ var userSchema = new mongoose.Schema({
     }
 });
 
-// userSchema.methods.getAllNotes = function() {
-//     this.deepPopulate('notebooks notebooks.notes')
-//     .then(function(user) {
-//         return user.notebooks.notes;
-//     })
-// }
+userSchema.methods.getAllNotes = function() {
+    this.deepPopulate('notebooks', 'notebooks.notes')
+    .then(function(user) {
+        return user.notebooks.notes;
+    })
+}
 
 // method to remove sensitive information from user objects before sending them out
 userSchema.methods.sanitize =  function () {

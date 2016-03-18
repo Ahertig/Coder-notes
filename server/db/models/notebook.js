@@ -1,4 +1,4 @@
-'use strict';
+        'use strict';
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
@@ -31,7 +31,7 @@ notebookSchema.methods.addNote = function(body) {
     return mongoose.model('Note').create(body)
     .then(function(note) {
         notebook.notes.push(note._id)
-        return notebook.save();
+        notebook.save();
     })
 }
 

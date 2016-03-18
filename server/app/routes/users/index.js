@@ -1,3 +1,5 @@
+// Route api/users
+
 'use strict';
 var router = require('express').Router();
 module.exports = router;
@@ -22,26 +24,12 @@ router.get('/', function(req, res, next){
   .then(null, next);
 });
 
-// Get one user
-router.get('/:userId', function(req, res, next){
-  User.findOne(req.params.userId)
-  .then(function(user){
-    res.json(user);
+router.param('userId', function(req, res, next, id) {
+  User.findById(id)
+  .then(function(user) {
+    req.currentUser = user;
+    next();
   })
-  .then(null, next);
 });
 
-// Delete one user
-router.delete('/:userId', function(req, res, next){
-  User.remove(req.params.userId)
-  .then(function(deletedUser){
-    res.json(deletedUser);
-  })
-  .then(null, next);
-});
-
-//
-
-
-
-
+router.use('/:userId', require('./user.js'));

@@ -4,8 +4,10 @@ module.exports = router;
 
 router.use('/members', require('./members'));
 router.use('/users', require('./users'));
+router.use('/public', require('./public'));
+router.use('/notes', require('./notes/public.notes.js'));
 router.use('/:userId/notebooks', require('./notebooks'));
-router.use('/:userId/notes', require('./notes'));
+
 
 // Make sure this is after all of
 // the registered routes!
