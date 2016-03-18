@@ -9,11 +9,8 @@ var noteSchema = new mongoose.Schema({
         enum: ['private', 'public'],
         default: 'private'
     },
-    state: {
-        type: String // saved, trash 
-    },
     subject: {
-        type: String 
+        type: String
     }, 
     body: {
         type: String
@@ -31,6 +28,9 @@ var noteSchema = new mongoose.Schema({
     },
     tags: {
         type: [String]
+    },
+    trash: {type: Boolean,
+        default: false
     }
 });
 

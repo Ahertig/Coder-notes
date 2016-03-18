@@ -11,7 +11,9 @@ var notebookSchema = new mongoose.Schema({
         default: 'private'
     }, 
     title: {
-        type: String 
+        type: String,
+        required: true,
+        unique: true
     }, 
     date: {
         type: Date, 
