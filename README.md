@@ -4,5 +4,4 @@
 ### Ksenia, Zhengshi, Alyssa, Dorothy
 
 ## Additional NPM modules used
-* Angular material
-* Angular material icons
+* Font Awesome https://www.npmjs.com/package/font-awesome
