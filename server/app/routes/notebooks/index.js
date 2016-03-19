@@ -25,6 +25,7 @@ router.get('/own', function(req, res, next) {
 	res.send(req.currentUser.myNotebooks)
 })
 
+// Another way to get shared notebooks:
 // router.get('/own', function(req, res, next) {
 // 	mongoose.model('User').findOne(req.currentUser)
 // 	.populate('myNotebooks')
@@ -39,6 +40,7 @@ router.get('/shared', function(req, res, next) {
 	res.send(req.currentUser.sharedWithMeNotebooks)
 })
 
+// Another way to get shared notebooks:
 // router.get('/shared', function(req, res, next) {
 // 	mongoose.model('User').findOne(req.currentUser)
 // 	.populate('sharedWithMeNotebooks')

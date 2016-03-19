@@ -5,7 +5,7 @@ module.exports = router;
 router.use('/members', require('./members'));
 router.use('/users', require('./users'));
 router.use('/public', require('./public'));
-router.use('/notes', require('./notes/public.notes.js'));
+router.use('/notes', require('./notes'));
 
 
 

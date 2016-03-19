@@ -1,11 +1,9 @@
-// Route /api/userID/notebooks/notebookId
+// Route: /api/userID/notebooks/notebookId
 'use strict';
 var router = require('express').Router({mergeParams: true});
 module.exports = router;
 var mongoose = require('mongoose');
 var Notebook = mongoose.model('Notebook')
-
-//router.use('/notes', require('../notes'));
 
 //Get one notebook
 router.get('/', function(req, res){
@@ -30,4 +28,4 @@ router.delete('/', function(req, res, next){
 	.then(null, next)
 })
 
-
+router.use('/notes', require('../notes'));

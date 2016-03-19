@@ -63,7 +63,6 @@ userSchema.methods.createNotebook = function(body) {
    var thisUser = this;
    return mongoose.model('Notebook').create(body)
    .then(function(notebook) {
-        console.log(thisUser)
         thisUser.myNotebooks.push(notebook._id)
         thisUser.save()
         return notebook;

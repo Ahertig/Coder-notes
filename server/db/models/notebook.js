@@ -31,7 +31,6 @@ notebookSchema.post('remove', function() {
             {myNotebooks: {$elemMatch: {$eq : this._id}}},
              {$pull: {myNotebooks: this._id}})
         .exec();
-
 })
 
 // Removing notebook from user.sharedWithMeNotebooks - not tested!
@@ -43,19 +42,30 @@ notebookSchema.post('remove', function() {
 //         .exec();
 // })
 
-
 notebookSchema.methods.getOwner = function() {
     return mongoose.model('User')
         .findOne({myNotebooks: {$elemMatch: {$eq : this._id} } }).exec();
 }
 
-notebookSchema.methods.addNote = function(body) {
+notebookSchema.methods.createNote = function(body) {
     var notebook = this
     return mongoose.model('Note').create(body)
     .then(function(note) {
         notebook.notes.push(note._id)
         notebook.save();
+        return note;
     })
 }
 
+
+
 mongoose.model('Notebook', notebookSchema);
+
+
+
+
+
+
+
+
+
