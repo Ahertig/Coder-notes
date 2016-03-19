@@ -13,7 +13,8 @@
 
 	<ul class="nav navbar-top-links navbar-right">
 		<li class="dropdown">	
-			<input width="20" type="text" placeholder="Search My Notes" >
+			<input width="25" type="text" placeholder="Search All Public Notes" >
+			<input width="25" type="text" placeholder="Search My Notes" >
 <!-- 			<span class="input-group-btn">
 			<button class="btn btn-default" type="button"><i class="fa fa-search"></i>
 			</button>
@@ -26,20 +27,9 @@
 				<i class="fa fa-caret-down"></i>
 			</a>
 			<ul class="dropdown-menu dropdown-messages">
-<!--                         <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li> -->
-
-				<li style="border-bottom: 1px solid #ccc;" ng-repeat="note in notes | limitTo: 3">
-					<a href="#">
+				<div ng-repeat="note in notes | limitTo: 3">
+				<li>
+<!-- 					<a href="#"> -->
 					<div>
 						<strong>{{note.subject}}</strong>
 						<span class="pull-right text-muted">
@@ -47,9 +37,10 @@
 					</div>
 					<div>{{note.body | trunc:true:80:' ...'}}</div>
 					<div style="font-size: 80%"><em>Last updated {{note.lastUpdate | date : 'short'}}</em></div>
-					</a>
+					<!-- </a> -->
 				</li>
-				<!-- <li class="divider"></li> -->
+				<li class="divider"></li>
+				</div>
 			</ul> <!-- /.dropdown-messages -->
 		</li> <!-- /.dropdown -->
 
