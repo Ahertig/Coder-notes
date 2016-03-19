@@ -47,11 +47,11 @@ noteSchema.post('remove', function() {
 })
 
 //Add note to trash
-noteSchema.methods.addToTrash = function() {
-    this.set({trash: true}).save();
-    return this;
-}
-
+// Not sure if will leave trash as a property or as a notebook
+// noteSchema.methods.addToTrash = function() {
+//     this.set({trash: true}).save();
+//     return this;
+// }
 
 mongoose.model('Note', noteSchema);
 
