@@ -8,13 +8,12 @@ var User = mongoose.model('User');
 
 // Get one user
 router.get('/', function(req, res, next){
+	res.json(req.currentUser)
   // User.findOne(req.params.userId)
   // .then(function(user){
   //   res.json(user);
   // })
   // .then(null, next);
-	res.json(req.currentUser)
-
 });
 
 // Update one user
@@ -36,4 +35,7 @@ router.delete('/', function(req, res, next){
   })
   .then(null, next);
 });
+
+router.use('/notebooks', require('../notebooks'));
+// router.use('/notes', require('../notes/notes.js'));
 

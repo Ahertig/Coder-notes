@@ -37,44 +37,34 @@ var userSchema = new mongoose.Schema({
     }
 });
 
-userSchema.plugin(require('mongoose-lifecycle'));
-
-userSchema.on('beforeInsert', function(user) {
-    console.log('user before insert: ', user)
-    mongoose.model('Notebook').create({
-        title: 'My Notebook'
-    })
-    .then(function(notebook) {
-        console.log('notebook: ', notebook)
-        thisUser.myNotebooks.push(notebook._id)
-        thisUser.save()
-    })
-
-})
-
-// userSchema.pre('validate', function(next) {
-//     console.log('this in pre validate: ', this)
-//     var thisUser = this;
-//    return mongoose.model('Notebook').create({
-//         title: 'Blah'
+// userSchema.plugin(require('mongoose-lifecycle'));
+// userSchema.on('beforeInsert', function(user) {
+//     console.log('user before insert: ', user)
+//     mongoose.model('Notebook').create({
+//         title: 'My Notebook'
 //     })
 //     .then(function(notebook) {
 //         console.log('notebook: ', notebook)
 //         thisUser.myNotebooks.push(notebook._id)
 //         thisUser.save()
 //     })
-//     next()
-// } )
 
-userSchema.methods.getAllNotes = function() {
-    this.deepPopulate('notebooks', 'notebooks.notes')
-    .then(function(user) {
-        return user.notebooks.notes;
-    })
-}
+// })
+
+// userSchema.methods.getAllNotes = function() {
+//     this.populate('myNotebooks')
+//     console.log(this)
+//     return this;
+// }
 
 userSchema.methods.createNotebook = function(body) {
+   var thisUser = this;
    return mongoose.model('Notebook').create(body)
+   .then(function(notebook) {
+        thisUser.myNotebooks.push(notebook._id)
+        thisUser.save()
+        return notebook;
+   })
 }
 
 // method to remove sensitive information from user objects before sending them out

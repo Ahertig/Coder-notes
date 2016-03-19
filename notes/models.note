@@ -19,3 +19,7 @@ Methods:
 - Create date index
 
 
+Questions to Ian: 
+- post remove notebook hooks
+	- Can I use fineOneAndUpdate?
+	- How to combine both post 'remove' hooks in one?
