@@ -1,26 +1,27 @@
-<div ng-controller="AppCtrl" layout="column" style="height:500px;" ng-cloak>
-  <section layout="row" flex>
+<div layout="column" style="height:500px;" ng-cloak>
+	<section layout="row" flex>
+
+		<md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-disable-backdrop md-whiteframe="4">
+
+			<header class="nav-header"><img src="http://placehold.it/180x180?~text?txtsize=24&bg=232323&txtclr=ffffff&txt=Code+Notebook&w=180&h=180" />
+			</header>
+			<!-- https://placeholdit.imgix.net/~text?txtsize=36&bg=000000&txtclr=ffffff&txt=Hello+World&w=250&h=250&fm=png&txttrack=0 -->
+			<md-content flex role="navigation">
 
 
-    <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-disable-backdrop md-whiteframe="4">
+				<ul class="docs-menu">
+					<!-- ngRepeat: section in menu.sections -->
+					<!-- <li ng-repeat="section in menu.sections" class="parent-list-item version-picker" ng-class="{'parentActive' : isSectionSelected(section)}"></li> -->
+					<li>Lorem</li>
+					<li>dolor, nonummy ac</li>
+					<li>nec mauris blandit</li>
+					<li>eu, euismod ac</li>
+				</ul>
+			</md-content>
 
-	<header class="nav-header"><img src="http://placehold.it/180x180?txtsize=24&bg=232323&txtclr=ffffff&txt=Code+Notebook&w=180&h=180" /></header>
-https://placeholdit.imgix.net/~text?txtsize=36&bg=000000&txtclr=ffffff&txt=Hello+World&w=250&h=250&fm=png&txttrack=0
-      <md-content flex role="navigation">
+		</md-sidenav>
 
-
-      </md-content>
-
-    </md-sidenav>
-
-
-
-
-]
-
-
-
-  </section>
+	</section>
 </div>
 
 
