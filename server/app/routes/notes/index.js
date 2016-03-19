@@ -1,36 +1,35 @@
+// Route: /api/userID/notebookId/notes
+
 'use strict';
-var router = require('express').Router();
+var router = require('express').Router({mergeParams: true});
 module.exports = router;
 var mongoose = require('mongoose');
 var Note = mongoose.model('Note');
 
-// Route api/userID/notebookId/notes
 
-//Get all notes
-// router.get('/', function(req, res, next) {
-// 	User.find(req.params.userID)
-// 	.then(function(user) {
-// 		return user.getAllNotes()
-// 	})
-// 	.then(function(result) {
-// 		res.send(result)
-// 	})
-// 	.then(null, next)
-// })
+//Get all notes of this notebook
+router.get('/', function(req, res, next) {
+	res.send(req.currentNotebook.notes)
+})
 
-// Create a note
+// Create a note in this notebook
 router.post('/', function(req, res, next) {
-	Notebook.findOne(req.params.notebookId)
-	.then(function(notebook) {
-		notebook.addNote()
-	})
-	.then(function(result) {
-		res.send(result)
+	req.currentNotebook.createNote(req.body)
+	.then(function(newNote) {
+		res.send(newNote)
 	})
 	.then(null, next)
 })
 
-// Get all public notes
-router.get('/', function() {
-	
-})
+router.param('noteId', function(req, res, next, id) {
+  Note.findById(id)
+  .then(function(note) {
+    req.currentNote = note;
+    next();
+  })
+  .then(null, function(error) {
+  	console.log("error: ", error)
+  })
+});
+
+router.use('/:noteId', require('./note.js'));
