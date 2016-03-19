@@ -1,18 +1,19 @@
 $(document).ready(function(){
 
   $("#loginCE").submit(function( event ) {
-    loginCE();
+    var email = $("#email").val();
+    var password = $("#password").val();
+    loginCE(email, password);
     event.preventDefault();
   });
 });
 
-function loginCE() {
-  console.log('inside login function')
+function loginCE(email, password) {
   $.ajax({
     url: "http://localhost:1337/login",
     type: "POST",
     data: {
-      "username": "username",
+      "email": "email",
       "password": "password",
     },
     dataType: "html",
