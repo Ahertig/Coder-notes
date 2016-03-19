@@ -2,7 +2,6 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
-//var Schema = mongoose.Schema;
 
 var userSchema = new mongoose.Schema({
     firstName: {
@@ -19,7 +18,11 @@ var userSchema = new mongoose.Schema({
     password: {
         type: String
     },
-    notebooks:  [{
+    myNotebooks: [{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Notebook'
+    }],
+    sharedWithMeNotebooks:  [{
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Notebook'
     }],
@@ -34,12 +37,45 @@ var userSchema = new mongoose.Schema({
     }
 });
 
-// userSchema.methods.getAllNotes = function() {
-//     this.deepPopulate('notebooks notebooks.notes')
-//     .then(function(user) {
-//         return user.notebooks.notes;
+userSchema.plugin(require('mongoose-lifecycle'));
+
+userSchema.on('beforeInsert', function(user) {
+    console.log('user before insert: ', user)
+    mongoose.model('Notebook').create({
+        title: 'My Notebook'
+    })
+    .then(function(notebook) {
+        console.log('notebook: ', notebook)
+        thisUser.myNotebooks.push(notebook._id)
+        thisUser.save()
+    })
+
+})
+
+// userSchema.pre('validate', function(next) {
+//     console.log('this in pre validate: ', this)
+//     var thisUser = this;
+//    return mongoose.model('Notebook').create({
+//         title: 'Blah'
 //     })
-// }
+//     .then(function(notebook) {
+//         console.log('notebook: ', notebook)
+//         thisUser.myNotebooks.push(notebook._id)
+//         thisUser.save()
+//     })
+//     next()
+// } )
+
+userSchema.methods.getAllNotes = function() {
+    this.deepPopulate('notebooks', 'notebooks.notes')
+    .then(function(user) {
+        return user.notebooks.notes;
+    })
+}
+
+userSchema.methods.createNotebook = function(body) {
+   return mongoose.model('Notebook').create(body)
+}
 
 // method to remove sensitive information from user objects before sending them out
 userSchema.methods.sanitize =  function () {
@@ -76,5 +112,6 @@ userSchema.statics.encryptPassword = encryptPassword;
 userSchema.method('correctPassword', function (candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
 });
+
 
 mongoose.model('User', userSchema);

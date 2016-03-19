@@ -3,6 +3,7 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
 var Note = mongoose.model('Note');
+var User = mongoose.model('User');
 
 var notebookSchema = new mongoose.Schema({
     type:  { 
@@ -12,8 +13,7 @@ var notebookSchema = new mongoose.Schema({
     }, 
     title: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     }, 
     date: {
         type: Date, 
@@ -25,5 +25,28 @@ var notebookSchema = new mongoose.Schema({
     }]
 
 });
+
+notebookSchema.methods.addNewNotebook = function(notebook, userId){
+    var newnotebook;
+    return this.create(notebook)
+    .then(function(_newnotebook){
+        newnotebook = _newnotebook;
+        return User.findById(userId)
+    })
+    .then(function(user){
+        user.notebooks.push(newnotebook._id);
+        return user.save();
+    })
+}
+notebookSchema.methods.addNote = function(body) {
+    var notebook = this
+    return mongoose.model('Note').create(body)
+    .then(function(note) {
+        notebook.notes.push(note._id)
+        notebook.save();
+    })
+}
+
+
 
 mongoose.model('Notebook', notebookSchema);
