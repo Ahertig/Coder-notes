@@ -33,3 +33,7 @@ router.param('userId', function(req, res, next, id) {
 });
 
 router.use('/:userId', require('./user.js'));
+router.use('/:userId/notebooks', function(req,res,next){
+  req.currentuserID = req.params.userId;
+  next();
+}, require('../notebooks'));
