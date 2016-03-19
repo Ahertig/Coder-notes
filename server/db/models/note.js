@@ -34,7 +34,7 @@ var noteSchema = new mongoose.Schema({
     }
 });
 
-// Removing notebook from user.myNotebooks
+// Removing note from Notebook.notes
 noteSchema.post('remove', function() {
     return mongoose.model('Notebook')
         .findOneAndUpdate(

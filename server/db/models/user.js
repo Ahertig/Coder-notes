@@ -38,7 +38,6 @@ var userSchema = new mongoose.Schema({
 });
 
 // userSchema.plugin(require('mongoose-lifecycle'));
-
 // userSchema.on('beforeInsert', function(user) {
 //     console.log('user before insert: ', user)
 //     mongoose.model('Notebook').create({
@@ -52,12 +51,11 @@ var userSchema = new mongoose.Schema({
 
 // })
 
-userSchema.methods.getAllNotes = function() {
-    this.deepPopulate('notebooks', 'notebooks.notes')
-    .then(function(user) {
-        return user.notebooks.notes;
-    })
-}
+// userSchema.methods.getAllNotes = function() {
+//     this.populate('myNotebooks')
+//     console.log(this)
+//     return this;
+// }
 
 userSchema.methods.createNotebook = function(body) {
    var thisUser = this;
