@@ -24,8 +24,18 @@ router.get('/', function(req, res, next){
   .then(null, next);
 });
 
+//Delete all users
+router.delete('/', function(req, res, next){
+  User.remove({})
+  .then(function(allUsers){
+    res.json(allUsers);
+  })
+  .then(null, next);
+});
+
 router.param('userId', function(req, res, next, id) {
   User.findById(id)
+  .populate('myNotebooks sharedWithMeNotebooks')
   .then(function(user) {
     req.currentUser = user;
     next();
@@ -33,7 +43,11 @@ router.param('userId', function(req, res, next, id) {
 });
 
 router.use('/:userId', require('./user.js'));
-router.use('/:userId/notebooks', function(req,res,next){
-  req.currentuserID = req.params.userId;
-  next();
-}, require('../notebooks'));
+
+// router.use('/:userId/notebooks', function(req,res,next){
+//   req.currentuserID = req.params.userId;
+//   next();
+// }, require('../notebooks'));
+
+
+

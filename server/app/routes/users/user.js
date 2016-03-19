@@ -37,3 +37,5 @@ router.delete('/', function(req, res, next){
   .then(null, next);
 });
 
+router.use('/notebooks', require('../notebooks'));
+
