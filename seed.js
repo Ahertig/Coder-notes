@@ -70,8 +70,11 @@ connectToDb.then(function () {
     })
     .then(function(notebooks){
         for (i=0; i<Users.length;i++){
-            Users[i].notebooks = [notebooks[5*i]._id,notebooks[5*i+1]._id,notebooks[5*i+2]._id,notebooks[5*i+3]._id,notebooks[5*i+4]._id]
-             console.log("user notebooks",Users[i].notebooks)
+            Users[i].myNotebooks = [notebooks[5*i]._id,notebooks[5*i+1]._id,notebooks[5*i+2]._id,notebooks[5*i+3]._id,notebooks[5*i+4]._id]
+            
+            if(notebooks[5*i+8]) {Users[i].sharedWithMeNotebooks = [notebooks[5*i+7]._id, notebooks[5*i+8]._id]}
+            console.log("user mynotebooks",Users[i].myNotebooks)
+            console.log("user sharedWithMeNotebooks",Users[i].sharedWithMeNotebooks)
         }
        
         return seedUsers();
