@@ -34,4 +34,14 @@ var noteSchema = new mongoose.Schema({
     }
 });
 
+// Removing notebook from user.myNotebooks
+noteSchema.post('remove', function() {
+    return mongoose.model('Notebook')
+        .findOneAndUpdate(
+            {notes: {$elemMatch: {$eq : this._id}}},
+             {$pull: {notes: this._id}})
+        .exec();
+})
+
+
 mongoose.model('Note', noteSchema);
