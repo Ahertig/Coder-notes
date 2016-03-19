@@ -1,58 +1,123 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
     <base href="/" />
-    <title>Fullstack Academy Generated Application</title>
-    <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="/style.css" />
-    <script src="/lodash/index.js"></script>
+    <title>GHA Capstone</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="/style.css" /> -->
+    <!-- <script src="/lodash/index.js"></script> -->
     <script src="/angular/angular.js"></script>
     <script src="/angular-animate/angular-animate.js"></script>
-    <script src="/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="/angular-ui-bootstrap/ui-bootstrap.js"></script>
-    <script src="/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="/socket.io-client/socket.io.js"></script>
-    <!-- <script src="/bower_components/angular/angular.js"></script> -->
+    <!-- <script src="/angular-ui-router/release/angular-ui-router.js"></script> -->
+    <!-- <script src="/angular-ui-bootstrap/ui-bootstrap.js"></script> -->
+    <!-- <script src="/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script> -->
+    <!-- <script src="/socket.io-client/socket.io.js"></script> -->
     <script src="/angular-aria/angular-aria.js"></script>
-    <script src="/angular-animate/angular-animate.js"></script>
     <script src="/angular-material/angular-material.js"></script>
-    <script src="/main.js"></script>
+    <!-- <script src="/main.js"></script> -->
+
+    <!-- Angular Material style sheet -->
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+
+    <!-- angular material icons -->
+    <link rel="stylesheet" href="/angular-material-icons/angular-material-icons.css">
+    <script src="/angular-material-icons/angular-material-icons.js"></script>
 </head>
-<body ng-app="FullstackGeneratedApp">
-    <!-- <navbar></navbar> -->
-      <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2"
-              md-component-id="left" hide-print
-              md-is-locked-open="$mdMedia('gt-sm')">
+<body ng-app="BlankApp" ng-cloak>
+ <div ng-cloak>
+  <md-content>
+    <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab label="Sign Up">
+        <md-content class="md-padding">
+          <h1 class="md-display-2">New Users: Sign Up</h1>
+            <div layout="column" layout-padding ng-cloak>
+              <br/>
+              <md-content class="md-no-momentum">
 
-    <header class="nav-header">
-      <a ng-href="/" class="docs-logo">
-        <img src="img/icons/angular-logo.svg" alt="" />
-        <h1 class="docs-logotype md-heading">Angular Material</h1>
-      </a>
-    </header>
+                <md-input-container class="md-icon-float md-block">
+                  <!-- Use floating label instead of placeholder -->
+                  <label>First Name</label>
+                  <input ng-model="user.firstName"  md-maxlength="40" required type="text">
+                </md-input-container>
 
-    <ul class="skip-links">
-      <li class="md-whiteframe-z2">
-        <md-button ng-click="focusMainContent($event)" href="#">Skip to content</md-button>
-      </li>
-    </ul>
 
-    <md-content flex role="navigation">
-        <ul class="docs-menu">
-            <li>
-            <h2 class="menu-heading md-subhead">A subhead</h2>
-            <menu-link section="section">Menu link section section</menu-link>
-            <menu-toggle section="section" >Menu toggle section section</menu-toggle>
-            <ul class="menu-nested-list">
-                <li>
-                <menu-link section="child" >Menu link section child</menu-link>
-                <menu-toggle section="child" >Menu toggle section child</menu-toggle>
-                </li>
-            </ul>
-            </li>
-        </ul>
-    </md-content>
-  </md-sidenav>
-    <div id="main" ui-view></div>
+                <md-input-container class="md-block">
+                  <label for="lastName">Last Name</label>
+                  <input name="lastName" md-maxlength="40" required ng-model="user.lastName" />
+<!--                   <div class="hint" ng-if="showHints">Tell us what we should call you!</div> -->
+<!--                   <div ng-messages="userForm.name.$error" ng-if="!showHints">
+                    <div ng-message="required">Name is required.</div>
+                    <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                  </div> -->
+                </md-input-container>
+
+
+                <md-input-container class="md-block">
+                  <!-- Use floating placeholder instead of label -->
+<!--                     <ng-md-icon icon="email" style="fill: #000000" size="24"></ng-md-icon> -->
+                  <input ng-model="user.email" type="email" placeholder="Email (required)" ng-required="true" minlength="9" maxlength="100" ng-pattern="/^.+@.+\..+$/" >
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                  <!-- Use floating placeholder instead of label -->
+                  <input ng-model="user.password" type="password" placeholder="Password (required)" ng-required="true" minlength="8" maxlength="20" >
+                </md-input-container>
+
+                <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                  <md-button class="md-raised md-primary">Sign Up</md-button>
+                  <md-button class="md-raised">Reset Form</md-button>
+                </section>
+              </md-content>
+            </div>
+        </md-content>
+      </md-tab>
+      <md-tab label="Log In">
+        <md-content class="md-padding">
+            <h1 class="md-display-2">Existing Users: Log In</h1>
+            <md-input-container class="md-block">
+            <!-- Use floating placeholder instead of label -->
+<!--             <ng-md-icon icon="email" style="fill: black" size="24"></ng-md-icon> -->
+            <input ng-model="user.email" type="email" placeholder="Email (required)" ng-required="true" minlength="9" maxlength="100" ng-pattern="/^.+@.+\..+$/" >
+            </md-input-container>
+
+            <md-input-container class="md-block">
+              <!-- Use floating placeholder instead of label -->
+              <input ng-model="user.password" type="password" placeholder="Password (required)" ng-required="true" minlength="8" maxlength="20" >
+            </md-input-container>
+
+            <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+              <md-button class="md-raised md-primary">Log In</md-button>
+              <md-button class="md-raised">Reset Form</md-button>
+            </section>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </md-content>
+</div> 
+  
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+  
+  <!-- Your application bootstrap  -->
+  <script type="text/javascript">    
+    /**
+     * You must include the dependency on 'ngMaterial' 
+     */
+    angular.module('BlankApp', ['ngMaterial']);
+  </script>
+  
 </body>
 </html>
+
+<!--
+Copyright 2016 Google Inc. All Rights Reserved. 
+Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at http://material.angularjs.org/license.
+-->
