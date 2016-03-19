@@ -1,4 +1,5 @@
 // Route: /api/userID/notebooks/notebookId
+
 'use strict';
 var router = require('express').Router({mergeParams: true});
 module.exports = router;
@@ -26,6 +27,13 @@ router.delete('/', function(req, res, next){
 		res.send(response)
 	})
 	.then(null, next)
+})
+
+router.put('/share', function(req, res, next) {
+	req.currentNotebook.share(req.body.email)
+	.then(function(sharedNotebook) {
+		res.send(sharedNotebook)
+	})
 })
 
 router.use('/notes', require('../notes'));

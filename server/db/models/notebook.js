@@ -35,13 +35,13 @@ notebookSchema.post('remove', function() {
 })
 
 // Removing notebook from user.sharedWithMeNotebooks - not tested!
-// notebookSchema.post('remove', function() {
-//     return mongoose.model('User')
-//         .findOneAndUpdate(
-//             {sharedWithMeNotebooks: {$elemMatch: {$eq : this._id}}},
-//              {$pull: {sharedWithMeNotebooks: this._id}})
-//         .exec();
-// })
+notebookSchema.post('remove', function() {
+    return mongoose.model('User')
+        .findOneAndUpdate(
+            {sharedWithMeNotebooks: {$elemMatch: {$eq : this._id}}},
+             {$pull: {sharedWithMeNotebooks: this._id}})
+        .exec();
+})
 
 notebookSchema.methods.getOwner = function() {
     return mongoose.model('User')
@@ -49,7 +49,7 @@ notebookSchema.methods.getOwner = function() {
 }
 
 notebookSchema.methods.createNote = function(body) {
-    var notebook = this
+    var notebook = this;
     return mongoose.model('Note').create(body)
     .then(function(note) {
         notebook.notes.push(note._id)
@@ -58,7 +58,15 @@ notebookSchema.methods.createNote = function(body) {
     })
 }
 
-
+notebookSchema.methods.share = function(userEmail) {
+    var thisNotebook = this;
+    return mongoose.model('User').findOne({email: userEmail})
+    .then(function (user) {
+        user.sharedWithMeNotebooks.push(thisNotebook._id)
+        user.save();
+        return thisNotebook;
+    })
+}
 
 mongoose.model('Notebook', notebookSchema);
 

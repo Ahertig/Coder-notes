@@ -23,8 +23,7 @@ var noteSchema = new mongoose.Schema({
         type: Number
     },
     lastUpdate: {
-        type: Date, 
-        default: Date.now
+        type: Date
     },
     tags: {
         type: [String]
@@ -34,7 +33,11 @@ var noteSchema = new mongoose.Schema({
     }
 });
 
-// Removing notebook from user.myNotebooks
+noteSchema.post('save', function() {
+  return this.set({lastUpdate: new Date()}).save();
+});
+
+// Removing note from Notebook.notes
 noteSchema.post('remove', function() {
     return mongoose.model('Notebook')
         .findOneAndUpdate(
@@ -43,5 +46,16 @@ noteSchema.post('remove', function() {
         .exec();
 })
 
+//Add note to trash
+// Not sure if will leave trash as a property or as a notebook
+// noteSchema.methods.addToTrash = function() {
+//     this.set({trash: true}).save();
+//     return this;
+// }
 
 mongoose.model('Note', noteSchema);
+
+
+
+
+
