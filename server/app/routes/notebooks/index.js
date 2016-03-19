@@ -1,11 +1,12 @@
+// Route: /api/:userId/notebooks
+
 'use strict';
 var router = require('express').Router();
 module.exports = router;
 var mongoose = require('mongoose');
-var Promise = require('bluebird');
+var Notebook = mongoose.model('Notebook');
 
-// Route: /api/:userId/notebooks
-
+// Create a notebook
 router.post('/', function(req, res, next) {
 	req.currentUser.createNotebook(req.body)
 	.then(function(notebook) {
@@ -17,7 +18,6 @@ router.post('/', function(req, res, next) {
 router.get('/', function(req, res, next) {
 	res.send(req.currentUser.myNotebooks.concat(req.currentUser.sharedWithMeNotebooks))
 })
-
 
 //Get all own notebooks of a user
 
@@ -48,6 +48,19 @@ router.get('/shared', function(req, res, next) {
 // 	.then(null, next)
 // })
 
+router.param('notebookId', function(req, res, next, id) {
+  Notebook.findById(id)
+  .populate('notes')
+  .then(function(notebook) {
+    req.currentNotebook = notebook;
+    next();
+  })
+  .then(null, function(error) {
+  	console.log("error: ", error)
+  })
+});
+
+router.use('/:notebookId', require('./notebook.js'));
 
 
 

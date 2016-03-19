@@ -1,44 +1,33 @@
-//get a notebook of a user
-router.get('/:notebookID', function(req, res,next){
-	Notebook.findById(req.params.notebookID)
-	.then(function(notebook){
-		res.send(notebook);
-	})
-	.then(null. next)
+// Route /api/userID/notebooks/notebookId
+'use strict';
+var router = require('express').Router({mergeParams: true});
+module.exports = router;
+var mongoose = require('mongoose');
+var Notebook = mongoose.model('Notebook')
+
+//router.use('/notes', require('../notes'));
+
+//Get one notebook
+router.get('/', function(req, res){
+	res.send(req.currentNotebook)
 })
 
-
-
-//update existing notebook 
-router.put('/:notebookID', function(req, res, next) {
-    
-	Notebook.findByID(req.params.notebookID)
-	.then(function(notebook){
-		notebook.set(res.body);
-		return notebook.save()
-	})
-	.then(function(updatednotebook){
-		res.send(updatednotebook);
+//Update a notebook
+router.put('/', function(req, res, next){
+	req.currentNotebook.set(req.body).save()
+	.then(function(updatedNotebook) {
+		res.send(updatedNotebook)
 	})
 	.then(null, next)
 })
 
-//remove a notebook 
-router.delete('/:notebookID', function(req, res, next){
-	var notebook;
-	Notebook.findByID(req.params.notebookID)
-	.populate('notes')
-	.then(function(_notebook){
-		notebook = _notebook;
-		return Promise.map(notebook.notes, function(note){
-			note.trash = true;
-		})
+//Delete a notebook
+router.delete('/', function(req, res, next){
+	req.currentNotebook.remove()
+	.then(function(response) {
+		res.send(response)
 	})
-	.then(function(){
-		notebook.remove()
-	})
-    // need to delete notebookID from user notebooks
-    //to be continued :)
+	.then(null, next)
 })
 
-router.use('/:notebookId/notes', require('../notes'));
+
