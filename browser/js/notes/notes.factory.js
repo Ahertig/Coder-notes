@@ -1,36 +1,57 @@
-app.factory('NotesFactory', function() {
+app.factory('NotesFactory', function($http) {
 	var NotesFactory = {};
+
+	// NotesFactory.fetchMyNotes = function(id) {
+	// 	return $http.get('/api/users/'+ id + '/notebooks')
+	// 	.then(function(response) {
+	// 		return response.data;
+	// 	})
+
+	// }
+
+	NotesFactory.fetchMyNotebooks = function(id) {
+		console.log("in notesfactory fetchMyNotebooks. fetching data for user",id)
+		return $http.get('/api/users/'+ id + '/notebooks/own')
+		.then(function(response) {
+			console.log("got notebook data", response.data)
+			return response.data;
+			// res.json(response.data);
+		}, function(err) {
+			console.error("could not fetch notebooks for user",id)
+		})
+
+	}
 
 	NotesFactory.tags = ["orange","yellow","red","green","violet"]
 
-	NotesFactory.notebooks = [
-		{
-			"title": "iaculis odio."
-		},
-		{
-			"title": "luctus lobortis."
-		},
-		{
-			"title": "Nam ac"
-		},
-		{
-			"title": "magna. Cras"
-		},
-		{
-			"title": "erat nonummy"
-		},
-		{
-			"title": "Nullam lobortis"
-		},
-		{
-			"title": "dis parturient"
-		},
-		{
-			"title": "Nam porttitor"
-		},
-		{
-			"title": "Duis gravida."
-		}]
+	// NotesFactory.notebooks = [
+	// 	{
+	// 		"title": "iaculis odio."
+	// 	},
+	// 	{
+	// 		"title": "luctus lobortis."
+	// 	},
+	// 	{
+	// 		"title": "Nam ac"
+	// 	},
+	// 	{
+	// 		"title": "magna. Cras"
+	// 	},
+	// 	{
+	// 		"title": "erat nonummy"
+	// 	},
+	// 	{
+	// 		"title": "Nullam lobortis"
+	// 	},
+	// 	{
+	// 		"title": "dis parturient"
+	// 	},
+	// 	{
+	// 		"title": "Nam porttitor"
+	// 	},
+	// 	{
+	// 		"title": "Duis gravida."
+	// 	}]
 
 	NotesFactory.notes = [
 		{
