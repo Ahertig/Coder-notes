@@ -28,7 +28,19 @@
 						<div class="panel-heading">My Notebooks</div>
 						<div class="panel-body">
 							<div class="list-group" id="side-menu-2">
-								<a class="list-group-item" ng-repeat="notebook in notebooks">{{notebook.title}}</a>
+
+								<div ng-repeat="notebook in notebooks">
+									<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item">{{notebook.title}}</a>
+									<div class="panel-collapse collapse" id="{{notebook._id}}">
+										<div class="panel-body">
+											<div class="list-group">
+												<a ng-click="switchCurrentNote(oneNote)" class="list-group-item" ng-repeat="oneNote in notebook.notes">{{oneNote}}
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
 							</div>
 						</div>
 					</div>

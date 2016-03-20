@@ -5,3 +5,4 @@ Commit notes, dmoore, 03/30/16 6:30pm
 ## Front-end notes page changes
 * when you log in, you will be redirected to the /notes page
 * it will display all of your notebooks dynamically
+* The Notebooks tag will display the actual notes for each notebook. If you click the notebook title, the note IDs will appear below.

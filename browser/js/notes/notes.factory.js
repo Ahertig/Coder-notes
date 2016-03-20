@@ -24,15 +24,16 @@ app.factory('NotesFactory', function($http) {
 
 
 	// note: I think this route can be trimmed to omit the userId. This will save a few lines of code here.
-	NotesFactory.getNotesInOneNotebook = function(userId, notebookId) {
-		return $http.get('/api/' + userId + '/notebooks/' + notebookId + '/notes')
-		.then(function(response) {
-			console.log("got note data", response.data)
-			return response.data;
-		}, function(err) {
-			console.error("could not fetch note for user", userId, "notebook", notebookId)
-		})
-	}
+	
+	// NotesFactory.getNotesInOneNotebook = function(userId, notebookId) {
+	// 	return $http.get('/api/' + userId + '/notebooks/' + notebookId + '/notes')
+	// 	.then(function(response) {
+	// 		console.log("got note data", response.data)
+	// 		return response.data;
+	// 	}, function(err) {
+	// 		console.error("could not fetch note for user", userId, "notebook", notebookId)
+	// 	})
+	// }
 
 	// as soon as the "get all tags for one user" route is finished, this next function can be un-commented
 
