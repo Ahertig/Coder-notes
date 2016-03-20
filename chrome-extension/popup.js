@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+  // Testing: retrieve login information
   $("#loginCE").submit(function( event ) {
     var email = $("#email").val();
     var password = $("#password").val();
@@ -7,7 +8,7 @@ $(document).ready(function(){
     event.preventDefault();
   });
 
-  // Testing with public notebooks: Retrieve notebooks so that user can choose which notebook to add a note to
+  // Testing with public notebooks route: Retrieve notebooks so that user can choose which notebook to add a note to
   $.ajax({
     url: "http://localhost:1337/api/public/notebooks/all",
     type: "GET",
@@ -23,6 +24,7 @@ $(document).ready(function(){
 
 });
 
+// Testing: Login to the chrome extension
 function loginCE(email, password) {
   $.ajax({
     url: "http://localhost:1337/login",

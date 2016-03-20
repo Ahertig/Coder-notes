@@ -14,7 +14,8 @@
     "activeTab",
     "https://ajax.googleapis.com/",
     "https://OURAPP.com",
-    "tabs"
+    "tabs",
+    "http://localhost:1337/"
   ],
   "externally_connectable": {
     "matches": ["http://localhost:1337/*"]
