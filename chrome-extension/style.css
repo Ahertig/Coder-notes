@@ -29,6 +29,12 @@ input {
   padding: 6px;
 }
 
+button {
+  border: 0px;
+  padding: 10px;
+  background-color: #C5B358;
+}
+
 input #submit {
   background-color: orange;
 }
