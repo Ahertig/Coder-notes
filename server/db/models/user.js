@@ -51,11 +51,25 @@ var userSchema = new mongoose.Schema({
 
 // })
 
-// userSchema.methods.getAllNotes = function() {
-//     this.populate('myNotebooks')
-//     console.log(this)
-//     return this;
+// userSchema.statics.createUser = function(body) {
+//     var thisUser; 
+//     this.create(body)
+//     .then(function(user) {
+//         thisUser = user;
+//         mongoose.model('Notebook').create({title: 'My first Notebook'})
+//     })
+//     .then(function(notebook) {
+//         console.log('this user:', thisUser)
+//         thisUser.myNotebooks.push(notebook._id)
+//         return thisUser;
+//     })
 // }
+
+
+userSchema.methods.getAllNotes = function() {
+   return this.populate('myNotebooks', 'notes')
+
+}
 
 userSchema.methods.createNotebook = function(body) {
    var thisUser = this;
@@ -86,15 +100,20 @@ var encryptPassword = function (plainText, salt) {
 };
 
 userSchema.pre('save', function (next) {
-
     if (this.isModified('password')) {
         this.salt = this.constructor.generateSalt();
         this.password = this.constructor.encryptPassword(this.password, this.salt);
     }
-
     next();
 
 });
+
+// userSchema.pre('remove', function(next) {
+//     return this.myNotebooks.forEach(function(notebook) {
+//         return mongoose.model('Notebook').remove({_id: notebook._id}).save()
+//     })
+//     next()
+// })
 
 userSchema.statics.generateSalt = generateSalt;
 userSchema.statics.encryptPassword = encryptPassword;

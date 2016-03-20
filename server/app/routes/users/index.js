@@ -6,6 +6,7 @@ module.exports = router;
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
+
 //Create a user
 router.post('/', function(req, res, next) {
 	User.create(req.body)
@@ -14,6 +15,8 @@ router.post('/', function(req, res, next) {
 	})
 	.then(null, next)
 })
+
+
 
 //Get all users
 router.get('/', function(req, res, next){

@@ -7,9 +7,18 @@ var Note = mongoose.model('Note');
 var Notebook = mongoose.model('Notebook');
 
 
-// Find all Notebooks
+// Find all Notebooks (admin)
 router.get('/notebooks/all', function(req, res, next) {
 	Notebook.find()
+	.then(function(notebooks) {
+		res.json(notebooks)
+	})
+	.then(null, next)
+})
+
+// Remove all Notebooks (admin)
+router.delete('/notebooks/all', function(req, res, next) {
+	Notebook.remove({})
 	.then(function(notebooks) {
 		res.json(notebooks)
 	})
@@ -24,6 +33,16 @@ router.get('/notes/all', function(req, res, next) {
 	})
 	.then(null, next)
 })
+
+// Remove all Notes (admin)
+router.delete('/notes/all', function(req, res, next) {
+	Note.remove({})
+	.then(function(notes) {
+		res.json(notes)
+	})
+	.then(null, next)
+})
+
 // Find all Public Notebooks
 router.get('/notebooks', function(req, res, next) {
 	Notebook.find({type: 'public'})

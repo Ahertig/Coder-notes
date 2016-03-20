@@ -4,7 +4,7 @@
 var router = require('express').Router();
 module.exports = router;
 var mongoose = require('mongoose');
-var Note = mongoose.model('Note');
+// var Note = mongoose.model('Note');
 
 // Find one Note
 router.get('/', function(req, res) {
@@ -28,3 +28,5 @@ router.delete('/', function(req, res, next) {
 	})
 	.then(null, next)
 })
+
+router.use('/tags', require('./note.tags.js'));
