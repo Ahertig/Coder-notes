@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-  // Testing: retrieve login information
+  // Retrieve login information
   $("#loginCE").submit(function( event ) {
     var email = $("#email").val();
     var password = $("#password").val();
@@ -24,21 +24,30 @@ $(document).ready(function(){
 
 });
 
-// Testing: Login to the chrome extension
+// Login to the chrome extension
 function loginCE(email, password) {
-  $.ajax({
-    url: "http://localhost:1337/login",
-    type: "POST",
-    data: {
-      "email": email,
-      "password": password
-    },
-    dataType: 'jsonp',
-    success: function(data) {
-      console.log(data);
-    }
-  });
+  var params = {
+    email: email,
+    password: password
+  }
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", 'http://localhost:1337/login', true);
+  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xhr.setRequestHeader("Content-length", params.length);
+  xhr.setRequestHeader("Connection", "close");
+
+  xhr.onreadystatechange = function() {//Call a function when the state changes.
+      if(xhr.readyState == 4 && xhr.status == 200) {
+          alert(xhr.responseText);
+          res.redirect('popup.html')
+      }
+  }
+  xhr.send(JSON.stringify(params));
+
 }
+
+
 
 // function retrieveNotebooks() {
   
