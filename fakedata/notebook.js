@@ -1,78 +1,78 @@
 module.exports = [
 	{
-		"title": "iaculis odio."
+		"title": "Iaculis odio"
 	},
 	{
-		"title": "luctus lobortis."
+		"title": "Luctus lobortis four score and seven years"
 	},
 	{
 		"title": "Nam ac"
 	},
 	{
-		"title": "magna. Cras"
+		"title": "Magna Cras"
 	},
 	{
-		"title": "erat nonummy"
+		"title": "Erat nonummy"
 	},
 	{
-		"title": "Nullam lobortis"
+		"title": "Nullam lobortis now is the time for all good men"
 	},
 	{
-		"title": "dis parturient"
+		"title": "To come to the aid of their dis parturient"
 	},
 	{
 		"title": "Nam porttitor"
 	},
 	{
-		"title": "Duis gravida."
+		"title": "Duis gravida"
 	},
 	{
-		"title": "nec, mollis"
+		"title": "Nec, mollis"
 	},
 	{
-		"title": "non arcu."
+		"title": "non arcu"
 	},
 	{
-		"title": "Duis mi"
+		"title": "Duis mi supercalifragulistic expeialidocius"
 	},
 	{
 		"title": "Duis at"
 	},
 	{
-		"title": "semper pretium"
+		"title": "Semper pretium"
 	},
 	{
-		"title": "ornare. In"
+		"title": "Ornare In Deo Speramus"
 	},
 	{
-		"title": "Donec nibh"
+		"title": "Donec nibh adeste fideles in toto ad libitum et cetera ibid"
 	},
 	{
 		"title": "Nunc mauris"
 	},
 	{
-		"title": "Duis gravida."
-	},
-	{
-		"title": "mauris elit,"
+		"title": "mauris elit"
 	},
 	{
 		"title": "Sed diam"
 	},
 	{
+		"title": "Duis gravida redux"
+	},
+	{
 		"title": "Pellentesque ut"
 	},
 	{
-		"title": "nec, cursus"
+		"title": "Nec, cursus sivilli fortibus in ero demis"
 	},
 	{
-		"title": "neque non"
+		"title": "Neque non"
 	},
 	{
-		"title": "penatibus et"
+		"title": "Penatibus et"
 	},
 	{
-		"title": "tempor lorem,"
+		"title": "Tempor lorem"
 	},
 	{
 		"title": "Lorem ipsum"
@@ -84,34 +84,34 @@ module.exports = [
 		"title": "ligula eu"
 	},
 	{
-		"title": "scelerisque scelerisque"
+		"title": "Scelerisque scelerisque sit amet in ero nonummy"
 	},
 	{
-		"title": "tellus, imperdiet"
+		"title": "Tellus, imperdiet"
 	},
 	{
-		"title": "lobortis quis,"
+		"title": "Lobortis quis"
 	},
 	{
-		"title": "Quisque imperdiet,"
+		"title": "Quisque imperdiet"
 	},
 	{
 		"title": "Nulla tempor"
 	},
 	{
-		"title": "malesuada malesuada."
+		"title": "Malesuada malesuada"
 	},
 	{
 		"title": "Donec non"
 	},
 	{
-		"title": "libero est,"
+		"title": "Libero est"
 	},
 	{
-		"title": "leo. Vivamus"
+		"title": "Leo Vivamus"
 	},
 	{
-		"title": "interdum ligula"
+		"title": "Interdum ligula"
 	},
 	{
 		"title": "Vestibulum ut"
@@ -120,33 +120,33 @@ module.exports = [
 		"title": "Vivamus molestie"
 	},
 	{
-		"title": "Nulla aliquet."
+		"title": "Nulla aliquet"
 	},
 	{
-		"title": "magnis dis"
+		"title": "Magnis dis"
 	},
 	{
-		"title": "nulla ante,"
+		"title": "Nulla ante"
 	},
 	{
 		"title": "Maecenas malesuada"
 	},
 	{
-		"title": "tincidunt, nunc"
+		"title": "Tincidunt, nunc"
 	},
 	{
 		"title": "Sed auctor"
 	},
 	{
-		"title": "et tristique"
+		"title": "Et tristique lorem ipsum dolor"
 	},
 	{
-		"title": "adipiscing elit."
+		"title": "Adipiscing elit"
 	},
 	{
 		"title": "Pellentesque tincidunt"
 	},
 	{
-		"title": "a, auctor"
+		"title": "A auctor"
 	}
 ]

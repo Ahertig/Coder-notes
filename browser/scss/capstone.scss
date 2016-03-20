@@ -13,3 +13,20 @@ panel-gh>.panel-heading {
 .sidebar {
 	margin-top: 0 !important;
 }
+
+.nav-pills-sm {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	margin-bottom: 1em;
+	li {
+		border-right: 1px solid #ddd;
+		&.last {
+			border-right: none;
+		}		
+		a {
+		padding: 6px 9px;
+		font-size: 95%;
+		border-radius: 0px;
+		}
+	}
+}
