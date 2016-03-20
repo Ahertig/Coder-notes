@@ -1,8 +1,10 @@
-app.controller('NotesCtrl', function($scope, AuthService, myNotebooks) {
+app.controller('NotesCtrl', function($scope, AuthService, myNotebooks, notesInOneNotebook) {
 
 	$scope.user = null;
 
     $scope.notebooks = myNotebooks;
+
+    $scope.notes = notesInOneNotebook;
 
 	$scope.isLoggedIn = function () {
 		return AuthService.isAuthenticated();

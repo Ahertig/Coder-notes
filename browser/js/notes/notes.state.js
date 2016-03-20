@@ -1,65 +1,36 @@
 app.config(function ($stateProvider) {
-    // $stateProvider.state('notes', {
-    //     url: '/notes',
-    //     templateUrl: 'js/notes/notes.html',
-    //     controller: 'NotesCtrl'
-    // });
-
-
-    // $stateProvider.state('notesByUser', {
-    //     url: '/notes/:userId',
-    //     templateUrl: 'js/notes/notes.html',
-    //     controller: 'NotesCtrl',
-    //     params: {
-    //     	userId: null
-    //     },
-    //     resolve: {
-    //     	myNotes: function(NotesFactory) {
-    //     		return NotesFactory.fetchMyNotes(userId)
-    //     	}
-    //     }
-    // });
-
-	// $stateProvider.state('contentByUser', {
-	// 	url: '/:userId',
-	// 	templateUrl: 'js/notes/notes.html',
-	// 	controller: 'NotesCtrl',
-	// 	scope: {
-	// 		"foo" : "bar"
-	// 	},
-	// 	params: {
-	// 		userId: null
-	// 	},
-	// 	resolve: {
-	// 		// myNotes: function(NotesFactory) {
-	// 		// 	return NotesFactory.fetchMyNotes(userId)
-	// 		// },
-	// 		myNotebooks: function(NotesFactory,$stateParams) {
-	// 			console.log("notes state. fetching notes for",$stateParams.userId)
-	// 			return NotesFactory.fetchMyNotebooks($stateParams.userId)
-	// 		}
-	// 	}
-	// });
 
 	$stateProvider.state('usercontent', {
-		url: '/content',
+		url: '/notes',
 		templateUrl: 'js/notes/notes.html',
 		controller: 'NotesCtrl',
 		resolve: {
-			// myNotes: function(NotesFactory) {
-			// 	return NotesFactory.fetchMyNotes(userId)
-			// },
 			myNotebooks: function(NotesFactory,AuthService) {
 				var iAm;
 				return AuthService.getLoggedInUser()
 				.then(function(user) {
 					iAm = user;
 				}, function(err) {
-					console.error("error retrieving user", err)
+					console.error("Error retrieving user!", err)
 				})
 				.then(function() {
-					console.log("usercontent state. fetching notes for",iAm._id)
+					// console.log("usercontent state. fetching notes for",iAm._id)
 					return NotesFactory.fetchMyNotebooks(iAm._id)
+				})
+			},
+			// this route can probably be trimmed. revisit  function after route is edited
+			notesInOneNotebook: function(NotesFactory, AuthService) {
+				var iAm, theNotebookId;
+				return AuthService.getLoggedInUser()
+				.then(function(user,notebookId) {
+					iAm = user;
+					theNotebookId = notebookId
+				}, function(err) {
+					console.error("Error retrieving notes in notebook!", err)
+				})
+				.then(function() {
+					console.log("retrieving all notes in notebook")
+					return NotesFactory.getNotesInOneNotebook(iAm._id, theNotebookId)
 				})
 			}
 		}

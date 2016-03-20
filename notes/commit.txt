@@ -1,16 +1,7 @@
-# Commit notes
-## dmoore
+# Hooking up /notes page to user notebooks
 
-03/30/16 1:30pm
-
-## Seed file changes
-* Note, DB name is set to 'evercode' (not evernote)
-* Edited  notebooks.js seed file:
-  ** eliminate one duplicate title
-  ** make some titles longer to test layout
-* Ran node seed.js successfully
+Commit notes, dmoore, 03/30/16 6:30pm
 
 ## Front-end notes page changes
-* Added "justified pill" styling to sidenav link options
-* Additional work to come - expanding notebooks below their title when you click on them (to show all notes in that notebook)
-* fixed collapse behvior of note details (by adding id to $scope.note)
+* when you log in, you will be redirected to the /notes page
+* it will display all of your notebooks dynamically

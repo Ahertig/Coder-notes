@@ -1,6 +1,8 @@
 app.factory('NotesFactory', function($http) {
 	var NotesFactory = {};
 
+	// as soon as the "get all notes for one user" route is finished, the next function can be un-commented.
+
 	// NotesFactory.fetchMyNotes = function(id) {
 	// 	return $http.get('/api/users/'+ id + '/notebooks')
 	// 	.then(function(response) {
@@ -9,49 +11,44 @@ app.factory('NotesFactory', function($http) {
 
 	// }
 
-	NotesFactory.fetchMyNotebooks = function(id) {
-		console.log("in notesfactory fetchMyNotebooks. fetching data for user",id)
-		return $http.get('/api/users/'+ id + '/notebooks/own')
+	NotesFactory.fetchMyNotebooks = function(userId) {
+		// console.log("in notesfactory fetchMyNotebooks. fetching data for user",userId)
+		return $http.get('/api/users/'+ userId + '/notebooks/own')
 		.then(function(response) {
-			console.log("got notebook data", response.data)
+			// console.log("got notebook data", response.data)
 			return response.data;
-			// res.json(response.data);
 		}, function(err) {
-			console.error("could not fetch notebooks for user",id)
+			console.error("could not fetch notebooks for user",userId)
 		})
-
 	}
+
+
+	// note: I think this route can be trimmed to omit the userId. This will save a few lines of code here.
+	NotesFactory.getNotesInOneNotebook = function(userId, notebookId) {
+		return $http.get('/api/' + userId + '/notebooks/' + notebookId + '/notes')
+		.then(function(response) {
+			console.log("got note data", response.data)
+			return response.data;
+		}, function(err) {
+			console.error("could not fetch note for user", userId, "notebook", notebookId)
+		})
+	}
+
+	// as soon as the "get all tags for one user" route is finished, this next function can be un-commented
+
+	// NotesFactory.fetchMyTags = function(id) {
+	// 	return $http.get('/api/users/'+ id + '/notebooks/own')
+	// 	.then(function(response) {
+	// 		// console.log("got notebook data", response.data)
+	// 		return response.data;
+	// 	}, function(err) {
+	// 		console.error("could not fetch notebooks for user",id)
+	// 	})	
+	// }
+
 
 	NotesFactory.tags = ["orange","yellow","red","green","violet"]
 
-	// NotesFactory.notebooks = [
-	// 	{
-	// 		"title": "iaculis odio."
-	// 	},
-	// 	{
-	// 		"title": "luctus lobortis."
-	// 	},
-	// 	{
-	// 		"title": "Nam ac"
-	// 	},
-	// 	{
-	// 		"title": "magna. Cras"
-	// 	},
-	// 	{
-	// 		"title": "erat nonummy"
-	// 	},
-	// 	{
-	// 		"title": "Nullam lobortis"
-	// 	},
-	// 	{
-	// 		"title": "dis parturient"
-	// 	},
-	// 	{
-	// 		"title": "Nam porttitor"
-	// 	},
-	// 	{
-	// 		"title": "Duis gravida."
-	// 	}]
 
 	NotesFactory.notes = [
 		{
