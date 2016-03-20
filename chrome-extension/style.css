@@ -1,15 +1,34 @@
 body {
-  border: 3px solid #4B0082;
+  border: 3px solid gray;
+  font-family: "Times New Roman";
+}
+
+.background {
+  background-color: #E4ECF3;
+}
+
+h4 {
+  font-family: "Times New Roman";
+  font-size: 10px;
+  font-color: orange;
+}
+
+hr {
+  border: 1px;
+  border-color: black;
 }
 
 textarea {
   width: 350px;
+  border: 0px;
+  padding: 6px;
 }
 
-.hehe {
+input {
+  border: 0px;
+  padding: 6px;
+}
+
+input #submit {
   background-color: orange;
-}
-
-.background {
-  background-color: #7B68EE;
 }
