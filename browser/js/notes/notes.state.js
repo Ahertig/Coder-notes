@@ -20,23 +20,47 @@ app.config(function ($stateProvider) {
     //     }
     // });
 
-	$stateProvider.state('contentByUser', {
-		url: '/:userId',
+	// $stateProvider.state('contentByUser', {
+	// 	url: '/:userId',
+	// 	templateUrl: 'js/notes/notes.html',
+	// 	controller: 'NotesCtrl',
+	// 	scope: {
+	// 		"foo" : "bar"
+	// 	},
+	// 	params: {
+	// 		userId: null
+	// 	},
+	// 	resolve: {
+	// 		// myNotes: function(NotesFactory) {
+	// 		// 	return NotesFactory.fetchMyNotes(userId)
+	// 		// },
+	// 		myNotebooks: function(NotesFactory,$stateParams) {
+	// 			console.log("notes state. fetching notes for",$stateParams.userId)
+	// 			return NotesFactory.fetchMyNotebooks($stateParams.userId)
+	// 		}
+	// 	}
+	// });
+
+	$stateProvider.state('usercontent', {
+		url: '/content',
 		templateUrl: 'js/notes/notes.html',
 		controller: 'NotesCtrl',
-		scope: {
-			"foo" : "bar"
-		},
-		params: {
-			userId: null
-		},
 		resolve: {
 			// myNotes: function(NotesFactory) {
 			// 	return NotesFactory.fetchMyNotes(userId)
 			// },
-			myNotebooks: function(NotesFactory,$stateParams) {
-				console.log("notes state. fetching notes for",$stateParams.userId)
-				return NotesFactory.fetchMyNotebooks($stateParams.userId)
+			myNotebooks: function(NotesFactory,AuthService) {
+				var iAm;
+				return AuthService.getLoggedInUser()
+				.then(function(user) {
+					iAm = user;
+				}, function(err) {
+					console.error("error retrieving user", err)
+				})
+				.then(function() {
+					console.log("usercontent state. fetching notes for",iAm._id)
+					return NotesFactory.fetchMyNotebooks(iAm._id)
+				})
 			}
 		}
 	});
