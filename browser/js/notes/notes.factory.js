@@ -1,16 +1,8 @@
 app.factory('NotesFactory', function($http) {
+
 	var NotesFactory = {};
 
-	// as soon as the "get all notes for one user" route is finished, the next function can be un-commented.
-
-	// NotesFactory.fetchMyNotes = function(id) {
-	// 	return $http.get('/api/users/'+ id + '/notebooks')
-	// 	.then(function(response) {
-	// 		return response.data;
-	// 	})
-
-	// }
-
+	// This function is working!
 	NotesFactory.fetchMyNotebooks = function(userId) {
 		// console.log("in notesfactory fetchMyNotebooks. fetching data for user",userId)
 		return $http.get('/api/users/'+ userId + '/notebooks/own')
@@ -22,20 +14,21 @@ app.factory('NotesFactory', function($http) {
 		})
 	}
 
+	// As soon as the "get all notes for one user" route is finished, the next function can be un-commented.
 
-	// note: I think this route can be trimmed to omit the userId. This will save a few lines of code here.
-	
-	// NotesFactory.getNotesInOneNotebook = function(userId, notebookId) {
-	// 	return $http.get('/api/' + userId + '/notebooks/' + notebookId + '/notes')
+	// NotesFactory.fetchMyNotes = function(id) {
+	// 	return $http.get('/api/users/'+ id + '/notebooks')
 	// 	.then(function(response) {
-	// 		console.log("got note data", response.data)
 	// 		return response.data;
-	// 	}, function(err) {
-	// 		console.error("could not fetch note for user", userId, "notebook", notebookId)
 	// 	})
+
 	// }
 
-	// as soon as the "get all tags for one user" route is finished, this next function can be un-commented
+
+	// temporarily hard-coding tags.
+	NotesFactory.tags = ["orange","yellow","red","green","violet"]
+
+	// As soon as the "get all tags for one user" route is finished, this next function can be un-commented
 
 	// NotesFactory.fetchMyTags = function(id) {
 	// 	return $http.get('/api/users/'+ id + '/notebooks/own')
@@ -47,10 +40,7 @@ app.factory('NotesFactory', function($http) {
 	// 	})	
 	// }
 
-
-	NotesFactory.tags = ["orange","yellow","red","green","violet"]
-
-
+	// temporarily hard-coding notes.
 	NotesFactory.notes = [
 		{
 			"_id" : "001",
@@ -106,6 +96,25 @@ app.factory('NotesFactory', function($http) {
 			"dateCreated": "1443720520",
 			"lastUpdate": "1429268890"
 		}]
+
+
+
+
+	// The following function needs reworking. It might not be usable at all.
+	
+	// NotesFactory.getNotesInOneNotebook = function(userId, notebookId) {
+	// 	return $http.get('/api/' + userId + '/notebooks/' + notebookId + '/notes')
+	// 	.then(function(response) {
+	// 		console.log("got note data", response.data)
+	// 		return response.data;
+	// 	}, function(err) {
+	// 		console.error("could not fetch note for user", userId, "notebook", notebookId)
+	// 	})
+	// }
+
+	
+
+
 
 
 	return NotesFactory; 

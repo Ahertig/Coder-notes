@@ -1,8 +1,11 @@
-# Hooking up /notes page to user notebooks
+# Hooking up /notes page to user notebooks and notes
 
-Commit notes, dmoore, 03/30/16 6:30pm
+Commit notes, dmoore, 03/30/16 7:30pm
+
+## login functionality
+* when you log in, you will be redirected to the /notes page
 
 ## Front-end notes page changes
-* when you log in, you will be redirected to the /notes page
-* it will display all of your notebooks dynamically
-* The Notebooks tag will display the actual notes for each notebook. If you click the notebook title, the note IDs will appear below.
+* The /notes page display all of your notebooks dynamically
+* The Notebooks tab displays the actual notes for each notebook. If you click a notebook title, the note IDs will appear below.
+* Tried testing Tonic Dev inside the note body. Did not see a code editor. Need to continue testing.
