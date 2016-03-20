@@ -11,7 +11,7 @@ var notebookSchema = new mongoose.Schema({
     }, 
     title: {
         type: String,
-        default: 'My Notebook',
+        default: 'My Notebook', // + Date.now.toString()
         required: true
     }, 
     date: {
