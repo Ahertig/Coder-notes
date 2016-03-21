@@ -44,6 +44,5 @@ router.get('/notes', function(req, res, next){
 });
 
 router.use('/notebooks', require('../notebooks'));
-router.use('/notes', require('../notes/notes.js'));
 router.use('/tags', require('./user.tags.js'));
 router.use('/usernotes', require('./user.notes.js'));

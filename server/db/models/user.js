@@ -66,8 +66,24 @@ userSchema.post('remove', function(doc, next) {
 
 
 userSchema.methods.getAllNotes = function() {
-   return this.populate('myNotebooks', 'notes')
+    var multidimensionalArrayOfNodeIds = [], 
+        arrayOfNoteIds = [], 
+        multidimensionalArrayOfTags = [], 
+        arrayOfTags = [];
 
+    multidimensionalArrayOfNodeIds = this.myNotebooks.map(function(element) { 
+        return element.notes 
+    })
+
+    arrayOfNoteIds = multidimensionalArrayOfNodeIds.reduce(function(a, b) {
+         return a.concat(b);
+        });
+
+   return mongoose.model('Note').find({
+        _id: {
+            $in: arrayOfNoteIds
+        }
+    })
 }
 
 userSchema.methods.createNotebook = function(body) {
