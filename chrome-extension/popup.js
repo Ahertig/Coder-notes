@@ -64,11 +64,12 @@ function changePopup(url) {
 // Save a note to notebook
 function saveNote(body) {
   var params = {
-    body: body
+    body: body,
+    subject: "here's a subject"
   }
 
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", 'http://localhost:1337/api/56edbb745da4ce9ea00313a8/56edbb745da4ce9ea0031377/notes/', true);
+  xhr.open("POST", 'http://localhost:1337/api/users/56edbb745da4ce9ea00313a8/notebooks/56edbb745da4ce9ea0031377/notes/', true);
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
   xhr.onreadystatechange = function() {
