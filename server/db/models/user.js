@@ -3,6 +3,7 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
 var Promise = require('bluebird');
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 var userSchema = new mongoose.Schema({
     firstName: {
@@ -38,6 +39,7 @@ var userSchema = new mongoose.Schema({
     }
 });
 
+userSchema.plugin(deepPopulate);
 
 userSchema.pre('save', function(next) {
     var thisUser = this; 

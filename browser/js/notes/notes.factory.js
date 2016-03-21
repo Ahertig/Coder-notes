@@ -7,7 +7,7 @@ app.factory('NotesFactory', function($http) {
 		// console.log("in notesfactory fetchMyNotebooks. fetching data for user",userId)
 		return $http.get('/api/users/'+ userId + '/notebooks/own')
 		.then(function(response) {
-			// console.log("got notebook data", response.data)
+			console.log("got notebook data", response.data)
 			return response.data;
 		}, function(err) {
 			console.error("could not fetch notebooks for user",userId)
