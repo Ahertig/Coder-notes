@@ -1,6 +1,11 @@
 body {
-  border: 3px solid gray;
+/*  border: 3px solid gray;*/
   font-family: "Times New Roman";
+  width: 300px;
+}
+
+html {
+  width: 300px;
 }
 
 .background {
@@ -19,12 +24,13 @@ hr {
 }
 
 textarea {
-  width: 350px;
+  width: 100%;
   border: 0px;
   padding: 6px;
 }
 
 input {
+  width: 100%;
   border: 0px;
   padding: 6px;
 }
@@ -32,7 +38,11 @@ input {
 button {
   border: 0px;
   padding: 10px;
-  background-color: #C5B358;
+  background-color: #FF0000;
+}
+
+.form-group button {
+  color: #D4D4D4;
 }
 
 input #submit {
