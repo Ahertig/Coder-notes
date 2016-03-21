@@ -1,4 +1,8 @@
 app.controller('SingleNoteCtrl', function($scope) {
+
+	// Hard-coding a note here for now.
+	// Eventually we will want to toggle the display of the note
+	// based on what the user clicks in the sidenav.
 	$scope.note = 	{
 		"_id": "205",
 		"subject": "dolor, nonummy ac,",

@@ -1,37 +1,46 @@
-app.factory('NotesFactory', function() {
+app.factory('NotesFactory', function($http) {
+
 	var NotesFactory = {};
 
+	// This function is working!
+	NotesFactory.fetchMyNotebooks = function(userId) {
+		// console.log("in notesfactory fetchMyNotebooks. fetching data for user",userId)
+		return $http.get('/api/users/'+ userId + '/notebooks/own')
+		.then(function(response) {
+			// console.log("got notebook data", response.data)
+			return response.data;
+		}, function(err) {
+			console.error("could not fetch notebooks for user",userId)
+		})
+	}
+
+	// As soon as the "get all notes for one user" route is finished, the next function can be un-commented.
+
+	// NotesFactory.fetchMyNotes = function(id) {
+	// 	return $http.get('/api/users/'+ id + '/notebooks')
+	// 	.then(function(response) {
+	// 		return response.data;
+	// 	})
+
+	// }
+
+
+	// temporarily hard-coding tags.
 	NotesFactory.tags = ["orange","yellow","red","green","violet"]
 
-	NotesFactory.notebooks = [
-		{
-			"title": "iaculis odio."
-		},
-		{
-			"title": "luctus lobortis."
-		},
-		{
-			"title": "Nam ac"
-		},
-		{
-			"title": "magna. Cras"
-		},
-		{
-			"title": "erat nonummy"
-		},
-		{
-			"title": "Nullam lobortis"
-		},
-		{
-			"title": "dis parturient"
-		},
-		{
-			"title": "Nam porttitor"
-		},
-		{
-			"title": "Duis gravida."
-		}]
+	// As soon as the "get all tags for one user" route is finished, this next function can be un-commented
 
+	// NotesFactory.fetchMyTags = function(id) {
+	// 	return $http.get('/api/users/'+ id + '/notebooks/own')
+	// 	.then(function(response) {
+	// 		// console.log("got notebook data", response.data)
+	// 		return response.data;
+	// 	}, function(err) {
+	// 		console.error("could not fetch notebooks for user",id)
+	// 	})	
+	// }
+
+	// temporarily hard-coding notes.
 	NotesFactory.notes = [
 		{
 			"_id" : "001",
@@ -87,6 +96,25 @@ app.factory('NotesFactory', function() {
 			"dateCreated": "1443720520",
 			"lastUpdate": "1429268890"
 		}]
+
+
+
+
+	// The following function needs reworking. It might not be usable at all.
+	
+	// NotesFactory.getNotesInOneNotebook = function(userId, notebookId) {
+	// 	return $http.get('/api/' + userId + '/notebooks/' + notebookId + '/notes')
+	// 	.then(function(response) {
+	// 		console.log("got note data", response.data)
+	// 		return response.data;
+	// 	}, function(err) {
+	// 		console.error("could not fetch note for user", userId, "notebook", notebookId)
+	// 	})
+	// }
+
+	
+
+
 
 
 	return NotesFactory; 
