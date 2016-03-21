@@ -38,6 +38,7 @@ noteSchema.post('save', function() {
 });
 
 // Removing note from Notebook.notes
+//ZS: how about the note has been removed is the last one in the notebook? 
 noteSchema.post('remove', function() {
     return mongoose.model('Notebook')
         .findOneAndUpdate(

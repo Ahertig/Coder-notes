@@ -11,7 +11,7 @@ router.get('/', function(req, res){
 	res.send(req.currentNotebook)
 })
 
-//Update a notebook
+//Update a notebook 
 router.put('/', function(req, res, next){
 	req.currentNotebook.set(req.body).save()
 	.then(function(updatedNotebook) {
@@ -21,6 +21,7 @@ router.put('/', function(req, res, next){
 })
 
 //Delete a notebook
+//ZS: move all notes to the trash?
 router.delete('/', function(req, res, next){
 	req.currentNotebook.remove()
 	.then(function(response) {
@@ -29,6 +30,7 @@ router.delete('/', function(req, res, next){
 	.then(null, next)
 })
 
+//ZS: checked? chain with a instance not a promise?
 router.put('/share', function(req, res, next) {
 	req.currentNotebook.share(req.body.email)
 	.then(function(sharedNotebook) {

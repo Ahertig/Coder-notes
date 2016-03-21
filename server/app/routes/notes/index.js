@@ -12,6 +12,7 @@ router.get('/', function(req, res, next) {
 	res.send(req.currentNotebook.notes)
 })
 
+//ZS: chain with instance? 
 // Create a note in this notebook
 router.post('/', function(req, res, next) {
 	req.currentNotebook.createNote(req.body)

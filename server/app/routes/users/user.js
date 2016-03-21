@@ -17,6 +17,8 @@ router.get('/', function(req, res, next){
 });
 
 // Update one user
+
+//ZS: findById(req.params.userId) or findOne({_id:req.params.userId})
 router.put('/', function(req, res, next){
 	User.findOne(req.params.userId)
 	.then(function (user) {
@@ -28,6 +30,9 @@ router.put('/', function(req, res, next){
 });
 
 // Delete one user
+//ZS: ? User.findbyID(req.params.userId).then(function(user){user.remove()})
+//when delete a user, pre delete all notebooks and notes belonging to the user? 
+
 router.delete('/', function(req, res, next){
   User.remove(req.params.userId)
   .then(function(deletedUser){

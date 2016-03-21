@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var Note = mongoose.model('Note');
 var Notebook = mongoose.model('Notebook');
 
-
+//ZS: why get all notebooks and notes (public+private) here? 
 // Find all Notebooks
 router.get('/notebooks/all', function(req, res, next) {
 	Notebook.find()

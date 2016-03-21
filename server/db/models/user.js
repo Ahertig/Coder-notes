@@ -57,6 +57,7 @@ var userSchema = new mongoose.Schema({
 //     return this;
 // }
 
+//ZS:  return thisUser.save() if return a instanse, it can't chain after that. 
 userSchema.methods.createNotebook = function(body) {
    var thisUser = this;
    return mongoose.model('Notebook').create(body)

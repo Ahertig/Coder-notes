@@ -6,7 +6,9 @@ module.exports = router;
 var mongoose = require('mongoose');
 var Notebook = mongoose.model('Notebook');
 
+
 // Create a notebook
+//ZS: may change userschema methods? 
 router.post('/', function(req, res, next) {
 	req.currentUser.createNotebook(req.body)
 	.then(function(notebook) {

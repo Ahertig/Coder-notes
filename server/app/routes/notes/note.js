@@ -12,6 +12,7 @@ router.get('/', function(req, res) {
 })
 
 // Update one Note
+//ZS: why we return back the note we just get from front-end? 
 router.put('/', function(req, res, next) {
 	req.currentNote.set(req.body).save()
 	.then(function(updatedNote) {
@@ -21,6 +22,7 @@ router.put('/', function(req, res, next) {
 })
 
 // Delete one Note
+//ZS: add to trash instead of removing? 
 router.delete('/', function(req, res, next) {
 	req.currentNote.remove()
 	.then(function(response) {
