@@ -12,6 +12,7 @@ var Note = mongoose.model('Note');
 // Note: this function should be rewritten because of callback hell.
 // I'm not sure how, though!
 // Error handling should also be improved.
+
 router.get('/', function(req, res, next){
 	var multidimensionalArrayOfNodeIds = [], 
 		arrayOfNoteIds = [], 
@@ -42,7 +43,7 @@ router.get('/', function(req, res, next){
 				}
 			})
 			.then(function(notes) {
-				console.log("here are the notes:", notes)
+				// console.log("here are the notes:", notes)
 				// get an array of array of tags
 			    multidimensionalArrayOfTags = notes.map(function(element) { return element.tags })
 			    
