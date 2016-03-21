@@ -25,6 +25,7 @@ app.factory('NotesFactory', function($http) {
 		})
 	}
 
+	// this is not working
 	function replaceCode(input) {
 		var temp = input.toString()
 		temp = temp.replace("&lt;","<");
@@ -32,6 +33,7 @@ app.factory('NotesFactory', function($http) {
 		return temp;
 	}
 
+	// how to save/retrieve HTML elements?
 	NotesFactory.fetchMyNotes = function(userId) {
 		return $http.get('/api/users/'+ userId + '/usernotes')
 		.then(function(response) {
@@ -62,6 +64,15 @@ app.factory('NotesFactory', function($http) {
 		})
 	}
 
+	NotesFactory.saveNote = function (noteId) {
+		return $http.put('/api/users/' + userID + '/notebooks/' + notebookId + '/notes/' + noteId)
+		.then(function(response) {
+			return response.data;
+		},
+		function(err) {
+			console.error("could not find note", err)
+		})
+	}
 
 	// I want to populate the note titles that are displayed below notebooks
 	// in the sidenav. How to do that?
