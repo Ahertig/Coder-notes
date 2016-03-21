@@ -1,29 +1,32 @@
 <div class="col-lg-8 col-md-8 col-sm-12">
-
 	<div class="panel panel-default">
-	<div class="panel-heading"><h3>{{note.subject}}</h3></div>
-	<!-- <div class="sidebar-nav navbar-collapse"> -->
+	<div class="panel-heading"><h3>{{currentNote.subject}}</h3></div>
 		<div class="panel-body">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 				<h4 class="panel-title">
-				<a data-toggle="collapse" data-parent="#accordion" ng-href="#{{note._id}}">Note details</a>
+				<a data-toggle="collapse" data-parent="#accordion" ng-href="#{{currentNote._id}}">Note details</a>
 				</h4>
 				</div>
-				<div id="{{note._id}}" class="panel-collapse collapse">
+				<div id="{{currentNote._id}}" class="panel-collapse collapse">
 					<div class="panel-body">
-						<div class="col-lg-4">Size: {{note.size}} kb</div>
+						<div class="col-lg-4">Size: {{currentNote.size}} kb</div>
 
-						<div class="col-lg-4">Created: {{note.dateCreated | date : 'short'}}</div>
-						<div class="col-lg-4">Last updated: {{note.lastUpdate | date : 'short'}}</div>
+						<div class="col-lg-4">Created: {{currentNote.dateCreated | date : 'short'}}</div>
+						<div class="col-lg-4">Last updated: {{currentNote.lastUpdate | date : 'short'}}</div>
 					</div>
 				</div>
 			</div>
-			<div>{{note.body}}</div>
+			<div>{{currentNote.body}}</div>
+			<!-- testing tonic dev -->
+<!-- 			<h4>If tonic dev is working, code editor should appear here here: </h4>
+			<div style="border: 1px solid red" id="my-element">
+			</div>
+ -->			<!-- end tonic dev test -->
 		</div>
 		<div class="panel-footer">
 			<h4>Tags</h4>
-			<button ng-repeat="tag in note.tags" type="button" class="btn btn-outline btn-default" data-toggle="tooltip" title="Remove tag">{{tag}} x </button>
+			<button ng-repeat="tag in currentNote.tags" type="button" class="btn btn-outline btn-default" data-toggle="tooltip" title="Remove tag">{{tag}} x </button>
 			<button type="button" class="btn btn-success btn-circle"  data-toggle="tooltip" title="Add a tag">
 				<i class="fa fa-plus">
 				</i>
