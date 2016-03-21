@@ -74,6 +74,17 @@ app.factory('NotesFactory', function($http) {
 		})
 	}
 
+	// Testing a newNote function
+	NotesFactory.newNote = function (userId) {
+		return $http.post('/api/users/' + userId + '/notebooks/56edbb745da4ce9ea0031376/notes/')
+		.then(function(response) {
+			return response.data;
+		}, 
+		function(err) {
+			console.error("could not create note", err)
+		})	
+	}
+
 	// I want to populate the note titles that are displayed below notebooks
 	// in the sidenav. How to do that?
 	

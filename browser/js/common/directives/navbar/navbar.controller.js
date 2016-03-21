@@ -1,4 +1,4 @@
-app.controller('NavbarCtrl', function($scope, NotesFactory) {
+app.controller('NavbarCtrl', function($scope, NotesFactory, AuthService, $rootScope) {
 
     // this piece is not working.
     // how to get current notes that are in a parent scope?
@@ -27,7 +27,21 @@ app.controller('NavbarCtrl', function($scope, NotesFactory) {
         "tags": ["red"],
         "dateCreated": "1451088738",
         "lastUpdate": "1442746785"
-    }]
+    }];
+
+    $scope.newNote = function() {
+        return AuthService.getLoggedInUser()
+        .then(function(user) {
+          return NotesFactory.newNote(user._id);
+        }, function(err) {
+            console.error("Error retrieving user!", err)
+        })
+        .then(function(newNote) {
+            console.log('here is the new note?', newNote)
+          $rootScope.currentNote = newNote;
+        })
+    }
+
 });
 
 app.filter('trunc', function () {
