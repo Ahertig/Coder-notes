@@ -1,4 +1,4 @@
-// Route: /api/userID/notebookId/notes
+// Route: /api/users/userID/notebookId/notes
 
 'use strict';
 var router = require('express').Router({mergeParams: true});

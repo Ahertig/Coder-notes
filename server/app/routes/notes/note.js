@@ -1,4 +1,4 @@
-// Route: /api/userID/notebooks/notebookId/notes/noteId
+// Route: /api/users/userID/notebooks/notebookId/notes/noteId
 
 'use strict';
 var router = require('express').Router();
@@ -13,11 +13,15 @@ router.get('/', function(req, res) {
 
 // Update one Note
 router.put('/', function(req, res, next) {
+	console.log("updating one note")
 	req.currentNote.set(req.body).save()
 	.then(function(updatedNote) {
+		console.log("updated note", updatedNote)
 		res.send(updatedNote)
 	})
-	.then(null, next)
+	.then(null, function(err) {
+		console.error("error putting note",err)
+	})
 })
 
 // Delete one Note

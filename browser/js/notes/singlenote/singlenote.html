@@ -4,9 +4,15 @@ new zeditor({ wrapperField : document.querySelector('.zp1')});
 new zeditor({ wrapperField : document.querySelector('.zp2')});               	      
 
 </script>
+<div> My user id is {{user._id}}</div>
 <div class="col-lg-8 col-md-8 col-sm-12">
 	<div class="panel panel-default">
 	<div class="panel-heading"><h3>{{currentNote.subject}}</h3></div>
+
+	<div>
+	<button ng-click="consolelogdom()">Console log DOM</button>
+	<button ng-click="save()">Save</button>
+	</div>
 		<div class="panel-body">
 			<div class="panel panel-default">
 				<div class="panel-heading">

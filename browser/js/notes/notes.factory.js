@@ -25,9 +25,17 @@ app.factory('NotesFactory', function($http) {
 		})
 	}
 
+	function replaceCode(input) {
+		var temp = input.toString()
+		temp = temp.replace("&lt;","<");
+		temp = temp.replace("&gt;",">");
+		return temp;
+	}
+
 	NotesFactory.fetchMyNotes = function(userId) {
 		return $http.get('/api/users/'+ userId + '/usernotes')
 		.then(function(response) {
+			// return replaceCode(response.data);
 			return response.data;
 		})
 
