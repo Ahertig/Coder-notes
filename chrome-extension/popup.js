@@ -1,3 +1,5 @@
+console.log(this);
+
 $(document).ready(function(){
 
   // Retrieve login information
@@ -38,13 +40,19 @@ function loginCE(email, password) {
   xhr.setRequestHeader("Connection", "close");
 
   xhr.onreadystatechange = function() {//Call a function when the state changes.
-      if(xhr.readyState == 4 && xhr.status == 200) {
-          alert(xhr.responseText);
-          res.redirect('popup.html')
-      }
+    if(xhr.readyState == 4 && xhr.status == 200) {
+      changePopup('popup.html')
+    }
   }
   xhr.send(JSON.stringify(params));
+}
 
+// Change to the correct view
+function changePopup(url) {
+  console.log('make sure its getting here', url);
+  chrome.browserAction.setPopup({
+      popup: url
+  });
 }
 
 
