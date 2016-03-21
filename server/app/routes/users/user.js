@@ -31,7 +31,6 @@ router.put('/', function(req, res, next){
 router.delete('/', function(req, res, next){
   req.currentUser.remove()
   .then(function(deletedUser){
-    console.log(deletedUser)
     res.json(deletedUser);
   })
   .then(null, next);

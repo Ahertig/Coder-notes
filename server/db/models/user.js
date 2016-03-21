@@ -55,10 +55,19 @@ userSchema.pre('save', function(next) {
 })
 
 
+// userSchema.post('remove', function(doc, next) {
+//     return Promise.map(doc.myNotebooks, function(notebook) {
+//         return mongoose.model('Notebook').remove({_id: notebook._id}).exec()
+//     })
+//     .then(function() {
+//         next()
+//     })
+// })
+
 userSchema.post('remove', function(doc, next) {
     return Promise.map(doc.myNotebooks, function(notebook) {
-        return mongoose.model('Notebook').remove({_id: notebook._id}).exec()
-    })
+        return notebook.remove()
+    })       
     .then(function() {
         next()
     })

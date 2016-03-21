@@ -52,8 +52,11 @@ notebookSchema.post('remove', function(doc, next) {
 })
 
 notebookSchema.post('remove', function(doc, next) {
-    return Promise.map(doc.notes, function(note) {
-        return mongoose.model('Note').remove({_id: note._id}).exec()
+    doc.populate('notes')
+    .then(function(notebook) {
+        return Promise.map(doc.notes, function(note) {
+            return note.remove()
+        })       
     })
     .then(function() {
         next()
