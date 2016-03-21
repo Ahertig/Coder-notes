@@ -39,6 +39,17 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 			</div>	
 			<article contenteditable="true" class="content">        
 				<div>{{currentNote.body}}</div>
+				<!-- test highlight js -->
+				<div>
+					<h4>testing highlight js</h4>
+					<div hljs hljs-language="javascript" >
+					var i = 1;
+					   function () {}; 
+					   for(var j = 0; j < 10; j++) {}    
+					</div>
+				</div>
+
+				<!-- end highlight js test -->				
 			</article>
 			<!-- testing tonic dev -->
 <!-- 			<h4>If tonic dev is working, code editor should appear here here: </h4>
@@ -50,10 +61,7 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 
 			</div> <!-- zen pen end -->
 
-			<div>
-			<h4>testing ng model</h4>
-			<div>{{currentNote.body}}</div>
-			</div>
+
 		<div class="panel-footer">
 			<h4>Tags</h4>
 			<button ng-repeat="tag in currentNote.tags" type="button" class="btn btn-outline btn-default" data-toggle="tooltip" title="Remove tag">{{tag}} x </button>
