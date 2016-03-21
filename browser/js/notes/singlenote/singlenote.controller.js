@@ -3,6 +3,13 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory) {
 	
 	$scope.stroutput = "";
 
+	$scope.string = 'removing a tag'
+	$scope.rTag = function() {
+		console.log('hello')
+     	console.log($scope.string)
+     }
+	
+
 	$scope.consolelogdom = function() {
 		var childArray = $('article').children();
 		// var childArray = $('article').children().outerHTML();
@@ -51,6 +58,7 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory) {
     	// console.log("NotebookID",$rootScope.currentNotebook._id);
      	NotesFactory.saveNote(userID, notebookID,noteID, $scope.savenote);
      }
-	
+
+
 
 })
