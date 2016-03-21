@@ -27,7 +27,7 @@
 				<i class="fa fa-caret-down"></i>
 			</a>
 			<ul class="dropdown-menu dropdown-messages">
-				<div ng-repeat="note in notes | limitTo: 3" >
+				<div ng-repeat="note in notes | limitTo: 3 | orderBy: note.lastUpdate" >
 				<li>
 <!-- 					<a href="#"> -->
 					<div>
