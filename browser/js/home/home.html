@@ -1,4 +1,11 @@
-<section id="home">
+<section id="home" >
     <fullstack-logo></fullstack-logo>
     <rando-greeting></rando-greeting>
+    <div ng-model='iscode'>
+    	<button type="button" ng-click='iscodemode()'>codemode</button>
+ 		<code-mode ng-show='iscode' ng-model='codenote'>
+ 		
+    	</code-mode>
+    </div>
+
 </section>
