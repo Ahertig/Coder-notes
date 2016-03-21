@@ -62,8 +62,20 @@
 						<div class="panel-heading">My Shared Notebooks</div>
 						<div class="panel-body">
 							<div class="list-group" id="side-menu-4">
-								<!-- this needs to be changed to sharednotebook in sharednotebooks -->
-								<a class="list-group-item" ng-repeat="notebook in notebooks">{{notebook.title}}</a>
+
+								<div ng-repeat="sharednotebook in sharednotebooks">
+									<a data-toggle="collapse" ng-href="#{{sharednotebook._id}}" class="list-group-item">{{sharednotebook.title}}</a>
+									<div class="panel-collapse collapse" id="{{sharednotebook._id}}">
+										<div class="panel-body">
+											<div class="list-group">
+												<a ng-click="switchCurrentNote(oneNote)" class="list-group-item" ng-repeat="oneNote in sharednotebook.notes">{{oneNote}}
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+<!-- 								<a class="list-group-item" ng-repeat="sharednotebook in sharednotebooks">{{sharednotebook.title}}</a> -->
 							</div>
 						</div>
 					</div>

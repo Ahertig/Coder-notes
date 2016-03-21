@@ -14,6 +14,17 @@ app.factory('NotesFactory', function($http) {
 		})
 	}
 
+	NotesFactory.fetchMySharedNotebooks = function(userId) {
+		console.log("notesfactory. fetching share notebooks for", userId)
+		return $http.get('/api/users/' + userId + '/notebooks/shared')
+		.then(function(response) {
+			console.log("fetched shared notebooks", response.data)
+			return response.data;
+		}, function(err) {
+			console.error("notesfactory. could not fetch shared notebooks for user", userId)
+		})
+	}
+
 	// As soon as the "get all notes for one user" route is finished, the next function can be un-commented.
 
 	// NotesFactory.fetchMyNotes = function(id) {
@@ -24,21 +35,16 @@ app.factory('NotesFactory', function($http) {
 
 	// }
 
-
-	// temporarily hard-coding tags.
-	NotesFactory.tags = ["orange","yellow","red","green","violet"]
-
-	// As soon as the "get all tags for one user" route is finished, this next function can be un-commented
-
-	// NotesFactory.fetchMyTags = function(id) {
-	// 	return $http.get('/api/users/'+ id + '/notebooks/own')
-	// 	.then(function(response) {
-	// 		// console.log("got notebook data", response.data)
-	// 		return response.data;
-	// 	}, function(err) {
-	// 		console.error("could not fetch notebooks for user",id)
-	// 	})	
-	// }
+	// this function is working!
+	NotesFactory.fetchMyTags = function(userId) {
+		return $http.get('/api/users/'+ userId + '/tags')
+		.then(function(response) {
+			// console.log("got tag data", response.data)
+			return response.data;
+		}, function(err) {
+			console.error("could not fetch tags for user",userId)
+		})	
+	}
 
 	// temporarily hard-coding notes.
 	NotesFactory.notes = [

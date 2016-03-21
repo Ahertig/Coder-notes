@@ -37,5 +37,6 @@ router.delete('/', function(req, res, next){
 });
 
 router.use('/notebooks', require('../notebooks'));
- router.use('/notes', require('../notes/notes.js'));
+router.use('/notes', require('../notes/notes.js'));
+router.use('/tags', require('./user.tags.js'));
 
