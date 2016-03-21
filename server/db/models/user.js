@@ -64,12 +64,31 @@ userSchema.post('remove', function(doc, next) {
     })
 })
 
+// userSchema.methods.getAllNotes = function() {
+//     var multidimensionalArrayOfNodeIds = [], 
+//         arrayOfNoteIds = [], 
+//         multidimensionalArrayOfTags = [], 
+//         arrayOfTags = [];
 
-userSchema.methods.getAllNotes = function() {
+//     multidimensionalArrayOfNodeIds = this.myNotebooks.map(function(element) { 
+//         return element.notes 
+//     })
+
+//     arrayOfNoteIds = multidimensionalArrayOfNodeIds.reduce(function(a, b) {
+//          return a.concat(b);
+//         });
+
+//    return mongoose.model('Note').find({
+//         _id: {
+//             $in: arrayOfNoteIds
+//         }
+//     })
+// }
+
+userSchema.methods.getAllNotes = function(tags) {
     var multidimensionalArrayOfNodeIds = [], 
         arrayOfNoteIds = [], 
         multidimensionalArrayOfTags = [], 
-        arrayOfTags = [];
 
     multidimensionalArrayOfNodeIds = this.myNotebooks.map(function(element) { 
         return element.notes 
@@ -79,11 +98,29 @@ userSchema.methods.getAllNotes = function() {
          return a.concat(b);
         });
 
-   return mongoose.model('Note').find({
-        _id: {
-            $in: arrayOfNoteIds
-        }
-    })
+    var tagsArr = [];
+    for(var tag in tags) {
+        tagsArr.push(tags[tag]);
+    }
+
+    if(!tagsArr.length) {
+       console.log(arrayOfNoteIds, tagsArr)
+       return mongoose.model('Note').find({
+            _id: {
+                $in: arrayOfNoteIds
+            }
+        })       
+    } else {
+
+        return mongoose.model('Note').find({
+            _id: {
+                $in: arrayOfNoteIds
+            }, 
+            tags: {
+                $all: tagsArr
+            }
+        })       
+    }
 }
 
 userSchema.methods.createNotebook = function(body) {
