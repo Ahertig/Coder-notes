@@ -6,7 +6,7 @@ app.controller('SidenavCtrl', function($scope, $rootScope, NotesFactory) {
 	$scope.switchCurrentNote = function(note,notebook) {
 		// console.log("you clicked note", noteId)
         $rootScope.currentNotebook = notebook;
-        console.log("current notebook", $rootScope.currentNotebook)
+        //console.log("current notebook", $rootScope.currentNotebook)
 		
 		NotesFactory.getNote(note._id)
 		.then(function(theNote) {
