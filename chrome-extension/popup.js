@@ -59,6 +59,7 @@ function loginCE(email, password) {
 
 // Change to the correct view
 function changePopup(url) {
+  window.location.href = url;
   chrome.browserAction.setPopup({
       popup: url
   });
@@ -77,33 +78,8 @@ function saveNote(body) {
 
   xhr.onreadystatechange = function() {
     if(xhr.readyState == 4 && xhr.status == 200) {
-      changePopup('noteSaved.html')
+      window.location.href = 'noteSaved.html';
     }
   }
   xhr.send(JSON.stringify(params));
 }
-
-// function retrieveNotebooks() {
-  
-// }
-
-
-// Saving notes and retrieving user's notebook information
-
-// function save() {
-//   var xhr = new XMLHttpRequest();
-//   // for example, when "add note" get request on save button
-//   xhr.onreadystatechange = handleStateChange; // Implemented elsewhere.
-//   xhr.open("POST", chrome.extension.getURL('http://localhost:1337/api/:userId/:notebookId/notes'), true);
-//   xhr.send();
-// }
-
-
-// function retrieveNotebooks() {
-//   var xhr = new XMLHttpRequest();
-//   // for example, when "add note" get request on save button
-//   xhr.onreadystatechange = handleStateChange; // Implemented elsewhere.
-//   xhr.open("GET", chrome.extension.getURL('http://localhost:1337/api/:userId/notebooks/'), true);
-//   xhr.send();
-// }
-
