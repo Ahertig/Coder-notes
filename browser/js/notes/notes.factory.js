@@ -64,8 +64,8 @@ app.factory('NotesFactory', function($http) {
 		})
 	}
 
-	NotesFactory.saveNote = function (noteId) {
-		return $http.put('/api/users/' + userID + '/notebooks/' + notebookId + '/notes/' + noteId)
+	NotesFactory.saveNote = function (userID,notebookId,noteId,noteUpdate) {
+		return $http.put('/api/users/' + userID + '/notebooks/' + notebookId + '/notes/' + noteId, noteUpdate)
 		.then(function(response) {
 			return response.data;
 		},

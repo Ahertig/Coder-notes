@@ -2,6 +2,7 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
+var Promise = require('bluebird');
 
 var userSchema = new mongoose.Schema({
     firstName: {
@@ -37,38 +38,98 @@ var userSchema = new mongoose.Schema({
     }
 });
 
-// userSchema.plugin(require('mongoose-lifecycle'));
-// userSchema.on('beforeInsert', function(user) {
-//     console.log('user before insert: ', user)
-//     mongoose.model('Notebook').create({
-//         title: 'My Notebook'
-//     })
-//     .then(function(notebook) {
-//         console.log('notebook: ', notebook)
-//         thisUser.myNotebooks.push(notebook._id)
-//         thisUser.save()
-//     })
 
+userSchema.pre('save', function(next) {
+    var thisUser = this; 
+    if (this.myNotebooks.length === 0) {
+        return mongoose.model('Notebook').create({title: 'My First Notebook'})
+        .then(function(notebook) {
+            thisUser.myNotebooks.push(notebook._id)
+            return thisUser.save();
+        })
+        .then(function() {
+            next()
+        })
+    }
+    next()
+})
+
+
+// userSchema.post('remove', function(doc, next) {
+//     return Promise.map(doc.myNotebooks, function(notebook) {
+//         return mongoose.model('Notebook').remove({_id: notebook._id}).exec()
+//     })
+//     .then(function() {
+//         next()
+//     })
 // })
 
-// userSchema.statics.createUser = function(body) {
-//     var thisUser; 
-//     this.create(body)
-//     .then(function(user) {
-//         thisUser = user;
-//         mongoose.model('Notebook').create({title: 'My first Notebook'})
+userSchema.post('remove', function(doc, next) {
+    return Promise.map(doc.myNotebooks, function(notebook) {
+        return notebook.remove()
+    })       
+    .then(function() {
+        next()
+    })
+})
+
+// userSchema.methods.getAllNotes = function() {
+//     var multidimensionalArrayOfNodeIds = [], 
+//         arrayOfNoteIds = [], 
+//         multidimensionalArrayOfTags = [], 
+//         arrayOfTags = [];
+
+//     multidimensionalArrayOfNodeIds = this.myNotebooks.map(function(element) { 
+//         return element.notes 
 //     })
-//     .then(function(notebook) {
-//         console.log('this user:', thisUser)
-//         thisUser.myNotebooks.push(notebook._id)
-//         return thisUser;
+
+//     arrayOfNoteIds = multidimensionalArrayOfNodeIds.reduce(function(a, b) {
+//          return a.concat(b);
+//         });
+
+//    return mongoose.model('Note').find({
+//         _id: {
+//             $in: arrayOfNoteIds
+//         }
 //     })
 // }
 
+userSchema.methods.getAllNotes = function(tags) {
+    var multidimensionalArrayOfNodeIds = [], 
+        arrayOfNoteIds = [], 
+        multidimensionalArrayOfTags = [], 
 
-userSchema.methods.getAllNotes = function() {
-   return this.populate('myNotebooks', 'notes')
+    multidimensionalArrayOfNodeIds = this.myNotebooks.map(function(element) { 
+        return element.notes 
+    })
 
+    arrayOfNoteIds = multidimensionalArrayOfNodeIds.reduce(function(a, b) {
+         return a.concat(b);
+        });
+
+    var tagsArr = [];
+    for(var tag in tags) {
+        tagsArr.push(tags[tag]);
+    }
+
+    if(!tagsArr.length) {
+       console.log(arrayOfNoteIds, tagsArr)
+       return mongoose.model('Note').find({
+            _id: {
+                $in: arrayOfNoteIds
+            }
+        })       
+    } else {
+
+        return mongoose.model('Note').find({
+            _id: {
+                $in: arrayOfNoteIds
+            }, 
+            tags: {
+                $all: tagsArr
+            }
+        })       
+    }
 }
 
 userSchema.methods.createNotebook = function(body) {
@@ -108,12 +169,6 @@ userSchema.pre('save', function (next) {
 
 });
 
-// userSchema.pre('remove', function(next) {
-//     return this.myNotebooks.forEach(function(notebook) {
-//         return mongoose.model('Notebook').remove({_id: notebook._id}).save()
-//     })
-//     next()
-// })
 
 userSchema.statics.generateSalt = generateSalt;
 userSchema.statics.encryptPassword = encryptPassword;
