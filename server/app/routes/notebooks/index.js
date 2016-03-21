@@ -37,19 +37,19 @@ router.get('/own', function(req, res, next) {
 })
 
 //Get all shared notebooks of a user
-router.get('/shared', function(req, res, next) {
-	res.send(req.currentUser.sharedWithMeNotebooks)
-})
+// router.get('/shared', function(req, res, next) {
+// 	res.send(req.currentUser.sharedWithMeNotebooks)
+// })
 
 // Another way to get shared notebooks:
-// router.get('/shared', function(req, res, next) {
-// 	mongoose.model('User').findOne(req.currentUser)
-// 	.populate('sharedWithMeNotebooks')
-// 	.then(function(user) {
-// 		res.send(user.sharedWithMeNotebooks)
-// 	})
-// 	.then(null, next)
-// })
+router.get('/shared', function(req, res, next) {
+	mongoose.model('User').findById(req.currentUser._id)
+	.deepPopulate('sharedWithMeNotebooks.notes')
+	.then(function(user) {
+		res.send(user.sharedWithMeNotebooks)
+	})
+	.then(null, next)
+})
 
 router.param('notebookId', function(req, res, next, id) {
   Notebook.findById(id)
