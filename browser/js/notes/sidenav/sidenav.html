@@ -32,6 +32,7 @@
 							<div class="list-group" id="side-menu-2">
 
 								<div ng-repeat="notebook in notebooks">
+									<div>Notebook ID:{{notebook._id}}</div>
 									<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item">{{notebook.title}}</a>
 									<div class="panel-collapse collapse" id="{{notebook._id}}">
 										<div class="panel-body">
