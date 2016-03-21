@@ -2,6 +2,7 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
+var Promise = require('bluebird');
 
 var notebookSchema = new mongoose.Schema({
     type:  { 
@@ -25,24 +26,41 @@ var notebookSchema = new mongoose.Schema({
 
 });
 
+// HOOKS
 // Removing notebook from user.myNotebooks
-notebookSchema.post('remove', function() {
+notebookSchema.post('remove', function(doc, next) {
     return mongoose.model('User')
         .findOneAndUpdate(
-            {myNotebooks: {$elemMatch: {$eq : this._id}}},
-             {$pull: {myNotebooks: this._id}})
-        .exec();
+            {myNotebooks: {$elemMatch: {$eq : doc._id}}},
+             {$pull: {myNotebooks: doc._id}})
+        .exec()
+        .then(function() {
+            next()
+        })
 })
 
 // Removing notebook from user.sharedWithMeNotebooks - not tested!
-notebookSchema.post('remove', function() {
+notebookSchema.post('remove', function(doc, next) {
     return mongoose.model('User')
         .findOneAndUpdate(
-            {sharedWithMeNotebooks: {$elemMatch: {$eq : this._id}}},
-             {$pull: {sharedWithMeNotebooks: this._id}})
-        .exec();
+            {sharedWithMeNotebooks: {$elemMatch: {$eq : doc._id}}},
+             {$pull: {sharedWithMeNotebooks: doc._id}})
+        .exec()
+        .then(function() {
+            next()
+        })
 })
 
+notebookSchema.post('remove', function(doc, next) {
+    return Promise.map(doc.notes, function(note) {
+        return mongoose.model('Note').remove({_id: note._id}).exec()
+    })
+    .then(function() {
+        next()
+    })
+})
+
+// METHODS
 notebookSchema.methods.getOwner = function() {
     return mongoose.model('User')
         .findOne({myNotebooks: {$elemMatch: {$eq : this._id} } }).exec();
@@ -53,8 +71,7 @@ notebookSchema.methods.createNote = function(body) {
     return mongoose.model('Note').create(body)
     .then(function(note) {
         notebook.notes.push(note._id)
-        notebook.save();
-        return note;
+        return notebook.save();
     })
 }
 
@@ -63,10 +80,25 @@ notebookSchema.methods.share = function(userEmail) {
     return mongoose.model('User').findOne({email: userEmail})
     .then(function (user) {
         user.sharedWithMeNotebooks.push(thisNotebook._id)
-        user.save();
+        return user.save();
+    })
+    .then(function() {
         return thisNotebook;
     })
 }
+
+notebookSchema.methods.removeShare = function(userEmail) {
+    var thisNotebook = this;
+    return mongoose.model('User').findOne({email: userEmail})
+    .then(function (user) {
+        user.sharedWithMeNotebooks.pull(thisNotebook._id)
+        return user.save();
+    })
+    .then(function() {
+        return thisNotebook;
+    })
+}
+
 
 mongoose.model('Notebook', notebookSchema);
 

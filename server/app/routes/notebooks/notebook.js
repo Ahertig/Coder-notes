@@ -29,8 +29,15 @@ router.delete('/', function(req, res, next){
 	.then(null, next)
 })
 
-router.put('/share', function(req, res, next) {
+router.post('/share', function(req, res, next) {
 	req.currentNotebook.share(req.body.email)
+	.then(function(sharedNotebook) {
+		res.send(sharedNotebook)
+	})
+})
+
+router.delete('/share', function(req, res, next) {
+	req.currentNotebook.removeShare(req.body.email)
 	.then(function(sharedNotebook) {
 		res.send(sharedNotebook)
 	})

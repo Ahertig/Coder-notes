@@ -16,6 +16,14 @@ router.post('/', function(req, res, next) {
 	.then(null, next)
 })
 
+// router.post('/', function(req, res, next) {
+//   User.createUser(req.body)
+//   .then(function(newUser) {
+//     res.send(newUser)
+//   })
+//   .then(null, next)
+// })
+
 
 
 //Get all users
