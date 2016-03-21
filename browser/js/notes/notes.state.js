@@ -27,8 +27,8 @@ app.config(function ($stateProvider) {
 					console.error("Error retrieving user!", err)
 				})
 				.then(function() {
-					console.log("usercontent state. fetching sharednotebooks for",iAm._id)
-					return NotesFactory.fetchMySharedNotebooks(iAm._id)
+					// console.log("usercontent state. fetching sharednotebooks for",iAm._id)
+					return NotesFactory.fetchMySharedNotebooks(iAm._id);
 				})
 			},
 			myTags: function(NotesFactory,AuthService) {
@@ -40,7 +40,16 @@ app.config(function ($stateProvider) {
 				})
 				.then(function() {
 					// console.log("usercontent state. fetching tags for",iAm._id)
-					return NotesFactory.fetchMyTags(iAm._id)
+					return NotesFactory.fetchMyTags(iAm._id);
+				})
+			},
+			myNotes: function(NotesFactory, AuthService) {
+				return AuthService.getLoggedInUser()
+				.then(function(user) {
+					iAm = user;
+				})
+				.then(function() {
+					return NotesFactory.fetchMyNotes(iAm._id);
 				})
 			}
 		}

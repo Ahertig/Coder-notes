@@ -1,10 +1,17 @@
-app.controller('SidenavCtrl', function($scope, $rootScope) {
+app.controller('SidenavCtrl', function($scope, $rootScope, NotesFactory) {
 
-	// Eventually this next function needs to be hooked up to switch the current note to the parameter passed.
-	// I suspect we will need to have a cache of all notes for this user.
+	// We may want to create a cache of all notes for this user to avoid repeated DB calls
+
+	// change the current note displayed in singlenote.html to the note that the user clicked in sidenav
 	$scope.switchCurrentNote = function(noteId) {
-		console.log("you clicked note", noteId)
-		$rootScope.currentNote = noteId;
-		console.log("rootscope current note is now", $rootScope.currentNote);
+		// console.log("you clicked note", noteId)
+
+		NotesFactory.getNote(noteId)
+		.then(function(theNote) {
+			// is there a better way to do this, besides rootScope?
+			$rootScope.currentNote = theNote;
+			// console.log("rootscope current note is now", $rootScope.currentNote);
+		})
+	
 	}
 })

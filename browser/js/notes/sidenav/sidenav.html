@@ -20,7 +20,7 @@
 						<div class="panel-heading">My Notes</div>
 						<div class="panel-body">
 							<div class='list-group' id="side-menu-1">
-								<a class="list-group-item" ng-repeat="note in notes">{{note.subject}}</a>
+								<a ng-click="switchCurrentNote(note)" class="list-group-item" ng-repeat="note in notes">{{note.subject}}</a>
 							</div>
 						</div>
 					</div>
@@ -74,8 +74,6 @@
 										</div>
 									</div>
 								</div>
-
-<!-- 								<a class="list-group-item" ng-repeat="sharednotebook in sharednotebooks">{{sharednotebook.title}}</a> -->
 							</div>
 						</div>
 					</div>
