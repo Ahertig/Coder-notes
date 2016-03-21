@@ -10,6 +10,13 @@ $(document).ready(function(){
     event.preventDefault();
   });
 
+  // Save a note
+  $("#saveNote").submit(function( event ) {
+    var body = $("#body").val();
+    saveNote(body);
+    event.preventDefault();
+  });
+
   // Testing with public notebooks route: Retrieve notebooks so that user can choose which notebook to add a note to
   $.ajax({
     url: "http://localhost:1337/api/public/notebooks/all",
@@ -49,13 +56,28 @@ function loginCE(email, password) {
 
 // Change to the correct view
 function changePopup(url) {
-  console.log('make sure its getting here', url);
   chrome.browserAction.setPopup({
       popup: url
   });
 }
 
+// Save a note to notebook
+function saveNote(body) {
+  var params = {
+    body: body
+  }
 
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", 'http://localhost:1337/api/56edbb745da4ce9ea00313a8/56edbb745da4ce9ea0031377/notes/', true);
+  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+  xhr.onreadystatechange = function() {
+    if(xhr.readyState == 4 && xhr.status == 200) {
+      changePopup('noteSaved.html')
+    }
+  }
+  xhr.send(JSON.stringify(params));
+}
 
 // function retrieveNotebooks() {
   
