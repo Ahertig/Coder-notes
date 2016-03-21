@@ -37,6 +37,7 @@ router.get('/', function(req, res, next){
 		// console.log("here are the notes:", notes)
 	    res.json(notes);
 	})
+	then(null, next)
 
 });
 

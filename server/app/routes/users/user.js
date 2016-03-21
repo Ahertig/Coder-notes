@@ -29,13 +29,15 @@ router.put('/', function(req, res, next){
 
 // Delete one user
 router.delete('/', function(req, res, next){
-  User.remove(req.params.userId)
+  req.currentUser.remove()
   .then(function(deletedUser){
+    console.log(deletedUser)
     res.json(deletedUser);
   })
   .then(null, next);
 });
 
+// ??? Should this route be removed?
 router.get('/notes', function(req, res, next){
   console.log("inside api users userid notes for", req.currentUser)
   // res.send('hi');
