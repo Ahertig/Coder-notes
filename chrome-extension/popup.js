@@ -15,20 +15,6 @@ $(document).ready(function(){
     event.preventDefault();
   });
 
-  // Testing with public notebooks route: Retrieve notebooks so that user can choose which notebook to add a note to
-  // $.ajax({
-  //   url: "http://localhost:1337/api/users/56edbb745da4ce9ea00313a8/notebooks/own",
-  //   type: "GET",
-  //   dataType: 'jsonp',
-  //   success: function(data) {
-  //     console.log(data);
-  //     $.each(data, function(notebook) {
-  //       var notebook = "<option>" + notebook.title + "</option>"
-  //       $(notebook).appendTo("#notebook option");
-  //     })
-  //   }
-  // });
-
   var xhr = new XMLHttpRequest();
   xhr.open("GET", 'http://localhost:1337/api/users/56edbb745da4ce9ea00313a8/notebooks/own', true);
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
