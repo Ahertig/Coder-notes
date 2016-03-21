@@ -1,19 +1,16 @@
-app.controller('NotesCtrl', function($scope, AuthService, myNotebooks, NotesFactory, $rootScope) {
+app.controller('NotesCtrl', function($scope, AuthService, myNotebooks, NotesFactory, $rootScope, myTags, mySharedNotebooks, myNotes) {
 
 	$scope.user = null;
 
-    // Tags and notes are hard-coded for now.
-    // This will need to be modified!
-    $scope.tags = NotesFactory.tags;
-    $scope.notes = NotesFactory.notes;
+    // promises
+    $scope.notes = myNotes;
+    $scope.tags = myTags;
+    $scope.sharednotebooks = mySharedNotebooks;
+    $scope.notebooks = myNotebooks;
 
     // set the 'current note' to item 0 in the array by default. 
-    // This will be changed later in sidenav.html and the sidenav controller.
+    // not sure if this logic is correct.
     $rootScope.currentNote = $scope.notes[0];
-
-    // This is a promise that retrieves all notebooks for the
-    // currently logged-in user.
-    $scope.notebooks = myNotebooks;
 
 	$scope.isLoggedIn = function () {
 		return AuthService.isAuthenticated();

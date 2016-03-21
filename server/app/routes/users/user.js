@@ -36,6 +36,12 @@ router.delete('/', function(req, res, next){
   .then(null, next);
 });
 
-router.use('/notebooks', require('../notebooks'));
- router.use('/notes', require('../notes/notes.js'));
+router.get('/notes', function(req, res, next){
+  console.log("inside api users userid notes for", req.currentUser)
+  // res.send('hi');
+});
 
+router.use('/notebooks', require('../notebooks'));
+router.use('/notes', require('../notes/notes.js'));
+router.use('/tags', require('./user.tags.js'));
+router.use('/usernotes', require('./user.notes.js'));
