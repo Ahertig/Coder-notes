@@ -71,7 +71,10 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 		<div class="panel-footer">
 			<h4>Tags</h4>
 			<button ng-repeat="tag in currentNote.tags" type="button" class="btn btn-outline btn-default" data-toggle="tooltip" title="Remove tag">{{tag}} <a ng-click="removeTag(currentNote._id, tag)">x</a></button>
-			<button type="button" class="btn btn-success btn-circle"  data-toggle="tooltip" title="Add a tag">
+
+			<button type="button" class="btn btn-outline btn-default" data-toggle="tooltip" title="Tag to Add"><input ng-model="tagToAdd"></input></button>
+
+			<button ng-click="addTag(currentNote._id, tagToAdd)" type="button" class="btn btn-success btn-circle"  data-toggle="tooltip" title="Add a tag">
 				<i class="fa fa-plus">
 				</i>
 			</button>

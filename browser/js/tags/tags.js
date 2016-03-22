@@ -7,13 +7,17 @@ app.factory('TagsFactory', function($http) {
         return cache;
     }
 
-
 	TagsFactory.fetchMyTags = function(userId) {
 		return $http.get('/api/users/'+ userId + '/tags')
 		.then(function(response) {
 			return response.data;
 		})	
 		.then(setCache)
+	}
+
+	TagsFactory.addTag = function(noteId, tag) {
+        var tagToAdd = tagsCache.push(tag)
+		return $http.post('/api/note/' +  noteId + '/tags', {tag: tag})
 	}
 
 	TagsFactory.removeTag = function(noteId, tag) {

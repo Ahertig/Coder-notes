@@ -7,6 +7,10 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory, Tags
 		TagsFactory.removeTag(noteId, tag);
      }
 
+    $scope.addTag = function(noteId, tag) {
+		TagsFactory.addTag(noteId, tag);
+     }
+
 
 	$scope.consolelogdom = function() {
 		var childArray = $('article').children();
