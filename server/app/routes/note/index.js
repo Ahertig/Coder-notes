@@ -4,7 +4,6 @@ module.exports = router;
 var mongoose = require('mongoose');
 var Note = mongoose.model('Note');
 
-
 router.param('noteId', function(req, res, next, id) {
   Note.findById(id)
   .then(function(note) {
@@ -17,4 +16,5 @@ router.param('noteId', function(req, res, next, id) {
 });
 
 
-router.use('/note/:noteId', require('./note'));
+
+router.use('/:noteId', require('./note'));

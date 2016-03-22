@@ -6,7 +6,7 @@ router.use('/members', require('./members'));
 router.use('/users', require('./users'));
 router.use('/public', require('./public-data'));
 router.use('/notes', require('./notes'));
-router.use('/note/:noteId', require('./note'));
+router.use('/note', require('./note'));
 
 
 // Make sure this is after all of

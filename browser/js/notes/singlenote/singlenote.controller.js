@@ -1,14 +1,12 @@
-app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory) {
+app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory, TagsFactory) {
 	$scope.savenote = {};
 	
 	$scope.stroutput = "";
 
-	$scope.string = 'removing a tag'
-	$scope.rTag = function() {
-		console.log('hello')
-     	console.log($scope.string)
+	$scope.removeTag = function(noteId, tag) {
+		TagsFactory.removeTag(noteId, tag);
      }
-	
+
 
 	$scope.consolelogdom = function() {
 		var childArray = $('article').children();

@@ -4,6 +4,7 @@ module.exports = router;
 var mongoose = require('mongoose');
 var Note = mongoose.model('Note');
 
+// api/note/:noteId
 
 router.get('/', function(req,res) {
 	Note.findById(req.params.noteId)
@@ -15,6 +16,7 @@ router.get('/', function(req,res) {
 		console.error("Could not find note",err)
 	})
 });
+
 
 // Get all tags of one note
 router.get('/tags', function(req, res, next) {
@@ -34,7 +36,7 @@ router.post('/tags', function(req, res) {
 })
 // 
 // Remove a tag from the note
-router.delete('/tags', function(req, res) {
+router.put('/tags', function(req, res) {
 	req.currentNote.removeTag(req.body.tag)
 	.then(function(note) {
 		res.send(note)		

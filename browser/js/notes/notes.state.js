@@ -51,6 +51,9 @@ app.config(function ($stateProvider) {
 				.then(function() {
 					return NotesFactory.fetchMyNotes(iAm._id);
 				})
+			},
+			myAllTags: function(TagsFactory) {
+				return TagsFactory.fetchMyTags;
 			}
 		}
 	});
