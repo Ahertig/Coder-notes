@@ -7,7 +7,7 @@
 		<input id="notesubject" type="text" class="form-control" aria-label="Note subject" ng-placeholder="currentNote.subject" ng-model="currentNote.subject"></div>
 	</div>
 	<div>
-	<button ng-click="save()">Save</button>
+	<!-- <button ng-click="save()">Save</button> -->
 	</div>
 		<div class="panel-body">
 			<div class="panel panel-default">
@@ -24,58 +24,10 @@
 						<div class="col-lg-4">Last updated: {{currentNote.lastUpdate | date : 'short'}}</div>
 					</div>
 				</div>
+				<div class='iiMdPreview' id="notebody" textarea-name='markdown' />
 			</div>
-		<!-- <textarea class="form-control" id="notebody">{{currentNote.body}}</textarea> -->
-
-		<div>testing hljs</div>
-		<div hljs="" hljs-language="javascript">
-		function hello() { 
-		console.log("this is a great function")
-		}
-		</div>
-		<button ng-click="togglemarkdown()">Toggle markdown</button>
-		<textarea ng-model="testmarkdown" placeholder="#hello" ng-if="!showmarkdown">
-		</textarea>
-		<div><h2>markdown preview area</h2></div>
-		<div class='iiMdPreview' text='{{currentNote.body}}' />
-		<div class='iiMdPreview' textarea-name='markdown' />
-		<hr>
-<!-- 		<div>Toggle area:</div>
-		<div id="toggleme"></div>
-		<div id="somestuff" marked="mymarkdown">
-		</div>
-		<h3>Testing NG model:</h3>
-		<div>
-
-		</div>
-		<h3>Show markdown here:</h3>
-
-		<div marked="testmarkdown">
-		</div>
-		<marked ng-if="showmarkdown">
- -->		<!-- {{foo}} -->
-<!-- 		## An h2
-		* bullet
-		* bullet
-		* bullet
- -->
- <!-- 		</marked>
-		<marked>
-		## Static HTML
-		* this
-		* markdown
-		* should
-		* work
-		</marked>
-		<button ng-click="toggle()">Toggle</button> -->
-<!-- 			<marked id="markdowndisplay">
-			<div id="markdowncontent" style="border: 2px solid red; width: 800px; height: 400px">
-			# just some test markdown
-			## if SAVE is working
-			* you should not
-			* see any bullets
-			</div>
-			</marked> -->
+		<div class='iiMdPreview' />
+		<hr>	
 		<button ng-click="saveTextarea()">Save</button>
 		<div class="panel-footer">
 			<h4>Tags</h4>
