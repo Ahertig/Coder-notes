@@ -10,7 +10,8 @@ var noteSchema = new mongoose.Schema({
         default: 'private'
     },
     subject: {
-        type: String
+        type: String,
+        default: 'Untitled'
     }, 
     body: {
         type: String
@@ -32,6 +33,7 @@ var noteSchema = new mongoose.Schema({
         default: false
     }
 });
+
 
 noteSchema.post('save', function() {
   return this.set({lastUpdate: new Date()}).save();
