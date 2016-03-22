@@ -1,28 +1,17 @@
-app.factory('TagsFactory', function($http) {
+app.factory('TagsFactory', function($http, $rootScope) {
 	var TagsFactory = {};
-	var tagsCache = [];
-
-	function setCache(obj) {
-        angular.copy(obj, tagsCache)
-        return cache;
-    }
-
-	TagsFactory.fetchMyTags = function(userId) {
-		return $http.get('/api/users/'+ userId + '/tags')
-		.then(function(response) {
-			return response.data;
-		})	
-		.then(setCache)
-	}
-
+	
 	TagsFactory.addTag = function(noteId, tag) {
-        var tagToAdd = tagsCache.push(tag)
+        // var tagToAdd = tagsCache.push(tag)
+        $rootScope.currentNote.tags.push(tag);
 		return $http.post('/api/note/' +  noteId + '/tags', {tag: tag})
 	}
 
 	TagsFactory.removeTag = function(noteId, tag) {
-		var index = tagsCache.indexOf(tag);
-        var tagToRemove = tagsCache.splice(index, 1)
+		var index = $rootScope.currentNote.tags.indexOf(tag);
+		console.log(index, $rootScope.currentNote.tags)
+        $rootScope.currentNote.tags.splice(index, 1)
+        console.log(index, $rootScope.currentNote.tags)
 		return $http.put('/api/note/' +  noteId + '/tags', {tag: tag})
 	}
 
