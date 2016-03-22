@@ -64,6 +64,16 @@ noteSchema.methods.removeTag = function(tag) {
   return this.save()
 }
 
+noteSchema.methods.addToTrash = function() {
+    this.set({trash: true})
+    return this.save()
+}
+
+noteSchema.methods.removeFromTrash = function() {
+    this.set({trash: false})
+    return this.save()
+}
+
 mongoose.model('Note', noteSchema);
 
 

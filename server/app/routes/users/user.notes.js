@@ -16,7 +16,6 @@ router.get('/', function(req, res, next){
 		    res.json(notes);
 		})
 		.then(null, next)
-	
-
 });
+
 
