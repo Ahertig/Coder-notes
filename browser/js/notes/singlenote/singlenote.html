@@ -1,14 +1,11 @@
-<script type="text/javascript">		
-// Initiate ZenPen
-new zeditor({ wrapperField : document.querySelector('.zp1')});               	      
-new zeditor({ wrapperField : document.querySelector('.zp2')});               	      
-
-</script>
 <div> My user id is {{user._id}}</div>
 <div class="col-lg-8 col-md-8 col-sm-12">
 	<div class="panel panel-default">
-	<div class="panel-heading"><h3>{{currentNote.subject}}</h3></div>
-
+	<div class="panel-heading">
+		<h3>{{currentNote.subject}}</h3>
+		<div class="input-group"> <span class="input-group-addon">Note subject:</span> 
+		<input id="notesubject" type="text" class="form-control" aria-label="Note subject" ng-placeholder="currentNote.subject" ng-model="currentNote.subject"></div>
+	</div>
 	<div>
 	<button ng-click="save()">Save</button>
 	</div>
@@ -28,45 +25,58 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 					</div>
 				</div>
 			</div>
-			<div class="zp1 section yin">     
-			<div class="text-options">
-			<div class="options">
-			<span class="no-overflow">
-			<span class="lengthen ui-inputs">
-			<button class="url useicons">&#xe005;</button>
-			<input class="url-input" type="text" placeholder="Type or Paste URL here"/>
-			<button class="bold">b</button>
-			<button class="italic">i</button>
-			<button class="quote">&rdquo;</button>
-			</span>
-			</span>
+		<!-- <textarea class="form-control" id="notebody">{{currentNote.body}}</textarea> -->
+
+		<div>testing hljs</div>
+		<div hljs="" hljs-language="javascript">
+		function hello() { 
+		console.log("this is a great function")
+		}
+		</div>
+		<button ng-click="togglemarkdown()">Toggle markdown</button>
+		<textarea ng-model="testmarkdown" placeholder="#hello" ng-if="!showmarkdown">
+		</textarea>
+		<div><h2>markdown preview area</h2></div>
+		<div class='iiMdPreview' text='{{currentNote.body}}' />
+		<div class='iiMdPreview' textarea-name='markdown' />
+		<hr>
+<!-- 		<div>Toggle area:</div>
+		<div id="toggleme"></div>
+		<div id="somestuff" marked="mymarkdown">
+		</div>
+		<h3>Testing NG model:</h3>
+		<div>
+
+		</div>
+		<h3>Show markdown here:</h3>
+
+		<div marked="testmarkdown">
+		</div>
+		<marked ng-if="showmarkdown">
+ -->		<!-- {{foo}} -->
+<!-- 		## An h2
+		* bullet
+		* bullet
+		* bullet
+ -->
+ <!-- 		</marked>
+		<marked>
+		## Static HTML
+		* this
+		* markdown
+		* should
+		* work
+		</marked>
+		<button ng-click="toggle()">Toggle</button> -->
+<!-- 			<marked id="markdowndisplay">
+			<div id="markdowncontent" style="border: 2px solid red; width: 800px; height: 400px">
+			# just some test markdown
+			## if SAVE is working
+			* you should not
+			* see any bullets
 			</div>
-			</div>	
-			<article contenteditable="true" class="content">        
-				<div>{{currentNote.body}}</div>
-				<!-- test highlight js -->
-				<div>
-					<h4>testing highlight js</h4>
-					<div hljs hljs-language="javascript" >
-					var i = 1;
-					   function () {}; 
-					   for(var j = 0; j < 10; j++) {}    
-					</div>
-				</div>
-
-				<!-- end highlight js test -->				
-			</article>
-			<!-- testing tonic dev -->
-<!-- 			<h4>If tonic dev is working, code editor should appear here here: </h4>
-			<div style="border: 1px solid red" id="my-element">
-			</div>
- -->			<!-- end tonic dev test -->
-
-   
-
-			</div> <!-- zen pen end -->
-
-
+			</marked> -->
+		<button ng-click="saveTextarea()">Save</button>
 		<div class="panel-footer">
 			<h4>Tags</h4>
 			<button ng-repeat="tag in currentNote.tags" type="button" class="btn btn-outline btn-default" data-toggle="tooltip" title="Remove tag">{{tag}} x </button>

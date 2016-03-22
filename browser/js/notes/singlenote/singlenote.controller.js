@@ -6,6 +6,24 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory) {
 	var noteID = $rootScope.currentNote._id;
 	var notebookID = $rootScope.currentNotebook._id;
 
+    // $scope.markedbody = marked(currentNote.body);
+
+    $scope.showmarkdown = false;
+
+    $scope.foo = "# bar"
+
+    $scope.togglemarkdown = function() {
+    	$scope.showmarkdown = !$scope.showmarkdown;
+    	console.log("toggling markdown to", $scope.showmarkdown)
+    }
+
+    $scope.toggle = function() {
+    	// $( "#toggleme" ).replaceWith( "<marked># heading 1\n## heading 2\n" );
+    	// $( "#somestuff" ).replaceWith( "<marked># heading 1\n## heading 2\n" );
+    	// $scope.mymarkdown = "<marked># Hello\n ## world</marked>"
+    	$scope.$digest();
+    }
+
 	//console.log("user ID, Note ID and NotebookID",userID, noteID);
     $scope.save = function(){ 
     	var childArray = $('article').children();
@@ -19,6 +37,20 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory) {
 			"body": stroutput
 		}
     	console.log("update note: stroutput:",stroutput, "savenote:",$scope.savenote )
+    	// console.log("NotebookID",$rootScope.currentNotebook._id);
+     	NotesFactory.saveNote(userID, notebookID,noteID, $scope.savenote);
+     }
+
+     $scope.saveTextarea = function(){ 
+    	var bodyText = $('#notebody').val();
+    	var noteSubject = $('#notesubject').val()
+		$scope.savenote = {
+			"subject": noteSubject,
+			"body": bodyText
+		}
+    	console.log("saving note body:",$scope.savenote.body)
+    	$('#markdowncontent').html($scope.savenote.body)
+    	// $scope.$digest();
     	// console.log("NotebookID",$rootScope.currentNotebook._id);
      	NotesFactory.saveNote(userID, notebookID,noteID, $scope.savenote);
      }

@@ -1,5 +1,5 @@
 'use strict';
-window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'hljs']);
+window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'hljs','hc.marked','evgenyneu.markdown-preview']);
 
 app.config(function ($urlRouterProvider, $locationProvider, hljsServiceProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)
@@ -13,6 +13,21 @@ app.config(function ($urlRouterProvider, $locationProvider, hljsServiceProvider)
         tabReplace: '    '
     });
 });
+
+// angular marked
+app.config(['markedProvider', function (markedProvider) {
+    markedProvider.setOptions({
+        gfm: true, // github style markup
+        tables: true,
+        highlight: function (code, lang) { // use hljs code highlighting
+            if (lang) {
+            return hljs.highlight(lang, code, true).value;
+            } else {
+            return hljs.highlightAuto(code).value;
+            }
+        }
+    });
+}]);
 
 // This app.run is for controlling access to specific states.
 app.run(function ($rootScope, AuthService, $state) {
