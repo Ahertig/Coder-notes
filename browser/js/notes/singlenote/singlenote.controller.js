@@ -10,19 +10,8 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory) {
 
     $scope.showmarkdown = false;
 
-    $scope.foo = "# bar"
+    $scope.successmessage = null;
 
-    $scope.togglemarkdown = function() {
-    	$scope.showmarkdown = !$scope.showmarkdown;
-    	console.log("toggling markdown to", $scope.showmarkdown)
-    }
-
-    $scope.toggle = function() {
-    	// $( "#toggleme" ).replaceWith( "<marked># heading 1\n## heading 2\n" );
-    	// $( "#somestuff" ).replaceWith( "<marked># heading 1\n## heading 2\n" );
-    	// $scope.mymarkdown = "<marked># Hello\n ## world</marked>"
-    	$scope.$digest();
-    }
 
 	//console.log("user ID, Note ID and NotebookID",userID, noteID);
     $scope.save = function(){ 
@@ -52,7 +41,12 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory) {
     	$('#markdowncontent').html($scope.savenote.body)
     	// $scope.$digest();
     	// console.log("NotebookID",$rootScope.currentNotebook._id);
-     	NotesFactory.saveNote(userID, notebookID,noteID, $scope.savenote);
+     	NotesFactory.saveNote(userID, notebookID,noteID, $scope.savenote)
+        .then(function() {
+            $scope.successmessage="Note saved successfully!";
+        }, function(err) {
+            console.error("error saving file",err)
+        })
      }
 	
 

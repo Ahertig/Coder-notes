@@ -1,5 +1,6 @@
 <div> My user id is {{user._id}}</div>
 <div class="col-lg-8 col-md-8 col-sm-12">
+	<div class="alert alert-success" role="alert" ng-if="successmessage">{{successmessage}}</div>
 	<div class="panel panel-default">
 	<div class="panel-heading">
 		<h3>{{currentNote.subject}}</h3>
@@ -24,11 +25,15 @@
 						<div class="col-lg-4">Last updated: {{currentNote.lastUpdate | date : 'short'}}</div>
 					</div>
 				</div>
-				<div class='iiMdPreview' id="notebody" textarea-name='markdown' />
+				<!-- <div class='iiMdPreview' id="notebody" textarea-name='markdown' /> -->
 			</div>
-		<div class='iiMdPreview' />
-		<hr>	
-		<button ng-click="saveTextarea()">Save</button>
+		<!-- <div class='iiMdPreview' /> -->
+		<div class="form-group">
+			<textarea class="form-control" id="notebody" ng-model="currentNote.body">{{currentNote.body}}</textarea>
+		</div>
+		<div class="form-group">
+			<button class="btn btn-primary" ng-click="saveTextarea()">Save Changes</button>
+		</div>
 		<div class="panel-footer">
 			<h4>Tags</h4>
 			<button ng-repeat="tag in currentNote.tags" type="button" class="btn btn-outline btn-default" data-toggle="tooltip" title="Remove tag">{{tag}} x </button>
