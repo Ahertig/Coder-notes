@@ -11,6 +11,23 @@ $(document).ready(function(){
   // Save a note
   $("#saveNote").submit(function( event ) {
     var body = $("#body").val();
+  
+      /*
+    AW: 
+      saveNote currently sends POST request to 'http://localhost:1337/api/users/56edbb745da4ce9ea00313a8/notebooks/56edbb745da4ce9ea0031377/notes/' 
+      with the userid  and notebookid hard coded
+
+      how will you grab the user's id and notebook id dyanmically?
+
+      why not grab the user's id post LOGIN -- where's the "onSuccess" function for the loginCE post request?
+
+      how about, after the user logs in, AJAX'ing out for that user's notebooks, and displaying all of the notebooks
+      in a dropdown so the user can select what notebook s/he would like to add the note to?
+
+
+      what about highlighting functionality?
+
+    */
     saveNote(body);
     event.preventDefault();
   });

@@ -20,12 +20,15 @@ var noteSchema = new mongoose.Schema({
         type: Date, 
         default: Date.now
     },
+
+    // AW: what is this for?
     size: {
         type: Number
     },
     lastUpdate: {
         type: Date
     },
+    // AW: should this be an enumerated type?
     tags: {
         type: [String]
     },

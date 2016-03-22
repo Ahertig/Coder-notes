@@ -11,6 +11,9 @@ var Note = mongoose.model('Note');
 // Get all tags for one user
 // Error handling could be improved!
 
+
+// AW: use the getAllNotes method on user??
+
 router.get('/', function(req, res, next){
 	var multidimensionalArrayOfNodeIds = [], 
 		arrayOfNoteIds = [], 

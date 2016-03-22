@@ -7,6 +7,7 @@ var Note = mongoose.model('Note');
 // api/note/:noteId
 
 router.get('/', function(req,res) {
+	// AW: if you already have the router.param, why do the lookup again?
 	Note.findById(req.params.noteId)
 	.then(function(theNote) {
 		console.log("Found the note:", theNote)
@@ -17,7 +18,11 @@ router.get('/', function(req,res) {
 	})
 });
 
+// router.get('/', function(req,res) {
+// 	res.json(req.currentNote)
+// });
 
+// AW: same thing here 
 // Get all tags of one note
 router.get('/tags', function(req, res, next) {
 	Note.findById(req.params.noteId)

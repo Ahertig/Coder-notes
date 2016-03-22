@@ -4,6 +4,9 @@ var mongoose = require('mongoose');
 var _ = require('lodash');
 var Promise = require('bluebird');
 
+
+// AW: assuming there is no "owner" or "creator" field on this model 
+// because you folks really wanted to store the notebooks as an array on the user doc 
 var notebookSchema = new mongoose.Schema({
     type:  { 
         type: String,
@@ -29,6 +32,7 @@ var notebookSchema = new mongoose.Schema({
 // HOOKS
 // Removing notebook from user.myNotebooks
 notebookSchema.post('remove', function(doc, next) {
+    // AW: use findOneAndUpdate at your own peril
     return mongoose.model('User')
         .findOneAndUpdate(
             {myNotebooks: {$elemMatch: {$eq : doc._id}}},
@@ -51,6 +55,7 @@ notebookSchema.post('remove', function(doc, next) {
         })
 })
 
+// AW: should this be "pre" remove?
 notebookSchema.post('remove', function(doc, next) {
     doc.populate('notes')
     .then(function(notebook) {
@@ -74,10 +79,13 @@ notebookSchema.methods.createNote = function(body) {
     return mongoose.model('Note').create(body)
     .then(function(note) {
         notebook.notes.push(note._id)
+        // AW: should this method return the notebook or the created note?
+        // I would expect it to return the created note...  
         return notebook.save();
     })
 }
 
+// AW: this method takes the user email to share the notebook with 
 notebookSchema.methods.share = function(userEmail) {
     var thisNotebook = this;
     return mongoose.model('User').findOne({email: userEmail})

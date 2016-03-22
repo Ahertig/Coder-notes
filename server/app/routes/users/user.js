@@ -18,9 +18,11 @@ router.get('/', function(req, res, next){
 
 // Update one user
 router.put('/', function(req, res, next){
+  // AW:  findById instead of findOne
 	User.findOne(req.params.userId)
 	.then(function (user) {
 		user.set(req.body).save();
+    // AW: .then on this promise before sending !
 		res.send(user)
 	})
 	.then(null, next)

@@ -1,5 +1,10 @@
 app.controller('NotesCtrl', function($scope, AuthService, myNotebooks, NotesFactory, $rootScope, myTags, mySharedNotebooks, myNotes,notesService) {
 
+    /*
+        AW: with the resolve block for the currentUser, you can now just set currentUser on load
+        and remove the setUser function 
+
+    */
 	$scope.user = null;
 
     // promises

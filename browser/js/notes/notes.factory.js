@@ -116,6 +116,7 @@ app.factory('NotesFactory', function($http, $rootScope) {
 
 	NotesFactory.addTag = function(noteId, tag) {
         // var tagToAdd = tagsCache.push(tag)
+        // AW: why?
         $rootScope.currentNote.tags.push(tag);
 		return $http.post('/api/note/' +  noteId + '/tags', {tag: tag})
 	}

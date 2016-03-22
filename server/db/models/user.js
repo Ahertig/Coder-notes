@@ -96,6 +96,10 @@ userSchema.post('remove', function(doc, next) {
 //     })
 // }
 
+
+
+
+// AW: this is good but why is tags an object, not an array?
 userSchema.methods.getAllNotes = function(tags) {
     var multidimensionalArrayOfNodeIds = [], 
         arrayOfNoteIds = [], 
@@ -140,6 +144,8 @@ userSchema.methods.createNotebook = function(body) {
    .then(function(notebook) {
         thisUser.myNotebooks.push(notebook._id)
         thisUser.save()
+        // AW: need to .then on `save` before we return the notebook
+        // to make sure the operation is successful : ) 
         return notebook;
    })
 }
