@@ -18,20 +18,20 @@
       <div class="container background">
         <h4 class="text-center">Add a note</h4>
         <form id="saveNote">
-          <div class="form-group">
+          <!-- <div class="form-group">
             <textarea placeholder="Describe this note"></textarea autocomplete="on">
-          </div>
-          <hr></hr>
+          </div> -->
+          <!-- <hr></hr> -->
           <div class="form-group">
             <input type="text" id="title" name="title" placeholder="Filename">
           </div>
           <div class="form-group">
-            <label for="notebook">Notebook:</label>
+            <label for="notebook">Notebook</label>
             <select id="notebook" name="notebook">
             </select>
           </div>
           <div class="form-group">
-            <textarea></textarea>
+            <textarea id="body" value="grabSelectedText()"></textarea>
           </div>
           <hr></hr>
           <div class="form-group">

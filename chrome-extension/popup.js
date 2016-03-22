@@ -10,10 +10,15 @@ $(document).ready(function(){
 
   // Save a note
   $("#saveNote").submit(function( event ) {
+    var subject = $("#subject").val();
+    var notebook = $("#notebook").val();
     var body = $("#body").val();
-    saveNote(body);
+    var tags = $("#tags").val();
+    saveNote(subject, notebook, body, tags);
     event.preventDefault();
   });
+
+  // $("textarea").val("mwahahah");
 
   var xhr = new XMLHttpRequest();
   xhr.open("GET", 'http://localhost:1337/api/users/56edbb745da4ce9ea00313a8/notebooks/own', true);
@@ -51,7 +56,7 @@ function loginCE(email, password) {
 
   xhr.onreadystatechange = function() {//Call a function when the state changes.
     if(xhr.readyState == 4 && xhr.status == 200) {
-      changePopup('popup.html')
+      changePopup('addANote.html')
     }
   }
   xhr.send(JSON.stringify(params));
@@ -66,10 +71,12 @@ function changePopup(url) {
 }
 
 // Save a note to notebook
-function saveNote(body) {
+function saveNote(subject, notebook, body, tags) {
   var params = {
+    subject: subject,
+    notebook: notebook,
     body: body,
-    subject: "here's a subject"
+    tags: tags
   }
 
   var xhr = new XMLHttpRequest();
@@ -83,3 +90,19 @@ function saveNote(body) {
   }
   xhr.send(JSON.stringify(params));
 }
+
+var selectedText = grabSelectedText();
+
+function grabSelectedText() {
+  var text = "";
+  if (window.getSelection) {
+      text = window.getSelection().toString();
+  } else if (document.selection && document.selection.type != "Control") {
+      text = document.selection.createRange().text;
+  }
+  console.log('this is the text its grabbing', text);
+  $("textarea").val(text);
+  return text;
+}
+
+
