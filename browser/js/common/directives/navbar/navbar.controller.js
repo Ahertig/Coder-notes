@@ -29,16 +29,29 @@ app.controller('NavbarCtrl', function($scope, NotesFactory, AuthService, $rootSc
         "lastUpdate": "1442746785"
     }];
 
-    $scope.newNote = function() {
+    $scope.newNote = function(notebookId) {
         return AuthService.getLoggedInUser()
         .then(function(user) {
-          return NotesFactory.newNote(user._id);
+          return NotesFactory.newNote(user._id, notebookId);
         }, function(err) {
             console.error("Error retrieving user!", err)
         })
         .then(function(newNote) {
             console.log('here is the new note?', newNote)
           $rootScope.currentNote = newNote;
+        })
+    }
+
+    $scope.getNotebooks = function() {
+        return AuthService.getLoggedInUser()
+        .then(function(user) {
+          return NotesFactory.fetchMyNotebooks(user._id)
+          .then(function(notebooks) {
+            $scope.notebooks = notebooks;
+            console.log($scope.notebooks);
+          });
+        }, function(err) {
+            console.error("Error retrieving user!", err)
         })
     }
 

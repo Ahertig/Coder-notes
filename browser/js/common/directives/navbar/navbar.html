@@ -12,10 +12,27 @@
 
 
 	<ul class="nav navbar-top-links navbar-right">
-		<button ng-click="newNote()" type="button" class="btn btn-success align-right"  data-toggle="tooltip" title="Add a tag">
-				<i class="fa fa-plus">
-				</i>
-		</button>
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#" ng-click="getNotebooks()">
+				<button type="button" class="btn btn-success align-right"  data-toggle="tooltip" title="Add a tag">
+						<i class="fa fa-plus">
+						</i>
+				</button>
+			</a>
+			<ul class="dropdown-menu dropdown-messages">
+				<div ng-repeat="notebook in notebooks">
+				<li>
+					<div>
+						<span ng-click="newNote(notebook._id)">Add a note to {{notebook.title}}</span>
+						<span class="pull-right text-muted">
+						</span>
+					</div
+				</li>
+				<li class="divider"></li>
+				</div>
+			</ul> <!-- /.dropdown-messages -->
+		</li> <!-- /.dropdown -->
+
 		<li class="dropdown">	
 			<input width="25" type="text" placeholder="Search All Public Notes" >
 			<input width="25" type="text" placeholder="Search My Notes" >

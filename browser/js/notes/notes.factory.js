@@ -75,8 +75,8 @@ app.factory('NotesFactory', function($http) {
 	}
 
 	// Testing a newNote function
-	NotesFactory.newNote = function (userId) {
-		return $http.post('/api/users/' + userId + '/notebooks/56edbb745da4ce9ea0031376/notes/')
+	NotesFactory.newNote = function (userId, notebookId) {
+		return $http.post('/api/users/' + userId + '/notebooks/' + notebookId + '/notes/')
 		.then(function(response) {
 			return response.data;
 		}, 
