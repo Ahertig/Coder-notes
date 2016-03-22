@@ -10,7 +10,8 @@ var noteSchema = new mongoose.Schema({
         default: 'private'
     },
     subject: {
-        type: String
+        type: String,
+        default: 'Untitled'
     }, 
     body: {
         type: String
@@ -32,6 +33,7 @@ var noteSchema = new mongoose.Schema({
         default: false
     }
 });
+
 
 noteSchema.post('save', function() {
   return this.set({lastUpdate: new Date()}).save();
@@ -62,6 +64,16 @@ noteSchema.methods.addTag = function(tag) {
 noteSchema.methods.removeTag = function(tag) {
   this.tags.pull(tag)
   return this.save()
+}
+
+noteSchema.methods.addToTrash = function() {
+    this.set({trash: true})
+    return this.save()
+}
+
+noteSchema.methods.removeFromTrash = function() {
+    this.set({trash: false})
+    return this.save()
 }
 
 mongoose.model('Note', noteSchema);

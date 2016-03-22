@@ -1,16 +1,29 @@
 app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory) {
 	$scope.savenote = {};
 	
+	$scope.openTW = false
+
 	var stroutput = "";
 	var userID = $scope.user._id;
 	var noteID = $rootScope.currentNote._id;
 	var notebookID = $rootScope.currentNotebook._id;
 
-	//console.log("user ID, Note ID and NotebookID",userID, noteID);
+
+	$scope.removeTag = function(noteId, tag) {
+		NotesFactory.removeTag(noteId, tag);
+     }
+
+    $scope.addTag = function(noteId, tag) {
+		NotesFactory.addTag(noteId, tag);
+		$scope.openTW = false;
+     }
+
+     $scope.openTagWindow = function() {
+     	$scope.openTW = true;
+     }
+
     $scope.save = function(){ 
     	var childArray = $('article').children();
-		// var childArray = $('article').children().outerHTML();
-		// console.log("Here is the text:",text)
 		for(var i = 0; i < childArray.length; i++) {
 		    stroutput += childArray[i].outerHTML;
 		 }
@@ -19,9 +32,9 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory) {
 			"body": stroutput
 		}
     	console.log("update note: stroutput:",stroutput, "savenote:",$scope.savenote )
-    	// console.log("NotebookID",$rootScope.currentNotebook._id);
      	NotesFactory.saveNote(userID, notebookID,noteID, $scope.savenote);
      }
-	
+
+
 
 })
