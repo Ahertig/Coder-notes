@@ -1,0 +1,85 @@
+<!-- probably some of this code could be broken out into child directives; it's messy -->
+
+<div class="col-lg-4 col-md-4 col-sm-12" ng-controller="SidenavCtrl">
+	<div class="panel panel-default">
+		<div class="panel-heading">My Stuff</div>
+		<div class="panel-body">
+			<ul class="nav nav-pills nav-justified nav-pills-sm">
+				<li class="active"><a href="#notes" data-toggle="tab">Notes</a>
+				</li>
+				<li><a href="#notebooks" data-toggle="tab">Notebooks</a>
+				</li>
+				<li><a href="#tags" data-toggle="tab">Tags</a>
+				</li>
+				<li class="last"><a href="#shared" data-toggle="tab">Shared</a>
+				</li>
+			</ul> <!-- ./nav -->
+			<div class="tab-content">
+				<div class="tab-pane fade active" id="notes">
+					<div class="panel panel-default">
+						<div class="panel-heading">My Notes</div>
+						<div class="panel-body">
+							<div class='list-group' id="side-menu-1">
+								<a ng-click="switchCurrentNote(note)" class="list-group-item" ng-repeat="note in notes">{{note.subject}}</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="notebooks">
+					<div class="panel panel-default">
+						<div class="panel-heading">My Notebooks</div>
+						<div class="panel-body">
+							<div class="list-group" id="side-menu-2">
+
+								<div ng-repeat="notebook in getCachedNotebooks()">
+									<div>Notebook ID:{{notebook._id}}</div>
+									<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item">{{notebook.title}}</a>
+									<div class="panel-collapse collapse" id="{{notebook._id}}">
+										<div class="panel-body">
+											<div class="list-group">
+												<a ng-click="switchCurrentNote(oneNote,notebook)" class="list-group-item" ng-repeat="oneNote in notebook.notes">{{oneNote.subject}}
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="tags">
+					<div class="panel panel-default">
+					<div class="panel-heading">My Tags</div>
+					<div class="panel-body">
+						<div class="list-group" id="side-menu-3">
+							<a class="list-group-item" ng-repeat="tag in tags">{{tag}}</a>
+						</div>
+					</div>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="shared">
+					<div class="panel panel-default">
+						<div class="panel-heading">My Shared Notebooks</div>
+						<div class="panel-body">
+							<div class="list-group" id="side-menu-4">
+
+								<div ng-repeat="sharednotebook in sharednotebooks">
+									<a data-toggle="collapse" ng-href="#{{sharednotebook._id}}" class="list-group-item">{{sharednotebook.title}}</a>
+									<div class="panel-collapse collapse" id="{{sharednotebook._id}}">
+										<div class="panel-body">
+											<div class="list-group">
+												<a ng-click="switchCurrentNote(oneNote,sharednotebook)" class="list-group-item" ng-repeat="oneNote in sharednotebook.notes">{{oneNote.subject}}
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> <!-- ./tab-content -->
+		</div> <!-- ./panel-body -->
+	</div> 
+</div> 
