@@ -7,6 +7,7 @@ app.controller('NavbarCtrl', function($scope, NotesFactory,notesService,AuthServ
         //console.log("this is notes,", $scope.notes);
      }
      $scope.newNote = function(notebookId) {
+        // NotesFactory.getCachedNotebooks();
         return AuthService.getLoggedInUser()
         .then(function(user) {
           return NotesFactory.newNote(user._id, notebookId);
@@ -15,7 +16,7 @@ app.controller('NavbarCtrl', function($scope, NotesFactory,notesService,AuthServ
         })
         .then(function(newNote) {
             console.log('here is the new note?', newNote)
-          $rootScope.currentNote = newNote;
+            $rootScope.currentNote = newNote;
         })
     }
 

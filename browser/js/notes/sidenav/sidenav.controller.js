@@ -1,6 +1,7 @@
 app.controller('SidenavCtrl', function($scope, $rootScope, NotesFactory) {
 
-	// We may want to create a cache of all notes for this user to avoid repeated DB calls
+
+	$scope.getCachedNotebooks = NotesFactory.getCachedNotebooks;
 
 	// change the current note displayed in singlenote.html to the note that the user clicked in sidenav
 	$scope.switchCurrentNote = function(note,notebook) {
