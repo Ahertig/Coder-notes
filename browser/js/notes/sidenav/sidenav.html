@@ -37,7 +37,7 @@
 									<div class="panel-collapse collapse" id="{{notebook._id}}">
 										<div class="panel-body">
 											<div class="list-group">
-												<a ng-click="switchCurrentNote(oneNote,notebook)" class="list-group-item" ng-repeat="oneNote in notebook.notes">{{oneNote}}
+												<a ng-click="switchCurrentNote(oneNote,notebook)" class="list-group-item" ng-repeat="oneNote in notebook.notes">{{oneNote.subject}}
 												</a>
 											</div>
 										</div>
@@ -69,7 +69,7 @@
 									<div class="panel-collapse collapse" id="{{sharednotebook._id}}">
 										<div class="panel-body">
 											<div class="list-group">
-												<a ng-click="switchCurrentNote(oneNote)" class="list-group-item" ng-repeat="oneNote in sharednotebook.notes">{{oneNote}}
+												<a ng-click="switchCurrentNote(oneNote,sharednotebook)" class="list-group-item" ng-repeat="oneNote in sharednotebook.notes">{{oneNote.subject}}
 												</a>
 											</div>
 										</div>
