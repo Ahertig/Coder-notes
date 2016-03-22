@@ -2,6 +2,7 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory, Tags
 	$scope.savenote = {};
 	
 	$scope.stroutput = "";
+	$scope.openTW = false
 
 	$scope.removeTag = function(noteId, tag) {
 		TagsFactory.removeTag(noteId, tag);
@@ -9,6 +10,11 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory, Tags
 
     $scope.addTag = function(noteId, tag) {
 		TagsFactory.addTag(noteId, tag);
+		$scope.openTW = false;
+     }
+
+     $scope.openTagWindow = function() {
+     	$scope.openTW = true;
      }
 
 
