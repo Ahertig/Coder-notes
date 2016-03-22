@@ -4,7 +4,7 @@
 	<div class="panel panel-default">
 	<div class="panel-heading">
 		<h3>{{currentNote.subject}}</h3>
-		<div class="input-group"> <span class="input-group-addon">Note subject:</span> 
+		<div class="input-group"> <span class="input-group-addon">Update note subject:</span> 
 		<input id="notesubject" type="text" class="form-control" aria-label="Note subject" ng-placeholder="currentNote.subject" ng-model="currentNote.subject"></div>
 	</div>
 	<div>
@@ -27,9 +27,15 @@
 				</div>
 				<!-- <div class='iiMdPreview' id="notebody" textarea-name='markdown' /> -->
 			</div>
+
 		<!-- <div class='iiMdPreview' /> -->
 		<div class="form-group">
 			<textarea class="form-control" id="notebody" ng-model="currentNote.body">{{currentNote.body}}</textarea>
+		</div>
+		<hr />
+		<h4>Markdown preview</h4>
+		<div marked="currentNote.body">
+
 		</div>
 		<div class="form-group">
 			<button class="btn btn-primary" ng-click="saveTextarea()">Save Changes</button>
