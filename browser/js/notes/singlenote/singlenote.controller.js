@@ -1,8 +1,6 @@
 app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory, TagsFactory) {
 	$scope.savenote = {};
 	
-<<<<<<< HEAD
-	$scope.stroutput = "";
 	$scope.openTW = false
 
 	$scope.removeTag = function(noteId, tag) {
@@ -53,9 +51,8 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory, Tags
 
 
 
-=======
+
 	var stroutput = "";
->>>>>>> master
 	var userID = $scope.user._id;
 	var noteID = $rootScope.currentNote._id;
 	var notebookID = $rootScope.currentNotebook._id;
