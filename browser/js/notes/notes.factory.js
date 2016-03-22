@@ -7,7 +7,7 @@ app.factory('NotesFactory', function($http) {
 		// console.log("in notesfactory fetchMyNotebooks. fetching data for user",userId)
 		return $http.get('/api/users/'+ userId + '/notebooks/own')
 		.then(function(response) {
-			// console.log("got notebook data", response.data)
+			//console.log("got notebook data", response.data)
 			return response.data;
 		}, function(err) {
 			console.error("could not fetch notebooks for user",userId)
@@ -64,14 +64,25 @@ app.factory('NotesFactory', function($http) {
 		})
 	}
 
-	NotesFactory.saveNote = function (noteId) {
-		return $http.put('/api/users/' + userID + '/notebooks/' + notebookId + '/notes/' + noteId)
+	NotesFactory.saveNote = function (userID,notebookId,noteId,noteUpdate) {
+		return $http.put('/api/users/' + userID + '/notebooks/' + notebookId + '/notes/' + noteId, noteUpdate)
 		.then(function(response) {
 			return response.data;
 		},
 		function(err) {
 			console.error("could not find note", err)
 		})
+	}
+
+	// Testing a newNote function
+	NotesFactory.newNote = function (userId, notebookId) {
+		return $http.post('/api/users/' + userId + '/notebooks/' + notebookId + '/notes/')
+		.then(function(response) {
+			return response.data;
+		}, 
+		function(err) {
+			console.error("could not create note", err)
+		})	
 	}
 
 	// I want to populate the note titles that are displayed below notebooks
