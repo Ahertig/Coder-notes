@@ -71,10 +71,15 @@ notebookSchema.methods.getOwner = function() {
 
 notebookSchema.methods.createNote = function(body) {
     var notebook = this;
+    var note;
     return mongoose.model('Note').create(body)
-    .then(function(note) {
-        notebook.notes.push(note._id)
+    .then(function(_note) {
+        note = _note;
+        notebook.notes.push(note._id)         
         return notebook.save();
+    })
+    .then(function(){
+       return note;
     })
 }
 

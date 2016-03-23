@@ -40,8 +40,6 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 							</span>
 						</div>
 					</div>	 -->
-					<article contenteditable="true" class="content">        
-						<div>{{currentNote.body}}</div>
 						<!-- test highlight js -->
 						<!-- 				<div>
 							<h4>testing highlight js</h4>
@@ -49,7 +47,10 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 							var i = 1;
 							</div>
 						</div> -->
-						<!-- end highlight js test -->				
+						<!-- end highlight js test -->	
+					<article contenteditable="true" class="content">        
+						<!-- <div>{{currentNote.body}}</div> -->
+						{{currentNote.body}}
 					</article>
 				</div> <!-- zen pen end -->
 			</div>

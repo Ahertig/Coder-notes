@@ -15,9 +15,9 @@ app.controller('NavbarCtrl', function($scope, NotesFactory,notesService,AuthServ
         }, function(err) {
             console.error("Error retrieving user!", err)
         })
-        .then(function(newNote) {
-            console.log('here is the new note?', newNote)
-            $rootScope.currentNote = newNote;
+        .then(function(newNotebook) {
+            console.log('here is the new note?', newNotebook)
+            $rootScope.currentNote = newNotebook;
         })
     }
 

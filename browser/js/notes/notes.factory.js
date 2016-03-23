@@ -96,7 +96,6 @@ app.factory('NotesFactory', function($http, $rootScope) {
 	NotesFactory.newNote = function (userId, notebookId) {
 		return $http.post('/api/users/' + userId + '/notebooks/' + notebookId + '/notes/')
 		.then(function(response) {
-
 			for (var i = 0; i < notebookCache.length; i++) {
 				if(notebookCache[i]._id == notebookId) {
 					notebookCache[i].notes.push(response.data);
