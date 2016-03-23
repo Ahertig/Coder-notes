@@ -5,9 +5,6 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory) {
 
 	var stroutput = "";
 	var userID = $scope.user._id;
-	var noteID = $rootScope.currentNote._id;
-	var notebookID = $rootScope.currentNotebook._id;
-
 
 	$scope.removeTag = function(noteId, tag) {
 		NotesFactory.removeTag(noteId, tag);
@@ -22,19 +19,42 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory) {
      	$scope.openTW = true;
      }
 
-    $scope.save = function(){ 
-    	var childArray = $('article').children();
-		for(var i = 0; i < childArray.length; i++) {
-		    stroutput += childArray[i].outerHTML;
-		 }
-		$scope.savenote = {
-			"subject": $rootScope.currentNote.subject,
-			"body": stroutput
-		}
-    	console.log("update note: stroutput:",stroutput, "savenote:",$scope.savenote )
-     	NotesFactory.saveNote(userID, notebookID,noteID, $scope.savenote);
-     }
+     // $scope.save = NotesFactory.saveNote;
 
+	$scope.save = function(){ 
+
+		// console.log("+++++ $scope.currentNote is", $scope.currentNote)
+		// console.log("** $rootScope.currentNote is ", $rootScope.currentNote);
+
+		// console.log("* saving...current note is", $rootScope.currentNote._id)
+		// console.log("** current notebook is ", $rootScope.currentNotebook._id)
+
+		var subjectToSave = $('#notesubject').html();
+		var bodyToSave = $('.zp2 > article').html();
+
+		// console.log("saving... subject is", subjectToSave)
+		// console.log("saving ... body is",bodyToSave)
+
+		$scope.savenote = {
+			"subject": subjectToSave,
+			"body": bodyToSave
+		}
+
+	NotesFactory.saveNote(userID, $rootScope.currentNotebook._id,$rootScope.currentNote._id, $scope.savenote);
+	}
+
+	$scope.highlightPre = function() {
+		hljs.initHighlighting();
+	}
+
+	$scope.addPre = function() {
+		var domElement = $('#testdiv')[0];
+		var codeValue = domElement.innerHTML;
+		var preElement = $('<pre><code>' + codeValue + '</code></pre>');
+		$(domElement).replaceWith(preElement);
+		hljs.initHighlighting();
+
+	}
 
 
 })
