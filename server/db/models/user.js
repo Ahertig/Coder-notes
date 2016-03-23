@@ -122,6 +122,13 @@ userSchema.methods.getAllNotes = function(tags) {
     }
 }
 
+userSchema.methods.getNonTrashNotes = function() {
+    return this.getAllNotes()
+    .then(function(notes) {
+        return _.filter(notes, {trash: false})
+    })
+}
+
 userSchema.methods.getNotesInTrash = function() {
     return this.getAllNotes()
     .then(function(notes) {
