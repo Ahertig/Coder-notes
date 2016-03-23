@@ -43,6 +43,23 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory) {
 	NotesFactory.saveNote(userID, $rootScope.currentNotebook._id,$rootScope.currentNote._id, $scope.savenote);
 	}
 
+	$scope.highlightPre = function() {
+		hljs.initHighlighting();
+	}
+
+	$scope.highlight = function() {
+		var blockToHighlight = $('#testdiv');
+		hljs.highlight(blockToHighlight);
+	}
+
+	$scope.addPre = function() {
+		var domElement = $('#testdiv')[0];
+		var codeValue = domElement.innerHTML;
+		var preElement = $('<pre><code>' + codeValue + '</code></pre>');
+		$(domElement).replaceWith(preElement);
+		hljs.initHighlighting();
+
+	}
 
 
 })

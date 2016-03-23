@@ -36,11 +36,27 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 					<article id="notebody" contenteditable="true" class="content">
 						{{currentNote.body}}
 					</article>
+
+
+					<div id="parentOftestDiv">
+					<div id="testdiv">console.log("help please");</div>
+					</div>
+
+
+
+					<pre>
+						<code>console.log("please highlight me")</code>
+					</pre>
 				</div> <!-- zen pen end -->
 			</div>
 		<div class="form-group">
 			<button class="btn btn-primary" ng-click="save()">Save Changes</button>
+			<button class="btn btn-primary" ng-click="highlight()">Highlight Article Body Text Area</button>
+			<button class="btn btn-primary" ng-click="highlightPre()">Highlight Pre Block</button>
+			<button class="btn btn-primary" ng-click="addPre()">Add Pre and Highlight</button>
+
 		</div>
+
 
 		<div class="panel-footer">
 			<h4>Tags</h4>
