@@ -23,17 +23,17 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory) {
 
 	$scope.save = function(){ 
 
-		console.log("+++++ $scope.currentNote is", $scope.currentNote)
-		console.log("** $rootScope.currentNote is ", $rootScope.currentNote);
+		// console.log("+++++ $scope.currentNote is", $scope.currentNote)
+		// console.log("** $rootScope.currentNote is ", $rootScope.currentNote);
 
-		console.log("* saving...current note is", $rootScope.currentNote._id)
-		console.log("** current notebook is ", $rootScope.currentNotebook._id)
+		// console.log("* saving...current note is", $rootScope.currentNote._id)
+		// console.log("** current notebook is ", $rootScope.currentNotebook._id)
 
 		var subjectToSave = $('#notesubject').html();
 		var bodyToSave = $('.zp2 > article').html();
 
-		console.log("saving... subject is", subjectToSave)
-		console.log("saving ... body is",bodyToSave)
+		// console.log("saving... subject is", subjectToSave)
+		// console.log("saving ... body is",bodyToSave)
 
 		$scope.savenote = {
 			"subject": subjectToSave,
