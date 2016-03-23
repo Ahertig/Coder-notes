@@ -8,7 +8,8 @@ var User = mongoose.model('User');
 
 // Get one user
 router.get('/', function(req, res, next){
-	res.json(req.currentUser)
+	
+  res.json(req.currentUser)
   // User.findOne(req.params.userId)
   // .then(function(user){
   //   res.json(user);
@@ -18,13 +19,14 @@ router.get('/', function(req, res, next){
 
 // Update one user
 router.put('/', function(req, res, next){
-	User.findOne(req.params.userId)
+	User.findByID(req.params.userId)
 	.then(function (user) {
-		user.set(req.body).save();
-		res.send(user)
+		return user.set(req.body).save()		
 	})
+  .then(function(user){
+    res.json(user);
+  })
 	.then(null, next)
-
 });
 
 // Delete one user

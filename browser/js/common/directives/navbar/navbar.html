@@ -15,7 +15,7 @@
 		<li class="dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#" ng-click="getNotebooks()">
 				<button type="button" class="btn btn-success align-right"  data-toggle="tooltip" title="Add a tag">
-						<i class="fa fa-plus">
+						<i class="fa fa-plus"> add note
 						</i>
 				</button>
 			</a>
@@ -49,7 +49,7 @@
 			</a>
 			<ul class="dropdown-menu dropdown-messages">
 				<div ng-repeat="note in notes | limitTo: 3 | orderBy: note.lastUpdate" >
-				<li>
+				<li ng-click = getcurrentNote(note)>
 <!-- 					<a href="#"> -->
 					<div>
 						<strong>{{note.subject}}</strong>

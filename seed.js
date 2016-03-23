@@ -49,6 +49,12 @@ var seedUsers = function () {
 
 var notesDB,notebookDB,userDB;
 connectToDb.then(function () {
+
+    for (var i = 0 ; i < Notes.length; i++) {
+        if (i % 3 === 0  && i > 0) Notes[i].type = 'public';
+        if(i % 5 === 0 && i > 0) Notes[i].trash = true;
+        console.log("Notes,", Notes[i]);
+    }
     Note.findAsync({})
     .then(function (notes) {
         if (notes.length === 0) {
@@ -60,6 +66,7 @@ connectToDb.then(function () {
     })
     .then(function (notes) {
         for(i=0; i<Notebooks.length; i++){
+            if(i % 3 === 0 && i > 0) Notebooks[i].type = 'public';
             Notebooks[i].notes=[notes[2*i]._id,notes[2*i+1]._id];
             console.log(" Notebooks.notes", Notebooks[i].notes);
         }
@@ -74,7 +81,7 @@ connectToDb.then(function () {
             
             if(notebooks[5*i+8]) {Users[i].sharedWithMeNotebooks = [notebooks[5*i+7]._id, notebooks[5*i+8]._id]}
             console.log("user mynotebooks",Users[i].myNotebooks)
-            console.log("user sharedWithMeNotebooks",Users[i].sharedWithMeNotebooks)
+            //console.log("user sharedWithMeNotebooks",Users[i].sharedWithMeNotebooks)
         }
        
         return seedUsers();

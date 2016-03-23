@@ -49,22 +49,10 @@ userSchema.pre('save', function(next) {
             thisUser.myNotebooks.push(notebook._id)
             return thisUser.save();
         })
-        .then(function() {
-            next()
-        })
+        .then(null, next);
     }
-    next()
+    next();
 })
-
-
-// userSchema.post('remove', function(doc, next) {
-//     return Promise.map(doc.myNotebooks, function(notebook) {
-//         return mongoose.model('Notebook').remove({_id: notebook._id}).exec()
-//     })
-//     .then(function() {
-//         next()
-//     })
-// })
 
 userSchema.post('remove', function(doc, next) {
     return Promise.map(doc.myNotebooks, function(notebook) {
@@ -118,7 +106,7 @@ userSchema.methods.getAllNotes = function(tags) {
        return mongoose.model('Note').find({
             _id: {
                 $in: arrayOfNoteIds
-            }
+            }, 
         })       
     } else {
 
@@ -133,12 +121,32 @@ userSchema.methods.getAllNotes = function(tags) {
     }
 }
 
+userSchema.methods.getNonTrashNotes = function(tags) {
+    return this.getAllNotes(tags)
+    .then(function(notes) {
+        return _.filter(notes, {trash: false})
+    })
+}
+
+userSchema.methods.getNotesInTrash = function(tags) {
+    return this.getAllNotes(tags)
+    .then(function(notes) {
+        return _.filter(notes, {trash: true})
+    })
+}
+
+//bind didn't work,so I just passed values with variables here
 userSchema.methods.createNotebook = function(body) {
    var thisUser = this;
+   var notebook;
    return mongoose.model('Notebook').create(body)
-   .then(function(notebook) {
-        thisUser.myNotebooks.push(notebook._id)
-        thisUser.save()
+   .then(function(_notebook) {
+        notebook = _notebook
+        thisUser.myNotebooks.push(notebook._id);
+        return thisUser.save();       
+   })
+   .then(function(){
+        console.log("this is notebook,",notebook );
         return notebook;
    })
 }

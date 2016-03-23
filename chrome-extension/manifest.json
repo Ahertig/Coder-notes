@@ -11,9 +11,9 @@
     "default_title": "Save to [NAME HERE]"
   },
   "permissions": [
+    "storage",
     "activeTab",
     "https://ajax.googleapis.com/",
-    "https://OURAPP.com",
     "tabs",
     "http://localhost:1337/*"
   ],
@@ -22,7 +22,7 @@
     "scripts": ["jquery-1.12.2.min.js", "popup.js"]
   },
   "content_scripts": [{
-    "matches": ["http://*"],
+    "matches": ["http://localhost:1337/*"],
     "js": ["jquery-1.12.2.min.js", "popup.js"]
   }],
   "externally_connectable": {

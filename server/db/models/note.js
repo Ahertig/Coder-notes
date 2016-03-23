@@ -48,14 +48,6 @@ noteSchema.post('remove', function() {
         .exec();
 })
 
-
-//Add note to trash
-// Not sure if will leave trash as a property or as a notebook
-// noteSchema.methods.addToTrash = function() {
-//     this.set({trash: true}).save();
-//     return this;
-// }
-
 noteSchema.methods.addTag = function(tag) {
     this.tags.addToSet(tag)
     return this.save()

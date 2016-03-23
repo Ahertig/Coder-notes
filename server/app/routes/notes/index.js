@@ -9,14 +9,14 @@ var Note = mongoose.model('Note');
 
 //Get all notes of this notebook
 router.get('/', function(req, res, next) {
-	res.send(req.currentNotebook.notes)
+	res.json(req.currentNotebook.notes)
 })
 
 // Create a note in this notebook
 router.post('/', function(req, res, next) {
 	req.currentNotebook.createNote(req.body)
 	.then(function(newNote) {
-		res.send(newNote)
+		res.json(newNote)
 	})
 	.then(null, next)
 })
@@ -27,9 +27,7 @@ router.param('noteId', function(req, res, next, id) {
     req.currentNote = note;
     next();
   })
-  .then(null, function(error) {
-  	console.log("error: ", error)
-  })
+  .then(null, next)
 });
 
 router.use('/:noteId', require('./note.js'));
