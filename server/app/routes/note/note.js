@@ -9,7 +9,6 @@ var Note = mongoose.model('Note');
 router.get('/', function(req,res, next) {
 	Note.findById(req.params.noteId)
 	.then(function(theNote) {
-		//console.log("Found the note:", theNote)
 		res.json(theNote);
 	})
 	.then(null, next)
