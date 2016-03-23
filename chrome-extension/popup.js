@@ -1,5 +1,3 @@
-var currentUser;
-
 $(document).ready(function(){
 
   // Retrieve login information
@@ -7,7 +5,8 @@ $(document).ready(function(){
     var email = $("#email").val();
     var password = $("#password").val();
 
-    loginCE(email, password);
+    loginCE(email, password)
+    // retrieveNotebooks();
     event.preventDefault();
   });
 
@@ -21,22 +20,29 @@ $(document).ready(function(){
     event.preventDefault();
   });
 
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", 'http://localhost:1337/api/users/56edbb745da4ce9ea00313a8/notebooks/own', true);
-  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  // retrieves the user's notebooks
+  chrome.storage.sync.get('currentUser', function(result) {
+    var currentUser = result.currentUser;
 
-  xhr.onreadystatechange = function() {//Call a function when the state changes.
-    if(xhr.readyState == 4 && xhr.status == 200) {
-      var notebooksJSON = JSON.parse(xhr.responseText);
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", 'http://localhost:1337/api/users/' +  currentUser._id + '/notebooks/own', true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-      for (var i = 0; i < notebooksJSON.length; i++) {
-        var notebook = "<option>" + notebooksJSON[i].title + "</option>"
-        $(notebook).appendTo("#notebook");
+    xhr.onreadystatechange = function() {//Call a function when the state changes.
+      if(xhr.readyState == 4 && xhr.status == 200) {
+        var notebooksJSON = JSON.parse(xhr.responseText);
+
+        chrome.storage.sync.set({notebooks: notebooksJSON}, function() {
+          for (var i = 0; i < notebooksJSON.length; i++) {
+            var notebook = "<option>" + notebooksJSON[i].title + "</option>"
+            $(notebook).appendTo("#notebook");
+          }
+        })
+
       }
     }
-  }
-
-  xhr.send();
+    xhr.send();
+  })
 
   // grab highlighted text from the page
   // set up an event listener that triggers when chrome.extension.sendRequest is fired.
@@ -49,6 +55,10 @@ $(document).ready(function(){
   chrome.tabs.executeScript(null, {code: "chrome.extension.sendRequest({selection: window.getSelection().toString() });"});
 
 });
+
+// function getSelectedNotebook() {
+
+// }
 
 // Login to the chrome extension
 function loginCE(email, password) {
@@ -65,6 +75,11 @@ function loginCE(email, password) {
 
   xhr.onreadystatechange = function() {//Call a function when the state changes.
     if(xhr.readyState == 4 && xhr.status == 200) {
+      var response = JSON.parse(xhr.responseText);
+      // var currentUser = response.user;
+
+      chrome.storage.sync.set({currentUser: response.user});
+
       changePopup('addANote.html')
     }
   }
@@ -88,15 +103,31 @@ function saveNote(subject, notebook, body, tags) {
     tags: tags
   }
 
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", 'http://localhost:1337/api/users/56edbb745da4ce9ea00313a8/notebooks/56edbb745da4ce9ea0031377/notes/', true);
-  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  chrome.storage.sync.get('currentUser', function(result) {
+    var currentUser = result.currentUser;
 
-  xhr.onreadystatechange = function() {
-    if(xhr.readyState == 4 && xhr.status == 200) {
-      window.location.href = 'noteSaved.html';
-    }
-  }
-  xhr.send(JSON.stringify(params));
+    chrome.storage.sync.get('notebooks', function(result) {
+      result = result.notebooks
+
+      var selectedNotebookName = $('#notebook').val();
+      var selectedNotebookObj;
+
+      for (var i = 0; i < result.length; i++) {
+        if (result[i].title === selectedNotebookName) var selectedNotebookObj = result[i];
+      }
+
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", 'http://localhost:1337/api/users/' + currentUser._id + '/notebooks/' + selectedNotebookObj._id + '/notes/', true);
+      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+      xhr.onreadystatechange = function() {
+        if(xhr.readyState == 4 && xhr.status == 200) {
+          window.location.href = 'noteSaved.html';
+        }
+      }
+      xhr.send(JSON.stringify(params));
+    })
+  })
 }
 
