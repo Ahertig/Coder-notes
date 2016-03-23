@@ -2,6 +2,9 @@ app.controller('NavbarCtrl', function($scope, NotesFactory,notesService,AuthServ
 
     // this piece is not working.
     // how to get current notes that are in a parent scope?
+     $scope.getcurrentNote = function(note){
+        $rootScope.currentNote = note;
+     }
      $scope.getnotes = function(){
         $scope.notes = notesService.getallnotes();
         //console.log("this is notes,", $scope.notes);
