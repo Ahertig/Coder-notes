@@ -8,27 +8,25 @@ var mongoose = require('mongoose');
 
 // Find one Note
 router.get('/', function(req, res) {
-	res.send(req.currentNote)
+	res.json(req.currentNote)
 })
 
 // Update one Note
 router.put('/', function(req, res, next) {
-	console.log("updating one note")
-	req.currentNote.set(req.body).save()
+	//console.log("updating one note")
+	return req.currentNote.set(req.body).save()
 	.then(function(updatedNote) {
-		console.log("updated note", updatedNote)
-		res.send(updatedNote)
+		//console.log("updated note", updatedNote)
+		res.json(updatedNote)
 	})
-	.then(null, function(err) {
-		console.error("error putting note",err)
-	})
+	.then(null, next)
 })
 
 // Delete one Note
 router.delete('/', function(req, res, next) {
 	req.currentNote.remove()
 	.then(function(response) {
-		res.send(response)
+		res.json(response)
 	})
 	.then(null, next)
 })

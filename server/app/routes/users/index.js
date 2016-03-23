@@ -48,9 +48,11 @@ router.param('userId', function(req, res, next, id) {
   User.findById(id)
   .populate('myNotebooks sharedWithMeNotebooks')
   .then(function(user) {
-    req.currentUser = user;
+      req.currentUser = user;
     next();
   })
+  .then(null, next)
+
 });
 
 router.use('/:userId', require('./user.js'));

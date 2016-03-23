@@ -6,15 +6,13 @@ var Note = mongoose.model('Note');
 
 // api/note/:noteId
 
-router.get('/', function(req,res) {
+router.get('/', function(req,res, next) {
 	Note.findById(req.params.noteId)
 	.then(function(theNote) {
-		console.log("Found the note:", theNote)
+		//console.log("Found the note:", theNote)
 		res.json(theNote);
-	},
-	function(err) {
-		console.error("Could not find note",err)
 	})
+	.then(null, next)
 });
 
 
@@ -22,25 +20,27 @@ router.get('/', function(req,res) {
 router.get('/tags', function(req, res, next) {
 	Note.findById(req.params.noteId)
 	.then(function(note) {
-		res.send(note.tags)		
+		res.json(note.tags)		
 	})
 	.then(null, next)
 })
 
 // Add a new tag to the note
-router.post('/tags', function(req, res) {
+router.post('/tags', function(req, res, next) {
 	req.currentNote.addTag(req.body.tag)
 	.then(function(note) {
-		res.send(note);	
+		res.json(note);	
 	})
+	.then(null, next)
 })
 // 
 // Remove a tag from the note
-router.put('/tags', function(req, res) {
+router.put('/tags', function(req, res, next) {
 	req.currentNote.removeTag(req.body.tag)
 	.then(function(note) {
-		res.send(note)		
+		res.json(note)		
 	})
+	.then(null, next)
 })
 
 // Add or Remove from Trash
@@ -48,12 +48,12 @@ router.put('/trash', function(req, res) {
 	if (req.currentNote.trash) {
 		req.currentNote.removeFromTrash()
 		.then(function(note) {
-			res.send(note)		
+			res.json(note)		
 		})
 	} else {
 		req.currentNote.addToTrash()
 		.then(function(note) {
-			res.send(note)		
+			res.json(note)		
 		})
 	}
 })

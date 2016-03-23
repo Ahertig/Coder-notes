@@ -10,9 +10,7 @@ router.param('noteId', function(req, res, next, id) {
     req.currentNote = note;
     next();
   })
-  .then(null, function(error) {
-  	console.log("error: ", error)
-  })
+  .then(null, next)
 });
 
 
