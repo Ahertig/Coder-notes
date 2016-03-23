@@ -7,7 +7,13 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 <div> My user id is {{user._id}}</div>
 <div class="col-lg-8 col-md-8 col-sm-12">
 	<div class="panel panel-default">
-	<div class="panel-heading"><h3>{{currentNote.subject}}</h3></div>
+		<div class="panel-heading">
+			<h3>
+			<div class="zp1 section yin">
+				<article id="notesubject" contenteditable="true" class="content">{{currentNote.subject}}</article>
+			</div>
+			</h3>
+		</div>
 		<div>Note ID: {{currentNote._id}}</div>
 		<div class="panel-body">
 			<div class="panel panel-default">
@@ -26,29 +32,8 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="zp1 section yin">     
-	<!-- 				<div class="text-options">
-						<div class="options">
-							<span class="no-overflow">
-								<span class="lengthen ui-inputs">
-								<button class="url useicons">&#xe005;</button>
-								<input class="url-input" type="text" placeholder="Type or Paste URL here"/>
-								<button class="bold">b</button>
-								<button class="italic">i</button>
-								<button class="quote">&rdquo;</button>
-								</span>
-							</span>
-						</div>
-					</div>	 -->
-						<!-- test highlight js -->
-						<!-- 				<div>
-							<h4>testing highlight js</h4>
-							<div hljs hljs-language="javascript" >
-							var i = 1;
-							</div>
-						</div> -->
-						<!-- end highlight js test -->	
-					<article contenteditable="true" class="content">
+				<div class="zp2 section yin">     
+					<article id="notebody" contenteditable="true" class="content">
 						{{currentNote.body}}
 					</article>
 				</div> <!-- zen pen end -->
