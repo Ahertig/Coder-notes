@@ -23,33 +23,19 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory) {
 
 	$scope.save = function(){ 
 
-		// this needs to be fixed... 
-
-		var stroutput;
-
 		console.log("* saving...current note is", $rootScope.currentNote._id)
 		console.log("** current notebook is ", $rootScope.currentNotebook._id)
 
-		// var childArray = $('article').children();
+		var bodyToSave = $('article').html();
 
-		// console.log("here is childArray", childArray)
-
-		// for(var i = 0; i < childArray.length; i++) {
-			// stroutput += childArray[i].innerHTML();
-		// }
-
-		// var stroutput = $('article').html();
-
-		console.log("subject is", $rootScope.currentNote.subject)
-		// console.log("stroutput is",stroutput)
+		console.log("saving... subject is", $rootScope.currentNote.subject)
+		console.log("saving ... body is",bodyToSave)
 
 		$scope.savenote = {
 			"subject": $rootScope.currentNote.subject,
-			"body": $rootScope.currentNote.body
-			// "body": stroutput
+			"body": bodyToSave
 		}
 
-		// console.log("update note: stroutput:",stroutput, "savenote:",$scope.savenote )
 	NotesFactory.saveNote(userID, $rootScope.currentNotebook._id,$rootScope.currentNote._id, $scope.savenote);
 	}
 
