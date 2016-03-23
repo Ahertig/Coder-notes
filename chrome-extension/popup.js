@@ -1,9 +1,12 @@
+var currentUser;
+
 $(document).ready(function(){
 
   // Retrieve login information
   $("#loginCE").submit(function( event ) {
     var email = $("#email").val();
     var password = $("#password").val();
+
     loginCE(email, password);
     event.preventDefault();
   });
@@ -18,19 +21,15 @@ $(document).ready(function(){
     event.preventDefault();
   });
 
-  // $("textarea").val("mwahahah");
-
   var xhr = new XMLHttpRequest();
   xhr.open("GET", 'http://localhost:1337/api/users/56edbb745da4ce9ea00313a8/notebooks/own', true);
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
   xhr.onreadystatechange = function() {//Call a function when the state changes.
     if(xhr.readyState == 4 && xhr.status == 200) {
-      console.log('text', xhr.responseText)
       var notebooksJSON = JSON.parse(xhr.responseText);
 
       for (var i = 0; i < notebooksJSON.length; i++) {
-        console.log(notebooksJSON[i].title)
         var notebook = "<option>" + notebooksJSON[i].title + "</option>"
         $(notebook).appendTo("#notebook");
       }
@@ -38,6 +37,16 @@ $(document).ready(function(){
   }
 
   xhr.send();
+
+  // grab highlighted text from the page
+  // set up an event listener that triggers when chrome.extension.sendRequest is fired.
+  chrome.extension.onRequest.addListener(
+      function(request, sender, sendResponse) {
+      // text selection is stored in request.selection
+      $('textarea').val( request.selection );
+  });
+
+  chrome.tabs.executeScript(null, {code: "chrome.extension.sendRequest({selection: window.getSelection().toString() });"});
 
 });
 
@@ -90,19 +99,4 @@ function saveNote(subject, notebook, body, tags) {
   }
   xhr.send(JSON.stringify(params));
 }
-
-var selectedText = grabSelectedText();
-
-function grabSelectedText() {
-  var text = "";
-  if (window.getSelection) {
-      text = window.getSelection().toString();
-  } else if (document.selection && document.selection.type != "Control") {
-      text = document.selection.createRange().text;
-  }
-  console.log('this is the text its grabbing', text);
-  $("textarea").val(text);
-  return text;
-}
-
 
