@@ -1,4 +1,4 @@
-// Route: /api/users/userID/notebookId/notes
+// Route /api/notes
 
 'use strict';
 var router = require('express').Router({mergeParams: true});
@@ -7,27 +7,20 @@ var mongoose = require('mongoose');
 var Note = mongoose.model('Note');
 
 
-//Get all notes of this notebook
-router.get('/', function(req, res, next) {
-	res.json(req.currentNotebook.notes)
-})
-
-// Create a note in this notebook
-router.post('/', function(req, res, next) {
-	req.currentNotebook.createNote(req.body)
-	.then(function(newNote) {
-		res.json(newNote)
-	})
-	.then(null, next)
-})
-
-router.param('noteId', function(req, res, next, id) {
-  Note.findById(id)
-  .then(function(note) {
-    req.currentNote = note;
-    next();
-  })
-  .then(null, next)
+router.get('/', function(req, res, next){
+		req.user.getNonTrashNotes(req.query)
+		.then(function(notes) {
+		    res.json(notes);
+		})
+		.then(null, next)
 });
 
-router.use('/:noteId', require('./note.js'));
+router.get('/trash', function(req, res, next){
+		req.user.getNotesInTrash(req.query)
+		.then(function(notes) {
+		    res.json(notes);
+		})
+		.then(null, next)
+});
+
+router.use('/:noteId', require('./note'));

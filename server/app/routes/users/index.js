@@ -1,4 +1,4 @@
-// Route api/users
+// Route api/
 
 'use strict';
 var router = require('express').Router();
@@ -8,26 +8,18 @@ var User = mongoose.model('User');
 
 
 //Create a user
-router.post('/', function(req, res, next) {
-	User.create(req.body)
+router.post('/users', function(req, res, next) {
+	mongoose.model('User').create(req.body)
 	.then(function(newUser) {
-		res.send(newUser)
+		res.json(newUser)
 	})
-	.then(null, next)
+	.then(null, function(err) {
+    console.log(err)
+  })
 })
 
-// router.post('/', function(req, res, next) {
-//   User.createUser(req.body)
-//   .then(function(newUser) {
-//     res.send(newUser)
-//   })
-//   .then(null, next)
-// })
-
-
-
 //Get all users
-router.get('/', function(req, res, next){
+router.get('/users', function(req, res, next){
   User.find()
   .then(function(allUsers){
     res.json(allUsers);
@@ -35,8 +27,8 @@ router.get('/', function(req, res, next){
   .then(null, next);
 });
 
-//Delete all users
-router.delete('/', function(req, res, next){
+//Delete all users (for testing, to be removed)
+router.delete('/users', function(req, res, next){
   User.remove({})
   .then(function(allUsers){
     res.json(allUsers);
@@ -55,6 +47,8 @@ router.param('userId', function(req, res, next, id) {
 
 });
 
+router.use('/notes', require('../notes'));
+router.use('/notebooks', require('../notebooks'));
 router.use('/:userId', require('./user.js'));
 
 

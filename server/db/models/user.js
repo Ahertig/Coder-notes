@@ -44,23 +44,20 @@ userSchema.plugin(deepPopulate);
 userSchema.pre('save', function(next) {
     var thisUser = this; 
     if (this.myNotebooks.length === 0) {
-        return mongoose.model('Notebook').create({title: 'My First Notebook'})
+        mongoose.model('Notebook').create({title: 'My First Notebook'})
         .then(function(notebook) {
             thisUser.myNotebooks.push(notebook._id)
             return thisUser.save();
         })
-        .then(null, next);
+        .then(function() { next() }, next);
     }
-    next();
+    else next();
 })
 
-userSchema.post('remove', function(doc, next) {
-    return Promise.map(doc.myNotebooks, function(notebook) {
+userSchema.post('remove', function(doc) {
+    Promise.map(doc.myNotebooks, function(notebook) {
         return notebook.remove()
     })       
-    .then(function() {
-        next()
-    })
 })
 
 // userSchema.methods.getAllNotes = function() {
