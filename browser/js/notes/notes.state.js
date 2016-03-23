@@ -1,5 +1,5 @@
 app.config(function ($stateProvider) {
-	var iAm;
+	var currentUser;
 
 	// this is the main state to show user content.
 	$stateProvider.state('usercontent', {
@@ -7,52 +7,24 @@ app.config(function ($stateProvider) {
 		templateUrl: 'js/notes/notes.html',
 		controller: 'NotesCtrl',
 		resolve: {
-			myNotebooks: function(NotesFactory,AuthService) {
+			currentUser: function(NotesFactory,AuthService) {
 				return AuthService.getLoggedInUser()
-				.then(function(user) {
-					iAm = user;
-				}, function(err) {
-					console.error("Error retrieving user!", err)
-				})
-				.then(function() {
-					// console.log("usercontent state. fetching notes for",iAm._id)
-					return NotesFactory.fetchMyNotebooks(iAm._id)
-				})
 			},
-			mySharedNotebooks: function(NotesFactory,AuthService) {
-				return AuthService.getLoggedInUser()
-				.then(function(user) {
-					iAm = user;
-				}, function(err) {
-					console.error("Error retrieving user!", err)
-				})
-				.then(function() {
-					// console.log("usercontent state. fetching sharednotebooks for",iAm._id)
-					return NotesFactory.fetchMySharedNotebooks(iAm._id);
-				})
+			myNotebooks: function(NotesFactory, currentUser) {
+				// console.log("usercontent state. fetching notes for",currentUser._id)
+				return NotesFactory.fetchMyNotebooks(currentUser._id)
 			},
-			myTags: function(NotesFactory,AuthService) {
-				return AuthService.getLoggedInUser()
-				.then(function(user) {
-					iAm = user;
-				}, function(err) {
-					console.error("Error retrieving user!", err)
-				})
-				.then(function() {
-					// console.log("usercontent state. fetching tags for",iAm._id)
-					return NotesFactory.fetchMyTags(iAm._id);
-				})
+			mySharedNotebooks: function(NotesFactory,currentUser) {
+					// console.log("usercontent state. fetching sharednotebooks for",currentUser._id)
+				return NotesFactory.fetchMySharedNotebooks(currentUser._id);
 			},
-			myNotes: function(NotesFactory, AuthService) {
-				return AuthService.getLoggedInUser()
-				.then(function(user) {
-					iAm = user;
-				})
-				.then(function() {
-					return NotesFactory.fetchMyNotes(iAm._id);
-				})
+			myTags: function(NotesFactory,currentUser) {
+				// console.log("usercontent state. fetching tags for",currentUser._id)
+				return NotesFactory.fetchMyTags(currentUser._id);
+			},
+			myNotes: function(NotesFactory, currentUser) {
+				return NotesFactory.fetchMyNotes(currentUser._id);
 			}
-		}
+    	}
 	});
-    
 });
