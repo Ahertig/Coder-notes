@@ -42,18 +42,18 @@ router.put('/tags', function(req, res, next) {
 	})
 	.then(null, next)
 })
-
 // Add or Remove from Trash
 router.put('/trash', function(req, res) {
-	if (req.currentNote.trash) {
-		req.currentNote.removeFromTrash()
+	req.currentNote.removeFromTrash()
 		.then(function(note) {
-			res.json(note)		
+			res.send(note)		
 		})
-	} else {
-		req.currentNote.addToTrash()
+})
+
+// Add or Remove from Trash
+router.delete('/trash', function(req, res) {
+	req.currentNote.addToTrash()
 		.then(function(note) {
-			res.json(note)		
+			res.send(note)		
 		})
-	}
 })

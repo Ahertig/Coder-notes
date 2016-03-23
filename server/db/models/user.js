@@ -54,16 +54,6 @@ userSchema.pre('save', function(next) {
     next();
 })
 
-
-// userSchema.post('remove', function(doc, next) {
-//     return Promise.map(doc.myNotebooks, function(notebook) {
-//         return mongoose.model('Notebook').remove({_id: notebook._id}).exec()
-//     })
-//     .then(function() {
-//         next()
-//     })
-// })
-
 userSchema.post('remove', function(doc, next) {
     return Promise.map(doc.myNotebooks, function(notebook) {
         return notebook.remove()
@@ -131,6 +121,21 @@ userSchema.methods.getAllNotes = function(tags) {
         })       
     }
 }
+
+userSchema.methods.getNonTrashNotes = function() {
+    return this.getAllNotes()
+    .then(function(notes) {
+        return _.filter(notes, {trash: false})
+    })
+}
+
+userSchema.methods.getNotesInTrash = function() {
+    return this.getAllNotes()
+    .then(function(notes) {
+        return _.filter(notes, {trash: true})
+    })
+}
+
 //bind didn't work,so I just passed values with variables here
 userSchema.methods.createNotebook = function(body) {
    var thisUser = this;
