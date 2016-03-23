@@ -2,13 +2,7 @@
 
 <div class="col-lg-4 col-md-4 col-sm-12">
 		<button ng-click="runTonic()">{{tonicMsg}}</button>
-		<button ng-click="showEval()">{{evalMsg}}</button>
 		<div id="my-element" ng-show="run"></div>
-		<form ng-show="eval">
-		<textarea  ng-model="evalCode"></textarea>
-		<button ng-click="runEval()">Run Eval</button>
-		<pre>Output: {{evalOutput}}</pre>
-		</form>
 </div> 
 
 <!-- 
