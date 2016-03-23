@@ -18,4 +18,11 @@ router.get('/', function(req, res, next){
 		.then(null, next)
 });
 
+router.get('/trash', function(req, res, next){
+		req.currentUser.getNotesInTrash()
+		.then(function(notes) {
+		    res.json(notes);
+		})
+		.then(null, next)
+});
 
