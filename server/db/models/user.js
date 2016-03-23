@@ -107,7 +107,7 @@ userSchema.methods.getAllNotes = function(tags) {
        return mongoose.model('Note').find({
             _id: {
                 $in: arrayOfNoteIds
-            }
+            }, 
         })       
     } else {
 
@@ -122,15 +122,15 @@ userSchema.methods.getAllNotes = function(tags) {
     }
 }
 
-userSchema.methods.getNonTrashNotes = function() {
-    return this.getAllNotes()
+userSchema.methods.getNonTrashNotes = function(tags) {
+    return this.getAllNotes(tags)
     .then(function(notes) {
         return _.filter(notes, {trash: false})
     })
 }
 
-userSchema.methods.getNotesInTrash = function() {
-    return this.getAllNotes()
+userSchema.methods.getNotesInTrash = function(tags) {
+    return this.getAllNotes(tags)
     .then(function(notes) {
         return _.filter(notes, {trash: true})
     })
