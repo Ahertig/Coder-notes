@@ -1,5 +1,12 @@
 <!-- probably some of this code could be broken out into child directives; it's messy -->
 
 <div class="col-lg-4 col-md-4 col-sm-12">
-		<div id="my-element"></div>
+		<button ng-click="runTonic()">{{tonicMsg}}</button>
+		<button ng-click="showEval()">{{evalMsg}}</button>
+		<div id="my-element" ng-show="run"></div>
+		<form ng-show="eval">
+		<textarea  ng-model="evalCode"></textarea>
+		<button ng-click="runEval()">Run Eval</button>
+		<pre>Output: {{evalOutput}}</pre>
+		</form>
 </div> 
