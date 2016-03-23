@@ -1,17 +1,23 @@
+var currentUser;
+
 $(document).ready(function(){
 
   // Retrieve login information
   $("#loginCE").submit(function( event ) {
     var email = $("#email").val();
     var password = $("#password").val();
+
     loginCE(email, password);
     event.preventDefault();
   });
 
   // Save a note
   $("#saveNote").submit(function( event ) {
+    var subject = $("#subject").val();
+    var notebook = $("#notebook").val();
     var body = $("#body").val();
-    saveNote(body);
+    var tags = $("#tags").val();
+    saveNote(subject, notebook, body, tags);
     event.preventDefault();
   });
 
@@ -21,11 +27,9 @@ $(document).ready(function(){
 
   xhr.onreadystatechange = function() {//Call a function when the state changes.
     if(xhr.readyState == 4 && xhr.status == 200) {
-      console.log('text', xhr.responseText)
       var notebooksJSON = JSON.parse(xhr.responseText);
 
       for (var i = 0; i < notebooksJSON.length; i++) {
-        console.log(notebooksJSON[i].title)
         var notebook = "<option>" + notebooksJSON[i].title + "</option>"
         $(notebook).appendTo("#notebook");
       }
@@ -33,6 +37,16 @@ $(document).ready(function(){
   }
 
   xhr.send();
+
+  // grab highlighted text from the page
+  // set up an event listener that triggers when chrome.extension.sendRequest is fired.
+  chrome.extension.onRequest.addListener(
+      function(request, sender, sendResponse) {
+      // text selection is stored in request.selection
+      $('textarea').val( request.selection );
+  });
+
+  chrome.tabs.executeScript(null, {code: "chrome.extension.sendRequest({selection: window.getSelection().toString() });"});
 
 });
 
@@ -51,7 +65,7 @@ function loginCE(email, password) {
 
   xhr.onreadystatechange = function() {//Call a function when the state changes.
     if(xhr.readyState == 4 && xhr.status == 200) {
-      changePopup('popup.html')
+      changePopup('addANote.html')
     }
   }
   xhr.send(JSON.stringify(params));
@@ -66,10 +80,12 @@ function changePopup(url) {
 }
 
 // Save a note to notebook
-function saveNote(body) {
+function saveNote(subject, notebook, body, tags) {
   var params = {
+    subject: subject,
+    notebook: notebook,
     body: body,
-    subject: "here's a subject"
+    tags: tags
   }
 
   var xhr = new XMLHttpRequest();
@@ -83,3 +99,4 @@ function saveNote(body) {
   }
   xhr.send(JSON.stringify(params));
 }
+
