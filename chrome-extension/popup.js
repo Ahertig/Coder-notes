@@ -6,7 +6,6 @@ $(document).ready(function(){
     var password = $("#password").val();
 
     loginCE(email, password)
-    // retrieveNotebooks();
     event.preventDefault();
   });
 
@@ -56,10 +55,6 @@ $(document).ready(function(){
 
 });
 
-// function getSelectedNotebook() {
-
-// }
-
 // Login to the chrome extension
 function loginCE(email, password) {
   var params = {
@@ -76,7 +71,6 @@ function loginCE(email, password) {
   xhr.onreadystatechange = function() {//Call a function when the state changes.
     if(xhr.readyState == 4 && xhr.status == 200) {
       var response = JSON.parse(xhr.responseText);
-      // var currentUser = response.user;
 
       chrome.storage.sync.set({currentUser: response.user});
 
