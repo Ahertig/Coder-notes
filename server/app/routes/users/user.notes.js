@@ -11,7 +11,7 @@ var Note = mongoose.model('Note');
 // Get all notes for one user
 
 router.get('/', function(req, res, next){
-		req.currentUser.getNonTrashNotes()
+		req.currentUser.getNonTrashNotes(req.query)
 		.then(function(notes) {
 		    res.json(notes);
 		})
@@ -19,7 +19,7 @@ router.get('/', function(req, res, next){
 });
 
 router.get('/trash', function(req, res, next){
-		req.currentUser.getNotesInTrash()
+		req.currentUser.getNotesInTrash(req.query)
 		.then(function(notes) {
 		    res.json(notes);
 		})
