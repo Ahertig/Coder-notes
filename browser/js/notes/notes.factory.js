@@ -82,7 +82,7 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		})
 	}
 
-	NotesFactory.saveNote = function (notebookId,noteId,noteUpdate) {
+	NotesFactory.saveNote = function (noteId,noteUpdate) {
 		// console.log("inside NotesFactory.saveNote. noteID:",noteId,"notebookId:", notebookId, "\nnoteUpdate: ",noteUpdate)
 		return $http.put('/api/notes/' + noteId, noteUpdate)
 		.then(function(response) {
@@ -96,6 +96,8 @@ app.factory('NotesFactory', function($http, $rootScope) {
 	NotesFactory.newNote = function (userId, notebookId) {
 		return $http.post('/api/notebooks/' + notebookId + '/notes')
 		.then(function(response) {
+			console.log('notebook id ', notebookId)
+			console.log('response from server', response.data._id )
 			for (var i = 0; i < notebookCache.length; i++) {
 				if(notebookCache[i]._id == notebookId) {
 					notebookCache[i].notes.push(response.data);
