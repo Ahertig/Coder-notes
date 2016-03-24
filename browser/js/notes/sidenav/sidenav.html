@@ -85,6 +85,11 @@
 					<p>No trash yet! Please delete me when you start coding :-D </p>
 				<!-- Add trashed notes here :-) -->
 				</div>
+				<!-- <input width="25" type="text" placeholder="Search All Public Notes"> -->
+				<input ng-model="searchNotes" width="25" type="text" placeholder="Search My Notes">
+
+      	<a class="list-group-item" ng-repeat="note in notes | filter:searchNotes" ng-click="switchCurrentNote(note)">{{note.subject}}</a>
+
 			</div> <!-- ./tab-content -->
 		</div> <!-- ./panel-body -->
 	</div> 
