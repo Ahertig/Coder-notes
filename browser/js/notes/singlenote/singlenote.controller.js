@@ -46,7 +46,7 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory) {
 
   $scope.deleteNote = function(noteId) {
     console.log(noteId);
-    return NotesFactory.deleteNote(noteId);
+    return NotesFactory.trashNote(noteId);
   }
 
   $scope.highlightPre = function() {

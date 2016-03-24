@@ -114,13 +114,21 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		})	
 	}
 
-	NotesFactory.deleteNote = function(noteId) {
-		return $http.delete('/api/note/' +noteId + '/trash/')
+	NotesFactory.newNotebook = function() {
+		return $http.post('/api/notebooks/')
 		.then(function(response) {
-			return response.data
+			return response.data;
+		},
+		function(err) {
+			console.error("could not create notebook", err)
 		})
+	}
 
-		// also need to delete the note from the notebook?
+	NotesFactory.trashNote = function(noteId) {
+		return $http.put('/api/notes/' +noteId, {trash: true})
+		.then(function(response) {
+			return response.data;
+		})
 
 	}
 
