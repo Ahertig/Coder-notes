@@ -127,11 +127,10 @@ app.factory('NotesFactory', function($http, $rootScope) {
 	}
 
 	NotesFactory.trashNote = function(noteId) {
-		return $http.put('/api/notes/' +noteId, {trash: true})
+		return $http.put('/api/notes/' + noteId + '/trash/add')
 		.then(function(response) {
 			return response.data;
 		})
-
 	}
 
 	NotesFactory.addTag = function(noteId, tag) {
