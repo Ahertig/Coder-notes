@@ -12,9 +12,29 @@
 
 
 	<ul class="nav navbar-top-links navbar-right">
+		<li class ="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown">
+				<button type="button" class="btn btn-success align-right"  data-toggle="tooltip" title="Add a note">
+					<i class="fa fa-plus"> add notebook
+					</i>
+				</button>
+			</a>
+			<ul class="dropdown-menu dropdown-messages">
+				<li>
+					<div>
+						<input type="text">
+						<span class="pull-right text-muted">
+						</span>
+					</div>
+				</li>
+				<li class="divider"></li>
+			</ul> <!-- /.dropdown-messages -->
+			<!-- <a ng-click="newNotebook()"></a> -->
+		</li> <!-- /.dropdown -->
+
 		<li class="dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#" ng-click="getNotebooks()">
-				<button type="button" class="btn btn-success align-right"  data-toggle="tooltip" title="Add a tag">
+				<button type="button" class="btn btn-success align-right"  data-toggle="tooltip" title="Add a note">
 						<i class="fa fa-plus"> add note
 						</i>
 				</button>
@@ -26,7 +46,7 @@
 						<a ng-click="newNote(notebook)">Add a note to {{notebook.title}}</a>
 						<span class="pull-right text-muted">
 						</span>
-					</div
+					</div>
 				</li>
 				<li class="divider"></li>
 				</div>
@@ -34,7 +54,7 @@
 		</li> <!-- /.dropdown -->
 
 		<li class="dropdown">	
-			<input width="25" type="text" placeholder="Search All Public Notes" >
+			<input width="25" type="text" placeholder="Search All Public Notes">
 			<input width="25" type="text" placeholder="Search My Notes" >
 <!-- 			<span class="input-group-btn">
 			<button class="btn btn-default" type="button"><i class="fa fa-search"></i>

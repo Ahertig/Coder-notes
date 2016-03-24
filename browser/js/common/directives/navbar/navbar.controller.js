@@ -22,6 +22,19 @@ app.controller('NavbarCtrl', function($scope, NotesFactory,notesService,AuthServ
 
     }
 
+    $scope.newNotebook = function() {
+        return AuthService.getLoggedInUser()
+        .then(function(user) {
+          return NotesFactory.newNotebook();
+        }, function(err) {
+            console.error("Error retrieving user!", err)
+        })
+        .then(function(newNotebook) {
+            console.log('here is the new notebook?', newNotebook)
+            // $rootScope.currentNote = newNotebook;
+        })
+    }
+
     $scope.getNotebooks = function() {
        NotesFactory.fetchMyNotebooks()
        .then(function(_notebooks){
