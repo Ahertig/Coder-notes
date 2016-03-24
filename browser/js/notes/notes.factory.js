@@ -1,15 +1,11 @@
 app.factory('NotesFactory', function($http, $rootScope) {
 
 	var NotesFactory = {},
-		//notesCache = [],
 		notebookCache = [],
 		sharedNotebookCache = [],
 		tagsCache = [], 
 		currentNote,
 		currentNotebook;
-
-	
-
 	
 	NotesFactory.getCurrentNote = function() {
 		return currentNote;
@@ -23,6 +19,24 @@ app.factory('NotesFactory', function($http, $rootScope) {
 	NotesFactory.setCurrentNotebook = function(_currentNotebook) {
 		currentNotebook = _currentNotebook;
 	}
+    
+
+
+    NotesFactory.getTagsCache = function() {
+		return tagsCache;
+	}
+	NotesFactory.updateTagsCache = function(tag, action) {
+		if(action == 'add'){
+			if(agsCache.indexOf(tag) > -1) {
+				tagsCache.unshift(tag);
+			}		
+		}
+		else if(action == 'delete'){
+			tagsCache.splice(tagsCache.indexOf(tag),1);
+		}
+
+	}
+   
 
 	NotesFactory.getCachedNotebooks = function() {
 		return notebookCache;
@@ -33,13 +47,13 @@ app.factory('NotesFactory', function($http, $rootScope) {
     	var notebook = NotesFactory.findNotebookById(notebookID); 
 
  		if(action === 'add'){ 
-         	notebook.notes.push(note);         	
+         	notebook.notes.unshift(note);         	
  		}
- 		if(action === 'update'){
+ 		else if(action === 'update'){
  			var index = NotesFactory.findNoteIndex(notebook,note._id);
  			angular.copy(note,notebook.notes[index]);
  		}
- 		if(action === 'delete'){
+ 		else if(action === 'delete'){
  			var index = NotesFactory.findNoteIndex(notebook,note._id);
  			notebook.notes.splice(index,1)
  		}
@@ -48,13 +62,13 @@ app.factory('NotesFactory', function($http, $rootScope) {
 	 NotesFactory.updateNotebookCache = function(notebook, action) {
 
         if(action === 'add'){ 
-         	notebookCache.push(notebook);         	
+         	notebookCache.unshift(notebook);         	
  		}
- 		if(action === 'update'){
+ 		else if(action === 'update'){
  			var oldNotebook = NotesFactory.findNotebookById(notebook._id);
  			angular.copy(notebook,oldNotebook);
  		}
- 		if(action === 'delete'){
+ 		else if(action === 'delete'){
  			var index = NotesFactory.findNotebookIndex(notebook._id);
  			notebookCache.splice(index,1);
  		}
@@ -93,7 +107,7 @@ app.factory('NotesFactory', function($http, $rootScope) {
 
 
 	// This function is working!
-	NotesFactory.fetchMyNotebooks = function(userId) {
+	NotesFactory.fetchMyNotebooks = function() {
 		// console.log("in notesfactory fetchMyNotebooks. fetching data for user",userId)
 		return $http.get('/api/notebooks')
 		.then(function(response) {
@@ -106,7 +120,8 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		})
 	}
 
-	NotesFactory.fetchMySharedNotebooks = function(userId) {
+    //!!!this is to be updated! 
+	NotesFactory.fetchMySharedNotebooks = function() {
 		// console.log("notesfactory. fetching share notebooks for", userId)
 		return $http.get('/api/notebooks/shared')
 		.then(function(response) {
@@ -119,15 +134,12 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		})
 	}
 
-	// this is not working
-	function replaceCode(input) {
-		var temp = input.toString()
-		temp = temp.replace("&lt;","<");
-		temp = temp.replace("&gt;",">");
-		return temp;
-	}
-
 	NotesFactory.fetchMyNotes = function() {
+        var notes = [];
+		notebookCache.forEach(function(nootbook){
+			notes = notes.concat(nootbook.notes);
+		});
+		return notes;
   		//!get all note from notebookCache!
 		// return $http.get('/api/notes')
 		// .then(function(response) {
@@ -136,11 +148,9 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		// 	// return replaceCode(response.data);
 		// 	return notesCache;
 		// })
-
 	}
-
 	// this function is working!
-	NotesFactory.fetchMyTags = function(userId) {
+	NotesFactory.fetchMyTags = function() {
 		return $http.get('/api/tags')
 		.then(function(response) {
 			// console.log("got tag data", response.data)
@@ -164,30 +174,29 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		})
 	}
 
-	NotesFactory.saveNote = function (userID,notebookId,noteId,noteUpdate) {
-		console.log("inside NotesFactory.saveNote. \nnoteID:",noteId,"notebookId:", notebookId, "\nnoteUpdate: ",noteUpdate)
-		return $http.put('/api/users/' + userID + '/notebooks/' + notebookId + '/notes/' + noteId, noteUpdate)
+	NotesFactory.saveNote = function (notebookId,noteId,noteUpdate) {
+		
+		return $http.put('/api/notes/' + noteId, noteUpdate)
 		.then(function(response) {
 
-			for (var i = 0; i < notebookCache.length; i++) {
-				if(notebookCache[i]._id == notebookId) {
-					// console.log("notebookCache[i]",notebookCache[i])
-					for (var j = 0; j < notebookCache[i].notes.length; j++) {
-						console.log("notebookCache[i].notes[j]._id is", notebookCache[i].notes[j]._id, "and note id is", noteId);
-						if (notebookCache[i].notes[j]._id == noteId) {
-							console.log("pushing new note", response.data)
-							notebookCache[i].notes[j] = response.data;
-							console.log("notebookCache[i].notes[j] is",notebookCache[i].notes[j])
-						}
-					}
+			NotesFactory.updateNoteInNotebookCache(notebookId,response.data,'update');
 
-				// notebookCache[i].notes.push(response.data);
-				// console.log("** adding new note to notebook cache", response.data)
-				// console.log("***** notebookCache is now",notebookCache);
-				}
-			}
-
-
+			// for (var i = 0; i < notebookCache.length; i++) {
+			// 	if(notebookCache[i]._id == notebookId) {
+			// 		// console.log("notebookCache[i]",notebookCache[i])
+			// 		for (var j = 0; j < notebookCache[i].notes.length; j++) {
+			// 			console.log("notebookCache[i].notes[j]._id is", notebookCache[i].notes[j]._id, "and note id is", noteId);
+			// 			if (notebookCache[i].notes[j]._id == noteId) {
+			// 				console.log("pushing new note", response.data)
+			// 				notebookCache[i].notes[j] = response.data;
+			// 				console.log("notebookCache[i].notes[j] is",notebookCache[i].notes[j])
+			// 			}
+			// 		}
+			// 	// notebookCache[i].notes.push(response.data);
+			// 	// console.log("** adding new note to notebook cache", response.data)
+			// 	// console.log("***** notebookCache is now",notebookCache);
+			// 	}
+			// }
 			console.log("response data is", response.data)
 			return response.data;
 		},
@@ -196,22 +205,23 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		})
 	}
 
-	NotesFactory.newNote = function (userId, notebookId) {
+	NotesFactory.newNote = function (notebookId) {
 		return $http.post('/api/notebooks/' + notebookId + '/notes')
 		.then(function(response) {
 			console.log("here is response to newNote", response.data)
 			console.log('notebook id ', notebookId)
 			console.log('response from server', response.data._id )
-			for (var i = 0; i < notebookCache.length; i++) {
-				console.log("notebookCache[i]", notebookCache[i], "and notebookId", notebookId)
-				if(notebookCache[i]._id == notebookId) {
-					notebookCache[i].notes.push(response.data);
-					// console.log("** adding new note to notebook cache", response.data)
-					console.log("***** notebookCache is now",notebookCache);
-				}
-			}
-
-			notesCache.push(response.data);
+			// for (var i = 0; i < notebookCache.length; i++) {
+			// 	console.log("notebookCache[i]", notebookCache[i], "and notebookId", notebookId)
+			// 	if(notebookCache[i]._id == notebookId) {
+			// 		notebookCache[i].notes.push(response.data);
+			// 		// console.log("** adding new note to notebook cache", response.data)
+			// 		console.log("***** notebookCache is now",notebookCache);
+			// 	}
+			// }
+            
+            NotesFactory.updateNoteInNotebookCache(notebookID, response.data, 'add');
+			//notesCache.push(response.data);
 			// console.log("adding new note to notesCache", response.data)
 
 			return response.data;
@@ -223,21 +233,23 @@ app.factory('NotesFactory', function($http, $rootScope) {
 
 	NotesFactory.addTag = function(noteId, tag) {
         // var tagToAdd = tagsCache.push(tag)
-        $rootScope.currentNote.tags.push(tag);
-		return $http.post('/api/note/' +  noteId + '/tags', {tag: tag})
+        //$rootScope.currentNote.tags.push(tag);
+        NotesFactory.updateTagsCache(tag, 'add');
+		return $http.post('/api/note/' +  noteId + '/tags', {tag: tag});
 	}
 
 	NotesFactory.removeTag = function(noteId, tag) {
-		var index = $rootScope.currentNote.tags.indexOf(tag);
-		// console.log(index, $rootScope.currentNote.tags)
-        $rootScope.currentNote.tags.splice(index, 1)
+		// var index = $rootScope.currentNote.tags.indexOf(tag);
+		// // console.log(index, $rootScope.currentNote.tags)
+  //       $rootScope.currentNote.tags.splice(index, 1)
         // console.log(index, $rootScope.currentNote.tags)
-		return $http.put('/api/note/' +  noteId + '/tags', {tag: tag})
+        NotesFactory.updateTagsCache(tag, 'delete');
+		return $http.put('/api/note/' +  noteId + '/tags', {tag: tag});
 	}
 
-    NotesFactory.deleteNotefromTrash = function(userID,notebookId,noteId){
-    	return $http.delete('/api/users/'+ userID+ '/notebooks/'+ notebookId+'/notes/'+ noteId)
-    }
+    // NotesFactory.deleteNotefromTrash = function(userID,notebookId,noteId){
+    // 	return $http.delete('/api/users/'+ userID+ '/notebooks/'+ notebookId+'/notes/'+ noteId)
+    // }
 
 	return NotesFactory; 
 })

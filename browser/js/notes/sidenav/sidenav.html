@@ -22,7 +22,7 @@
 						<div class="panel-heading">My Notes</div>
 						<div class="panel-body">
 							<div class='list-group' id="side-menu-1">
-								<a ng-click="switchCurrentNote(note)" class="list-group-item" ng-repeat="note in notes">{{note.subject}}</a>
+								<a ng-click="setCurrentNote(note)" class="list-group-item" ng-repeat="note in notes">{{note.subject}}</a>
 							</div>
 						</div>
 					</div>
@@ -35,11 +35,11 @@
 
 								<div ng-repeat="notebook in getCachedNotebooks()">
 									<div class="muted">Notebook ID:{{notebook._id}}</div>
-									<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item">{{notebook.title}}</a>
+									<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item" ng-click="setCurrentNotebook(notebook)">{{notebook.title}}</a>
 									<div class="panel-collapse collapse" id="{{notebook._id}}">
 										<div class="panel-body">
 											<div class="list-group">
-												<a ng-click="switchCurrentNote(oneNote,notebook)" class="list-group-item" ng-repeat="oneNote in notebook.notes">{{oneNote.subject}}
+												<a ng-click="setCurrentNote(oneNote,notebook)" class="list-group-item" ng-repeat="oneNote in notebook.notes">{{oneNote.subject}}
 												</a>
 											</div>
 										</div>
@@ -71,7 +71,7 @@
 									<div class="panel-collapse collapse" id="{{sharednotebook._id}}">
 										<div class="panel-body">
 											<div class="list-group">
-												<a ng-click="switchCurrentNote(oneNote,sharednotebook)" class="list-group-item" ng-repeat="oneNote in sharednotebook.notes">{{oneNote.subject}}
+												<a ng-click="setCurrentNote(oneNote,sharednotebook)" class="list-group-item" ng-repeat="oneNote in sharednotebook.notes">{{oneNote.subject}}
 												</a>
 											</div>
 										</div>

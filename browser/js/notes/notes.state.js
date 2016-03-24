@@ -22,7 +22,7 @@ app.config(function ($stateProvider) {
 				// console.log("usercontent state. fetching tags for",currentUser._id)
 				return NotesFactory.fetchMyTags(currentUser._id);
 			},
-			myNotes: function(NotesFactory, currentUser) {
+			myNotes: function(NotesFactory, currentUser, myNotebooks) {
 				return NotesFactory.fetchMyNotes(currentUser._id);
 			}
     	}
