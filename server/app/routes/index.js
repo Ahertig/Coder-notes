@@ -6,10 +6,12 @@ module.exports = router;
 
 router.use('/members', require('./members'));
 router.use('/public', require('./public-data'));
-// router.use('/notes', require('./notes'));
+router.use('/notebooks', require('./notebooks'));
+router.use('/notes', require('./notes'));
+// router.use('/trash', require('./trash'));
+	// empty the trash
+	// get trash
 router.use('/', require('./users'));
-// router.use('/notes', require('./old-notes'));
-
 
 // Make sure this is after all of
 // the registered routes!

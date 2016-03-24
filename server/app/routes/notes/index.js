@@ -23,4 +23,16 @@ router.get('/trash', function(req, res, next){
 		.then(null, next)
 });
 
+router.param('noteId', function(req, res, next, id) {
+  Note.findById(id)
+  .then(function(note) {
+    req.currentNote = note;
+    next();
+  })
+  .then(null, next)
+});
+
 router.use('/:noteId', require('./note'));
+
+
+

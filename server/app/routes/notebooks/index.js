@@ -1,5 +1,4 @@
-// Old Route: /api/:userId/notebooks
-// New Route: /api/notebooks
+// Route: /api/notebooks
 
 'use strict';
 var router = require('express').Router();
@@ -17,20 +16,14 @@ router.post('/', function(req, res, next) {
 	.then(null, next)
 })
 
-router.get('/', function(req, res, next) {
-	console.log(req.user)
-	res.json(req.user.myNotebooks.concat(req.user.sharedWithMeNotebooks))
-})
-
-//Get all own notebooks of a user
-
-// router.get('/own', function(req, res, next) {
-// 	res.send(req.user.myNotebooks)
+// // Get all own and shared notebooks of a user
+// router.get('/all', function(req, res, next) {
+// 	res.json(req.user.myNotebooks.concat(req.user.sharedWithMeNotebooks))
 // })
 
-// Another way to get shared notebooks:
-router.get('/own', function(req, res, next) {
-	mongoose.model('User').findById(req.user._id)
+//Get all own notebooks of a user
+router.get('/', function(req, res, next) {
+	req.user
 	.deepPopulate('myNotebooks.notes')
 	.then(function(user) {
 		res.json(user.myNotebooks)
@@ -38,14 +31,10 @@ router.get('/own', function(req, res, next) {
 	.then(null, next)
 })
 
-//Get all shared notebooks of a user
-// router.get('/shared', function(req, res, next) {
-// 	res.send(req.user.sharedWithMeNotebooks)
-// })
 
-// Another way to get shared notebooks:
+// Get shared notebooks:
 router.get('/shared', function(req, res, next) {
-	mongoose.model('User').findById(req.user._id)
+	req.user
 	.deepPopulate('sharedWithMeNotebooks.notes')
 	.then(function(user) {
 		res.json(user.sharedWithMeNotebooks)
@@ -61,9 +50,8 @@ router.param('notebookId', function(req, res, next, id) {
     next();
   })
   .then(null, next)
-});
+})
+
 
 router.use('/:notebookId', require('./notebook.js'));
-
-
 
