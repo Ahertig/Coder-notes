@@ -4,22 +4,24 @@ new zeditor({ wrapperField : document.querySelector('.zp1')});
 new zeditor({ wrapperField : document.querySelector('.zp2')});               	      
 
 </script>
-<div> My user id is {{user._id}}</div>
+<div class="muted"> My user id: {{user._id}}</div>
+<div class="alert alert-success" role="alert" ng-if="successmessage">{{successmessage}}</div>
+<div class="alert alert-error" role="alert" ng-if="errormessage">{{errormessage}}</div>
 <div class="col-lg-8 col-md-8 col-sm-12">
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h3>
 			<div class="zp1 section yin">
-				<span style="color: #ccc">Note subject:</span> <span id="notesubject" contenteditable="true">	{{currentNote.subject}}</span>
+				<span class="muted">Note subject:</span> <span id="notesubject" contenteditable="true">	{{currentNote.subject}}</span>
 			</div>
 			</h3>
 		</div>
-		<div>Note ID: {{currentNote._id}}</div>
+		<div class="muted">Note ID: {{currentNote._id}}</div>
 		<div class="panel-body">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 				<h4 class="panel-title">
-				<a data-toggle="collapse" data-parent="#accordion" ng-href="#{{currentNote._id}}" style="color: #ccc">Note details</a>
+				<a data-toggle="collapse" data-parent="#accordion" ng-href="#{{currentNote._id}}" class="muted">Note details</a>
 				</h4>
 				</div>
 				<div id="{{currentNote._id}}" class="panel-collapse collapse" style="color: #aaa">

@@ -11,7 +11,9 @@
 				</li>
 				<li><a href="#tags" data-toggle="tab">Tags</a>
 				</li>
-				<li class="last"><a href="#shared" data-toggle="tab">Shared</a>
+				<li><a href="#shared" data-toggle="tab">Shared</a>
+				</li>
+				<li class="last"><a href="#trash" data-toggle="tab"><i class="fa fa-trash-o"></i></a>
 				</li>
 			</ul> <!-- ./nav -->
 			<div class="tab-content">
@@ -32,7 +34,7 @@
 							<div class="list-group" id="side-menu-2">
 
 								<div ng-repeat="notebook in getCachedNotebooks()">
-									<div>Notebook ID:{{notebook._id}}</div>
+									<div class="muted">Notebook ID:{{notebook._id}}</div>
 									<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item">{{notebook.title}}</a>
 									<div class="panel-collapse collapse" id="{{notebook._id}}">
 										<div class="panel-body">
@@ -78,6 +80,10 @@
 							</div>
 						</div>
 					</div>
+				</div>
+				<div id="trash">
+					<p>No trash yet! Please delete me when you start coding :-D </p>
+				<!-- Add trashed notes here :-) -->
 				</div>
 			</div> <!-- ./tab-content -->
 		</div> <!-- ./panel-body -->

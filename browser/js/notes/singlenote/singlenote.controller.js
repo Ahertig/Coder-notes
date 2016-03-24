@@ -6,6 +6,9 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory) {
 	var stroutput = "";
 	var userID = $scope.user._id;
 
+    $scope.showmarkdown = false;
+    $scope.successmessage = null;
+
 	$scope.removeTag = function(noteId, tag) {
 		NotesFactory.removeTag(noteId, tag);
      }
@@ -23,24 +26,20 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory) {
 
 	$scope.save = function(){ 
 
-		// console.log("+++++ $scope.currentNote is", $scope.currentNote)
-		// console.log("** $rootScope.currentNote is ", $rootScope.currentNote);
-
-		// console.log("* saving...current note is", $rootScope.currentNote._id)
-		// console.log("** current notebook is ", $rootScope.currentNotebook._id)
-
 		var subjectToSave = $('#notesubject').html();
 		var bodyToSave = $('.zp2 > article').html();
-
-		// console.log("saving... subject is", subjectToSave)
-		// console.log("saving ... body is",bodyToSave)
 
 		$scope.savenote = {
 			"subject": subjectToSave,
 			"body": bodyToSave
 		}
 
-	NotesFactory.saveNote(userID, $rootScope.currentNotebook._id,$rootScope.currentNote._id, $scope.savenote);
+		NotesFactory.saveNote(userID, $rootScope.currentNotebook._id,$rootScope.currentNote._id, $scope.savenote)
+		 .then(function() {
+            $scope.successmessage="Note saved successfully!";
+        }, function(err) {
+            $scope.errormessage = "Error saving note" + err;
+		})
 	}
 
 	$scope.highlightPre = function() {
