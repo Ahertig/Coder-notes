@@ -25,7 +25,7 @@ app.config(function ($stateProvider) {
 			myNotes: function(NotesFactory, myNotebooks) {
 				return NotesFactory.fetchMyNotes();
 			},
-			notesCurrentNote: function(NotesFactory) {
+			currentNote: function(NotesFactory) {
 				return NotesFactory.getCurrentNote();
 			}
 

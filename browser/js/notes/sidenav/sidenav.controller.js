@@ -18,8 +18,9 @@ app.controller('SidenavCtrl', function($scope, $rootScope, NotesFactory) {
 	}
 
 	$scope.setCurrentNote = function(note, notebook){
-		console.log("this is current note", note);
+		// console.log("\nsidenav controller. setting current note BEFORE", note);
 		NotesFactory.setCurrentNote(note);
+		// console.log("\nsidenav controller. setting current note AFTER", note);
 		if (notebook){
 			// console.log("this is current note", note);
 			NotesFactory.setCurrentNotebook(notebook);

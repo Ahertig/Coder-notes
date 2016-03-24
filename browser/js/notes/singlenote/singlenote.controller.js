@@ -1,17 +1,12 @@
-app.controller('SingleNoteCtrl', function($scope, NotesFactory, notesCurrentNote) {
+app.controller('SingleNoteCtrl', function($scope, NotesFactory) {
 	$scope.savenote = {};
 	
 	$scope.openTW = false
 
 	var stroutput = "";
 	// var userID = $scope.user._id;
-    // $scope.currentNote = NotesFactory.getCurrentNote();
-    $scope.currentNote = currentNote;
+    $scope.currentNote = NotesFactory.getCurrentNote;
 
-    $scope.getNewCurrentNote = function() {
-    	$scope.currentNote = NotesFactory.getCurrentNote();
-    }
-    //$scope.currentNotebook = NotesFactory.getCurrentNotebook;
     $scope.showmarkdown = false;
     $scope.successmessage = null;
 
@@ -34,7 +29,8 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, notesCurrentNote
 		var subjectToSave = $('#notesubject').html();
 		console.log("**** here is subjectToSave", subjectToSave)
 		// var bodyToSave = $('#notebody').html();
-		var bodyToSave = $('#notebody > textarea').val();
+		// var bodyToSave = $('#notebody > textarea').val();
+		var bodyToSave = $('#notebody').val();
 
 		$scope.savenote = {
 			"subject": subjectToSave,
@@ -42,8 +38,8 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, notesCurrentNote
 		}
 		console.log("scope savenote", $scope.savenote)
 		console.log('saving', $scope.savenote)
-		var currentNotebook = $scope.getCurrentNotebook();
-		NotesFactory.saveNote(currentNotebook._id,currentNote._id, $scope.savenote)
+		$scope.currentNotebook = NotesFactory.getCurrentNotebook();
+		NotesFactory.saveNote($scope.currentNotebook._id, $scope.currentNote()._id, $scope.savenote)
 		// NotesFactory.saveNote($rootScope.currentNote._id, $scope.savenote)
 		 .then(function(note) {
             $scope.successmessage="Note saved successfully!" + note;

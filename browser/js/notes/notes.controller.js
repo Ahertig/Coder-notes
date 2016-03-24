@@ -1,6 +1,8 @@
-app.controller('NotesCtrl', function($scope, AuthService, myNotebooks, NotesFactory, $rootScope, myTags, mySharedNotebooks, myNotes,notesService) {
+app.controller('NotesCtrl', function($scope, AuthService, myNotebooks, NotesFactory, $rootScope, myTags, mySharedNotebooks, myNotes,notesService, currentNote) {
 
 	$scope.user = null;
+
+    $scope.currentNote = currentNote;
 
     // promises
     $scope.notes = myNotes;
