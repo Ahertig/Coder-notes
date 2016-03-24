@@ -220,7 +220,7 @@ app.factory('NotesFactory', function($http, $rootScope) {
 			// 	}
 			// }
             
-            NotesFactory.updateNoteInNotebookCache(notebookID, response.data, 'add');
+            NotesFactory.updateNoteInNotebookCache(notebookId, response.data, 'add');
 			//notesCache.push(response.data);
 			// console.log("adding new note to notesCache", response.data)
 

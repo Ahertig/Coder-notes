@@ -1,45 +1,37 @@
 app.controller('NavbarCtrl', function($scope, NotesFactory,notesService,AuthService,$rootScope) {
 
 
-     $scope.getcurrentNote = function(note){
-        $rootScope.currentNote = note;
-     }
+     $scope.setCurrentNote = NotesFactory.setCurrentNote;
+
      $scope.getnotes = function(){
-        $scope.notes = notesService.getallnotes();
-        //console.log("this is notes,", $scope.notes);
+        $scope.notes = NotesFactory.fetchMyNotes();
      }
-     $scope.newNote = function(notebookId) {
+
+     $scope.newNote = function(notebook) {
         // NotesFactory.getCachedNotebooks();
-        return AuthService.getLoggedInUser()
-        .then(function(user) {
-          return NotesFactory.newNote(user._id, notebookId);
-        }, function(err) {
-            console.error("Error retrieving user!", err)
+
+        NotesFactory.newNote(notebook._id)
+        .then(function(newNote){
+            NotesFactory.setCurrentNote(newNote);
+            NotesFactory.setCurrentNotebook(notebook);
+
         })
-        .then(function(newNote) {
-            console.log('here is the new note?', newNote)
-            console.log("BEFORE updating rootScope.currentNote to ",$rootScope.currentNote," and updating currentNotebook to", $rootScope.currentNotebook)
-            $rootScope.currentNote = newNote;
-            $rootScope.currentNotebook = NotesFactory.findNotebookById(notebookId);
-            console.log("AFTER updated rootScope.currentNote to ",$rootScope.currentNote," and updated currentNotebook to", $rootScope.currentNotebook)
-        })
+        .then(null, function(err){
+          console.error("Error saving new note!", err);
+       });
+
     }
 
     $scope.getNotebooks = function() {
-        return AuthService.getLoggedInUser()
-        .then(function(user) {
-          return NotesFactory.fetchMyNotebooks(user._id)
-          .then(function(notebooks) {
-            $scope.notebooks = notebooks;
-            console.log($scope.notebooks);
-          });
-        }, function(err) {
-            console.error("Error retrieving user!", err)
-        })
+       NotesFactory.fetchMyNotebooks()
+       .then(function(_notebooks){
+            $scope.notebooks = _notebooks;
+       })
+       .then(null, function(err){
+          console.error("Error retrieving notebooks!", err);
+       });
     }
-
-});
-
+ });
 app.filter('trunc', function () {
         return function (value, wordwise, max, tail) {
             if (!value) return '';
@@ -57,5 +49,5 @@ app.filter('trunc', function () {
             }
 
             return value + (tail || '...');
-        };
-    });
+    };
+});

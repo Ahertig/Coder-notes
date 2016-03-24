@@ -23,7 +23,7 @@
 				<div ng-repeat="notebook in notebooks">
 				<li>
 					<div>
-						<a ng-click="newNote(notebook._id)">Add a note to {{notebook.title}}</a>
+						<a ng-click="newNote(notebook)">Add a note to {{notebook.title}}</a>
 						<span class="pull-right text-muted">
 						</span>
 					</div
@@ -49,7 +49,7 @@
 			</a>
 			<ul class="dropdown-menu dropdown-messages">
 				<div ng-repeat="note in notes | limitTo: 3 | orderBy: note.lastUpdate" >
-				<li ng-click = getcurrentNote(note)>
+				<li ng-click = setCurrentNote(note)>
 <!-- 					<a href="#"> -->
 					<div>
 						<strong>{{note.subject}}</strong>
