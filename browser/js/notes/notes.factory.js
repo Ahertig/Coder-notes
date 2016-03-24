@@ -128,5 +128,9 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		return $http.put('/api/note/' +  noteId + '/tags', {tag: tag})
 	}
 
+    NotesFactory.deleteNotefromTrash = function(userID,notebookId,noteId){
+    	return $http.delete('/api/users/'+ userID+ '/notebooks/'+ notebookId+'/notes/'+ noteId)
+    }
+
 	return NotesFactory; 
 })
