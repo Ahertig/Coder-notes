@@ -6,7 +6,6 @@ var mongoose = require('mongoose');
 var Note = mongoose.model('Note');
 var Notebook = mongoose.model('Notebook');
 
-
 // Find all Notebooks (admin)
 router.get('/notebooks/all', function(req, res, next) {
 	Notebook.find()
@@ -60,3 +59,4 @@ router.get('/notes', function(req, res, next) {
 	})
 	.then(null, next)
 })
+

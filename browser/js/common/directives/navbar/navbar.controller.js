@@ -1,5 +1,6 @@
 app.controller('NavbarCtrl', function($scope, NotesFactory,notesService,AuthService,$rootScope) {
 
+
      $scope.getcurrentNote = function(note){
         $rootScope.currentNote = note;
      }
@@ -15,9 +16,12 @@ app.controller('NavbarCtrl', function($scope, NotesFactory,notesService,AuthServ
         }, function(err) {
             console.error("Error retrieving user!", err)
         })
-        .then(function(newNotebook) {
-            console.log('here is the new note?', newNotebook)
-            $rootScope.currentNote = newNotebook;
+        .then(function(newNote) {
+            console.log('here is the new note?', newNote)
+            console.log("BEFORE updating rootScope.currentNote to ",$rootScope.currentNote," and updating currentNotebook to", $rootScope.currentNotebook)
+            $rootScope.currentNote = newNote;
+            $rootScope.currentNotebook = NotesFactory.findNotebookById(notebookId);
+            console.log("AFTER updated rootScope.currentNote to ",$rootScope.currentNote," and updated currentNotebook to", $rootScope.currentNotebook)
         })
     }
 
