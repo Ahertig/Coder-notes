@@ -64,8 +64,7 @@
 									<div class="panel-collapse collapse" id="{{tag}}">
 										<div class="panel-body">
 											<div class="list-group">
-												<!-- <a ng-click="switchCurrentNote(note)" class="list-group-item" ng-repeat="note in notes | filter:filterByTag({{tag}}, {{notes}})">{{note.subject}}</a> -->	<a ng-click="switchCurrentNote(note)" class="list-group-item" ng-repeat="note in notes | filter:filters[tag]">{{note.subject}}</a>
-
+												<a ng-click="switchCurrentNote(note)" class="list-group-item" ng-repeat="note in notes | filter:filters[tag]">{{note.subject}}</a>
 											</div>
 										</div>
 									</div>
