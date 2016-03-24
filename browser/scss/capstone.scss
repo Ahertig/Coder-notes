@@ -14,6 +14,23 @@ panel-gh>.panel-heading {
 	margin-top: 0 !important;
 }
 
+.iiMdPreview textarea {
+	/* this copies bootstrap form-control class */
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    line-height: 1.5;
+    color: #55595c;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: .25rem;
+}
+.muted,
+a.muted {
+	color: #bcbcbc;
+}
+
 .nav-pills-sm {
 	border: 1px solid #ddd;
 	border-radius: 3px;
