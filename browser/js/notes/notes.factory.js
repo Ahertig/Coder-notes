@@ -6,6 +6,14 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		sharedNotebookCache = [],
 		tagsCache = [];
 
+	NotesFactory.findNotebookById = function(notebookId) {
+		for (var i = 0; i < notebookCache.length; i++) {
+			if(notebookId == notebookCache[i]._id) {
+				return notebookCache[i];
+			}
+		}
+	}
+
 
 	NotesFactory.getCachedNotebooks = function() {
 		return notebookCache;
@@ -75,6 +83,7 @@ app.factory('NotesFactory', function($http, $rootScope) {
 	NotesFactory.getNote = function (noteId) {
 		return $http.get('/api/note/' + noteId)
 		.then(function(response) {
+			console.log("I just got note", response.data)
 			return response.data;
 		},
 		function(err) {
@@ -83,9 +92,30 @@ app.factory('NotesFactory', function($http, $rootScope) {
 	}
 
 	NotesFactory.saveNote = function (userID,notebookId,noteId,noteUpdate) {
-		// console.log("inside NotesFactory.saveNote. noteID:",noteId,"notebookId:", notebookId, "\nnoteUpdate: ",noteUpdate)
+		console.log("inside NotesFactory.saveNote. \nnoteID:",noteId,"notebookId:", notebookId, "\nnoteUpdate: ",noteUpdate)
 		return $http.put('/api/users/' + userID + '/notebooks/' + notebookId + '/notes/' + noteId, noteUpdate)
 		.then(function(response) {
+
+			for (var i = 0; i < notebookCache.length; i++) {
+				if(notebookCache[i]._id == notebookId) {
+					// console.log("notebookCache[i]",notebookCache[i])
+					for (var j = 0; j < notebookCache[i].notes.length; j++) {
+						console.log("notebookCache[i].notes[j]._id is", notebookCache[i].notes[j]._id, "and note id is", noteId);
+						if (notebookCache[i].notes[j]._id == noteId) {
+							console.log("pushing new note", response.data)
+							notebookCache[i].notes[j] = response.data;
+							console.log("notebookCache[i].notes[j] is",notebookCache[i].notes[j])
+						}
+					}
+
+				// notebookCache[i].notes.push(response.data);
+				// console.log("** adding new note to notebook cache", response.data)
+				// console.log("***** notebookCache is now",notebookCache);
+				}
+			}
+
+
+			console.log("response data is", response.data)
 			return response.data;
 		},
 		function(err) {
@@ -96,11 +126,13 @@ app.factory('NotesFactory', function($http, $rootScope) {
 	NotesFactory.newNote = function (userId, notebookId) {
 		return $http.post('/api/users/' + userId + '/notebooks/' + notebookId + '/notes/')
 		.then(function(response) {
+			console.log("here is response to newNote", response.data)
 			for (var i = 0; i < notebookCache.length; i++) {
+				console.log("notebookCache[i]", notebookCache[i], "and notebookId", notebookId)
 				if(notebookCache[i]._id == notebookId) {
 					notebookCache[i].notes.push(response.data);
 					// console.log("** adding new note to notebook cache", response.data)
-					// console.log("***** notebookCache is now",notebookCache);
+					console.log("***** notebookCache is now",notebookCache);
 				}
 			}
 

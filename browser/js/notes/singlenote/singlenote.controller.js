@@ -25,8 +25,8 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory) {
      // $scope.save = NotesFactory.saveNote;
 
 	$scope.save = function(){ 
-
 		var subjectToSave = $('#notesubject').html();
+		console.log("**** here is subjectToSave", subjectToSave)
 		// var bodyToSave = $('#notebody').html();
 		var bodyToSave = $('#notebody > textarea').val();
 
@@ -34,7 +34,7 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory) {
 			"subject": subjectToSave,
 			"body": bodyToSave
 		}
-
+		console.log("scope savenote", $scope.savenote)
 		console.log('saving', $scope.savenote)
 		NotesFactory.saveNote(userID, $rootScope.currentNotebook._id,$rootScope.currentNote._id, $scope.savenote)
 		 .then(function(note) {
