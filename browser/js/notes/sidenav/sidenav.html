@@ -24,7 +24,7 @@
 								<div><p>Search My Notes by Text</p></div>
 								<input ng-model="searchNotes" width="25" type="text" class="form-control" placeholder="Search My Notes">
 							<div class='list-group' id="side-menu-1">
-      							<a class="list-group-item" ng-repeat="note in notes | filter:searchNotes" ng-click="switchCurrentNote(note)">{{note.subject}}</a>
+      							<a class="list-group-item" ng-repeat="note in notes | filter:searchNotes | filter:notebook.trash === true" ng-click="switchCurrentNote(note)">{{note.subject}}</a>
 							</div>
 						</div>
 					</div>
@@ -35,7 +35,7 @@
 						<div class="panel-body">
 							<div class="list-group" id="side-menu-2">
 
-								<div ng-repeat="notebook in getCachedNotebooks()">
+								<div ng-repeat="notebook in getCachedNotebooks() | filter:notebook.trash === true">
 									<div class="muted">Notebook ID:{{notebook._id}}</div>
 									<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item">{{notebook.title}}</a>
 									<div class="panel-collapse collapse" id="{{notebook._id}}">
@@ -96,10 +96,49 @@
 						</div>
 					</div>
 				</div>
-				<div id="trash">
-					<p>No trash yet! Please delete me when you start coding :-D </p>
-				<!-- Add trashed notes here :-) -->
+
+				<div class="tab-pane fade" id="trash">
+					<div class="panel panel-default">
+						<div class="panel-heading">My Trash</div>
+						<div class="panel-body">
+							<div class="list-group" id="side-menu-5">
+
+								<div>
+									<a data-toggle="collapse" ng-href="#trash-{{notebook._id}}" class="list-group-item">Notebook</a>
+									<div class="panel-collapse collapse" id="trash-{{notebook._id}}">
+										<div class="panel-body">
+											<div class="list-group">
+												<a ng-click="switchCurrentNote(oneNote,notebook)" class="list-group-item" ng-repeat="notebook in notebooks | filter:notebook.trash !== true">{{notebook.title}}
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div>
+									<a data-toggle="collapse" ng-href="#trashnote-{{note._id}}" class="list-group-item">Note</a>
+									<div class="panel-collapse collapse" id="trashnote-{{note._id}}">
+										<div class="panel-body">
+											<div class="list-group">
+												<a ng-click="switchCurrentNote(oneNote,notebook)" class="list-group-item" ng-repeat="note in notes | filter:notebook.trash !== true">{{note.subject}}
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+					</div>
 				</div>
+
+
+
+
+
+
+
 				<!-- <input width="25" type="text" placeholder="Search All Public Notes"> -->
 				<!-- <input ng-model="searchNotes" width="25" type="text" placeholder="Search My Notes">
 

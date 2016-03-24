@@ -7,12 +7,21 @@ var mongoose = require('mongoose');
 var Note = mongoose.model('Note');
 
 
+// router.get('/', function(req, res, next){
+// 		req.user.getNonTrashNotes(req.query)
+// 		.then(function(notes) {
+// 		    res.json(notes);
+// 		})
+// 		.then(null, next)
+// });
+
+
 router.get('/', function(req, res, next){
-		req.user.getNonTrashNotes(req.query)
-		.then(function(notes) {
-		    res.json(notes);
-		})
-		.then(null, next)
+    req.user.getAllNotes(req.query)
+    .then(function(notes) {
+        res.json(notes);
+    })
+    .then(null, next)
 });
 
 router.param('noteId', function(req, res, next, id) {
