@@ -132,6 +132,25 @@ userSchema.methods.getNotesInTrash = function(tags) {
     })
 }
 
+// userSchema.methods.getNonTrashNotes = function(tags) {
+//     return this.getAllNotes(tags)
+//     .then(function(notes) {
+//         return _.filter(notes, {trash: false})
+//     })
+// }
+
+// userSchema.methods.getNotesInTrash = function(tags) {
+//     return this.getAllNotes(tags)
+//     .then(function(notes) {
+//         return _.filter(notes, {trash: true})
+//     })
+// }
+
+// req.user.myNotebooks.concat(req.user.sharedWithMeNotebooks)
+
+
+
+
 //bind didn't work,so I just passed values with variables here
 userSchema.methods.createNotebook = function(body) {
    var thisUser = this;

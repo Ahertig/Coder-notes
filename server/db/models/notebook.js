@@ -128,7 +128,7 @@ notebookSchema.methods.addToTrash = function() {
     })
 }
 
-// ? Not sure what this method should return
+// This method returns notebook
 notebookSchema.methods.removeFromTrash = function() {
     var thisNotebook = this;
     return this.set({trash: false}).save()
@@ -141,9 +141,6 @@ notebookSchema.methods.removeFromTrash = function() {
         return thisNotebook;
     })
 }
-
-
-
 
 
 mongoose.model('Notebook', notebookSchema);

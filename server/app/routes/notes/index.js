@@ -15,14 +15,6 @@ router.get('/', function(req, res, next){
 		.then(null, next)
 });
 
-router.get('/trash', function(req, res, next){
-		req.user.getNotesInTrash(req.query)
-		.then(function(notes) {
-		    res.json(notes);
-		})
-		.then(null, next)
-});
-
 router.param('noteId', function(req, res, next, id) {
   Note.findById(id)
   .then(function(note) {
