@@ -88,7 +88,7 @@
 				<!-- <input width="25" type="text" placeholder="Search All Public Notes"> -->
 				<input ng-model="searchNotes" width="25" type="text" placeholder="Search My Notes">
 
-      	<a class="list-group-item" ng-repeat="note in notes | filter:searchNotes" ng-click="switchCurrentNote(note)" >{{note.subject}}</a>
+      	<a class="list-group-item" ng-repeat="note in notes | filter:searchNotes" ng-click="switchCurrentNote(note)">{{note.subject}}</a>
 
 			</div> <!-- ./tab-content -->
 		</div> <!-- ./panel-body -->

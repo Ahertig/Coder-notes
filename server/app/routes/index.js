@@ -1,13 +1,15 @@
 'use strict';
 var router = require('express').Router();
+var mongoose = require('mongoose');
+
 module.exports = router;
 
 router.use('/members', require('./members'));
-router.use('/users', require('./users'));
 router.use('/public', require('./public-data'));
+router.use('/notebooks', require('./notebooks'));
 router.use('/notes', require('./notes'));
-router.use('/note', require('./note'));
-
+router.use('/trash', require('./trash'));
+router.use('/', require('./users'));
 
 // Make sure this is after all of
 // the registered routes!

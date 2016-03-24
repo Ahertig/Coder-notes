@@ -1,4 +1,4 @@
-// Route: /api/userID/notebooks/notebookId
+// Route: /api/notebooks/:notebookId
 
 'use strict';
 var router = require('express').Router({mergeParams: true});
@@ -10,6 +10,9 @@ var Notebook = mongoose.model('Notebook')
 router.get('/', function(req, res){
 	res.json(req.currentNotebook)
 })
+
+// api/notebooks/trash
+
 
 //Update a notebook
 router.put('/', function(req, res, next){
@@ -43,4 +46,7 @@ router.delete('/share', function(req, res, next) {
 	})
 })
 
-router.use('/notes', require('../notes'));
+router.use('/notes', require('./notebook.notes.js'));
+router.use('/trash', require('./notebook.trash.js'));
+
+
