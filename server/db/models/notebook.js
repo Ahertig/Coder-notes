@@ -116,14 +116,11 @@ notebookSchema.methods.addToTrash = function() {
     var thisNotebook = this;
     return this.set({trash: true}).save()
     .then(function(notebook) {
-        // console.log('notebook before promise map: ', notebook)
         return Promise.map(notebook.notes, function(note) {
             return note.addToTrash()
         })
     })
     .then(function(notes) {
-        // console.log('whatever promise map returns: ', notes)
-         // console.log('thisNotebook: ', thisNotebook)
         return thisNotebook;
     })
 }
@@ -141,7 +138,6 @@ notebookSchema.methods.removeFromTrash = function() {
         return thisNotebook;
     })
 }
-
 
 mongoose.model('Notebook', notebookSchema);
 
