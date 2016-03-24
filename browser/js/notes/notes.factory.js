@@ -129,6 +129,18 @@ app.factory('NotesFactory', function($http, $rootScope) {
 	NotesFactory.trashNote = function(noteId) {
 		return $http.put('/api/notes/' + noteId + '/trash/add')
 		.then(function(response) {
+			console.log('response from server', response.data._id )
+			for (var i = 0; i < notebookCache.length; i++) {
+				console.log('getting into first loop.')
+				for (var j = 0; j < notebookCache[i].notes.length; j++) {
+					console.log('getting into second loop. note ids: ', notebookCache[i].notes[j]._id)
+					if (notebookCache[i].notes[j]._id === response.data._id) {
+						console.log('it matches!')
+						notebookCache[i].notes.splice(j, 1);
+					}
+				}
+			}
+
 			return response.data;
 		})
 	}
