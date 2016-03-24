@@ -1,5 +1,6 @@
 // Route /api/notes
 
+
 'use strict';
 var router = require('express').Router({mergeParams: true});
 module.exports = router;

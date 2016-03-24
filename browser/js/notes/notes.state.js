@@ -10,21 +10,25 @@ app.config(function ($stateProvider) {
 			currentUser: function(NotesFactory,AuthService) {
 				return AuthService.getLoggedInUser()
 			},
-			myNotebooks: function(NotesFactory, currentUser) {
+			myNotebooks: function(NotesFactory) {
 				// console.log("usercontent state. fetching notes for",currentUser._id)
-				return NotesFactory.fetchMyNotebooks(currentUser._id)
+				return NotesFactory.fetchMyNotebooks()
 			},
-			mySharedNotebooks: function(NotesFactory,currentUser) {
+			mySharedNotebooks: function(NotesFactory) {
 					// console.log("usercontent state. fetching sharednotebooks for",currentUser._id)
-				return NotesFactory.fetchMySharedNotebooks(currentUser._id);
+				return NotesFactory.fetchMySharedNotebooks();
 			},
 			myTags: function(NotesFactory) {
 				// console.log("usercontent state. fetching tags for",currentUser._id)
 				return NotesFactory.fetchMyTags();
 			},
-			myNotes: function(NotesFactory, currentUser) {
-				return NotesFactory.fetchMyNotes(currentUser._id);
+			myNotes: function(NotesFactory, myNotebooks) {
+				return NotesFactory.fetchMyNotes();
+			},
+			currentNote: function(NotesFactory) {
+				return NotesFactory.getCurrentNote();
 			}
+
     	}
 	});
 });
