@@ -114,6 +114,16 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		})	
 	}
 
+	NotesFactory.deleteNote = function(noteId) {
+		return $http.delete('/api/note/' +noteId + '/trash/')
+		.then(function(response) {
+			return response.data
+		})
+
+		// also need to delete the note from the notebook?
+
+	}
+
 	NotesFactory.addTag = function(noteId, tag) {
         // var tagToAdd = tagsCache.push(tag)
         $rootScope.currentNote.tags.push(tag);
