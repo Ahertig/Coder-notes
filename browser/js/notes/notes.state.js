@@ -18,9 +18,9 @@ app.config(function ($stateProvider) {
 					// console.log("usercontent state. fetching sharednotebooks for",currentUser._id)
 				return NotesFactory.fetchMySharedNotebooks(currentUser._id);
 			},
-			myTags: function(NotesFactory,currentUser) {
+			myTags: function(NotesFactory) {
 				// console.log("usercontent state. fetching tags for",currentUser._id)
-				return NotesFactory.fetchMyTags(currentUser._id);
+				return NotesFactory.fetchMyTags();
 			},
 			myNotes: function(NotesFactory, currentUser) {
 				return NotesFactory.fetchMyNotes(currentUser._id);
