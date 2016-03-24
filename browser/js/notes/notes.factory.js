@@ -1,7 +1,7 @@
 app.factory('NotesFactory', function($http, $rootScope) {
 
 	var NotesFactory = {},
-		notesCache = [],
+		//notesCache = [],
 		notebookCache = [],
 		sharedNotebookCache = [],
 		tagsCache = [], 
@@ -10,6 +10,56 @@ app.factory('NotesFactory', function($http, $rootScope) {
 
 	
 
+	
+	NotesFactory.getCurrentNote = function() {
+		return currentNote;
+	}
+	NotesFactory.setCurrentNote = function(_currentNote) {
+		currentNote = _currentNote;
+	}
+	NotesFactory.getCurrentNotebook = function() {
+		return currentNotebook;
+	}
+	NotesFactory.setCurrentNotebook = function(_currentNotebook) {
+		currentNotebook = _currentNotebook;
+	}
+
+	NotesFactory.getCachedNotebooks = function() {
+		return notebookCache;
+	}
+    
+    // this is to add/ update/ delete note 
+    NotesFactory.updateNoteInNotebookCache = function(notebookID, note, action){
+    	var notebook = NotesFactory.findNotebookById(notebookID); 
+
+ 		if(action === 'add'){ 
+         	notebook.notes.push(note);         	
+ 		}
+ 		if(action === 'update'){
+ 			var index = NotesFactory.findNoteIndex(notebook,note._id);
+ 			angular.copy(note,notebook.notes[index]);
+ 		}
+ 		if(action === 'delete'){
+ 			var index = NotesFactory.findNoteIndex(notebook,note._id);
+ 			notebook.notes.splice(index,1)
+ 		}
+	}
+    // this is to add/ update/ delete notebooks 
+	 NotesFactory.updateNotebookCache = function(notebook, action) {
+
+        if(action === 'add'){ 
+         	notebookCache.push(notebook);         	
+ 		}
+ 		if(action === 'update'){
+ 			var oldNotebook = NotesFactory.findNotebookById(notebook._id);
+ 			angular.copy(notebook,oldNotebook);
+ 		}
+ 		if(action === 'delete'){
+ 			var index = NotesFactory.findNotebookIndex(notebook._id);
+ 			notebookCache.splice(index,1);
+ 		}
+	}
+
 	NotesFactory.findNotebookById = function(notebookId) {
 		for (var i = 0; i < notebookCache.length; i++) {
 			if(notebookId == notebookCache[i]._id) {
@@ -17,10 +67,28 @@ app.factory('NotesFactory', function($http, $rootScope) {
 			}
 		}
 	}
+	NotesFactory.findNotebookIndex = function(notebookId) {
+		for (var i = 0; i < notebookCache.length; i++) {
+			if(notebookId == notebookCache[i]._id) {
+				return i;
+			}
+		}
+	}
 
-
-	NotesFactory.getCachedNotebooks = function() {
-		return notebookCache;
+ //    NotesFactory.findNoteById = function(notebook, noteId) {
+	// 	for (var i = 0; i < notebook.notes.length; i++) {
+	// 		if(noteId == notebook.notes[i]._id) {
+	// 			return notebook.notes[i];
+	// 		}
+	// 	}
+	// }
+    
+     NotesFactory.findNoteIndex = function(notebook, noteId) {
+		for (var i = 0; i < notebook.notes.length; i++) {
+			if(noteId == notebook.notes[i]._id) {
+				return i;
+			}
+		}
 	}
 
 
@@ -59,14 +127,15 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		return temp;
 	}
 
-	NotesFactory.fetchMyNotes = function(userId) {
-		return $http.get('/api/notes')
-		.then(function(response) {
-			angular.copy(response.data, notesCache);
-			// console.log("notes cache is now", notesCache);
-			// return replaceCode(response.data);
-			return notesCache;
-		})
+	NotesFactory.fetchMyNotes = function() {
+  		//!get all note from notebookCache!
+		// return $http.get('/api/notes')
+		// .then(function(response) {
+		// 	angular.copy(response.data, notesCache);
+		// 	// console.log("notes cache is now", notesCache);
+		// 	// return replaceCode(response.data);
+		// 	return notesCache;
+		// })
 
 	}
 
