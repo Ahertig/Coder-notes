@@ -1,34 +1,26 @@
-// Route: /api/users/userID/notebooks/notebookId/notes/noteId
+// api/notes/:noteId
 
 'use strict';
-var router = require('express').Router();
+var router = require('express').Router({mergeParams: true});
 module.exports = router;
 var mongoose = require('mongoose');
-// var Note = mongoose.model('Note');
+var Note = mongoose.model('Note');
 
-// Find one Note
-router.get('/', function(req, res) {
-	res.json(req.currentNote)
-})
+router.get('/', function(req,res, next) {
+	res.json(req.currentNote);
+});
 
 // Update one Note
 router.put('/', function(req, res, next) {
-	//console.log("updating one note")
 	return req.currentNote.set(req.body).save()
 	.then(function(updatedNote) {
-		//console.log("updated note", updatedNote)
 		res.json(updatedNote)
 	})
 	.then(null, next)
 })
 
-// Delete one Note
-router.delete('/', function(req, res, next) {
-	req.currentNote.remove()
-	.then(function(response) {
-		res.json(response)
-	})
-	.then(null, next)
-})
-
 router.use('/tags', require('./note.tags.js'));
+router.use('/trash', require('./note.trash.js'));
+
+
+

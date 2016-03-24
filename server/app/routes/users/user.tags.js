@@ -1,4 +1,4 @@
-// Route /api/users/:userId/tags
+// Route /api/tags
 
 'use strict';
 var router = require('express').Router();
@@ -11,13 +11,14 @@ var Note = mongoose.model('Note');
 // Get all tags for one user
 // Error handling could be improved!
 
+// move to method on User schema
 router.get('/', function(req, res, next){
 	var multidimensionalArrayOfNodeIds = [], 
 		arrayOfNoteIds = [], 
 		multidimensionalArrayOfTags = [], 
 		arrayOfTags = [];
 
-    multidimensionalArrayOfNodeIds = req.currentUser.myNotebooks.map(function(element) { return element.notes })
+    multidimensionalArrayOfNodeIds = req.user.myNotebooks.map(function(element) { return element.notes })
     
     // now reduce that to a one-dimensional list
     arrayOfNoteIds = multidimensionalArrayOfNodeIds.reduce(function(a, b) {
