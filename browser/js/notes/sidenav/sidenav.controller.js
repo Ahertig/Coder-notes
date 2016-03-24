@@ -19,3 +19,8 @@ app.controller('SidenavCtrl', function($scope, $rootScope, NotesFactory) {
 
 
 })
+
+
+app.filter('filterByTag', function (tag, notes) { 
+        return notes.tags.indexOf(tag) !== -1
+    });

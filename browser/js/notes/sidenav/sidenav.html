@@ -60,11 +60,12 @@
 							<div class="list-group" id="side-menu-3">
 
 								<div ng-repeat="tag in tags">
-									<a ng-href="#{{tag}}" data-toggle="collapse" class="list-group-item" ng-click="filters.tag = tag">{{tag}}</a>
+									<a ng-href="#{{tag}}" data-toggle="collapse" class="list-group-item" ng-click="filters[tag] = tag">{{tag}}</a>
 									<div class="panel-collapse collapse" id="{{tag}}">
 										<div class="panel-body">
 											<div class="list-group">
-												<a ng-click="switchCurrentNote(note)" class="list-group-item" ng-repeat="note in notes | filter:filters.tag">{{note.subject}}</a>
+												<!-- <a ng-click="switchCurrentNote(note)" class="list-group-item" ng-repeat="note in notes | filter:filterByTag({{tag}}, {{notes}})">{{note.subject}}</a> -->	<a ng-click="switchCurrentNote(note)" class="list-group-item" ng-repeat="note in notes | filter:filters[tag]">{{note.subject}}</a>
+
 											</div>
 										</div>
 									</div>
