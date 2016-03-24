@@ -41,6 +41,11 @@ var userSchema = new mongoose.Schema({
 
 userSchema.plugin(deepPopulate);
 
+userSchema.virtual('allNotebooks').get(function() {
+    return this.myNotebooks.concat(this.sharedWithMeNotebooks)
+});
+
+
 userSchema.pre('save', function(next) {
     var thisUser = this; 
     if (this.myNotebooks.length === 0) {
@@ -132,23 +137,35 @@ userSchema.methods.getNotesInTrash = function(tags) {
     })
 }
 
-// userSchema.methods.getNonTrashNotes = function(tags) {
-//     return this.getAllNotes(tags)
-//     .then(function(notes) {
-//         return _.filter(notes, {trash: false})
-//     })
-// }
+userSchema.methods.getNotebooksInTrash = function() {
+    return _.filter(this.myNotebooks, {trash: true})
+}
 
-// userSchema.methods.getNotesInTrash = function(tags) {
-//     return this.getAllNotes(tags)
-//     .then(function(notes) {
-//         return _.filter(notes, {trash: true})
-//     })
-// }
+userSchema.methods.getTrash = function () {
+    var notes, notebooks;
+    var self = this;
+    return self.getNotesInTrash()
+    .then(function(trashnotes) {
+        notes = trashnotes
+        return notes;
+    })
+    .then(function(notes) {
+        notebooks = self.getNotebooksInTrash()
+        return notebooks
+    })
+    .then(function(notebooks) {
+        return notebooks.concat(notes)
+    })
+}
 
-// req.user.myNotebooks.concat(req.user.sharedWithMeNotebooks)
-
-
+userSchema.methods.clearTrash = function() {
+    return this.getTrash()
+    .then(function(result) {
+        return Promise.map(result, function(item) {
+            return item.remove()
+        })
+    })
+}
 
 
 //bind didn't work,so I just passed values with variables here
