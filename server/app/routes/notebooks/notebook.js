@@ -47,6 +47,6 @@ router.delete('/share', function(req, res, next) {
 })
 
 router.use('/notes', require('./notebook.notes.js'));
-// router.use('/trash', require('./notebook.trash.js'));
+router.use('/trash', require('./notebook.trash.js'));
 
 

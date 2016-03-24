@@ -1,21 +1,26 @@
-// /api/notebook/:notebookId/trash
+// /api/notebooks/:notebookId/trash
 
-// 'use strict';
-// var router = require('express').Router();
-// module.exports = router;
-// var mongoose = require('mongoose');
+'use strict';
+var router = require('express').Router();
+module.exports = router;
+var mongoose = require('mongoose');
 
-// // Add to Trash
-// router.put('/add', function(req, res) {
-// 	req.currentNotebook.addToTrash()
-// 		.then(function(note) {
-// 			res.json(note)		
-// 		})
-// })
-// // Remove from Trash
-// router.put('/remove', function(req, res) {
-// 	req.currentNotebook.removeFromTrash()
-// 		.then(function(note) {
-// 			res.json(note)		
-// 		})
-// })
+// Add to Trash
+// ? Not sure what this route should return
+router.put('/add', function(req, res, next) {
+	req.currentNotebook.addToTrash()
+		.then(function(notebook) {
+			res.json(notebook)
+		})
+		.then(null, next)
+})
+
+// Remove from Trash
+// ? Not sure what this route should return
+router.put('/remove', function(req, res, next) {
+	req.currentNotebook.removeFromTrash()
+		.then(function(notebook) {
+			res.json(notebook)
+		})
+		.then(null, next)
+})

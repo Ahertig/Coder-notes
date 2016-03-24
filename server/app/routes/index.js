@@ -8,9 +8,7 @@ router.use('/members', require('./members'));
 router.use('/public', require('./public-data'));
 router.use('/notebooks', require('./notebooks'));
 router.use('/notes', require('./notes'));
-// router.use('/trash', require('./trash'));
-	// empty the trash
-	// get trash
+router.use('/trash', require('./trash'));
 router.use('/', require('./users'));
 
 // Make sure this is after all of

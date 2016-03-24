@@ -19,6 +19,10 @@ var notebookSchema = new mongoose.Schema({
         type: Date, 
         default: Date.now
     },
+    trash: {
+        type: Boolean, 
+        default: false
+    },
     notes: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Note'
@@ -106,6 +110,40 @@ notebookSchema.methods.removeShare = function(userEmail) {
         return thisNotebook;
     })
 }
+
+// ? Not sure what this method should return
+notebookSchema.methods.addToTrash = function() {
+    var thisNotebook = this;
+    return this.set({trash: true}).save()
+    .then(function(notebook) {
+        // console.log('notebook before promise map: ', notebook)
+        return Promise.map(notebook.notes, function(note) {
+            return note.addToTrash()
+        })
+    })
+    .then(function(notes) {
+        // console.log('whatever promise map returns: ', notes)
+         // console.log('thisNotebook: ', thisNotebook)
+        return thisNotebook;
+    })
+}
+
+// ? Not sure what this method should return
+notebookSchema.methods.removeFromTrash = function() {
+    var thisNotebook = this;
+    return this.set({trash: false}).save()
+    .then(function(notebook) {
+        return Promise.map(notebook.notes, function(note) {
+            return note.removeFromTrash()
+        })
+    })
+    .then(function(notes) {
+        return thisNotebook;
+    })
+}
+
+
+
 
 
 mongoose.model('Notebook', notebookSchema);
