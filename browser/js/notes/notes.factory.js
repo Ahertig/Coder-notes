@@ -156,7 +156,6 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		return $http.get('/api/notes')
 		.then(function(response) {
 			angular.copy(response.data, notesCache);
-			console.log("fetchMyNotes - notes cache is now", notesCache);
 			return notesCache;
 		})
 	}
@@ -164,9 +163,7 @@ app.factory('NotesFactory', function($http, $rootScope) {
 	NotesFactory.fetchMyTags = function() {
 		return $http.get('/api/tags')
 		.then(function(response) {
-			// console.log("got tag data", response.data)
 			angular.copy(response.data, tagsCache);
-			// console.log("tagsCache", tagsCache)
 			return tagsCache;
 		}, function(err) {
 			console.error("could not fetch tags for user",userId)
@@ -179,14 +176,12 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		.then(function(response) {
 			console.log("I just got note", response.data)
 			return response.data;
-		},
-		function(err) {
+		}, function(err) {
 			console.error("could not find note", err)
 		})
 	}
 
-	NotesFactory.saveNote = function (notebookId,noteId,noteUpdate) {
-		
+	NotesFactory.saveNote = function (noteId,noteUpdate) {
 		return $http.put('/api/notes/' + noteId, noteUpdate)
 		.then(function(response) {
 
@@ -203,12 +198,11 @@ app.factory('NotesFactory', function($http, $rootScope) {
 	NotesFactory.newNote = function (notebookId) {
 		return $http.post('/api/notebooks/' + notebookId + '/notes')
 		.then(function(response) {
-			console.log("here is response to newNote", response.data)
-			console.log('notebook id ', notebookId)
-			console.log('response from server', response.data._id )
+			// console.log("here is response to newNote", response.data)
+			// console.log('notebook id ', notebookId)
+			// console.log('response from server', response.data._id )
             
             NotesFactory.updateNoteInNotebookCache(notebookId, response.data, 'add');
-
 			return response.data;
 		}, 
 		function(err) {
@@ -216,8 +210,8 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		})	
 	}
 
-	NotesFactory.newNotebook = function() {
-		return $http.post('/api/notebooks/')
+	NotesFactory.newNotebook = function(title) {
+		return $http.post('/api/notebooks/', {title: title})
 		.then(function(response) {
 			return response.data;
 		},
@@ -227,11 +221,22 @@ app.factory('NotesFactory', function($http, $rootScope) {
 	}
 
 	NotesFactory.trashNote = function(noteId) {
-		return $http.put('/api/notes/' +noteId, {trash: true})
+		return $http.put('/api/notes/' + noteId + '/trash/add')
 		.then(function(response) {
+			console.log('response from server', response.data._id )
+			for (var i = 0; i < notebookCache.length; i++) {
+				console.log('getting into first loop.')
+				for (var j = 0; j < notebookCache[i].notes.length; j++) {
+					console.log('getting into second loop. note ids: ', notebookCache[i].notes[j]._id)
+					if (notebookCache[i].notes[j]._id === response.data._id) {
+						console.log('it matches!')
+						notebookCache[i].notes.splice(j, 1);
+					}
+				}
+			}
+
 			return response.data;
 		})
-
 	}
 
 	NotesFactory.addTag = function(noteId, tag) {

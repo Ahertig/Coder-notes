@@ -24,7 +24,7 @@ $(document).ready(function(){
     var currentUser = result.currentUser;
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", 'http://localhost:1337/api/users/' +  currentUser._id + '/notebooks/own', true);
+    xhr.open("GET", 'http://localhost:1337/api/notebooks/', true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
     xhr.onreadystatechange = function() {//Call a function when the state changes.
@@ -112,7 +112,7 @@ function saveNote(subject, notebook, body, tags) {
 
 
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", 'http://localhost:1337/api/users/' + currentUser._id + '/notebooks/' + selectedNotebookObj._id + '/notes/', true);
+      xhr.open("POST", 'http://localhost:1337/api/notebooks/' + selectedNotebookObj._id + '/notes/', true);
       xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
       xhr.onreadystatechange = function() {

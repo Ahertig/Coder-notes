@@ -22,10 +22,10 @@ app.controller('NavbarCtrl', function($scope, NotesFactory,notesService,AuthServ
 
     }
 
-    $scope.newNotebook = function() {
+    $scope.newNotebook = function(notebookTitle) {
         return AuthService.getLoggedInUser()
         .then(function(user) {
-          return NotesFactory.newNotebook();
+          return NotesFactory.newNotebook(notebookTitle);
         }, function(err) {
             console.error("Error retrieving user!", err)
         })
@@ -64,3 +64,5 @@ app.filter('trunc', function () {
             return value + (tail || '...');
     };
 });
+
+

@@ -38,7 +38,7 @@ app.controller('tonicCtrl', function($scope, TonicFactory) {
 			$scope.run = true;
 			$scope.tonicMsg = 'Hide Tonic'
 		}
-
+		console.log('selectionText: ', TonicFactory.getSelectionText())
 		document.getElementById("my-element").innerHTML = "";
 		var notebook = Tonic.createNotebook({
 		    element: document.getElementById("my-element"),

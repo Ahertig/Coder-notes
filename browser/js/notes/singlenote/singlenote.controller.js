@@ -45,6 +45,10 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory) {
       })
     }
 
+  $scope.deleteNote = function(noteId) {
+    NotesFactory.trashNote(noteId);
+  }
+
   $scope.highlightPre = function() {
     hljs.initHighlighting();
   }

@@ -92,12 +92,20 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 				</i>
 			</button>
 
-			<a href="#" ng-click="deleteNote(currentNote._id)">
+			<a href="#" ng-click="deleteNote(currentNote._id)" ng-show="currentNote.trash === false">
 				<button type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete a note">
 						<i class="fa fa-minus-square"> delete note
 						</i>
 				</button>
 			</a>
+
+			<a href="#" ng-click="restoreNote(currentNote._id)" ng-show="currentNote.trash === true">
+				<button type="button" class="btn btn-success"  data-toggle="tooltip" title="Restorea note">
+						<i class="fa fa-plus-square"> restore from trash
+						</i>
+				</button>
+			</a>
+
 		</div>
 		<hr />
 
