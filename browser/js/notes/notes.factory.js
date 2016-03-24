@@ -4,7 +4,11 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		notesCache = [],
 		notebookCache = [],
 		sharedNotebookCache = [],
-		tagsCache = [];
+		tagsCache = [], 
+		currentNote,
+		currentNotebook;
+
+	
 
 	NotesFactory.findNotebookById = function(notebookId) {
 		for (var i = 0; i < notebookCache.length; i++) {
