@@ -1,45 +1,66 @@
 app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory) {
-	$scope.savenote = {};
-	
-	$scope.openTW = false
+  $scope.savenote = {};
+  
+  $scope.openTW = false
 
-	var stroutput = "";
-	var userID = $scope.user._id;
-	var noteID = $rootScope.currentNote._id;
-	var notebookID = $rootScope.currentNotebook._id;
+  var stroutput = "";
+  var userID = $scope.user._id;
 
+    $scope.showmarkdown = false;
+    $scope.successmessage = null;
 
-	$scope.removeTag = function(noteId, tag) {
-		NotesFactory.removeTag(noteId, tag);
+  $scope.removeTag = function(noteId, tag) {
+    NotesFactory.removeTag(noteId, tag);
+     }
+
+    $scope.addTag = function(noteId, tag) {
+    NotesFactory.addTag(noteId, tag);
+    $scope.openTW = false;
+     }
+
+     $scope.openTagWindow = function() {
+      $scope.openTW = true;
+     }
+
+     // $scope.save = NotesFactory.saveNote;
+
+  $scope.save = function(){ 
+
+    var subjectToSave = $('#notesubject').html();
+    // var bodyToSave = $('#notebody').html();
+    var bodyToSave = $('#notebody > textarea').val();
+
+    $scope.savenote = {
+      "subject": subjectToSave,
+      "body": bodyToSave
+    }
+
+    console.log('saving', $scope.savenote)
+    NotesFactory.saveNote(userID, $rootScope.currentNotebook._id,$rootScope.currentNote._id, $scope.savenote)
+     .then(function(note) {
+            $scope.successmessage="Note saved successfully!" + note;
+        }, function(err) {
+            $scope.errormessage = "Error saving note" + err;
+    })
   }
-
-  $scope.addTag = function(noteId, tag) {
-		NotesFactory.addTag(noteId, tag);
-		$scope.openTW = false;
-  }
-
-  $scope.openTagWindow = function() {
-   	$scope.openTW = true;
-   }
 
   $scope.deleteNote = function(noteId) {
     console.log(noteId);
     return NotesFactory.deleteNote(noteId);
   }
 
-  $scope.save = function(){ 
-  	var childArray = $('article').children();
-  	for(var i = 0; i < childArray.length; i++) {
-  	    stroutput += childArray[i].outerHTML;
-  	 }
-  	$scope.savenote = {
-  		"subject": $rootScope.currentNote.subject,
-  		"body": stroutput
-  	}
-  	console.log("update note: stroutput:",stroutput, "savenote:",$scope.savenote )
-   	NotesFactory.saveNote(userID, notebookID,noteID, $scope.savenote);
-   }
+  $scope.highlightPre = function() {
+    hljs.initHighlighting();
+  }
 
+  $scope.addPre = function() {
+    var domElement = $('#testdiv')[0];
+    var codeValue = domElement.innerHTML;
+    var preElement = $('<pre><code>' + codeValue + '</code></pre>');
+    $(domElement).replaceWith(preElement);
+    hljs.initHighlighting();
+
+  }
 
 
 })
