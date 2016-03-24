@@ -108,6 +108,24 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		})	
 	}
 
+	NotesFactory.newNotebook = function() {
+		return $http.post('/api/notebooks/')
+		.then(function(response) {
+			return response.data;
+		},
+		function(err) {
+			console.error("could not create notebook", err)
+		})
+	}
+
+	NotesFactory.trashNote = function(noteId) {
+		return $http.put('/api/notes/' +noteId, {trash: true})
+		.then(function(response) {
+			return response.data;
+		})
+
+	}
+
 	NotesFactory.addTag = function(noteId, tag) {
         $rootScope.currentNote.tags.push(tag);
 		return $http.post('/api/notes/' +  noteId + '/tags', {tag: tag})
