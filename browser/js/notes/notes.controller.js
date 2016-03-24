@@ -10,8 +10,8 @@ app.controller('NotesCtrl', function($scope, AuthService, myNotebooks, NotesFact
 
     // set the 'current note' to item 0 in the array by default. 
     // not sure if this logic is correct.
-    $rootScope.currentNote = $scope.notes[0];
-    $rootScope.currentNotebook = $scope.notebooks[0];
+    // $rootScope.currentNote = $scope.notes[0];
+    // $rootScope.currentNotebook = $scope.notebooks[0];
     //console.log("this is myNote,", myNotes );
     //console.log("this is", notesService);
     notesService.addAllnotes(myNotes);

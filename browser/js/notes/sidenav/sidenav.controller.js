@@ -18,8 +18,10 @@ app.controller('SidenavCtrl', function($scope, $rootScope, NotesFactory) {
 	}
 
 	$scope.setCurrentNote = function(note, notebook){
+		console.log("this is current note", note);
 		NotesFactory.setCurrentNote(note);
 		if (notebook){
+			// console.log("this is current note", note);
 			NotesFactory.setCurrentNotebook(notebook);
 		}
 	}

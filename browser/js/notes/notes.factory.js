@@ -8,10 +8,15 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		currentNotebook;
 	
 	NotesFactory.getCurrentNote = function() {
-		return currentNote;
+		if(currentNote) return currentNote;
+		else {
+			var _notes = NotesFactory.fetchMyNotebooks();
+			return _notes[0];
+		}
 	}
 	NotesFactory.setCurrentNote = function(_currentNote) {
 		currentNote = _currentNote;
+		console.log("this is factory currentNote ", currentNote);
 	}
 	NotesFactory.getCurrentNotebook = function() {
 		return currentNotebook;

@@ -24,7 +24,11 @@ app.config(function ($stateProvider) {
 			},
 			myNotes: function(NotesFactory, myNotebooks) {
 				return NotesFactory.fetchMyNotes();
+			},
+			notesCurrentNote: function(NotesFactory) {
+				return NotesFactory.getCurrentNote();
 			}
+
     	}
 	});
 });
