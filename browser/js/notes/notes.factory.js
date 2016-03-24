@@ -51,7 +51,6 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		return $http.get('/api/notes')
 		.then(function(response) {
 			angular.copy(response.data, notesCache);
-			// console.log("notes cache is now", notesCache);
 			// return replaceCode(response.data);
 			return notesCache;
 		})
@@ -59,12 +58,10 @@ app.factory('NotesFactory', function($http, $rootScope) {
 	}
 
 	// this function is working!
-	NotesFactory.fetchMyTags = function(userId) {
+	NotesFactory.fetchMyTags = function() {
 		return $http.get('/api/tags')
 		.then(function(response) {
-			// console.log("got tag data", response.data)
 			angular.copy(response.data, tagsCache);
-			// console.log("tagsCache", tagsCache)
 			return tagsCache;
 		}, function(err) {
 			console.error("could not fetch tags for user",userId)
@@ -76,14 +73,12 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		return $http.get('/api/notes/' + noteId)
 		.then(function(response) {
 			return response.data;
-		},
-		function(err) {
+		}, function(err) {
 			console.error("could not find note", err)
 		})
 	}
 
 	NotesFactory.saveNote = function (noteId,noteUpdate) {
-		// console.log("inside NotesFactory.saveNote. noteID:",noteId,"notebookId:", notebookId, "\nnoteUpdate: ",noteUpdate)
 		return $http.put('/api/notes/' + noteId, noteUpdate)
 		.then(function(response) {
 			return response.data;
@@ -101,13 +96,10 @@ app.factory('NotesFactory', function($http, $rootScope) {
 			for (var i = 0; i < notebookCache.length; i++) {
 				if(notebookCache[i]._id == notebookId) {
 					notebookCache[i].notes.push(response.data);
-					// console.log("** adding new note to notebook cache", response.data)
-					// console.log("***** notebookCache is now",notebookCache);
 				}
 			}
 
 			notesCache.push(response.data);
-			// console.log("adding new note to notesCache", response.data)
 
 			return response.data;
 		}, 
@@ -117,17 +109,14 @@ app.factory('NotesFactory', function($http, $rootScope) {
 	}
 
 	NotesFactory.addTag = function(noteId, tag) {
-        // var tagToAdd = tagsCache.push(tag)
         $rootScope.currentNote.tags.push(tag);
-		return $http.post('/api/note/' +  noteId + '/tags', {tag: tag})
+		return $http.post('/api/notes/' +  noteId + '/tags', {tag: tag})
 	}
 
 	NotesFactory.removeTag = function(noteId, tag) {
 		var index = $rootScope.currentNote.tags.indexOf(tag);
-		// console.log(index, $rootScope.currentNote.tags)
         $rootScope.currentNote.tags.splice(index, 1)
-        // console.log(index, $rootScope.currentNote.tags)
-		return $http.put('/api/note/' +  noteId + '/tags', {tag: tag})
+		return $http.put('/api/notes/' +  noteId + '/tags', {tag: tag})
 	}
 
 	return NotesFactory; 
