@@ -21,8 +21,10 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">My Notes</div>
 						<div class="panel-body">
+								<div><p>Search My Notes by Text</p></div>
+								<input ng-model="searchNotes" width="25" type="text" class="form-control" placeholder="Search My Notes">
 							<div class='list-group' id="side-menu-1">
-								<a ng-click="switchCurrentNote(note)" class="list-group-item" ng-repeat="note in notes">{{note.subject}}</a>
+      							<a class="list-group-item" ng-repeat="note in notes | filter:searchNotes" ng-click="switchCurrentNote(note)">{{note.subject}}</a>
 							</div>
 						</div>
 					</div>
@@ -50,20 +52,29 @@
 						</div>
 					</div>
 				</div>
+
 				<div class="tab-pane fade" id="tags">
 					<div class="panel panel-default">
-					<div class="panel-heading">My Tags</div>
-					<!-- <div class="panel-body">
-						<div class="list-group" id="side-menu-3">
-							<a class="list-group-item" ng-repeat="tag in tags">{{tag}}</a>
-						</div>
-					</div> -->
+						<div class="panel-heading">My Tags</div>
+						<div class="panel-body">
+							<div class="list-group" id="side-menu-3">
 
-					<div class="panel-body">
-						<div class="btn" id="side-menu-3">
-							<a class="list-group-item" ng-repeat="tag in tags">{{tag}}</a>
+								<div ng-repeat="tag in tags">
+									<a ng-href="#{{tag}}" data-toggle="collapse" class="list-group-item" ng-click="filters.tag = tag">{{tag}}</a>
+									<div class="panel-collapse collapse" id="{{tag}}">
+										<div class="panel-body">
+											<div class="list-group">
+												<a ng-click="switchCurrentNote(note)" class="list-group-item" ng-repeat="note in notes | filter:filters.tag">{{note.subject}}</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
 						</div>
 					</div>
+				</div>
+
 					</div>
 				</div>
 				<div class="tab-pane fade" id="shared">
@@ -92,9 +103,9 @@
 				<!-- Add trashed notes here :-) -->
 				</div>
 				<!-- <input width="25" type="text" placeholder="Search All Public Notes"> -->
-				<input ng-model="searchNotes" width="25" type="text" placeholder="Search My Notes">
+				<!-- <input ng-model="searchNotes" width="25" type="text" placeholder="Search My Notes">
 
-      	<a class="list-group-item" ng-repeat="note in notes | filter:searchNotes" ng-click="switchCurrentNote(note)">{{note.subject}}</a>
+      	<a class="list-group-item" ng-repeat="note in notes | filter:searchNotes | filter:filters.tag" ng-click="switchCurrentNote(note)">{{note.subject}}</a> -->
 
 			</div> <!-- ./tab-content -->
 		</div> <!-- ./panel-body -->
