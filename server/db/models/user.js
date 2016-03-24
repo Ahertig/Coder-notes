@@ -100,7 +100,6 @@ userSchema.methods.getAllNotes = function(tags) {
     }
 
     if(!tagsArr.length) {
-       console.log(arrayOfNoteIds, tagsArr)
        return mongoose.model('Note').find({
             _id: {
                 $in: arrayOfNoteIds
