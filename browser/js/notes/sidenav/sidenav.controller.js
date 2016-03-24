@@ -16,6 +16,7 @@ app.controller('SidenavCtrl', function($scope, $rootScope, NotesFactory) {
 	}
 
 	$scope.filters = {};
+	$scope.items = ['notebook', 'note']
 
 
 })
