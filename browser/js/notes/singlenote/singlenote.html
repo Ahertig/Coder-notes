@@ -16,7 +16,6 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 			</div>
 			</h3>
 		</div>
-		<div class="muted">Note ID: {{currentNote._id}}</div>
 		<div class="panel-body">
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -24,23 +23,53 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 				<a data-toggle="collapse" data-parent="#accordion" ng-href="#{{currentNote._id}}" class="muted">Note details</a>
 				</h4>
 				</div>
-				<div id="{{currentNote._id}}" class="panel-collapse collapse" style="color: #aaa">
+				<div id="{{currentNote._id}}" class="panel-collapse collapse muted" >
 					<div class="panel-body">
-						<div class="col-lg-4">Size: {{currentNote.size}} kb</div>
+						<div class="col-lg-3">Note ID: {{currentNote._id}}</div>
+						<div class="col-lg-3">Size: {{currentNote.size}} kb</div>
 
-						<div class="col-lg-4">Created: {{currentNote.dateCreated | date : 'short'}}</div>
-						<div class="col-lg-4">Last updated: {{currentNote.lastUpdate | date : 'short'}}</div>
+						<div class="col-lg-3">Created: {{currentNote.dateCreated | date : 'short'}}</div>
+						<div class="col-lg-3">Last updated: {{currentNote.lastUpdate | date : 'short'}}</div>
 					</div>
 				</div>
 			</div>
+			<!-- <div class="form-group"> -->
+
+
 			<div class="form-group">
-				<div class="zp2 section yin">     
-					<article id="notebody" contenteditable="true" class="content">
-						{{currentNote.body}}
-					</article>
-				</div> <!-- zen pen end -->
+<!-- 			
+				<h5>Form control:</h5>
+				<textarea class="form-control" id="notebody" ng-model="currentNote.body">{{currentNote.body}}</textarea> -->
+<!-- 				<h5 class="muted">Note body:</h5>
+				{{currentNote.body}} -->
+				
+				<!-- markdown preview shows below -->
+				<div marked="currentNote.body" />
+				<!-- end mrkdown preview -->	
+
 			</div>
 
+			<div id="notebody" class='iiMdPreview' textarea-class="form-control" textarea-name='markdown' />
+
+
+			<!-- the following lines are for ZENPEN -->
+
+				<!-- <div class="zp2 section yin">      -->
+					<!-- <article id="notebody" contenteditable="true" class="content"> -->
+						<!-- {{currentNote.body}} -->
+					<!-- </article> -->
+				<!-- </div> zen pen end -->
+
+			<!-- END ZENPEN -->
+		</div>
+
+<!-- 			<h4>Markdown preview</h4>
+			<div marked="currentNote.body">
+
+			</div>
+			<h4> A different preview field</h4>
+			<div class='iiMdPreview' id="notebody" textarea-name='markdown' />
+ -->
 			<button class="btn btn-primary" ng-click="save()">Save Changes</button>
 
 

@@ -27,16 +27,18 @@ app.controller('SingleNoteCtrl', function($scope, $rootScope, NotesFactory) {
 	$scope.save = function(){ 
 
 		var subjectToSave = $('#notesubject').html();
-		var bodyToSave = $('.zp2 > article').html();
+		// var bodyToSave = $('#notebody').html();
+		var bodyToSave = $('#notebody > textarea').val();
 
 		$scope.savenote = {
 			"subject": subjectToSave,
 			"body": bodyToSave
 		}
 
+		console.log('saving', $scope.savenote)
 		NotesFactory.saveNote(userID, $rootScope.currentNotebook._id,$rootScope.currentNote._id, $scope.savenote)
-		 .then(function() {
-            $scope.successmessage="Note saved successfully!";
+		 .then(function(note) {
+            $scope.successmessage="Note saved successfully!" + note;
         }, function(err) {
             $scope.errormessage = "Error saving note" + err;
 		})
