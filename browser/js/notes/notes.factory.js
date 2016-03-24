@@ -108,8 +108,8 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		})	
 	}
 
-	NotesFactory.newNotebook = function() {
-		return $http.post('/api/notebooks/')
+	NotesFactory.newNotebook = function(title) {
+		return $http.post('/api/notebooks/', {title: title})
 		.then(function(response) {
 			return response.data;
 		},
