@@ -21,7 +21,7 @@ router.post('/', function(req, res, next) {
 })
 // 
 // Remove a tag from the note
-router.delete('/', function(req, res, next) {
+router.put('/', function(req, res, next) {
 	req.currentNote.removeTag(req.body.tag)
 	.then(function(note) {
 		res.json(note)		

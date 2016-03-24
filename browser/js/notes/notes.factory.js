@@ -15,7 +15,7 @@ app.factory('NotesFactory', function($http, $rootScope) {
 	// This function is working!
 	NotesFactory.fetchMyNotebooks = function(userId) {
 		// console.log("in notesfactory fetchMyNotebooks. fetching data for user",userId)
-		return $http.get('/api/users/'+ userId + '/notebooks/own')
+		return $http.get('/api/notebooks')
 		.then(function(response) {
 			angular.copy(response.data, notebookCache);
 			// console.log("notebook cache is now", notebookCache)
@@ -28,7 +28,7 @@ app.factory('NotesFactory', function($http, $rootScope) {
 
 	NotesFactory.fetchMySharedNotebooks = function(userId) {
 		// console.log("notesfactory. fetching share notebooks for", userId)
-		return $http.get('/api/users/' + userId + '/notebooks/shared')
+		return $http.get('/api/notebooks/shared')
 		.then(function(response) {
 			angular.copy(response.data, sharedNotebookCache);
 			// console.log("shared notebook cache is now", sharedNotebookCache)
@@ -48,7 +48,7 @@ app.factory('NotesFactory', function($http, $rootScope) {
 	}
 
 	NotesFactory.fetchMyNotes = function(userId) {
-		return $http.get('/api/users/'+ userId + '/usernotes')
+		return $http.get('/api/notes')
 		.then(function(response) {
 			angular.copy(response.data, notesCache);
 			// console.log("notes cache is now", notesCache);
@@ -60,7 +60,7 @@ app.factory('NotesFactory', function($http, $rootScope) {
 
 	// this function is working!
 	NotesFactory.fetchMyTags = function(userId) {
-		return $http.get('/api/users/'+ userId + '/tags')
+		return $http.get('/api/tags')
 		.then(function(response) {
 			// console.log("got tag data", response.data)
 			angular.copy(response.data, tagsCache);
@@ -73,7 +73,7 @@ app.factory('NotesFactory', function($http, $rootScope) {
 
 	// can we store current note on NotesFactory.currentNote?
 	NotesFactory.getNote = function (noteId) {
-		return $http.get('/api/note/' + noteId)
+		return $http.get('/api/notes/' + noteId)
 		.then(function(response) {
 			return response.data;
 		},
@@ -82,9 +82,9 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		})
 	}
 
-	NotesFactory.saveNote = function (userID,notebookId,noteId,noteUpdate) {
+	NotesFactory.saveNote = function (notebookId,noteId,noteUpdate) {
 		// console.log("inside NotesFactory.saveNote. noteID:",noteId,"notebookId:", notebookId, "\nnoteUpdate: ",noteUpdate)
-		return $http.put('/api/users/' + userID + '/notebooks/' + notebookId + '/notes/' + noteId, noteUpdate)
+		return $http.put('/api/notes/' + noteId, noteUpdate)
 		.then(function(response) {
 			return response.data;
 		},
@@ -94,7 +94,7 @@ app.factory('NotesFactory', function($http, $rootScope) {
 	}
 
 	NotesFactory.newNote = function (userId, notebookId) {
-		return $http.post('/api/users/' + userId + '/notebooks/' + notebookId + '/notes/')
+		return $http.post('/api/notebooks/' + notebookId + '/notes')
 		.then(function(response) {
 			for (var i = 0; i < notebookCache.length; i++) {
 				if(notebookCache[i]._id == notebookId) {
