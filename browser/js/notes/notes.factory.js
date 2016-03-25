@@ -131,6 +131,8 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	// 		}
 	// 	}
 	// }
+
+
     
      NotesFactory.findNoteIndex = function(notebook, noteId) {
 		for (var i = 0; i < notebook.notes.length; i++) {
@@ -256,12 +258,22 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 
 	NotesFactory.addTag = function(noteId, tag) {
         NotesFactory.updateTagsCache(tag, 'add');
-		return $http.post('/api/note/' +  noteId + '/tags', {tag: tag});
+		return $http.post('/api/notes/' +  noteId + '/tags', {tag: tag});
 	}
 
 	NotesFactory.removeTag = function(noteId, tag) {
         NotesFactory.updateTagsCache(tag, 'delete');
-		return $http.put('/api/note/' +  noteId + '/tags', {tag: tag});
+		return $http.put('/api/notes/' +  noteId + '/tags', {tag: tag});
+	}
+
+	NotesFactory.findParentNotebook = function(noteId) {
+		for (var i = 0; i < notebookCache.length; i++) {
+			for (var j = 0; j < notebookCache[i].notes.length; j++) {
+				if(notebookCache[i].notes[j]._id == noteId) {
+					return notebookCache[i]._id;
+				}
+			}
+		}
 	}
 
 
