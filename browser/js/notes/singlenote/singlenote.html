@@ -83,29 +83,48 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 
 		<div class="panel-footer">
 			<h4>Tags</h4>
-			<button ng-repeat="tag in currentNote().tags" type="button" class="btn btn-outline btn-default" data-toggle="tooltip" title="Remove tag">{{tag}} <a ng-click="removeTag(currentNote()._id, tag)">x</a></button>
+				<h5>All tags testing</h5>
+				<div class="list-group">
+					<div class="list-group-item" ng-repeat="tag in currentNote().tags track by $index">{{tag}} 
+						<!-- angular requires index -->
+						{{$index}}
+						<a ng-click="removeTag(currentNote()._id, tag)">
+						<i class="glyphicon glyphicon-remove"> </i>
+						</a>
 
-			<button ng-if="openTW" type="button" class="btn btn-outline btn-default" data-toggle="tooltip" title="Tag to Add">
-				<form  ng-submit="addTag(currentNote()._id, tagToAdd)">
-					<input ng-model="tagToAdd"></input>
-				</form>
-			</button>
+					</div>
+				</div>
+
+<!-- 			<button ng-repeat="tag in currentNote().tags" class="btn btn-outline btn-default" title="Remove tag">{{tag}} <a ng-click="removeTag(currentNote()._id, tag)">x</a></button>
+ -->
+<!-- 			<button ng-if="showTagEditWindow" type="button" class="btn btn-outline btn-default" data-toggle="tooltip" title="Tag to Add"> -->
+<!-- 			<form ng-submit="addTag(currentNote()._id, tagToAdd)">
+			<input class="form-control" ng-model="tagToAdd"></input>
+			</form> -->
+			<!-- </button> -->
 				
 
+			<div class="input-group"> 
+				<span class="input-group-addon">+</span> 
+				<form ng-submit="addTag(currentNote()._id, tagToAdd)">
+				<input ng-model="tagToAdd" type="text" class="form-control" placeholder="Add a tag"> 
+				</form>
+			</div>
+<!-- 
 			<button ng-click="openTagWindow()" type="button" class="btn btn-success btn-circle"  data-toggle="tooltip" title="Add a tag">
 				<i class="fa fa-plus">
 				</i>
+			</button> -->
+
+			<button ng-click="deleteNote(currentNote()._id)" ng-show="!currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
+				<i class="fa fa-minus-square"> delete note
+				</i>
 			</button>
 
-				<button ng-click="deleteNote(currentNote()._id)" ng-show="!currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
-						<i class="fa fa-minus-square"> delete note
-						</i>
-				</button>
-
-				<button ng-click="restoreNote(currentNote()._id)" ng-show="currentNote().trash"type="button" class="btn btn-success"  data-toggle="tooltip" title="Restore note">
-						<i class="fa fa-plus-square"> restore from trash
-						</i>
-				</button>
+			<button ng-click="restoreNote(currentNote()._id)" ng-show="currentNote().trash"type="button" class="btn btn-success"  data-toggle="tooltip" title="Restore note">
+				<i class="fa fa-plus-square"> restore from trash
+				</i>
+			</button>
 
 		</div>
 		<hr />
