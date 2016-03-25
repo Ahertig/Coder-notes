@@ -222,6 +222,7 @@ app.factory('NotesFactory', function($http, $rootScope) {
 	}
 
 	NotesFactory.trashNote = function(noteId) {
+		console.log("inside NotesFactory.trashNote",noteId)
 		return $http.put('/api/notes/' + noteId + '/trash/add')
 		.then(function(response) {
 			console.log('response from server', response.data._id )
@@ -237,6 +238,9 @@ app.factory('NotesFactory', function($http, $rootScope) {
 			}
 
 			return response.data;
+		},
+		function(err) {
+			console.error("error trashing note", err)
 		})
 	}
 
