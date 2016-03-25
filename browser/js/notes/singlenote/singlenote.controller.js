@@ -24,7 +24,6 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
 
      // $scope.save = NotesFactory.saveNote;
 
-
     $scope.save = function(){ 
       var subjectToSave = $('#notesubject').html();
       // var bodyToSave = $('#notebody').html();
@@ -63,9 +62,8 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
 
   }
 
-
+  // Tonic Setup
   $scope.tonic = true;
-  $scope.tonicBtn = "Run"
   $scope.closeTonic = function() {
     document.getElementById("my-element").innerHTML = "";
     document.getElementById("close-tonic-btn").innerHTML = "";
@@ -74,6 +72,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
   $scope.runTonic = function() {
         $scope.tonic = true;
         document.getElementById("my-element").innerHTML = "";
+        document.getElementById("close-tonic-btn").innerHTML = "";
         document.getElementById("close-tonic-btn").innerHTML = "<button>close tonic</button>";
 
         var notebook = Tonic.createNotebook({
@@ -82,10 +81,11 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
         })       
 
         $scope.tonic = false;
-
   }
+
 })
 
+// Tonic Keypress Directive
 app.directive('enterKey', function(TonicFactory) {
     return function(scope, element, attrs) {
         element.bind("keydown keypress", function(event) {
