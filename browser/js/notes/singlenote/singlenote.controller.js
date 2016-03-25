@@ -1,11 +1,11 @@
-app.controller('SingleNoteCtrl', function($scope, NotesFactory) {
-  	$scope.savenote = {};
-	
-  	$scope.showTagEditWindow = false
+app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
+    $scope.savenote = {};
 
-  	var stroutput = "";
+    $scope.showTagEditWindow = false
+
+    var stroutput = "";
     $scope.currentNote = NotesFactory.getCurrentNote;
-
+    //$scope.currentNotebook = NotesFactory.getCurrentNotebook;
     $scope.showmarkdown = false;
     $scope.successmessage = null;
 
@@ -26,13 +26,13 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory) {
 
         // update Notes cache
         NotesFactory.updateNoteInNotebookCache(currentNotebook, newNote, 'update');
-        
+
         // generate success message
         $scope.tagsavesuccess = "Tag saved successfully!";
 
-      }, function(err) {
-        console.error("error saving tag",err)
-      })
+        }, function(err) {
+          console.error("error saving tag",err)
+        })
     }
 
     $scope.openTagWindow = function() {
@@ -42,20 +42,26 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory) {
     $scope.save = function(){ 
       var subjectToSave = $('#notesubject').html();
       var bodyToSave = $('#notebody').val();
+      var currentNotebook;
 
-      $scope.savenote = {
-        "subject": subjectToSave,
-        "body": bodyToSave
-      }
+    $scope.savenote = {
+      "subject": subjectToSave,
+      "body": bodyToSave
+    }  
 
-      $scope.currentNotebook = NotesFactory.getCurrentNotebook();
-
-      NotesFactory.saveNote($scope.currentNotebook._id, $scope.currentNote()._id, $scope.savenote)
-      .then(function(note) {
-        $scope.successmessage="Note saved successfully!" + note;
-        }, function(err) {
-        $scope.errormessage = "Error saving note" + err;
+    NotesFactory.getCurrentNotebook()
+    .then(function(_currentNotebook){
+      currentNotebook = _currentNotebook;
       })
+    .then(function(){
+      console.log("this is current Notebook, ", currentNotebook);
+      return NotesFactory.saveNote(currentNotebook._id,$scope.currentNote()._id, $scope.savenote)
+    })
+    .then(function(note) {
+        $scope.successmessage="Note saved successfully!" + note;
+      }, function(err) {
+        $scope.errormessage = "Error saving note" + err;
+      })    
     }
 
     $scope.deleteNote = function(noteId) {
@@ -67,6 +73,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory) {
       hljs.initHighlighting();
     }
 
+
     $scope.addPre = function() {
       var domElement = $('#testdiv')[0];
       var codeValue = domElement.innerHTML;
@@ -75,5 +82,41 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory) {
       hljs.initHighlighting();
     }
 
+    // Tonic Setup
+    $scope.tonic = true;
+    $scope.closeTonic = function() {
+    document.getElementById("my-element").innerHTML = "";
+    document.getElementById("close-tonic-btn").innerHTML = "";
+    }
+
+    $scope.runTonic = function() {
+      $scope.tonic = true;
+      document.getElementById("my-element").innerHTML = "";
+      document.getElementById("close-tonic-btn").innerHTML = "";
+      document.getElementById("close-tonic-btn").innerHTML = "<button>close tonic</button>";
+
+      var notebook = Tonic.createNotebook({
+        element: document.getElementById("my-element"),
+        source: TonicFactory.getSelectionText()
+      })       
+
+    $scope.tonic = false;
+    }
 
 })
+
+// Tonic Keypress Directive
+app.directive('enterKey', function(TonicFactory) {
+    return function(scope, element, attrs) {
+        element.bind("keydown keypress", function(event) {
+            var keyCode = event.which || event.keyCode;
+            if (keyCode === 13 && event.ctrlKey) {    
+                scope.$apply(function() {
+                    scope.$eval(attrs.enterKey);
+                });
+                event.preventDefault();
+            }
+        });
+    };
+})
+
