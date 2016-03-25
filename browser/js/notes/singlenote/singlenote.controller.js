@@ -1,5 +1,6 @@
 app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
     $scope.savenote = {};
+    $scope.tagform = {};
 
     $scope.showTagEditWindow = false
 
@@ -14,6 +15,10 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
     }
 
     $scope.addTag = function(noteId, tag) {
+      if(!tag) { 
+        $scope.tagsavefailure = "Cannot save an empty tag!"; 
+        return;
+      }
       console.log("running addTag", noteId, tag)
       NotesFactory.addTag(noteId, tag)
       .then(function(newNote) {
@@ -29,9 +34,11 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
 
         // generate success message
         $scope.tagsavesuccess = "Tag saved successfully!";
+        $scope.tagToAdd = "";
 
         }, function(err) {
           console.error("error saving tag",err)
+
         })
     }
 

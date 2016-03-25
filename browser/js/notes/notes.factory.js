@@ -67,6 +67,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 		else if(action == 'delete'){
 			tagsCache.splice(tagsCache.indexOf(tag),1);
 		}
+		console.log("tags cache is now", tagsCache)
 
 	}
    
