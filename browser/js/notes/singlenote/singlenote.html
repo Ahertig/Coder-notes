@@ -2,7 +2,6 @@
 // Initiate ZenPen
 new zeditor({ wrapperField : document.querySelector('.zp1')});               	      
 new zeditor({ wrapperField : document.querySelector('.zp2')});               	      
-
 </script>
 <div class="muted"> My user id: {{user._id}}</div>
 <div class="alert alert-success" role="alert" ng-if="successmessage">{{successmessage}}</div>
@@ -38,110 +37,31 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 					</div>
 				</div>
 			</div>
-			<!-- <div class="form-group"> -->
-
-
-			<div class="form-group">
-<!-- 			
-				<h5>Form control:</h5>
-				<textarea class="form-control" id="notebody" ng-model="currentNote().body">{{currentNote().body}}</textarea> -->
-<!-- 				<h5 class="muted">Note body:</h5>
-				{{currentNote().body}} -->
-				
-				<!-- markdown preview shows below -->
-				<!-- <div marked="currentNote().body" /> -->
-				<!-- end mrkdown preview -->	
-
-			</div>
 
 			<textarea id="notebody" ng-model="currentNote().body" placeholder="{{currentNote().body}}" class="form-control" >
 			</textarea>
 
-<!-- 			<div id="notebody" text="init text" class='iiMdPreview' textarea-class="form-control" textarea-name='currentNote().body' /> -->
-
-
-			<!-- the following lines are for ZENPEN -->
-
-				<!-- <div class="zp2 section yin">      -->
-					<!-- <article id="notebody" contenteditable="true" class="content"> -->
-						<!-- {{currentNote().body}} -->
-					<!-- </article> -->
-				<!-- </div> zen pen end -->
-
-			<!-- END ZENPEN -->
 		</div>
 
-<!-- 			<h4>Markdown preview</h4>
-			<div marked="currentNote().body">
+		<button class="btn btn-primary" ng-click="save()">Save Changes</button>
 
-			</div>
-			<h4> A different preview field</h4>
-			<div class='iiMdPreview' id="notebody" textarea-name='markdown' />
- -->
-			<button class="btn btn-primary" ng-click="save()">Save Changes</button>
+		<div class="alert alert-success" role="alert" ng-if="tagsavesuccess">{{tagsavesuccess}}</div>
 
+		<tagfooter></tagfooter>
+	</div>
 
-		<div class="panel-footer">
-			<h4>Tags</h4>
-				<h5>All tags testing</h5>
-				<div class="list-group">
-					<div class="list-group-item" ng-repeat="tag in currentNote().tags track by $index">{{tag}} 
-						<!-- angular requires index -->
-						{{$index}}
-						<a ng-click="removeTag(currentNote()._id, tag)">
-						<i class="glyphicon glyphicon-remove"> </i>
-						</a>
+	<div class="panel panel-default">
+		<div class="panel-heading">Trash</div>
+		<div class="panel-body">
+		<button ng-click="deleteNote(currentNote()._id)" ng-show="!currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
+			<i class="fa fa-minus-square"> delete note
+			</i>
+		</button>
 
-					</div>
-				</div>
-
-<!-- 			<button ng-repeat="tag in currentNote().tags" class="btn btn-outline btn-default" title="Remove tag">{{tag}} <a ng-click="removeTag(currentNote()._id, tag)">x</a></button>
- -->
-<!-- 			<button ng-if="showTagEditWindow" type="button" class="btn btn-outline btn-default" data-toggle="tooltip" title="Tag to Add"> -->
-<!-- 			<form ng-submit="addTag(currentNote()._id, tagToAdd)">
-			<input class="form-control" ng-model="tagToAdd"></input>
-			</form> -->
-			<!-- </button> -->
-				
-
-			<div class="input-group"> 
-				<span class="input-group-addon">+</span> 
-				<form ng-submit="addTag(currentNote()._id, tagToAdd)">
-				<input ng-model="tagToAdd" type="text" class="form-control" placeholder="Add a tag"> 
-				</form>
-			</div>
-<!-- 
-			<button ng-click="openTagWindow()" type="button" class="btn btn-success btn-circle"  data-toggle="tooltip" title="Add a tag">
-				<i class="fa fa-plus">
-				</i>
-			</button> -->
-
-			</div>
-			<hr />
-			<button ng-click="deleteNote(currentNote()._id)" ng-show="!currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
-				<i class="fa fa-minus-square"> delete note
-				</i>
-			</button>
-
-			<button ng-click="restoreNote(currentNote()._id)" ng-show="currentNote().trash"type="button" class="btn btn-success"  data-toggle="tooltip" title="Restore note">
-				<i class="fa fa-plus-square"> restore from trash
-				</i>
-			</button>
-
-		
-
-
-		<div>
-
-			<p>This area is just for testing. Feel free to delete or comment out.</p>
-			<pre><code>console.log("click HIGHLIGHT-JS button to highlight me")</code></pre>
-			<div id="parentOftestDiv">
-				<div id="testdiv"> function clickHighlightJStoHighlightMe (somestuff) { console.log('I love JS'); }</div>
-			</div>
-			<div class="form-group">
-			<button class="btn btn-default" ng-click="addPre()">Highlight-JS</button>
-
-		</div>
+		<button ng-click="restoreNote(currentNote()._id)" ng-show="currentNote().trash"type="button" class="btn btn-success"  data-toggle="tooltip" title="Restore note">
+			<i class="fa fa-plus-square"> restore from trash
+			</i>
+		</button>
 		</div>
 	</div>
 </div>
