@@ -49,8 +49,16 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			})
 		}
 	}
+
 	NotesFactory.setCurrentNotebook = function(_currentNotebook) {
 		currentNotebook = _currentNotebook;
+	}
+
+	NotesFactory.currentNotebook = function() {
+		NotesFactory.getCurrentNotebook()
+		.then(function(notebook) {
+			return notebook
+		})
 	}
     
 
@@ -233,27 +241,21 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 		})
 	}
 
-	NotesFactory.trashNote = function(noteId) {
-		console.log("inside NotesFactory.trashNote",noteId)
-		return $http.put('/api/notes/' + noteId + '/trash/add')
-		.then(function(response) {
-			console.log('response from server', response.data._id )
-			for (var i = 0; i < notebookCache.length; i++) {
-				console.log('getting into first loop.')
-				for (var j = 0; j < notebookCache[i].notes.length; j++) {
-					console.log('getting into second loop. note ids: ', notebookCache[i].notes[j]._id)
-					if (notebookCache[i].notes[j]._id === response.data._id) {
-						console.log('it matches!')
-						notebookCache[i].notes.splice(j, 1);
-					}
-				}
-			}
-
-			return response.data;
-		},
-		function(err) {
-			console.error("error trashing note", err)
+	NotesFactory.trashNote = function(note, method) {
+		return $http.put('/api/notes/' + note._id + '/trash/add')
+		.then(function (response) {
+			return response.data
 		})
+		.then(function() {
+			return NotesFactory.findParentNotebook(note._id)						
+		})
+		.then(function(notebookId) {
+			NotesFactory.updateNoteInNotebookCache(notebookId, note, method)
+		})
+	}
+
+	NotesFactory.restore = function(noteId) {
+		return $http.put('/api/notes/' + noteId + '/trash/restore')
 	}
 
 	NotesFactory.addTag = function(noteId, tag) {

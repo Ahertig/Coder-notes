@@ -13,8 +13,8 @@ router.put('/add', function(req, res) {
 		})
 })
 
-// Remove from Trash
-router.put('/remove', function(req, res) {
+// Restore from Trash
+router.put('/restore', function(req, res) {
 	req.currentNote.removeFromTrash()
 		.then(function(note) {
 			res.json(note)		

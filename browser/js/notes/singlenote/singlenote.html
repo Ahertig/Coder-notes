@@ -50,11 +50,11 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 			<button class="btn btn-primary" ng-click="save()">Save Changes</button>
 			<button ng-if="tonic" class="btn btn-primary" ng-click="runTonic()">Open Tonic</button>
 			<button ng-if="!tonic" class="btn btn-primary" ng-click="closeTonic()">Close Tonic</button>
-			<button ng-click="deleteNote(currentNote()._id)" ng-show="!currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
+			<button ng-click="deleteNote(currentNote())" ng-show="!currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
 				 Delete Note
 			</button>
-			<button ng-click="restoreNote(currentNote()._id)" ng-show="currentNote().trash"type="button" class="btn btn-success"  data-toggle="tooltip" title="Restore note">
-				Restore Note from Trash
+			<button ng-show="currentNote().trash"type="button" class="btn btn-success"  data-toggle="tooltip" title="Restore note">
+				Restore
 			</button>
 		</div>
 		<div class="alert alert-success" role="alert" ng-if="tagsavesuccess">{{tagsavesuccess}}</div>

@@ -8,6 +8,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
     //$scope.currentNotebook = NotesFactory.getCurrentNotebook;
     $scope.showmarkdown = false;
     $scope.successmessage = null;
+    $scope.currentNotebook;
 
     $scope.removeTag = function(noteId, tag) {
       NotesFactory.removeTag(noteId, tag);
@@ -22,7 +23,9 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
         // update tags cache
         NotesFactory.updateTagsCache(newNote.data.tags[newNote.data.tags.length - 1])
 
-        var currentNotebook = NotesFactory.findParentNotebook(noteId) 
+        var currentNotebook = NotesFactory.findParentNotebook(noteId)
+
+ 
 
         // update Notes cache
         NotesFactory.updateNoteInNotebookCache(currentNotebook, newNote, 'update');
@@ -64,9 +67,9 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
         })    
     }
 
-    $scope.deleteNote = function(noteId) {
-      console.log("inside deleteNote")
-      NotesFactory.trashNote(noteId);
+
+    $scope.deleteNote = function(note) {
+      NotesFactory.trashNote(note, 'delete');
     }
 
     $scope.highlightPre = function() {
@@ -81,6 +84,9 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
       $(domElement).replaceWith(preElement);
       hljs.initHighlighting();
     }
+
+    // Trashing and Restoring note
+
 
     // Tonic Setup
     $scope.tonic = true;
