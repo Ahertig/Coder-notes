@@ -1,4 +1,4 @@
-app.controller('SingleNoteCtrl', function($scope, NotesFactory) {
+app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
   	$scope.savenote = {};
 	
   	$scope.openTW = false
@@ -20,6 +20,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory) {
     $scope.openTagWindow = function() {
       $scope.openTW = !$scope.openTW;
     }
+
     $scope.save = function(){ 
       var subjectToSave = $('#notesubject').html();
       var bodyToSave = $('#notebody').val();
@@ -61,4 +62,41 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory) {
     hljs.initHighlighting();
 
   }
+  // Tonic Setup
+  $scope.tonic = true;
+  $scope.closeTonic = function() {
+    document.getElementById("my-element").innerHTML = "";
+    document.getElementById("close-tonic-btn").innerHTML = "";
+  }
+
+  $scope.runTonic = function() {
+        $scope.tonic = true;
+        document.getElementById("my-element").innerHTML = "";
+        document.getElementById("close-tonic-btn").innerHTML = "";
+        document.getElementById("close-tonic-btn").innerHTML = "<button>close tonic</button>";
+
+        var notebook = Tonic.createNotebook({
+            element: document.getElementById("my-element"),
+            source: TonicFactory.getSelectionText()
+        })       
+
+        $scope.tonic = false;
+  }
+
 })
+
+// Tonic Keypress Directive
+app.directive('enterKey', function(TonicFactory) {
+    return function(scope, element, attrs) {
+        element.bind("keydown keypress", function(event) {
+            var keyCode = event.which || event.keyCode;
+            if (keyCode === 13 && event.ctrlKey) {    
+                scope.$apply(function() {
+                    scope.$eval(attrs.enterKey);
+                });
+                event.preventDefault();
+            }
+        });
+    };
+})
+

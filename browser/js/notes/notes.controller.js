@@ -32,5 +32,7 @@ app.controller('NotesCtrl', function($scope, AuthService, myNotebooks, NotesFact
 
     setUser();
 
+
+
 });
 

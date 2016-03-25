@@ -1,14 +1,3 @@
-app.directive('tonicDirective', function() {
-	return {
-		restict: 'E', 
-		scope: {
-			code: '='
-		}, 
-		templateUrl: 'js/tonic/tonic.html',
-		controller: 'tonicCtrl'
-	}
-})
-
 app.factory('TonicFactory', function() {
 	var TonicFactory = {};
 
@@ -37,37 +26,16 @@ app.factory('TonicFactory', function() {
 	    return sel;
 	}
 
-
-
-
-
-	return TonicFactory;
-})
-
-app.controller('tonicCtrl', function($scope, TonicFactory) {
-	$scope.run = false;
-	$scope.tonicMsg = 'Run Tonic'
-
-	$scope.runTonic = function() {
-		if($scope.run)  {
-			$scope.run = false;
-			$scope.tonicMsg = 'Run in Tonic'
-		}
-		else {
-			$scope.run = true;
-			$scope.tonicMsg = 'Hide Tonic'
-		}
-		console.log('selectionText: ', TonicFactory.getSelectionText())
+	TonicFactory.runTonic = function() {
 		document.getElementById("my-element").innerHTML = "";
 		var notebook = Tonic.createNotebook({
 		    element: document.getElementById("my-element"),
 		    source: TonicFactory.getSelectionText()
 		})
-
 	}
+
+	return TonicFactory;
 })
-
-
 
 
 

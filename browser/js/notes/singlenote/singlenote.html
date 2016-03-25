@@ -54,8 +54,13 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 
 			</div>
 
-			<textarea id="notebody" ng-model="currentNote().body" placeholder="{{currentNote().body}}" class="form-control" >
+			<textarea enter-key="runTonic()" id="notebody" ng-model="currentNote().body" placeholder="{{currentNote().body}}" class="form-control" >
 			</textarea>
+
+			<div ng-hide="tonic" class="col-lg-12 col-md-12 col-sm-12">
+				<div  id="my-element"></div>
+				<div id="close-tonic-btn" ng-click="closeTonic()"></div>
+			</div> 
 
 <!-- 			<div id="notebody" text="init text" class='iiMdPreview' textarea-class="form-control" textarea-name='currentNote().body' /> -->
 
@@ -79,7 +84,7 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 			<div class='iiMdPreview' id="notebody" textarea-name='markdown' />
  -->
 			<button class="btn btn-primary" ng-click="save()">Save Changes</button>
-
+			<button class="btn btn-primary" ng-click="runTonic()">Open Tonic</button>
 
 		<div class="panel-footer">
 			<h4>Tags</h4>
