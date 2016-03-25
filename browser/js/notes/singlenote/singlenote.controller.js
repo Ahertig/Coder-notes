@@ -5,14 +5,13 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory) {
 
   	var stroutput = "";
     $scope.currentNote = NotesFactory.getCurrentNote;
-
+    $scope.currentNotebook = NotesFactory.getCurrentNotebook;
     $scope.showmarkdown = false;
     $scope.successmessage = null;
 
     $scope.removeTag = function(noteId, tag) {
       NotesFactory.removeTag(noteId, tag);
     }
-
     $scope.addTag = function(noteId, tag) {
       NotesFactory.addTag(noteId, tag);
       $scope.openTW = false;
@@ -21,23 +20,15 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory) {
     $scope.openTagWindow = function() {
       $scope.openTW = !$scope.openTW;
     }
-
-     // $scope.save = NotesFactory.saveNote;
-
-
     $scope.save = function(){ 
       var subjectToSave = $('#notesubject').html();
-      // var bodyToSave = $('#notebody').html();
-      // var bodyToSave = $('#notebody > textarea').val();
       var bodyToSave = $('#notebody').val();
 
       $scope.savenote = {
         "subject": subjectToSave,
         "body": bodyToSave
-      }
-      $scope.currentNotebook = NotesFactory.getCurrentNotebook();
-      
-      NotesFactory.saveNote($scope.currentNotebook._id, $scope.currentNote()._id, $scope.savenote)
+      }  
+      NotesFactory.saveNote($scope.currentNotebook()._id, $scope.currentNote()._id, $scope.savenote)
       .then(function(note) {
           $scope.successmessage="Note saved successfully!" + note;
         }, function(err) {
@@ -62,6 +53,4 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory) {
     hljs.initHighlighting();
 
   }
-
-
 })
