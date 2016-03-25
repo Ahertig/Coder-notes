@@ -11,11 +11,21 @@ app.config(function ($stateProvider) {
         return NotesFactory.fetchPublicNotes();
       }
     }
+  })
+  .state('note', {
+    url: '/public/:id',
+    templateUrl: '/js/notes/public-notes/public-notes.note.html',
+    controller: 'NoteCtrl',
+    resolve: {
+      theNote: function(NotesFactory, $stateParams){
+        console.log('here is state params', $stateParams)
+        return NotesFactory.getNote($stateParams.id)
+      }
+    }
+    // controller: function($scope, $stateParams) {
+    //   console.log('getting here', $stateParams.id);
+    //   $scope.note = $scope.publicNotes[$stateParams.id];
+    // }
   });
-});
-
-app.controller('CommunityCtrl', function($scope, NotesFactory, publicNotes) {
-
-  $scope.publicNotes = publicNotes;
 
 });
