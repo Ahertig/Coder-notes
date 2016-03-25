@@ -26,7 +26,7 @@
 								<div><p>Search My Notes by Text</p></div>
 								<input ng-model="searchNotes" width="25" type="text" class="form-control" placeholder="Search My Notes">
 							<div class='list-group' id="side-menu-1">
-      							<a ng-click="setCurrentNote(note)"  class="list-group-item" ng-repeat="note in notes | filter:searchNotes | filter:notebook.trash === true">{{note.subject}}</a>
+      							<a ng-click="setCurrentNote(note)"  class="list-group-item" ng-repeat="note in notes | filter:searchNotes | filter: {trash: false}">{{note.subject}}</a>
 							</div>
 						</div>
 					</div>
@@ -35,9 +35,10 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">My Notebooks</div>
 						<div class="panel-body">
+							<input ng-model="searchNotebooktitle" width="25" type="text" class="form-control" placeholder="Search by title">
 							<div class="list-group" id="side-menu-2">
-
-								<div ng-repeat="notebook in getCachedNotebooks() | filter:notebook.trash === false">
+    							
+								<div ng-repeat="notebook in getCachedNotebooks() | filter:{title: searchNotebooktitle} | filter: {trash: false}">
 									<div class="muted">Notebook ID:{{notebook._id}}</div>
 									<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item" ng-click="setCurrentNotebook(notebook)">{{notebook.title}}</a>
 									<div class="panel-collapse collapse" id="{{notebook._id}}">
@@ -105,7 +106,7 @@
 						<div class="panel-body">
 							<input ng-model="searchNotebooks" width="25" type="text" class="form-control" placeholder="Search Notebooks in Trash">
 							<div class="list-group" id="side-menu-5">
-								<div ng-repeat="notebook in getCachedNotebooks() | filter: notebook.title: 'Erat nonummy'"> <!-- check trash logic ? -->
+								<div ng-repeat="notebook in getCachedNotebooks() | filter:searchNotebooks | filter: {trash: true}" > <!-- check trash logic ? -->
 									<div class="muted">Notebook ID:{{notebook._id}}</div>
 									<a data-toggle="collapse" ng-href="#trash-{{notebook._id}}" class="list-group-item" ng-click="setCurrentNotebook(notebook)">{{notebook.title}}</a>
 
@@ -129,7 +130,7 @@
 							<input ng-model="searchNotes" width="25" type="text" class="form-control" placeholder="Search Notes In Trash">
 
 							<div class='list-group' id="side-menu-1">
-									<a class="list-group-item" ng-repeat="note in notes | filter:searchNotes | filter:notebook.trash !== true" ng-click="setCurrentNote(note)">{{note.subject}}</a>
+									<a class="list-group-item" ng-repeat="note in notes | filter: searchNotes | filter: {trash: true}" ng-click="setCurrentNote(note)">{{note.subject}}</a>
 							</div>
 
 
