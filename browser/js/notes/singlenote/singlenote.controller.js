@@ -46,6 +46,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory) {
     }
 
   $scope.deleteNote = function(noteId) {
+    console.log("inside deleteNote")
     NotesFactory.trashNote(noteId);
   }
 
