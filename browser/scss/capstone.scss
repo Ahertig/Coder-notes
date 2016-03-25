@@ -47,3 +47,32 @@ a.muted {
 		}
 	}
 }
+
+.panel-footer {
+	.input-group {
+		width: 20%;
+	}
+	.input-group-addon {
+		cursor: pointer;
+	}
+	i.glyphicon {
+		color: red;
+	}
+	.tiny {
+		font-size: 1%;
+	}
+	.nav-pills li {
+	    color: #555;
+	    cursor: pointer;
+	    background-color: #fff;
+	    border: 1px solid #888;
+	    border-radius: 4px;
+	    display: block;
+	    position: relative;
+	    padding: 5px 7px;
+	    &:hover {
+	    	background-color: #555;
+	    	color: #fff;
+	    }
+	}
+}
