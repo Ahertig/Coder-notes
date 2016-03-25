@@ -64,7 +64,6 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
         currentNotebook = _currentNotebook;
         })
       .then(function(){
-        console.log("this is current Notebook, ", currentNotebook);
         return NotesFactory.saveNote(currentNotebook._id,$scope.currentNote()._id, $scope.savenote)
       })
       .then(function(note) {
