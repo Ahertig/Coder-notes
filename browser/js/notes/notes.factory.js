@@ -1,4 +1,4 @@
-app.factory('NotesFactory', function($http, $rootScope) {
+app.factory('NotesFactory', function($http, $rootScope, $q) {
 
 	var NotesFactory = {},
 		notesCache = [],
@@ -14,12 +14,21 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		}
 		else {
 			currentNote = {};
-			return NotesFactory.fetchMyNotes()
-			.then(function(notes) {
-				angular.copy(notes[5],currentNote);
-				console.log("set current note initially to", currentNote)
-				return currentNote;				
+			return NotesFactory.getCurrentNotebook()
+			.then(function(currentNotebook){
+				angular.copy(currentNotebook.notes[0], currentNote);
+				return currentNote;
 			})
+
+			// angular.copy(NotesFactory.getCurrentNotebook().notes[0], currentNote)
+			// return currentNote;
+
+			// return NotesFactory.fetchMyNotes()
+			// .then(function(notes) {
+			// 	angular.copy(notes[5],currentNote);
+			// 	console.log("set current note initially to", currentNote)
+			// 	return currentNote;				
+			// })
 		}
 	}
 	NotesFactory.setCurrentNote = function(_currentNote) {
@@ -28,13 +37,13 @@ app.factory('NotesFactory', function($http, $rootScope) {
 	}
 	NotesFactory.getCurrentNotebook = function() {
 		if(currentNotebook){
-			return currentNotebook;
+			return $q.resolve(currentNotebook);
 		}
 		else {
 			currentNotebook = {};
 			return NotesFactory.fetchMyNotebooks()
 					.then(function(notebooks) {
-						angular.copy(notebooks[0],currentNotebook);
+						angular.copy(notebooks[0], currentNotebook);
 				console.log("set current note initially to", currentNotebook)
 				return currentNotebook;	
 			})
@@ -69,6 +78,9 @@ app.factory('NotesFactory', function($http, $rootScope) {
     
     NotesFactory.updateNoteInNotebookCache = function(notebookID, note, action){
     	var notebook = NotesFactory.findNotebookById(notebookID); 
+    	console.log("this is notebookID ", notebookID);
+    	console.log("this is note ", note);
+    	console.log("this is notebook",  notebook);
 
  		if(action === 'add'){ 
          	notebook.notes.unshift(note);         	
@@ -180,9 +192,11 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		})
 	}
 
-	NotesFactory.saveNote = function (noteId,noteUpdate) {
+	NotesFactory.saveNote = function (notebookId, noteId,noteUpdate) {
+		console.log("this is notebookId (saveNote), ", notebookId);
 		return $http.put('/api/notes/' + noteId, noteUpdate)
 		.then(function(response) {
+		    console.log()
 			NotesFactory.updateNoteInNotebookCache(notebookId,response.data,'update');
 			console.log("response data is", response.data)
 			return response.data;

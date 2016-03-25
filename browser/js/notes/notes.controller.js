@@ -2,10 +2,12 @@ app.controller('NotesCtrl', function($scope, AuthService, myNotebooks, NotesFact
 
 	$scope.user = null;
 
-    $scope.currentNote = currentNote;
+   // $scope.currentNote = currentNote;
 
     // promises
     $scope.notes = myNotes;
+        // $scope.notes = [{subject: 'hello'},{subject: 'bye'}];
+
     $scope.tags = myTags;
     $scope.sharednotebooks = mySharedNotebooks;
     $scope.notebooks = myNotebooks;
@@ -16,7 +18,7 @@ app.controller('NotesCtrl', function($scope, AuthService, myNotebooks, NotesFact
     // $rootScope.currentNotebook = $scope.notebooks[0];
     //console.log("this is myNote,", myNotes );
     //console.log("this is", notesService);
-    notesService.addAllnotes(myNotes);
+    //notesService.addAllnotes(myNotes);
 
 	$scope.isLoggedIn = function () {
 		return AuthService.isAuthenticated();
