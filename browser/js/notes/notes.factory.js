@@ -48,7 +48,6 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 				return currentNotebook;	
 			})
 		}
-
 	}
 	NotesFactory.setCurrentNotebook = function(_currentNotebook) {
 		currentNotebook = _currentNotebook;
@@ -164,9 +163,13 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	}
 
 	NotesFactory.fetchMyNotes = function() {
-		return $http.get('/api/notes')
-		.then(function(response) {
-			angular.copy(response.data, notesCache);
+		
+		return NotesFactory.fetchMyNotebooks()
+		.then(function(notebookCache){
+			console.log("notebookCache,", notebookCache);
+		for (var i = 0; i < notebookCache.length; i++) {
+			notesCache = notesCache.concat(notebookCache[i].notes);
+		}
 			return notesCache;
 		})
 	}
