@@ -43,13 +43,13 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 
 			<div ng-hide="tonic" class="col-lg-12 col-md-12 col-sm-12">
 				<div  id="my-element"></div>
-				<div id="close-tonic-btn" ng-click="closeTonic()"></div>
 			</div> 
 
 		</div>
 		<div class="panel-body">
 			<button class="btn btn-primary" ng-click="save()">Save Changes</button>
-			<button class="btn btn-primary" ng-click="runTonic()">Open Tonic</button>
+			<button ng-if="tonic" class="btn btn-primary" ng-click="runTonic()">Open Tonic</button>
+			<button ng-if="!tonic" class="btn btn-primary" ng-click="closeTonic()">Close Tonic</button>
 			<button ng-click="deleteNote(currentNote()._id)" ng-show="!currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
 				 Delete Note
 			</button>
