@@ -51,7 +51,10 @@ $(document).ready(function(){
       $('textarea').val( request.selection );
   });
 
-  chrome.tabs.executeScript(null, {code: "chrome.extension.sendRequest({selection: window.getSelection().toString() });"});
+  if(chrome.tabs) {
+      chrome.tabs.executeScript(null, {code: "chrome.extension.sendRequest({selection: window.getSelection().toString() });"});
+  }
+
 
 });
 

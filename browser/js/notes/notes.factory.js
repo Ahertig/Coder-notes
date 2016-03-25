@@ -1,4 +1,4 @@
-app.factory('NotesFactory', function($http) {
+app.factory('NotesFactory', function($http, $rootScope, $q) {
 
 	var NotesFactory = {},
 		notesCache = [],
@@ -6,21 +6,29 @@ app.factory('NotesFactory', function($http) {
 		sharedNotebookCache = [],
 		tagsCache = [], 
 		currentNote,
-		currentNotebook = {};
+		currentNotebook;
 	
 	NotesFactory.getCurrentNote = function() {
 		if(currentNote) {
-			// console.log("get current note func", currentNote)
 			return currentNote;
 		}
 		else {
 			currentNote = {};
-			return NotesFactory.fetchMyNotes()
-			.then(function(notes) {
-				angular.copy(notes[5],currentNote);
-				console.log("set current note initially to", currentNote)
-				return currentNote;				
+			return NotesFactory.getCurrentNotebook()
+			.then(function(currentNotebook){
+				angular.copy(currentNotebook.notes[0], currentNote);
+				return currentNote;
 			})
+
+			// angular.copy(NotesFactory.getCurrentNotebook().notes[0], currentNote)
+			// return currentNote;
+
+			// return NotesFactory.fetchMyNotes()
+			// .then(function(notes) {
+			// 	angular.copy(notes[5],currentNote);
+			// 	console.log("set current note initially to", currentNote)
+			// 	return currentNote;				
+			// })
 		}
 	}
 	NotesFactory.setCurrentNote = function(_currentNote) {
@@ -28,7 +36,18 @@ app.factory('NotesFactory', function($http) {
 		console.log("this is factory currentNote ", currentNote);
 	}
 	NotesFactory.getCurrentNotebook = function() {
-		return currentNotebook;
+		if(currentNotebook){
+			return $q.resolve(currentNotebook);
+		}
+		else {
+			currentNotebook = {};
+			return NotesFactory.fetchMyNotebooks()
+					.then(function(notebooks) {
+						angular.copy(notebooks[0], currentNotebook);
+				console.log("set current note initially to", currentNotebook)
+				return currentNotebook;	
+			})
+		}
 	}
 	NotesFactory.setCurrentNotebook = function(_currentNotebook) {
 		currentNotebook = _currentNotebook;
@@ -56,9 +75,11 @@ app.factory('NotesFactory', function($http) {
 		return notebookCache;
 	}
     
-    // this is to add/ update/ delete note 
     NotesFactory.updateNoteInNotebookCache = function(notebookID, note, action){
     	var notebook = NotesFactory.findNotebookById(notebookID); 
+    	console.log("this is notebookID ", notebookID);
+    	console.log("this is note ", note);
+    	console.log("this is notebook",  notebook);
 
  		if(action === 'add'){ 
          	notebook.notes.unshift(note);         	
@@ -110,6 +131,8 @@ app.factory('NotesFactory', function($http) {
 	// 		}
 	// 	}
 	// }
+
+
     
      NotesFactory.findNoteIndex = function(notebook, noteId) {
 		for (var i = 0; i < notebook.notes.length; i++) {
@@ -122,40 +145,33 @@ app.factory('NotesFactory', function($http) {
 
 	// This function is working!
 	NotesFactory.fetchMyNotebooks = function() {
-		// console.log("in notesfactory fetchMyNotebooks. fetching data for user",userId)
 		return $http.get('/api/notebooks')
 		.then(function(response) {
 			angular.copy(response.data, notebookCache);
-			// console.log("notebook cache is now", notebookCache)
-			//console.log("got notebook data", response.data)
 			return notebookCache;
 		}, function(err) {
-			// console.error("could not fetch notebooks for user",userId)
 		})
 	}
 
     //!!!this is to be updated! 
 	NotesFactory.fetchMySharedNotebooks = function() {
-		// console.log("notesfactory. fetching share notebooks for", userId)
 		return $http.get('/api/notebooks/shared')
 		.then(function(response) {
 			angular.copy(response.data, sharedNotebookCache);
-			// console.log("shared notebook cache is now", sharedNotebookCache)
-			// console.log("fetched shared notebooks", response.data)
 			return sharedNotebookCache;
 		}, function(err) {
-			// console.error("notesfactory. could not fetch shared notebooks for user", userId)
+			console.log("shared note failed!")
 		})
 	}
 
 	NotesFactory.fetchMyNotes = function() {
-		// notebookCache.forEach(function(nootbook){
-		// 	notes = notes.concat(nootbook.notes);
-		// });
-		// return notes;
-		return $http.get('/api/notes')
-		.then(function(response) {
-			angular.copy(response.data, notesCache);
+		
+		return NotesFactory.fetchMyNotebooks()
+		.then(function(notebookCache){
+			console.log("notebookCache,", notebookCache);
+		for (var i = 0; i < notebookCache.length; i++) {
+			notesCache = notesCache.concat(notebookCache[i].notes);
+		}
 			return notesCache;
 		})
 	}
@@ -189,12 +205,12 @@ app.factory('NotesFactory', function($http) {
 		})
 	}
 
-	NotesFactory.saveNote = function (noteId,noteUpdate) {
+	NotesFactory.saveNote = function (notebookId, noteId,noteUpdate) {
+		console.log("this is notebookId (saveNote), ", notebookId);
 		return $http.put('/api/notes/' + noteId, noteUpdate)
 		.then(function(response) {
-
+		    console.log()
 			NotesFactory.updateNoteInNotebookCache(notebookId,response.data,'update');
-
 			console.log("response data is", response.data)
 			return response.data;
 		},
@@ -206,10 +222,6 @@ app.factory('NotesFactory', function($http) {
 	NotesFactory.newNote = function (notebookId) {
 		return $http.post('/api/notebooks/' + notebookId + '/notes')
 		.then(function(response) {
-			// console.log("here is response to newNote", response.data)
-			// console.log('notebook id ', notebookId)
-			// console.log('response from server', response.data._id )
-            
             NotesFactory.updateNoteInNotebookCache(notebookId, response.data, 'add');
 			return response.data;
 		}, 
@@ -254,12 +266,22 @@ app.factory('NotesFactory', function($http) {
 
 	NotesFactory.addTag = function(noteId, tag) {
         NotesFactory.updateTagsCache(tag, 'add');
-		return $http.post('/api/note/' +  noteId + '/tags', {tag: tag});
+		return $http.post('/api/notes/' +  noteId + '/tags', {tag: tag});
 	}
 
 	NotesFactory.removeTag = function(noteId, tag) {
         NotesFactory.updateTagsCache(tag, 'delete');
-		return $http.put('/api/note/' +  noteId + '/tags', {tag: tag});
+		return $http.put('/api/notes/' +  noteId + '/tags', {tag: tag});
+	}
+
+	NotesFactory.findParentNotebook = function(noteId) {
+		for (var i = 0; i < notebookCache.length; i++) {
+			for (var j = 0; j < notebookCache[i].notes.length; j++) {
+				if(notebookCache[i].notes[j]._id == noteId) {
+					return notebookCache[i]._id;
+				}
+			}
+		}
 	}
 
 
