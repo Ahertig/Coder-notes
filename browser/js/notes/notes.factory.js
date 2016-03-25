@@ -6,7 +6,7 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		sharedNotebookCache = [],
 		tagsCache = [], 
 		currentNote,
-		currentNotebook = {};
+		currentNotebook;
 	
 	NotesFactory.getCurrentNote = function() {
 		if(currentNote) {
@@ -17,7 +17,7 @@ app.factory('NotesFactory', function($http, $rootScope) {
 			currentNote = {};
 			return NotesFactory.fetchMyNotes()
 			.then(function(notes) {
-				angular.copy(notes[5],currentNote);
+				angular.copy(notes[0],currentNote); // this logic is not great
 				console.log("set current note initially to", currentNote)
 				return currentNote;				
 			})
@@ -28,7 +28,12 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		console.log("this is factory currentNote ", currentNote);
 	}
 	NotesFactory.getCurrentNotebook = function() {
-		return currentNotebook;
+		if(currentNotebook) {
+			return currentNotebook; // this logic is not good
+		}
+		else {
+			return notebookCache[0]; // this logic is not great
+		}
 	}
 	NotesFactory.setCurrentNotebook = function(_currentNotebook) {
 		currentNotebook = _currentNotebook;
@@ -181,7 +186,8 @@ app.factory('NotesFactory', function($http, $rootScope) {
 		})
 	}
 
-	NotesFactory.saveNote = function (noteId,noteUpdate) {
+	NotesFactory.saveNote = function (notebookId, noteId, noteUpdate) {
+		console.log("saving note id", noteId, " in notebook id", notebookId)
 		return $http.put('/api/notes/' + noteId, noteUpdate)
 		.then(function(response) {
 

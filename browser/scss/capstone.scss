@@ -31,7 +31,8 @@ a.muted {
 	color: #bcbcbc;
 }
 
-.nav-pills-sm {
+.nav-pills-sm,
+.nav-pills-xs {
 	border: 1px solid #ddd;
 	border-radius: 3px;
 	margin-bottom: 1em;
@@ -45,5 +46,12 @@ a.muted {
 		font-size: 95%;
 		border-radius: 0px;
 		}
+	}
+}
+
+.nav-pills-xs {
+	a {
+		font-size: 85%;
+		padding: 3px 7px;
 	}
 }

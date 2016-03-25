@@ -26,19 +26,28 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory) {
 
 
     $scope.save = function(){ 
+      console.log("trying to save note...")
       var subjectToSave = $('#notesubject').html();
       // var bodyToSave = $('#notebody').html();
       // var bodyToSave = $('#notebody > textarea').val();
       var bodyToSave = $('#notebody').val();
+      var privacyType = $("#privacy-type").prop('checked') ? "public" : "private";
 
       $scope.savenote = {
         "subject": subjectToSave,
-        "body": bodyToSave
+        "body": bodyToSave,
+        "type" : privacyType
       }
+
+      console.log("current note is", $scope.currentNote())
+
+      console.log("savenote is", $scope.savenote)
       $scope.currentNotebook = NotesFactory.getCurrentNotebook();
+      console.log("current notebook is", $scope.currentNotebook);
       
       NotesFactory.saveNote($scope.currentNotebook._id, $scope.currentNote()._id, $scope.savenote)
       .then(function(note) {
+          console.log("returned note is", note)
           $scope.successmessage="Note saved successfully!" + note;
         }, function(err) {
           $scope.errormessage = "Error saving note" + err;
