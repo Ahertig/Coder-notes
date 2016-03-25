@@ -27,7 +27,6 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory) {
         // update Notes cache
         NotesFactory.updateNoteInNotebookCache(currentNotebook, newNote, 'update');
 
-
       }, function(err) {
         console.error("error saving tag",err)
       })

@@ -258,7 +258,11 @@ app.factory('NotesFactory', function($http, $rootScope) {
 
 	NotesFactory.findParentNotebook = function(noteId) {
 		for (var i = 0; i < notebookCache.length; i++) {
-
+			for (var j = 0; j < notebookCache[i].notes.length; j++) {
+				if(notebookCache[i].notes[j]._id == noteId) {
+					return notebookCache[i]._id;
+				}
+			}
 		}
 	}
 
