@@ -58,7 +58,9 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 			</button>
 		</div>
 		<div class="alert alert-success" role="alert" ng-if="tagsavesuccess">{{tagsavesuccess}}</div>
+		<div class="alert alert-danger" role="alert" ng-if="tagsavefailure && !tagsavesuccess">{{tagsavefailure}}</div>
 		<tagfooter></tagfooter>
+
 
 	</div>
 </div>
