@@ -19,7 +19,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory) {
     }
 
     $scope.openTagWindow = function() {
-      $scope.openTW = true;
+      $scope.openTW = !$scope.openTW;
     }
 
      // $scope.save = NotesFactory.saveNote;

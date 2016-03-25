@@ -21,17 +21,15 @@ app.controller('NavbarCtrl', function($scope, NotesFactory,notesService,AuthServ
        });
 
     }
-
     $scope.newNotebook = function(notebookTitle) {
-        return AuthService.getLoggedInUser()
-        .then(function(user) {
-          return NotesFactory.newNotebook(notebookTitle);
-        }, function(err) {
-            console.error("Error retrieving user!", err)
-        })
+        return NotesFactory.newNotebook(notebookTitle)
         .then(function(newNotebook) {
+            NotesFactory.setCurrentNotebook(newNotebook);
             console.log('here is the new notebook?', newNotebook)
             // $rootScope.currentNote = newNotebook;
+        })
+        .then(null, function(err){
+            console.log(err);
         })
     }
 

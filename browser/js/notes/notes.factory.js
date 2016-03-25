@@ -213,6 +213,7 @@ app.factory('NotesFactory', function($http, $rootScope) {
 	NotesFactory.newNotebook = function(title) {
 		return $http.post('/api/notebooks/', {title: title})
 		.then(function(response) {
+			NotesFactory.updateNotebookCache(response.data,'add');
 			return response.data;
 		},
 		function(err) {

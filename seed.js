@@ -67,6 +67,7 @@ connectToDb.then(function () {
     .then(function (notes) {
         for(i=0; i<Notebooks.length; i++){
             if(i % 3 === 0 && i > 0) Notebooks[i].type = 'public';
+            if (i % 4 === 0) Notebooks[i].trash = true;
             Notebooks[i].notes=[notes[2*i]._id,notes[2*i+1]._id];
             console.log(" Notebooks.notes", Notebooks[i].notes);
         }
