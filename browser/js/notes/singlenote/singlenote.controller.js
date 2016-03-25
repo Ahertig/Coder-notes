@@ -66,14 +66,12 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
   $scope.tonic = true;
   $scope.closeTonic = function() {
     document.getElementById("my-element").innerHTML = "";
-    document.getElementById("close-tonic-btn").innerHTML = "";
+    $scope.tonic = true;
   }
 
   $scope.runTonic = function() {
         $scope.tonic = true;
         document.getElementById("my-element").innerHTML = "";
-        document.getElementById("close-tonic-btn").innerHTML = "";
-        document.getElementById("close-tonic-btn").innerHTML = "<button>close tonic</button>";
 
         var notebook = Tonic.createNotebook({
             element: document.getElementById("my-element"),
