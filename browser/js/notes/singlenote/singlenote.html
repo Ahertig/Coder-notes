@@ -9,11 +9,11 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 <div class="col-lg-8 col-md-8 col-sm-12">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3>
-			<div class="zp1 section yin">
-				<span class="muted">Note subject:</span> <span id="notesubject" contenteditable="true">	{{currentNote().subject}}</span>
-			</div>
-			</h3>
+
+			<label for="notesubject" class="muted">Note subject:</label> 
+			<input ng-model="currentNote().subject" class="form-control" id="notesubject" placeholder="{{currentNote().subject}}">
+
+
 		</div>
 		<div class="panel-body">
 			<div class="panel panel-default">

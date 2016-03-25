@@ -40,7 +40,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
     }
 
     $scope.save = function(){ 
-      var subjectToSave = $('#notesubject').html();
+      var subjectToSave = $('#notesubject').val();
       var bodyToSave = $('#notebody').val();
       var currentNotebook;
 
