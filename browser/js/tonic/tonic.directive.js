@@ -38,6 +38,14 @@ app.factory('TonicFactory', function() {
 	}
 
 
+	TonicFactory.runTonic = function() {
+		document.getElementById("my-element").innerHTML = "";
+		var notebook = Tonic.createNotebook({
+		    element: document.getElementById("my-element"),
+		    source: TonicFactory.getSelectionText()
+		})
+	}
+
 
 
 
@@ -57,17 +65,34 @@ app.controller('tonicCtrl', function($scope, TonicFactory) {
 			$scope.run = true;
 			$scope.tonicMsg = 'Hide Tonic'
 		}
-		console.log('selectionText: ', TonicFactory.getSelectionText())
 		document.getElementById("my-element").innerHTML = "";
 		var notebook = Tonic.createNotebook({
 		    element: document.getElementById("my-element"),
 		    source: TonicFactory.getSelectionText()
 		})
-
 	}
 })
 
+app.directive('enterKey', function(TonicFactory) {
+    return function(scope, element, attrs) {
+        element.bind("keydown keypress", function(event) {
+            var keyCode = event.which || event.keyCode;
+            // If enter key is pressed
+            if (keyCode === 13) {
+				console.log('hello')     	
 
+            	// scope.$apply(attrs.enterKey);
+
+                // scope.$apply(function() {
+                //         // Evaluate the expression
+                //     scope.$eval(attrs.enterKey);
+                // });
+
+                event.preventDefault();
+            }
+        });
+    };
+});
 
 
 
