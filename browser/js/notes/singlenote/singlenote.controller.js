@@ -5,14 +5,13 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
 
   	var stroutput = "";
     $scope.currentNote = NotesFactory.getCurrentNote;
-
+    //$scope.currentNotebook = NotesFactory.getCurrentNotebook;
     $scope.showmarkdown = false;
     $scope.successmessage = null;
 
     $scope.removeTag = function(noteId, tag) {
       NotesFactory.removeTag(noteId, tag);
     }
-
     $scope.addTag = function(noteId, tag) {
       NotesFactory.addTag(noteId, tag);
       $scope.openTW = false;
@@ -22,26 +21,28 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
       $scope.openTW = !$scope.openTW;
     }
 
-     // $scope.save = NotesFactory.saveNote;
-
     $scope.save = function(){ 
       var subjectToSave = $('#notesubject').html();
-      // var bodyToSave = $('#notebody').html();
-      // var bodyToSave = $('#notebody > textarea').val();
       var bodyToSave = $('#notebody').val();
-
+      var currentNotebook;
       $scope.savenote = {
         "subject": subjectToSave,
         "body": bodyToSave
-      }
-      $scope.currentNotebook = NotesFactory.getCurrentNotebook();
-      
-      NotesFactory.saveNote($scope.currentNotebook._id, $scope.currentNote()._id, $scope.savenote)
+      }  
+
+      NotesFactory.getCurrentNotebook()
+      .then(function(_currentNotebook){
+        currentNotebook = _currentNotebook;
+      })
+      .then(function(){
+        console.log("this is current Notebook, ", currentNotebook);
+        return NotesFactory.saveNote(currentNotebook._id,$scope.currentNote()._id, $scope.savenote)
+      })
       .then(function(note) {
           $scope.successmessage="Note saved successfully!" + note;
         }, function(err) {
           $scope.errormessage = "Error saving note" + err;
-      })
+      })    
     }
 
   $scope.deleteNote = function(noteId) {
@@ -61,7 +62,6 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
     hljs.initHighlighting();
 
   }
-
   // Tonic Setup
   $scope.tonic = true;
   $scope.closeTonic = function() {
@@ -99,6 +99,4 @@ app.directive('enterKey', function(TonicFactory) {
         });
     };
 })
-
-
 
