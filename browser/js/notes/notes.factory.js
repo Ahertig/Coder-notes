@@ -176,6 +176,14 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			return notesCache;
 		})
 	}
+
+	NotesFactory.fetchPublicNotes = function() {
+    return $http.get('/api/public/notes/all')
+    .then(function(response) {
+        return response.data;
+    })
+  }
+
 	// this function is working!
 	NotesFactory.fetchMyTags = function() {
 		return $http.get('/api/tags')
