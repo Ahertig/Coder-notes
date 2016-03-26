@@ -12,6 +12,10 @@ app.config(function ($urlRouterProvider, $locationProvider, hljsServiceProvider)
     // replace tab with 4 spaces
         tabReplace: '    '
     });
+
+    $urlRouterProvider.when('/auth/:provider', function () {
+        window.location.reload();
+    });
 });
 
 // This app.run is for controlling access to specific states.
