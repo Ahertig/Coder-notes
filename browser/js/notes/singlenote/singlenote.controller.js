@@ -22,7 +22,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
       console.log("running addTag", noteId, tag)
       NotesFactory.addTag(noteId, tag)
       .then(function(newNote) {
-        console.log("saved note with new tag tag",newNote.data);
+        console.log("saved note with new tag",newNote.data);
 
         // update tags cache
         NotesFactory.updateTagsCache(newNote.data.tags[newNote.data.tags.length - 1])
@@ -65,7 +65,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
         return NotesFactory.saveNote(currentNotebook._id,$scope.currentNote()._id, $scope.savenote)
       })
       .then(function(note) {
-          $scope.successmessage="Note saved successfully!" + note;
+          $scope.successmessage="Note saved successfully!";
         }, function(err) {
           $scope.errormessage = "Error saving note" + err;
         })    

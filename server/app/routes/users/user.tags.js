@@ -4,8 +4,6 @@
 var router = require('express').Router();
 module.exports = router;
 var mongoose = require('mongoose');
-var User = mongoose.model('User');
-var Notebook = mongoose.model('Notebook');
 var Note = mongoose.model('Note');
 
 // Get all tags for one user
@@ -14,40 +12,39 @@ var Note = mongoose.model('Note');
 // move to method on User schema
 router.get('/', function(req, res, next){
 	var multidimensionalArrayOfNodeIds = [], 
-		arrayOfNoteIds = [], 
-		multidimensionalArrayOfTags = [], 
-		arrayOfTags = [];
+	arrayOfNoteIds = [], 
+	multidimensionalArrayOfTags = [], 
+	arrayOfTags = [];
 
-    multidimensionalArrayOfNodeIds = req.user.myNotebooks.map(function(element) { return element.notes })
-    
-    // now reduce that to a one-dimensional list
-    arrayOfNoteIds = multidimensionalArrayOfNodeIds.reduce(function(a, b) {
-         return a.concat(b);
-        });
+	multidimensionalArrayOfNodeIds = req.user.myNotebooks.map(function(element) { return element.notes })
 
-    // find notes with those IDs
+	// now reduce that to a one-dimensional list
+	arrayOfNoteIds = multidimensionalArrayOfNodeIds.reduce(function(a, b) {
+		return a.concat(b);
+	});
+
+	// find notes with those IDs
 	Note.find({
 		_id: {
-			$in: arrayOfNoteIds
+		$in: arrayOfNoteIds
 		}
 	})
 	.then(function(notes) {
-		// console.log("here are the notes:", notes)
 		// get an array of array of tags
-	    multidimensionalArrayOfTags = notes.map(function(element) { return element.tags })
-	    
-	    // now reduce that to a one-dimensional list
-	    arrayOfTags = multidimensionalArrayOfTags.reduce(function(a, b) {
-	         return a.concat(b);
-	        });
+		multidimensionalArrayOfTags = notes.map(function(element) { return element.tags })
 
-
-	    // sort and filter for unique values
-		arrayOfTags = arrayOfTags.sort().filter(function (e, i, arr) {
-			return arr.lastIndexOf(e) === i;
+		// now reduce that to a one-dimensional list
+		arrayOfTags = multidimensionalArrayOfTags.reduce(function(a, b) {
+		return a.concat(b);
 		});
 
-	    res.json(arrayOfTags);
+
+		// sort and filter for unique values
+		arrayOfTags = arrayOfTags.sort().filter(function (e, i, arr) {
+		return arr.lastIndexOf(e) === i;
+		});
+
+		res.json(arrayOfTags);
 	})
 });
 

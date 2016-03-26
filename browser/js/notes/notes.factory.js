@@ -19,16 +19,6 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 				angular.copy(currentNotebook.notes[0], currentNote);
 				return currentNote;
 			})
-
-			// angular.copy(NotesFactory.getCurrentNotebook().notes[0], currentNote)
-			// return currentNote;
-
-			// return NotesFactory.fetchMyNotes()
-			// .then(function(notes) {
-			// 	angular.copy(notes[5],currentNote);
-			// 	console.log("set current note initially to", currentNote)
-			// 	return currentNote;				
-			// })
 		}
 	}
 	NotesFactory.setCurrentNote = function(_currentNote) {

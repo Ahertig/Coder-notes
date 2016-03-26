@@ -3,53 +3,30 @@
 new zeditor({ wrapperField : document.querySelector('.zp1')});               	      
 new zeditor({ wrapperField : document.querySelector('.zp2')});               	      
 </script>
-<div class="muted"> My user id: {{user._id}}</div>
 <div class="alert alert-success" role="alert" ng-if="successmessage">{{successmessage}}</div>
 <div class="alert alert-error" role="alert" ng-if="errormessage">{{errormessage}}</div>
-<div class="col-lg-8 col-md-8 col-sm-12">
+<div class="col-lg-6 col-md-6 col-sm-12">
 	<div class="panel panel-default">
 		<div class="panel-heading">
 
-			<label for="notesubject" class="muted">Note subject:</label> 
+			<label for="notesubject" class="muted">Note title</label> 
 			<input ng-model="currentNote().subject" class="form-control" id="notesubject" placeholder="{{currentNote().subject}}">
 
 
 		</div>
 		<div class="panel-body">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-				<h4 class="panel-title">
-				<a data-toggle="collapse" data-parent="#accordion" ng-href="#{{currentNote()._id}}" class="muted">Note details</a>
-				</h4>
-				</div>
-				<div id="{{currentNote()._id}}" class="panel-collapse collapse muted" >
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-lg-4">Note ID: {{currentNote()._id}}</div>
-							<div class="col-lg-4">Size: {{currentNote().size}} kb</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-4">Created: {{currentNote().dateCreated | date : 'short'}}</div>
 
-							<div class="col-lg-4">Last updated: {{currentNote().lastUpdate | date : 'short'}}</div>
-							<div class="col-lg-4">Trash status: {{currentNote().trash}}</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<textarea enter-key="runTonic()" id="notebody" ng-model="currentNote().body" placeholder="{{currentNote().body}}" class="form-control" >
+			<textarea enter-key="runTonic()" rows="20" id="notebody" ng-model="currentNote().body" placeholder="{{currentNote().body}}" class="form-control" >
 			</textarea>
+			<p class="muted"><em>To run code, highlight and click "Run Code" or press Ctrl-Enter</em></p>
 
-			<div ng-hide="tonic" class="col-lg-12 col-md-12 col-sm-12">
-				<div  id="my-element"></div>
-			</div> 
+
 
 		</div>
 		<div class="panel-body">
 			<button class="btn btn-primary" ng-click="save()">Save Changes</button>
-			<button ng-if="tonic" class="btn btn-primary" ng-click="runTonic()">Open Tonic</button>
-			<button ng-if="!tonic" class="btn btn-primary" ng-click="closeTonic()">Close Tonic</button>
+			<button ng-if="tonic" class="btn btn-primary" ng-click="runTonic()">Run Code</button>
+			<button ng-if="!tonic" class="btn btn-primary" ng-click="closeTonic()">Close Code Window</button>
 			<button ng-click="deleteNote(currentNote()._id)" ng-show="!currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
 				 Delete Note
 			</button>
@@ -63,4 +40,34 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 
 
 	</div>
+</div>
+<div class="col lg-3 col-md-3 col-sm-12">
+	<div ng-hide="tonic" class="col-lg-12 col-md-12 col-sm-12">
+		<div id="my-element"></div>
+	</div> 
+
+	<div id="markdown-wrapper" class="panel panel-default">
+		<div class="panel-heading">
+		<h4 class="panel-title">Note Preview</h4>
+		</div>
+		<div class="panel-body">
+			<h2>{{currentNote().subject}}</h2>
+			<div marked="currentNote().body">
+			</div>
+		</div>
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+		<h4 class="panel-title">Note details</h4>
+		</div>
+		<div class="panel-body muted">
+			<div class="row">Note ID: {{currentNote()._id}}</div>
+			<div class="row">Size: {{currentNote().size}} kb</div>
+			<div class="row">Created: {{currentNote().dateCreated | date : 'short'}}</div>
+			<div class="row">Last updated: {{currentNote().lastUpdate | date : 'short'}}</div>
+			<div class="row">Trash status: {{currentNote().trash}}</div>
+		</div>
+	</div>
+
 </div>
