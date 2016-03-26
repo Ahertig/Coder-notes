@@ -197,7 +197,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	}
 
 	NotesFactory.saveNote = function (notebookId, noteId,noteUpdate) {
-		console.log("this is notebookId (saveNote), ", notebookId);
+		console.log("NotesFactory savenote with noteUpdate", noteUpdate);
 		return $http.put('/api/notes/' + noteId, noteUpdate)
 		.then(function(response) {
 		    console.log()
