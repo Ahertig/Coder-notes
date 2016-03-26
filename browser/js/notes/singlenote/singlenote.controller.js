@@ -5,7 +5,17 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
     $scope.showTagEditWindow = false
 
     var stroutput = "";
+  
     $scope.currentNote = NotesFactory.getCurrentNote;
+    
+    $scope.getCurrentNootbook = function(){
+    NotesFactory.getCurrentNotebook()
+    .then(function(_currentNotebook){
+      $scope.curretnNotebook = _currentNotebook;
+    })
+   }
+   $scope.getCurrentNootbook();
+
     //$scope.currentNotebook = NotesFactory.getCurrentNotebook;
     $scope.showmarkdown = false;
     $scope.successmessage = null;
@@ -20,26 +30,24 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
         return;
       }
       console.log("running addTag", noteId, tag)
+
       NotesFactory.addTag(noteId, tag)
       .then(function(newNote) {
-        console.log("saved note with new tag tag",newNote.data);
-
+        
         // update tags cache
-        NotesFactory.updateTagsCache(newNote.data.tags[newNote.data.tags.length - 1])
-
-        var currentNotebook = NotesFactory.findParentNotebook(noteId) 
-
-        // update Notes cache
-        NotesFactory.updateNoteInNotebookCache(currentNotebook, newNote, 'update');
+       // NotesFactory.updateTagsCache(newNote.data.tags[newNote.data.tags.length - 1])
+     
+        console.log("this is newnote",newNote.data)
+        NotesFactory.updateNoteInNotebookCache($scope.curretnNotebook._id, newNote.data, 'update');
 
         // generate success message
         $scope.tagsavesuccess = "Tag saved successfully!";
         $scope.tagToAdd = "";
 
-        }, function(err) {
+      })
+      .then(null, function(err) {
           console.error("error saving tag",err)
-
-        })
+      })
     }
 
     $scope.openTagWindow = function() {
@@ -49,8 +57,9 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
     $scope.save = function(){ 
       var subjectToSave = $('#notesubject').val();
       var bodyToSave = $('#notebody').val();
-      var currentNotebook;
 
+      var currentNotebook;
+      console.log("tag to save", tagsToSave);
       $scope.savenote = {
         "subject": subjectToSave,
         "body": bodyToSave

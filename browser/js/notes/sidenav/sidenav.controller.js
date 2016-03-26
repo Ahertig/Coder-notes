@@ -1,4 +1,4 @@
-app.controller('SidenavCtrl', function($scope, $rootScope, NotesFactory) {
+app.controller('SidenavCtrl', function($scope,NotesFactory,$filter) {
 
 	$scope.getCachedNotebooks = NotesFactory.getCachedNotebooks;
 
@@ -13,6 +13,8 @@ app.controller('SidenavCtrl', function($scope, $rootScope, NotesFactory) {
 	// 		$rootScope.currentNote = theNote;
 	// 	})
 	// 	}
+	$scope.getTagsCache = NotesFactory.getTagsCache;
+	$scope.notes = NotesFactory.getAllCacheNotes();
 	$scope.setCurrentNotebook = function(notebook){
 		NotesFactory.setCurrentNotebook(notebook);
 	}
@@ -26,14 +28,17 @@ app.controller('SidenavCtrl', function($scope, $rootScope, NotesFactory) {
 			NotesFactory.setCurrentNotebook(notebook);
 		}
 	}
-
-	$scope.filters = {};
-	$scope.items = ['notebook', 'note']
-     
-
+    $scope.setTag = function(tag){
+    	$scope.currentTag = tag.tag;
+    }
+    
 })
 
-
-app.filter('filterByTag', function (tag, notes) { 
-        return notes.tags.indexOf(tag) !== -1
-    });
+app.filter('filterByTag', function(){
+	return function (notes, tag) { 
+		return notes.filter(
+			function(note){
+				return note.tags.indexOf(tag) > -1;
+		});
+    }
+});

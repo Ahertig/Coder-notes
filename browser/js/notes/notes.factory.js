@@ -39,6 +39,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			})
 		}
 	}
+
 	NotesFactory.setCurrentNotebook = function(_currentNotebook) {
 		currentNotebook = _currentNotebook;
 	}
@@ -49,17 +50,35 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
     NotesFactory.getTagsCache = function() {
 		return tagsCache;
 	}
-	NotesFactory.updateTagsCache = function(tag, action) {
+	NotesFactory.updateTagsCache = function(tag, action) {	
+ 		var index = NotesFactory.getIndex(tag);
 		if(action == 'add'){
-			if(tagsCache.indexOf(tag) > -1) {
-				tagsCache.unshift(tag);
-			}		
+			if (index === -1) {
+				tagsCache.unshift({tag:tag, count:1});
+			}
+			else {
+				tagsCache[index].count += 1;
+			}
+
 		}
-		else if(action == 'delete'){
-			tagsCache.splice(tagsCache.indexOf(tag),1);
+		else if(action == 'delete') {
+			if (tagsCache[index].count > 1) {
+				tagsCache[index].count -= 1;
+			}
+			else { 
+				tagsCache.splice(index,1);
+			}	
 		}
 		console.log("tags cache is now", tagsCache)
+	}
 
+	NotesFactory.getIndex = function(tag) {
+			for (var i = 0; i < tagsCache.length; i++) {
+				if(tagsCache[i].tag === tag) {
+					return i;
+				}
+			}
+			return -1;
 	}
    
 	NotesFactory.getCachedNotebooks = function() {
@@ -177,6 +196,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 		return $http.get('/api/tags')
 		.then(function(response) {
 			angular.copy(response.data, tagsCache);
+			console.log('tagsCache',tagsCache);
 			return tagsCache;
 		}, function(err) {
 			console.error("could not fetch tags for user",userId)
@@ -263,15 +283,15 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 		return $http.put('/api/notes/' +  noteId + '/tags', {tag: tag});
 	}
 
-	NotesFactory.findParentNotebook = function(noteId) {
-		for (var i = 0; i < notebookCache.length; i++) {
-			for (var j = 0; j < notebookCache[i].notes.length; j++) {
-				if(notebookCache[i].notes[j]._id == noteId) {
-					return notebookCache[i]._id;
-				}
-			}
-		}
-	}
+	// NotesFactory.findParentNotebook = function(noteId) {
+	// 	for (var i = 0; i < notebookCache.length; i++) {
+	// 		for (var j = 0; j < notebookCache[i].notes.length; j++) {
+	// 			if(notebookCache[i].notes[j]._id == noteId) {
+	// 				return notebookCache[i]._id;
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 
 	return NotesFactory; 

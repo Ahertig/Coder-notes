@@ -3,9 +3,9 @@ app.controller('NotesCtrl', function($scope, AuthService, myNotebooks, NotesFact
 	$scope.user = null;
 
     // promises
-    $scope.notes = myNotes;
+    //$scope.notes = myNotes;
 
-    $scope.tags = myTags;
+    //$scope.tags = myTags;
     $scope.sharednotebooks = mySharedNotebooks;
     $scope.notebooks = myNotebooks;
 

@@ -1,16 +1,19 @@
 <div class="panel-footer">
-	<h4>Tags</h4>
+	<div>
+		<h4>Tags: </h4>
 		<ul class="nav nav-pills">
 			<li ng-repeat="tag in currentNote().tags track by $index"><span class="tiny" ng-click="removeTag(currentNote()._id, tag)">{{$index}}</span> 
 				{{tag}} <i class="glyphicon glyphicon-remove"></i>
 			</li>
 		</ul>
-
-	<form ng-submit="addTag(currentNote()._id, tagToAdd)">
-		<div class="input-group"> 
-			<input ng-model="tagToAdd" type="text" class="form-control" placeholder="Add a tag"> 
-			<span ng-click="addTag(currentNote()._id, tagToAdd)" class="input-group-addon">+</span> 
-		</div>
+	</div>
+		
+    <form ng-submit="addTag(currentNote()._id, tagToAdd)">
+			<div class="input-group"> 
+				<input ng-model="tagToAdd" type="text" class="form-control" placeholder="Add a tag"> 
+				<span ng-click="addTag(currentNote()._id, tagToAdd)" class="input-group-addon">+</span> 
+			</div>
 	</form>
+	
 
 </div>

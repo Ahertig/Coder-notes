@@ -9,22 +9,21 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 <div class="col-lg-8 col-md-8 col-sm-12">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-
 			<label for="notesubject" class="muted">Note subject:</label> 
 			<input ng-model="currentNote().subject" class="form-control" id="notesubject" placeholder="{{currentNote().subject}}">
-
-
 		</div>
+		
 		<div class="panel-body">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-				<h4 class="panel-title">
-				<a data-toggle="collapse" data-parent="#accordion" ng-href="#{{currentNote()._id}}" class="muted">Note details</a>
-				</h4>
+					<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion" ng-href="#{{currentNote()._id}}" class="muted">Note details</a>
+					</h4>
 				</div>
 				<div id="{{currentNote()._id}}" class="panel-collapse collapse muted" >
 					<div class="panel-body">
 						<div class="row">
+							<div class="col-lg-4">NootbookID: {{curretnNotebook._id}}</div>
 							<div class="col-lg-4">Note ID: {{currentNote()._id}}</div>
 							<div class="col-lg-4">Size: {{currentNote().size}} kb</div>
 						</div>
@@ -38,13 +37,15 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 				</div>
 			</div>
 
-			<textarea enter-key="runTonic()" id="notebody" ng-model="currentNote().body" placeholder="{{currentNote().body}}" class="form-control" >
+			<textarea enter-key="runTonic()" id="notebody" rows=10 ng-model="currentNote().body" placeholder="{{currentNote().body}}" class="form-control" >
 			</textarea>
 
 			<div ng-hide="tonic" class="col-lg-12 col-md-12 col-sm-12">
-				<div  id="my-element"></div>
+				<div id="my-element"></div>
 			</div> 
-
+            <div class="alert alert-success" role="alert" ng-if="tagsavesuccess">{{tagsavesuccess}}</div>
+		    <div class="alert alert-danger" role="alert" ng-if="tagsavefailure && !tagsavesuccess">{{tagsavefailure}}</div>
+	        <tagfooter></tagfooter>
 		</div>
 		<div class="panel-body">
 			<button class="btn btn-primary" ng-click="save()">Save Changes</button>
@@ -57,9 +58,7 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 				Restore Note from Trash
 			</button>
 		</div>
-		<div class="alert alert-success" role="alert" ng-if="tagsavesuccess">{{tagsavesuccess}}</div>
-		<div class="alert alert-danger" role="alert" ng-if="tagsavefailure && !tagsavesuccess">{{tagsavefailure}}</div>
-		<tagfooter></tagfooter>
+		
 
 
 	</div>
