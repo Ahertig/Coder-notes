@@ -5,7 +5,7 @@
 
 			<!-- {{getCachedNotebooks()}} -->
 		<!-- </div>	 -->
-		<div class="panel-body">
+		<div class="panel-body" >
 			<ul class="nav nav-pills nav-justified nav-pills-sm">
 				<li class="active"><a href="#notes" data-toggle="tab">Notes</a>
 				</li>
@@ -21,10 +21,10 @@
 			<div class="tab-content">
 				<div class="tab-pane fade active" id="notes">
 					<div class="panel panel-default">
-						<div class="panel-heading">My Notes</div>
+						<div class="panel-heading">
+								<input ng-model="searchNotes" width="25" type="text" class="form-control" placeholder="Search Notes">
+						</div>
 						<div class="panel-body">
-								<div><p>Search My Notes by Text</p></div>
-								<input ng-model="searchNotes" width="25" type="text" class="form-control" placeholder="Search My Notes">
 							<div class='list-group' id="side-menu-1">
       							<a ng-click="setCurrentNote(note)"  class="list-group-item" ng-repeat="note in notes | filter:searchNotes | filter: {trash: false}">{{note.subject}}</a>
 							</div>
@@ -33,9 +33,12 @@
 				</div>
 				<div class="tab-pane fade" id="notebooks">
 					<div class="panel panel-default">
-						<div class="panel-heading">My Notebooks</div>
+						
+						<div class="panel-heading">
+							<input ng-model="searchNotebooktitle" width="25" type="text" class="form-control" placeholder="Search Notebooks">
+						</div>
+						
 						<div class="panel-body">
-							<input ng-model="searchNotebooktitle" width="25" type="text" class="form-control" placeholder="Search by title">
 							<div class="list-group" id="side-menu-2">
     							
 								<div ng-repeat="notebook in getCachedNotebooks() | filter:{title: searchNotebooktitle} | filter: {trash: false}">
@@ -80,7 +83,13 @@
 
 				<div class="tab-pane fade" id="shared">
 					<div class="panel panel-default">
-						<div class="panel-heading">My Shared Notebooks</div>
+
+
+						<div class="panel-heading">
+							<input ng-model="searchNotebooktitle" width="25" type="text" class="form-control" placeholder="Search Shared Notebooks">
+						</div>
+
+
 						<div class="panel-body">
 							<div class="list-group" id="side-menu-4">
 
@@ -102,9 +111,11 @@
 
 				<div class="tab-pane fade" id="trash">
 					<div class="panel panel-default">
-						<div class="panel-heading">My Trashed Notebooks</div>
-						<div class="panel-body">
+						<div class="panel-heading">
 							<input ng-model="searchNotebooks" width="25" type="text" class="form-control" placeholder="Search Notebooks in Trash">
+
+						</div>
+						<div class="panel-body">
 							<div class="list-group" id="side-menu-5">
 								<div ng-repeat="notebook in getCachedNotebooks() | filter:searchNotebooks | filter: {trash: true}" > <!-- check trash logic ? -->
 									<div class="muted">Notebook ID:{{notebook._id}}</div>
@@ -124,11 +135,11 @@
 						</div>
 					</div>
 					<div class="panel panel-default">
-						<div class="panel-heading">My Trashed Notes</div>
-						<div class="panel-body">
-
+						<div class="panel-heading">
 							<input ng-model="searchNotes" width="25" type="text" class="form-control" placeholder="Search Notes In Trash">
 
+						</div>
+							<div class="panel-body">
 							<div class='list-group' id="side-menu-1">
 									<a class="list-group-item" ng-repeat="note in notes | filter: searchNotes | filter: {trash: true}" ng-click="setCurrentNote(note)">{{note.subject}}</a>
 							</div>

@@ -15,6 +15,10 @@ body {
 }
 
 
+.tab-content .panel-body {
+	height: 200px !important;
+	overflow: auto !important;
+}
 
 /*#main {
   padding-top: 60px;
