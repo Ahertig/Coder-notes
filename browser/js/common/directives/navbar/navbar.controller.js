@@ -44,22 +44,29 @@ app.controller('NavbarCtrl', function($scope, NotesFactory,notesService,AuthServ
     }
  });
 app.filter('trunc', function () {
-        return function (value, wordwise, max, tail) {
-            if (!value) return '';
 
-            max = parseInt(max, 10);
-            if (!max) return value;
-            if (value.length <= max) return value;
+    return function (value, wordwise, max, tail) {
+        // console.log("running trunc. value",value, "wordwise",wordwise,"max",max,"tail",tail)
+        if (!value) return '';
 
-            value = value.substr(0, max);
-            if (wordwise) {
-                var lastspace = value.lastIndexOf(' ');
-                if (lastspace != -1) {
-                    value = value.substr(0, lastspace);
-                }
+        max = parseInt(max, 10);
+        if (!max) return value;
+        if (value.length <= max) { 
+            // console.log("****** value less than max"); 
+            return value;
+        }
+
+        value = value.substr(0, max);
+        // console.log("**** value is now", value)
+        if (wordwise) {
+            // console.log("***** wordwise is true");
+            var lastspace = value.lastIndexOf(' ');
+            if (lastspace != -1) {
+                value = value.substr(0, lastspace);
             }
+        }
 
-            return value + (tail || '...');
+        return value + (tail || '...');
     };
 });
 
