@@ -9,6 +9,7 @@ router.use('/public', require('./public-data'));
 router.use('/notebooks', require('./notebooks'));
 router.use('/notes', require('./notes'));
 router.use('/trash', require('./trash'));
+// router.use('/api.github.com', require('./github'));
 router.use('/', require('./users'));
 
 // Make sure this is after all of

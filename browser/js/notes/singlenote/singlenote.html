@@ -12,15 +12,12 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 			<label for="notesubject" class="muted">Note title</label> 
 			<input ng-model="currentNote().subject" class="form-control" id="notesubject" placeholder="{{currentNote().subject}}">
 
-
 		</div>
 		<div class="panel-body">
 
 			<textarea enter-key="runTonic()" rows="20" id="notebody" ng-model="currentNote().body" placeholder="{{currentNote().body}}" class="form-control" >
 			</textarea>
 			<p class="muted"><em>To run code, highlight and click "Run Code" or press Ctrl-Enter</em></p>
-
-
 
 		</div>
 		<div class="panel-body">
@@ -32,6 +29,9 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 			</button>
 			<button ng-click="restoreNote(currentNote()._id)" ng-show="currentNote().trash"type="button" class="btn btn-success"  data-toggle="tooltip" title="Restore note">
 				Restore Note from Trash
+			</button>
+			<button ng-click="createGist(currentNote())" type="button" class="btn btn-success"  data-toggle="tooltip" title="Create gist">
+				Create a Gist
 			</button>
 		</div>
 		<div class="alert alert-success" role="alert" ng-if="tagsavesuccess">{{tagsavesuccess}}</div>

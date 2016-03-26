@@ -1,4 +1,4 @@
-app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
+app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, GithubFactory) {
     $scope.savenote = {};
     $scope.tagform = {};
 
@@ -80,7 +80,6 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
       hljs.initHighlighting();
     }
 
-
     $scope.addPre = function() {
       var domElement = $('#testdiv')[0];
       var codeValue = domElement.innerHTML;
@@ -103,9 +102,15 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
         element: document.getElementById("my-element"),
         source: TonicFactory.getSelectionText()
       })       
-
-    $scope.tonic = false;
+      $scope.tonic = false;
     }
+
+    // Gists 
+    $scope.createGist = function(note) {
+      GithubFactory.createGist(note)
+    }
+
+
 
 })
 
