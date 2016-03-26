@@ -54,9 +54,9 @@ module.exports = [
 		"password": "PXH66FKF7JM"
 	},
 	{
-		"firstName": "Ainsley",
-		"lastName": "Shelby",
-		"email": "eget.odio@etultrices.net",
-		"password": "LTL28UNQ1KC"
+		"firstName": "Grace",
+		"lastName": "Hopper",
+		"email": "grace@gracehopperacademy.com",
+		"password": "123"
 	}
 ]
