@@ -350,7 +350,9 @@ footer p {
     margin: 0;
 }
 
-::-moz-selection {
+/* the following was causing a problem with seeing selected text on a light background */
+
+/*::-moz-selection {
     text-shadow: none;
     background: #fcfcfc;
     background: rgba(255,255,255,.2);
@@ -372,4 +374,4 @@ img::-moz-selection {
 
 body {
     webkit-tap-highlight-color: rgba(255,255,255,.2);
-}
+}*/
