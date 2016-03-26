@@ -19,16 +19,6 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 				angular.copy(currentNotebook.notes[0], currentNote);
 				return currentNote;
 			})
-
-			// angular.copy(NotesFactory.getCurrentNotebook().notes[0], currentNote)
-			// return currentNote;
-
-			// return NotesFactory.fetchMyNotes()
-			// .then(function(notes) {
-			// 	angular.copy(notes[5],currentNote);
-			// 	console.log("set current note initially to", currentNote)
-			// 	return currentNote;				
-			// })
 		}
 	}
 	NotesFactory.setCurrentNote = function(_currentNote) {
@@ -53,8 +43,9 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 		currentNotebook = _currentNotebook;
 	}
     
-
-
+    NotesFactory.getAllCacheNotes = function(){
+    	return notesCache;
+    }
     NotesFactory.getTagsCache = function() {
 		return tagsCache;
 	}
@@ -71,17 +62,13 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 
 	}
    
-
 	NotesFactory.getCachedNotebooks = function() {
 		return notebookCache;
 	}
     
     NotesFactory.updateNoteInNotebookCache = function(notebookID, note, action){
     	var notebook = NotesFactory.findNotebookById(notebookID); 
-    	console.log("this is notebookID ", notebookID);
-    	console.log("this is note ", note);
-    	console.log("this is notebook",  notebook);
-
+    	
  		if(action === 'add'){ 
          	notebook.notes.unshift(note);         	
  		}
@@ -151,6 +138,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			angular.copy(response.data, notebookCache);
 			return notebookCache;
 		}, function(err) {
+			console.log("failed get all notebooks",err);
 		})
 	}
 

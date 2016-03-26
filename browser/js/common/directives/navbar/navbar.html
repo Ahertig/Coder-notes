@@ -62,12 +62,12 @@
  -->		
 		</li>
 		<li class="dropdown">
-			<a class="dropdown-toggle" data-toggle="dropdown" href="#" ng-click="getnotes()">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#" ng-click=getNotes()>
 				<i class="fa fa-clock-o"></i>
 				<i class="fa fa-caret-down"></i>
 			</a>
 			<ul class="dropdown-menu dropdown-messages">
-				<div ng-repeat="note in notes | limitTo: 3 | orderBy: note.lastUpdate" >
+				<div ng-repeat="note in notes | limitTo: 5 | orderBy: '-lastUpdate'" >
 				<li ng-click = setCurrentNote(note)>
 <!-- 					<a href="#"> -->
 					<div>
