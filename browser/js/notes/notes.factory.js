@@ -23,7 +23,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	}
 	NotesFactory.setCurrentNote = function(_currentNote) {
 		currentNote = _currentNote;
-		console.log("this is factory currentNote ", currentNote);
+		console.log("* In NotesFactory setCurrentNote. currentNote is ", currentNote);
 	}
 	NotesFactory.getCurrentNotebook = function() {
 		if(currentNotebook){
@@ -34,7 +34,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			return NotesFactory.fetchMyNotebooks()
 					.then(function(notebooks) {
 						angular.copy(notebooks[0], currentNotebook);
-				console.log("set current note initially to", currentNotebook)
+				console.log("* In NotesFactory getCurrentNotebook. Current Notebook is now", currentNotebook)
 				return currentNotebook;	
 			})
 		}
@@ -76,8 +76,12 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
          	notebook.notes.unshift(note);         	
  		}
  		else if(action === 'update'){
+ 			console.log("~~ In updateNoteInNotebookCache. note is", note)
  			var index = NotesFactory.findNoteIndex(notebook,note._id);
+ 			console.log("~~ index is", index)
+ 			console.log("~~ In updateNoteInNotebookCache. notebook.notes[index] is",notebook.notes[index])
  			angular.copy(note,notebook.notes[index]);
+ 			console.log("~~ After copy. Notebook.notes[index] is", notebook.notes[index])
  		}
  		else if(action === 'delete'){
  			var index = NotesFactory.findNoteIndex(notebook,note._id);
@@ -197,12 +201,12 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	}
 
 	NotesFactory.saveNote = function (notebookId, noteId,noteUpdate) {
-		console.log("NotesFactory savenote with noteUpdate", noteUpdate);
+		console.log("* NotesFactory savenote with noteUpdate", noteUpdate);
 		return $http.put('/api/notes/' + noteId, noteUpdate)
 		.then(function(response) {
-		    console.log()
-			NotesFactory.updateNoteInNotebookCache(notebookId,response.data,'update');
-			console.log("response data is", response.data)
+			console.log("* NotesFactory response data is", response.data)
+			NotesFactory.updateNoteInNotebookCache(notebookId, response.data, 'update');
+			console.log("just updated note in notebook cache", notebookCache)
 			return response.data;
 		},
 		function(err) {
@@ -211,8 +215,10 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	}
 
 	NotesFactory.newNote = function (notebookId) {
+		console.log("* Starting NotesFactory newNote")
 		return $http.post('/api/notebooks/' + notebookId + '/notes')
 		.then(function(response) {
+			console.log("* Received response in NotesFactory newNote", response.data)
             NotesFactory.updateNoteInNotebookCache(notebookId, response.data, 'add');
 			return response.data;
 		}, 

@@ -36,6 +36,7 @@ var noteSchema = new mongoose.Schema({
 
 
 noteSchema.post('save', function() {
+    console.log("in note schema post hook")
   return this.set({lastUpdate: new Date()}).save();
 });
 

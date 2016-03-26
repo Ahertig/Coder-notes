@@ -12,10 +12,10 @@ router.get('/', function(req,res, next) {
 
 // Update one Note
 router.put('/', function(req, res, next) {
-	console.log("updating one note")
+	console.log("+ Note router. Received put request", req.body)
 	return req.currentNote.set(req.body).save()
 	.then(function(updatedNote) {
-		console.log("updated note", updatedNote)
+		console.log("+ Note router. Updated note", updatedNote)
 		res.json(updatedNote)
 	})
 	.then(null, next)
