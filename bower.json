@@ -15,7 +15,5 @@
     "test",
     "tests"
   ],
-  "dependencies": {
-    "angular-markdown-preview": "^0.1.3"
-  }
+  "dependencies": {}
 }
