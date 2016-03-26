@@ -1,152 +1,152 @@
 module.exports = [
 	{
-		"title": "Iaculis odio"
+		"title": "FORTRAN"
 	},
 	{
-		"title": "Luctus lobortis four score and seven years"
+		"title": "ALGOL"
 	},
 	{
-		"title": "Nam ac"
+		"title": "COBOL"
 	},
 	{
-		"title": "Magna Cras"
+		"title": "Perl"
 	},
 	{
-		"title": "Erat nonummy"
+		"title": "BASIC"
 	},
 	{
-		"title": "Nullam lobortis now is the time for all good men"
+		"title": "Javascript patterns"
 	},
 	{
-		"title": "To come to the aid of their dis parturient"
+		"title": "Networking"
 	},
 	{
-		"title": "Nam porttitor"
+		"title": "AJAX"
 	},
 	{
-		"title": "Duis gravida"
+		"title": "C++"
 	},
 	{
-		"title": "Nec, mollis"
+		"title": "Browsers and compilers"
 	},
 	{
-		"title": "non arcu"
+		"title": "Developer tools"
 	},
 	{
-		"title": "Duis mi supercalifragulistic expeialidocius"
+		"title": "Local Storage"
 	},
 	{
-		"title": "Duis at"
+		"title": "PHP"
 	},
 	{
-		"title": "Semper pretium"
+		"title": "PASCAL"
 	},
 	{
-		"title": "Ornare In Deo Speramus"
+		"title": "Git and GitHub"
 	},
 	{
-		"title": "Donec nibh adeste fideles in toto ad libitum et cetera ibid"
+		"title": "Hackathons"
 	},
 	{
-		"title": "Nunc mauris"
+		"title": "Tech Talks"
 	},
 	{
-		"title": "mauris elit"
+		"title": "LOGO"
 	},
 	{
-		"title": "Sed diam"
+		"title": "Java"
 	},
 	{
-		"title": "Duis gravida redux"
+		"title": "NoSQL"
 	},
 	{
-		"title": "Pellentesque ut"
+		"title": "MySQL"
 	},
 	{
-		"title": "Nec, cursus sivilli fortibus in ero demis"
+		"title": "Database design"
 	},
 	{
-		"title": "Neque non"
+		"title": "D3 JS"
 	},
 	{
-		"title": "Penatibus et"
+		"title": "Ruby"
 	},
 	{
-		"title": "Tempor lorem"
+		"title": "Python"
 	},
 	{
-		"title": "Lorem ipsum"
+		"title": "ReactJS"
 	},
 	{
-		"title": "In nec"
+		"title": "EmberJS"
 	},
 	{
-		"title": "ligula eu"
+		"title": "LISP"
 	},
 	{
-		"title": "Scelerisque scelerisque sit amet in ero nonummy"
+		"title": "UI and UX"
 	},
 	{
-		"title": "Tellus, imperdiet"
+		"title": "ActionScript"
 	},
 	{
-		"title": "Lobortis quis"
+		"title": "Hardware"
 	},
 	{
-		"title": "Quisque imperdiet"
+		"title": "APIs"
 	},
 	{
-		"title": "Nulla tempor"
+		"title": "Bootstrap"
 	},
 	{
-		"title": "Malesuada malesuada"
+		"title": "Security"
 	},
 	{
-		"title": "Donec non"
+		"title": "ES6"
 	},
 	{
-		"title": "Libero est"
+		"title": "Bluebird and Promises"
 	},
 	{
-		"title": "Leo Vivamus"
+		"title": "Big O Notation"
 	},
 	{
-		"title": "Interdum ligula"
+		"title": "Sorting"
 	},
 	{
-		"title": "Vestibulum ut"
+		"title": "Mongoose"
 	},
 	{
-		"title": "Vivamus molestie"
+		"title": "MongoDB"
 	},
 	{
-		"title": "Nulla aliquet"
+		"title": "Visual Basic"
 	},
 	{
-		"title": "Magnis dis"
+		"title": "ADA"
 	},
 	{
-		"title": "Nulla ante"
+		"title": "Algorithms"
 	},
 	{
-		"title": "Maecenas malesuada"
+		"title": "Bootstrap"
 	},
 	{
-		"title": "Tincidunt, nunc"
+		"title": "HTML"
 	},
 	{
-		"title": "Sed auctor"
+		"title": "Express"
 	},
 	{
-		"title": "Et tristique lorem ipsum dolor"
+		"title": "Whiteboarding algorithms"
 	},
 	{
-		"title": "Adipiscing elit"
+		"title": "CSS"
 	},
 	{
-		"title": "Pellentesque tincidunt"
+		"title": "NodeJS"
 	},
 	{
-		"title": "A auctor"
+		"title": "AngularJS"
 	}
 ]
