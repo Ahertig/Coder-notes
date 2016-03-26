@@ -14,8 +14,8 @@ var userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        unique: true,
-        required: true
+        unique: true //,
+        // required: true
     },
     password: {
         type: String
@@ -31,11 +31,17 @@ var userSchema = new mongoose.Schema({
     salt: {
         type: String
     },
+    // google: {
+    //     id: String
+    // }, 
     google: {
-        id: String
-    }, 
+        id: String, 
+        email: String,
+        token: String
+    },
     github: {
-        id: String
+        id: String, 
+        token: String
     }
 });
 
