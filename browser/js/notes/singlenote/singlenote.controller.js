@@ -9,70 +9,74 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
     $scope.currentNote = NotesFactory.getCurrentNote;
     
     $scope.getCurrentNootbook = function(){
-    NotesFactory.getCurrentNotebook()
-    .then(function(_currentNotebook){
-      $scope.curretnNotebook = _currentNotebook;
-    })
+      NotesFactory.getCurrentNotebook()
+      .then(function(_currentNotebook){
+       return _currentNotebook;
+      })
    }
-   $scope.getCurrentNootbook();
-
     //$scope.currentNotebook = NotesFactory.getCurrentNotebook;
     $scope.showmarkdown = false;
     $scope.successmessage = null;
-
-    $scope.removeTag = function(noteId, tag) {
-      NotesFactory.removeTag(noteId, tag);
+    $scope.tagsremoved = []
+    $scope.removeTag = function(note, tag) {
+      console.log("remove tag");
+      if(note.tags.indexOf(tag) === -1){
+        console.log("this note doesn't have this tag!");
+      }
+      else {
+        NotesFactory.removeTag(note._id, tag)
+        .then(function(newNote){
+          var currentNotebookID = NotesFactory.findParentNotebook(note._id);
+          NotesFactory.updateNoteInNotebookCache(currentNotebookID, newNote.data, 'update');
+          $scope.tagsremoved.push(tag);
+        });
+      }
     }
 
-    $scope.addTag = function(noteId, tag) {
+    $scope.addTag = function(note, tag) {
       if(!tag) { 
         $scope.tagsavefailure = "Cannot save an empty tag!"; 
         return;
       }
-      console.log("running addTag", noteId, tag)
-
-      NotesFactory.addTag(noteId, tag)
-      .then(function(newNote) {
-        
-        // update tags cache
-       // NotesFactory.updateTagsCache(newNote.data.tags[newNote.data.tags.length - 1])
-     
-        console.log("this is newnote",newNote.data)
-        NotesFactory.updateNoteInNotebookCache($scope.curretnNotebook._id, newNote.data, 'update');
-
-        // generate success message
-        $scope.tagsavesuccess = "Tag saved successfully!";
-        $scope.tagToAdd = "";
-
-      })
-      .then(null, function(err) {
-          console.error("error saving tag",err)
-      })
-    }
+      if(note.tags.indexOf(tag) === -1){
+        NotesFactory.addTag(note._id, tag)
+        .then(function(newNote) {       
+          console.log("this is newnote",newNote.data)
+           var currentNotebookID = NotesFactory.findParentNotebook(note._id);
+          console.log("current notebook",$scope.currentNotebook);
+          NotesFactory.updateNoteInNotebookCache(currentNotebookID, newNote.data, 'update');
+          $scope.tagsavesuccess = "Tag saved successfully!";
+          $scope.tagToAdd = "";
+        })
+        .then(null, function(err) {
+         console.error("error saving tag",err)
+        })
+      }
+      else {
+        $scope.tagsavefailure = "this tag is in tags! add a new tag?";
+      }
+    } 
 
     $scope.openTagWindow = function() {
       $scope.showTagEditWindow = !$scope.showTagEditWindow;
     }
 
     $scope.save = function(){ 
+      var currentNotebook;
       var subjectToSave = $('#notesubject').val();
       var bodyToSave = $('#notebody').val();
-
-      var currentNotebook;
-      console.log("tag to save", tagsToSave);
       $scope.savenote = {
         "subject": subjectToSave,
         "body": bodyToSave
       }  
 
-      NotesFactory.getCurrentNotebook()
-      .then(function(_currentNotebook){
-        currentNotebook = _currentNotebook;
-        })
-      .then(function(){
-        console.log("this is current Notebook, ", currentNotebook);
-        return NotesFactory.saveNote(currentNotebook._id,$scope.currentNote()._id, $scope.savenote)
-      })
+      if(!$scope.getCurrentNootbook())  {
+        currentNotebook = NotesFactory.findParentNotebook($scope.currentNote()._id);
+      }
+      else {
+        currentNotebook = $scope.getCurrentNootbook();
+      }
+      NotesFactory.saveNote(currentNotebook,$scope.currentNote()._id, $scope.savenote)
       .then(function(note) {
           $scope.successmessage="Note saved successfully!" + note;
         }, function(err) {

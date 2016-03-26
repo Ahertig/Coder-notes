@@ -10,13 +10,9 @@ var Notebook = mongoose.model('Notebook');
 var Note = mongoose.model('Note');
 
 // Get all tags for one user
-
-// move to method on User schema
-
 router.get('/',function(req,res,next){
 	var tags = [];
 	var tagsArray = [];
-	
 	var tagCount = function(_tagObj){		
 		for (var key in _tagObj){
 			if (_tagObj.hasOwnProperty(key)) {
@@ -42,6 +38,7 @@ router.get('/',function(req,res,next){
 	})
 	.then(null, next)
 });
+
 // router.get('/', function(req, res, next){
 // 	var multidimensionalArrayOfNodeIds = [], 
 // 		arrayOfNoteIds = [], 

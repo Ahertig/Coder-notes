@@ -34,7 +34,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			return NotesFactory.fetchMyNotebooks()
 					.then(function(notebooks) {
 						angular.copy(notebooks[0], currentNotebook);
-				console.log("set current note initially to", currentNotebook)
+				console.log("set current notebook initially to", currentNotebook)
 				return currentNotebook;	
 			})
 		}
@@ -42,6 +42,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 
 	NotesFactory.setCurrentNotebook = function(_currentNotebook) {
 		currentNotebook = _currentNotebook;
+		console.log("this is factory currentNotebook ", currentNotebook);
 	}
     
     NotesFactory.getAllCacheNotes = function(){
@@ -275,7 +276,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 
 	NotesFactory.addTag = function(noteId, tag) {
         NotesFactory.updateTagsCache(tag, 'add');
-		return $http.post('/api/notes/' +  noteId + '/tags', {tag: tag});
+		return $http.post('/api/notes/' +  noteId + '/tags', {tag: tag})
 	}
 
 	NotesFactory.removeTag = function(noteId, tag) {
@@ -283,15 +284,15 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 		return $http.put('/api/notes/' +  noteId + '/tags', {tag: tag});
 	}
 
-	// NotesFactory.findParentNotebook = function(noteId) {
-	// 	for (var i = 0; i < notebookCache.length; i++) {
-	// 		for (var j = 0; j < notebookCache[i].notes.length; j++) {
-	// 			if(notebookCache[i].notes[j]._id == noteId) {
-	// 				return notebookCache[i]._id;
-	// 			}
-	// 		}
-	// 	}
-	// }
+	NotesFactory.findParentNotebook = function(noteId) {
+		for (var i = 0; i < notebookCache.length; i++) {
+			for (var j = 0; j < notebookCache[i].notes.length; j++) {
+				if(notebookCache[i].notes[j]._id == noteId) {
+					return notebookCache[i]._id;
+				}
+			}
+		}
+	}
 
 
 	return NotesFactory; 
