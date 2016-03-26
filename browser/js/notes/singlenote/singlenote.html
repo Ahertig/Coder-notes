@@ -53,7 +53,7 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 			<button ng-click="deleteNote(currentNote())" ng-show="!currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
 				 Delete Note
 			</button>
-			<button ng-show="currentNote().trash"type="button" class="btn btn-success"  data-toggle="tooltip" title="Restore note">
+			<button ng-click="restoreNote(currentNote())" ng-show="currentNote().trash" type="button" class="btn btn-success"  data-toggle="tooltip" title="Restore note">
 				Restore
 			</button>
 		</div>

@@ -75,7 +75,14 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
 
 
     $scope.deleteNote = function(note) {
-      NotesFactory.trashNote(note, 'delete');
+      NotesFactory.trashNote(note, 'update');
+    }
+
+    $scope.restoreNote = function(note) {
+      NotesFactory.restoreNote(note, 'update')
+      .then(function(result) {
+        console.log('banana: ', result)
+      })
     }
 
     $scope.highlightPre = function() {

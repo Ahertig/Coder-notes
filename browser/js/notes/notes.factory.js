@@ -86,16 +86,15 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
     
     NotesFactory.updateNoteInNotebookCache = function(notebookID, note, action){
     	var notebook = NotesFactory.findNotebookById(notebookID); 
-    	console.log("this is notebookID ", notebookID);
-    	console.log("this is note ", note);
-    	console.log("this is notebook",  notebook);
 
  		if(action === 'add'){ 
          	notebook.notes.unshift(note);         	
  		}
  		else if(action === 'update'){
  			var index = NotesFactory.findNoteIndex(notebook,note._id);
- 			angular.copy(note,notebook.notes[index]);
+ 			notebook.notes[index] = note;
+ 			// this would error: can't use angular.copy, source and destination are identical
+ 			// angular.copy(note,notebook.notes[index]);
  		}
  		else if(action === 'delete'){
  			var index = NotesFactory.findNoteIndex(notebook,note._id);
@@ -133,15 +132,6 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 		}
 	}
 
- //    NotesFactory.findNoteById = function(notebook, noteId) {
-	// 	for (var i = 0; i < notebook.notes.length; i++) {
-	// 		if(noteId == notebook.notes[i]._id) {
-	// 			return notebook.notes[i];
-	// 		}
-	// 	}
-	// }
-
-
     
      NotesFactory.findNoteIndex = function(notebook, noteId) {
 		for (var i = 0; i < notebook.notes.length; i++) {
@@ -174,7 +164,6 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	}
 
 	NotesFactory.fetchMyNotes = function() {
-		
 		return NotesFactory.fetchMyNotebooks()
 		.then(function(notebookCache){
 			console.log("notebookCache,", notebookCache);
@@ -249,6 +238,20 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 
 	NotesFactory.trashNote = function(note, method) {
 		return $http.put('/api/notes/' + note._id + '/trash/add')
+		.then(function (response) {
+			return response.data
+		})
+		.then(function() {
+			return NotesFactory.findParentNotebook(note._id)						
+		})
+		.then(function(notebookId) {
+			NotesFactory.updateNoteInNotebookCache(notebookId, note, method)
+		})
+	}
+
+
+	NotesFactory.restoreNote = function(note, method) {
+		return $http.put('/api/notes/' + note._id + '/trash/restore')
 		.then(function (response) {
 			return response.data
 		})
