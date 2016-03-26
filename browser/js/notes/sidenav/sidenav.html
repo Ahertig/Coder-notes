@@ -5,7 +5,7 @@
 
 			<!-- {{getCachedNotebooks()}} -->
 		<!-- </div>	 -->
-		<div class="panel-body">
+		<div class="panel-body" >
 			<ul class="nav nav-pills nav-justified nav-pills-sm">
 				<li class="active"><a href="#notes" data-toggle="tab">Notes</a>
 				</li>
@@ -21,10 +21,10 @@
 			<div class="tab-content">
 				<div class="tab-pane fade active" id="notes">
 					<div class="panel panel-default">
-						<div class="panel-heading">My Notes</div>
-						<div class="panel-body">
-								<div><p>Search My Notes by Text</p></div>
-								<input ng-model="searchNotes" width="25" type="text" class="form-control" placeholder="Search My Notes">
+						<div class="panel-heading">
+								<input ng-model="searchNotes" width="25" type="text" class="form-control" placeholder="Search Notes">
+						</div>
+						<div class="panel-body outer-scroll">
 							<div class='list-group' id="side-menu-1">
       							<a ng-click="setCurrentNote(note)"  class="list-group-item" ng-repeat="note in notes | filter:searchNotes | filter: {trash: false}">{{note.subject}}</a>
 							</div>
@@ -33,16 +33,19 @@
 				</div>
 				<div class="tab-pane fade" id="notebooks">
 					<div class="panel panel-default">
-						<div class="panel-heading">My Notebooks</div>
-						<div class="panel-body">
-							<input ng-model="searchNotebooktitle" width="25" type="text" class="form-control" placeholder="Search by title">
+						
+						<div class="panel-heading">
+							<input ng-model="searchNotebooktitle" width="25" type="text" class="form-control" placeholder="Search Notebooks">
+						</div>
+						
+						<div class="panel-body outer-scroll">
 							<div class="list-group" id="side-menu-2">
-    							
+    						
 								<div ng-repeat="notebook in getCachedNotebooks() | filter:{title: searchNotebooktitle} | filter: {trash: false}">
-									<div class="muted">Notebook ID:{{notebook._id}}</div>
+									<!-- <div class="muted">Notebook ID:{{notebook._id}}</div> -->
 									<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item" ng-click="setCurrentNotebook(notebook)">{{notebook.title}}</a>
 									<div class="panel-collapse collapse" id="{{notebook._id}}">
-										<div class="panel-body">
+										<div class="panel-body inner-scroll">
 											<div class="list-group">
 												<a ng-click="setCurrentNote(oneNote,notebook)" class="list-group-item" ng-repeat="oneNote in notebook.notes">{{oneNote.subject}}
 												</a>
@@ -59,13 +62,13 @@
 				<div class="tab-pane fade" id="tags">
 					<div class="panel panel-default">
 						<div class="panel-heading">My Tags</div>
-						<div class="panel-body">
+						<div class="panel-body outer-scroll">
 							<div class="list-group" id="side-menu-3">
 
 								<div ng-repeat="tag in tags">
 									<a ng-href="#{{tag}}" data-toggle="collapse" class="list-group-item" ng-click="filters[tag] = tag">{{tag}}</a>
 									<div class="panel-collapse collapse" id="{{tag}}">
-										<div class="panel-body">
+										<div class="panel-body inner-scroll">
 											<div class="list-group">
 												<a ng-click="setCurrentNote(note)" class="list-group-item" ng-repeat="note in notes | filter:filters[tag]">{{note.subject}}</a>
 											</div>
@@ -80,14 +83,20 @@
 
 				<div class="tab-pane fade" id="shared">
 					<div class="panel panel-default">
-						<div class="panel-heading">My Shared Notebooks</div>
-						<div class="panel-body">
+
+
+						<div class="panel-heading">
+							<input ng-model="searchSharedNotebooktitle" width="25" type="text" class="form-control" placeholder="Search Shared Notebooks">
+						</div>
+
+
+						<div class="panel-body outer-scroll">
 							<div class="list-group" id="side-menu-4">
 
-								<div ng-repeat="sharednotebook in sharednotebooks">
+								<div ng-repeat="sharednotebook in sharednotebooks | filter:{title: searchSharedNotebooktitle} | filter: {trash: false}">
 									<a data-toggle="collapse" ng-href="#{{sharednotebook._id}}" class="list-group-item">{{sharednotebook.title}}</a>
 									<div class="panel-collapse collapse" id="{{sharednotebook._id}}">
-										<div class="panel-body">
+										<div class="panel-body inner-scroll">
 											<div class="list-group">
 												<a ng-click="setCurrentNote(oneNote,sharednotebook)" class="list-group-item" ng-repeat="oneNote in sharednotebook.notes">{{oneNote.subject}}
 												</a>
@@ -102,17 +111,19 @@
 
 				<div class="tab-pane fade" id="trash">
 					<div class="panel panel-default">
-						<div class="panel-heading">My Trashed Notebooks</div>
-						<div class="panel-body">
+						<div class="panel-heading">
 							<input ng-model="searchNotebooks" width="25" type="text" class="form-control" placeholder="Search Notebooks in Trash">
+
+						</div>
+						<div class="panel-body trash-scroll">
 							<div class="list-group" id="side-menu-5">
 								<div ng-repeat="notebook in getCachedNotebooks() | filter:searchNotebooks | filter: {trash: true}" > <!-- check trash logic ? -->
-									<div class="muted">Notebook ID:{{notebook._id}}</div>
+									<!-- <div class="muted">Notebook ID:{{notebook._id}}</div> -->
 									<a data-toggle="collapse" ng-href="#trash-{{notebook._id}}" class="list-group-item" ng-click="setCurrentNotebook(notebook)">{{notebook.title}}</a>
 
 
 									<div class="panel-collapse collapse" id="trash-{{notebook._id}}">
-										<div class="panel-body">
+										<div class="panel-body inner-scroll">
 											<div class="list-group">
 												<a ng-click="setCurrentNote(oneNote,notebook)" class="list-group-item" ng-repeat="oneNote in notebook.notes">{{oneNote.subject}}
 												</a>
@@ -124,11 +135,11 @@
 						</div>
 					</div>
 					<div class="panel panel-default">
-						<div class="panel-heading">My Trashed Notes</div>
-						<div class="panel-body">
-
+						<div class="panel-heading">
 							<input ng-model="searchNotes" width="25" type="text" class="form-control" placeholder="Search Notes In Trash">
 
+						</div>
+							<div class="panel-body inner-scroll">
 							<div class='list-group' id="side-menu-1">
 									<a class="list-group-item" ng-repeat="note in notes | filter: searchNotes | filter: {trash: true}" ng-click="setCurrentNote(note)">{{note.subject}}</a>
 							</div>
