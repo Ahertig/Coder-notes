@@ -15,9 +15,19 @@ body {
 }
 
 
-.tab-content .panel-body {
-	height: 100% !important;
-	overflow: auto !important;
+.outer-scroll {
+	height: 400px;
+	overflow: auto;
+}
+
+.inner-scroll {
+	height: 110px;
+	overflow: auto;
+}
+
+.trash-scroll {
+	height: 161px;
+	overflow: auto;
 }
 
 /*#main {
