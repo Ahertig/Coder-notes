@@ -40,9 +40,9 @@
 						
 						<div class="panel-body">
 							<div class="list-group" id="side-menu-2">
-    							
+    						
 								<div ng-repeat="notebook in getCachedNotebooks() | filter:{title: searchNotebooktitle} | filter: {trash: false}">
-									<div class="muted">Notebook ID:{{notebook._id}}</div>
+									<!-- <div class="muted">Notebook ID:{{notebook._id}}</div> -->
 									<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item" ng-click="setCurrentNotebook(notebook)">{{notebook.title}}</a>
 									<div class="panel-collapse collapse" id="{{notebook._id}}">
 										<div class="panel-body">
@@ -86,14 +86,14 @@
 
 
 						<div class="panel-heading">
-							<input ng-model="searchNotebooktitle" width="25" type="text" class="form-control" placeholder="Search Shared Notebooks">
+							<input ng-model="searchSharedNotebooktitle" width="25" type="text" class="form-control" placeholder="Search Shared Notebooks">
 						</div>
 
 
 						<div class="panel-body">
 							<div class="list-group" id="side-menu-4">
 
-								<div ng-repeat="sharednotebook in sharednotebooks">
+								<div ng-repeat="sharednotebook in sharednotebooks | filter:{title: searchSharedNotebooktitle} | filter: {trash: false}">
 									<a data-toggle="collapse" ng-href="#{{sharednotebook._id}}" class="list-group-item">{{sharednotebook.title}}</a>
 									<div class="panel-collapse collapse" id="{{sharednotebook._id}}">
 										<div class="panel-body">
