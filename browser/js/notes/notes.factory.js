@@ -241,6 +241,17 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	}
 
 	NotesFactory.newNotebook = function(title) {
+		// var index = -1;
+		// for (var i = 0; i < notebookCache.length; i++) {
+		// 	console.log("title",notebookCache[i].title,title)
+		// 	if(notebookCache[i].title === title) {
+		// 		//console.log("title",notebookCache[i].title,title)
+		// 		index =  i;
+		// 	}	
+		// }
+		// if(index > -1){ 
+		// 	throw new Error("you already have this title!");
+		// }
 		return $http.post('/api/notebooks/', {title: title})
 		.then(function(response) {
 			NotesFactory.updateNotebookCache(response.data,'add');
@@ -249,6 +260,17 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 		function(err) {
 			console.error("could not create notebook", err)
 		})
+
+	}
+	NotesFactory.removeNotebook = function(notebook){
+		return $http.put('/api/notebooks/'+notebook._id+ '/trash/add')
+		.then(function(notebook){
+			NotesFactory.updateNotebookCache(notebook, 'update');
+		})
+		.then(null, function(err){
+			console.log("remove notebook failed", err);
+		})
+
 	}
 
 	NotesFactory.trashNote = function(noteId) {
@@ -293,6 +315,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			}
 		}
 	}
+
 
 
 	return NotesFactory; 
