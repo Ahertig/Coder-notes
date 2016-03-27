@@ -1,11 +1,11 @@
-app.controller('NavbarCtrl', function($scope, NotesFactory,notesService,AuthService,$rootScope) {
+app.controller('NavbarCtrl', function($scope, NotesFactory,AuthService,$rootScope) {
 
 
-     $scope.setCurrentNote = NotesFactory.setCurrentNote;
+    $scope.setCurrentNote = NotesFactory.setCurrentNote;
 
-     $scope.getnotes = function(){
-        $scope.notes = NotesFactory.fetchMyNotes();
-     }
+    $scope.getNotes = function(){
+      $scope.notes = NotesFactory.getAllCacheNotes();
+    }
 
      $scope.newNote = function(notebook) {
         // NotesFactory.getCachedNotebooks();

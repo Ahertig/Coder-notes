@@ -34,44 +34,61 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			return NotesFactory.fetchMyNotebooks()
 					.then(function(notebooks) {
 						angular.copy(notebooks[0], currentNotebook);
-				console.log("set current note initially to", currentNotebook)
+				console.log("set current notebook initially to", currentNotebook)
 				return currentNotebook;	
 			})
 		}
 	}
+
 	NotesFactory.setCurrentNotebook = function(_currentNotebook) {
 		currentNotebook = _currentNotebook;
+		console.log("this is factory currentNotebook ", currentNotebook);
 	}
     
-
-
+    NotesFactory.getAllCacheNotes = function(){
+    	return notesCache;
+    }
     NotesFactory.getTagsCache = function() {
 		return tagsCache;
 	}
-	NotesFactory.updateTagsCache = function(tag, action) {
+	NotesFactory.updateTagsCache = function(tag, action) {	
+ 		var index = NotesFactory.getIndex(tag);
 		if(action == 'add'){
-			if(tagsCache.indexOf(tag) > -1) {
-				tagsCache.unshift(tag);
-			}		
+			if (index === -1) {
+				tagsCache.unshift({tag:tag, count:1});
+			}
+			else {
+				tagsCache[index].count += 1;
+			}
+
 		}
-		else if(action == 'delete'){
-			tagsCache.splice(tagsCache.indexOf(tag),1);
+		else if(action == 'delete') {
+			if (tagsCache[index].count > 1) {
+				tagsCache[index].count -= 1;
+			}
+			else { 
+				tagsCache.splice(index,1);
+			}	
 		}
 		console.log("tags cache is now", tagsCache)
+	}
 
+	NotesFactory.getIndex = function(tag) {
+			for (var i = 0; i < tagsCache.length; i++) {
+				if(tagsCache[i].tag === tag) {
+					return i;
+				}
+			}
+			return -1;
 	}
    
-
 	NotesFactory.getCachedNotebooks = function() {
 		return notebookCache;
 	}
     
     NotesFactory.updateNoteInNotebookCache = function(notebookID, note, action){
     	var notebook = NotesFactory.findNotebookById(notebookID); 
-    	console.log("this is notebookID ", notebookID);
-    	console.log("this is note ", note);
-    	console.log("this is notebook",  notebook);
-
+    	
  		if(action === 'add'){ 
          	notebook.notes.unshift(note);         	
  		}
@@ -141,6 +158,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			angular.copy(response.data, notebookCache);
 			return notebookCache;
 		}, function(err) {
+			console.log("failed get all notebooks",err);
 		})
 	}
 
@@ -179,6 +197,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 		return $http.get('/api/tags')
 		.then(function(response) {
 			angular.copy(response.data, tagsCache);
+			console.log('tagsCache',tagsCache);
 			return tagsCache;
 		}, function(err) {
 			console.error("could not fetch tags for user",userId)
@@ -257,7 +276,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 
 	NotesFactory.addTag = function(noteId, tag) {
         NotesFactory.updateTagsCache(tag, 'add');
-		return $http.post('/api/notes/' +  noteId + '/tags', {tag: tag});
+		return $http.post('/api/notes/' +  noteId + '/tags', {tag: tag})
 	}
 
 	NotesFactory.removeTag = function(noteId, tag) {

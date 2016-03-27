@@ -1,10 +1,6 @@
 <div class="col-lg-3 col-md-3 col-sm-12" ng-controller="SidenavCtrl">
 	<div class="panel panel-default">
 		<div class="panel-heading">My Stuff</div>
-		<!-- <div><h2>All cached notebooks</h2> -->
-
-			<!-- {{getCachedNotebooks()}} -->
-		<!-- </div>	 -->
 		<div class="panel-body" >
 			<ul class="nav nav-pills nav-justified nav-pills-sm">
 				<li class="active"><a href="#notes" data-toggle="tab">Notes</a>
@@ -64,13 +60,12 @@
 						<div class="panel-heading">My Tags</div>
 						<div class="panel-body outer-scroll">
 							<div class="list-group" id="side-menu-3">
-
-								<div ng-repeat="tag in tags">
-									<a ng-href="#{{tag}}" data-toggle="collapse" class="list-group-item" ng-click="filters[tag] = tag">{{tag}}</a>
-									<div class="panel-collapse collapse" id="{{tag}}">
+								<div ng-repeat="tag in getTagsCache()">
+									<a ng-href="#{{tag.tag}}" data-toggle="collapse" class="list-group-item" ng-click="setTag(tag)">{{tag.tag}} : {{tag.count}} notes</a>
+									<div class="panel-collapse collapse" id="{{tag.tag}}">
 										<div class="panel-body inner-scroll">
 											<div class="list-group">
-												<a ng-click="setCurrentNote(note)" class="list-group-item" ng-repeat="note in notes | filter:filters[tag]">{{note.subject}}</a>
+												<a ng-click="setCurrentNote(note)" class="list-group-item" ng-repeat="note in notes | filterByTag: currentTag: note">{{note.subject}}</a>
 											</div>
 										</div>
 									</div>
