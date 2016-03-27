@@ -1,11 +1,11 @@
-app.controller('NavbarCtrl', function($scope, NotesFactory,notesService,AuthService,$rootScope) {
+app.controller('NavbarCtrl', function($scope, NotesFactory,AuthService,$rootScope) {
 
 
-     $scope.setCurrentNote = NotesFactory.setCurrentNote;
+    $scope.setCurrentNote = NotesFactory.setCurrentNote;
 
-     $scope.getnotes = function(){
-        $scope.notes = NotesFactory.fetchMyNotes();
-     }
+    $scope.getNotes = function(){
+      $scope.notes = NotesFactory.getAllCacheNotes();
+    }
 
      $scope.newNote = function(notebook) {
         // NotesFactory.getCachedNotebooks();
@@ -14,19 +14,16 @@ app.controller('NavbarCtrl', function($scope, NotesFactory,notesService,AuthServ
         .then(function(newNote){
             NotesFactory.setCurrentNote(newNote);
             NotesFactory.setCurrentNotebook(notebook);
-
         })
         .then(null, function(err){
           console.error("Error saving new note!", err);
        });
-
     }
     $scope.newNotebook = function(notebookTitle) {
         return NotesFactory.newNotebook(notebookTitle)
         .then(function(newNotebook) {
-            NotesFactory.setCurrentNotebook(newNotebook);
-            console.log('here is the new notebook?', newNotebook)
-            // $rootScope.currentNote = newNotebook;
+          $scope.newNote(newNotebook)
+    // $rootScope.currentNote = newNotebook;
         })
         .then(null, function(err){
             console.log(err);

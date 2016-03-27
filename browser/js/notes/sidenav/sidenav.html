@@ -1,10 +1,6 @@
 <div class="col-lg-3 col-md-3 col-sm-12" ng-controller="SidenavCtrl">
 	<div class="panel panel-default">
 		<div class="panel-heading">My Stuff</div>
-		<!-- <div><h2>All cached notebooks</h2> -->
-
-			<!-- {{getCachedNotebooks()}} -->
-		<!-- </div>	 -->
 		<div class="panel-body" >
 			<ul class="nav nav-pills nav-justified nav-pills-sm">
 				<li class="active"><a href="#notes" data-toggle="tab">Notes</a>
@@ -43,11 +39,14 @@
     						
 								<div ng-repeat="notebook in getCachedNotebooks() | filter:{title: searchNotebooktitle} | filter: {trash: false}">
 									<!-- <div class="muted">Notebook ID:{{notebook._id}}</div> -->
-									<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item" ng-click="setCurrentNotebook(notebook)">{{notebook.title}}</a>
-									<div class="panel-collapse collapse" id="{{notebook._id}}">
+									<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item" ng-click="setCurrentNotebook(notebook)"> {{notebook.title}} </a>
+								    
+
+
+									<div class="panel-collapse collapse" id="{{notebook._id}}"><i class="glyphicon glyphicon-remove" ng-click="removeNotebook(notebook)"></i>
 										<div class="panel-body inner-scroll">
 											<div class="list-group">
-												<a ng-click="setCurrentNote(oneNote,notebook)" class="list-group-item" ng-repeat="oneNote in notebook.notes">{{oneNote.subject}}
+												<a ng-click="setCurrentNote(oneNote,notebook)" class="list-group-item" ng-repeat="oneNote in notebook.notes| filter:{trash: false}" >{{oneNote.subject}}
 												</a>
 											</div>
 										</div>
@@ -64,13 +63,12 @@
 						<div class="panel-heading">My Tags</div>
 						<div class="panel-body outer-scroll">
 							<div class="list-group" id="side-menu-3">
-
-								<div ng-repeat="tag in tags">
-									<a ng-href="#{{tag}}" data-toggle="collapse" class="list-group-item" ng-click="filters[tag] = tag">{{tag}}</a>
-									<div class="panel-collapse collapse" id="{{tag}}">
+								<div ng-repeat="tag in getTagsCache()">
+									<a ng-href="#{{tag.tag}}" data-toggle="collapse" class="list-group-item" ng-click="setTag(tag)">{{tag.tag}} : {{tag.count}} notes</a>
+									<div class="panel-collapse collapse" id="{{tag.tag}}">
 										<div class="panel-body inner-scroll">
 											<div class="list-group">
-												<a ng-click="setCurrentNote(note)" class="list-group-item" ng-repeat="note in notes | filter:filters[tag]">{{note.subject}}</a>
+												<a ng-click="setCurrentNote(note)" class="list-group-item" ng-repeat="note in notes | filterByTag: currentTag: note">{{note.subject}}</a>
 											</div>
 										</div>
 									</div>

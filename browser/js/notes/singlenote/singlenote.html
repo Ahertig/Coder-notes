@@ -56,7 +56,24 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 
 				<div class="alert alert-success" role="alert" ng-if="tagsavesuccess">{{tagsavesuccess}}</div>
 				<div class="alert alert-danger" role="alert" ng-if="tagsavefailure && !tagsavesuccess">{{tagsavefailure}}</div>
-				<tagfooter></tagfooter>
+				<!-- <tagfooter></tagfooter> -->
+				<div class="panel-footer">
+				<div>
+					<h4>Tags: </h4>
+					<ul class="nav nav-pills">
+						<li ng-repeat="tag in currentNote().tags">
+							{{tag}} <i class="glyphicon glyphicon-remove" ng-click="removeTag(currentNote(), tag)"></i>
+						</li>
+					</ul>
+				</div>
+					
+			    <form ng-submit="addTag(currentNote(), tagToAdd)">
+						<div class="input-group"> 
+							<input ng-model="tagToAdd" type="text" class="form-control" placeholder="Add a tag"> 
+							<span ng-click="addTag(currentNote(), tagToAdd)" class="input-group-addon">+</span> 
+						</div>
+				</form>	
+			</div>
 
 			</div>
 		</div> <!-- end .tab-pane #edit -->
