@@ -19,11 +19,11 @@ module.exports = function (app) {
 
         UserModel.findOne({ 'google.id': profile.id }).exec()
             .then(function (user) {
-
                 if (user) {
                     return user;
                 } else {
                     return UserModel.create({
+                        email: profile._json.email,
                         google: {
                             id: profile.id
                         }
@@ -42,16 +42,18 @@ module.exports = function (app) {
     passport.use(new GoogleStrategy(googleCredentials, verifyCallback));
 
     app.get('/auth/google', passport.authenticate('google', {
+        // scope: ['profile', 'email']
         scope: [
             'https://www.googleapis.com/auth/userinfo.profile',
             'https://www.googleapis.com/auth/userinfo.email'
         ]
     }));
-
-    app.get('/auth/google/callback',
-        passport.authenticate('google', { failureRedirect: '/login' }),
-        function (req, res) {
-            res.redirect('/');
-        });
+    
+    app.get('/auth/google/callback', passport.authenticate('google', { 
+        failureRedirect: '/login',
+        successRedirect: '/notes'
+    }));
 
 };
+
+

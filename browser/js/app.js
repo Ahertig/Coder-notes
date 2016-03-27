@@ -1,5 +1,5 @@
 'use strict';
-window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'hljs','evgenyneu.markdown-preview']);
+window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'hljs','hc.marked']);
 
 app.config(function ($urlRouterProvider, $locationProvider, hljsServiceProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)
@@ -11,6 +11,10 @@ app.config(function ($urlRouterProvider, $locationProvider, hljsServiceProvider)
     hljsServiceProvider.setOptions({
     // replace tab with 4 spaces
         tabReplace: '    '
+    });
+
+    $urlRouterProvider.when('/auth/:provider', function () {
+        window.location.reload();
     });
 });
 
@@ -55,3 +59,28 @@ app.run(function ($rootScope, AuthService, $state) {
     });
 
 });
+
+// Angular Marked config
+
+// app.config(['markedProvider', function (markedProvider) {
+//   markedProvider.setOptions({
+//     gfm: true,
+//     tables: true,
+//     highlight: function (code, lang) {
+//       if (lang) {
+//         return hljs.highlight(lang, code, true).value;
+//       } else {
+//         return hljs.highlightAuto(code).value;
+//       }
+//     }
+//   });
+// }]);
+
+app.config(['markedProvider', function (markedProvider) {
+  markedProvider.setOptions({
+    gfm: true,
+    highlight: function (code, lang) {
+        return hljs.highlightAuto(code).value;
+      }
+  });
+}]);

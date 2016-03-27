@@ -22,12 +22,26 @@
         <script src="/angular-aria/angular-aria.js"></script>
         <script src="/angular-messages/angular-messages.min.js"></script>
         <script src="/main.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>        
-        <script src="/metisMenu.min.js"></script> 
+
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script> -->
+        <!-- <script src="/metisMenu.min.js"></script> -->
         <!-- startbootstrap theme js -->
-        <script src="/sb2.js"></script>
+        <!-- <script src="/sb2.js"></script> -->
         <!-- bootstrap is required for Start-Bootstrap themes -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  -->
+
+
+        <!-- grayscale theme JS -->
+        <script src="/jquery/dist/jquery.min.js"></script>
+        <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+
+        <!-- Plugin JavaScript -->
+        <script src="/css-scripts/jquery.easing.min.js"></script>
+        <!-- <script src="/jquery-easing/jquery.easing.1.3.js"></script> -->
+
+        <!-- Custom Theme JavaScript -->
+        <script src="/css-scripts/grayscale.js"></script>
+
 
         <!-- testing tonic dev -->
         <script src="http://embed.tonicdev.com" data-element-id="my-element"></script>
@@ -54,21 +68,22 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/xcode.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js"></script>
         <script src="/angular-highlightjs/angular-highlightjs.js"></script>
-
-
         <!-- end angular highlight js test -->
 
-
-        <!-- markdown preview -->
-        <script src="/angular-markdown-preview/markdown_preview.js"></script>
+        <!-- angular marked -->
         <script src="/marked/lib/marked.js"></script>
-        <!-- end markdown preview -->
+        <script src="/angular-marked/dist/angular-marked.js"></script>
+
 
     </head>
 
-    <body id="wrapper" ng-app="FullstackGeneratedApp">
+    <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" ng-app="FullstackGeneratedApp">
         <navbar></navbar>
-        <div id="main" ui-view></div>
+        <!-- <div ui-view></div> -->
+        <ui-view></ui-view>
 
-</body>
+
+    </body>
+
+
 </html>

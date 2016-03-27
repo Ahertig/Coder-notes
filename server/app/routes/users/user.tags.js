@@ -5,8 +5,6 @@ var router = require('express').Router();
 module.exports = router;
 var _ = require('lodash');
 var mongoose = require('mongoose');
-var User = mongoose.model('User');
-var Notebook = mongoose.model('Notebook');
 var Note = mongoose.model('Note');
 
 // Get all tags for one user
@@ -24,7 +22,6 @@ router.get('/',function(req,res,next){
 		}
 		return tagsArray;
 	}
-
 	req.user
 	.deepPopulate('myNotebooks.notes')
 	.then(function(user) {
@@ -77,4 +74,5 @@ router.get('/',function(req,res,next){
 // 	    res.json(arrayOfTags);
 // 	})
 // });
+
 

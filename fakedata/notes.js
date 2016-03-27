@@ -720,36 +720,36 @@ module.exports = [
 		"lastUpdate": "1439655676"
 	},
 	{
-		"subject": "dolor sit amet,",
-		"body": "et ultrices posuere cubilia Curae; Phasellus ornare. Fusce mollis. Duis sit amet diam eu dolor egestas rhoncus. Proin nisl sem, consequat nec, mollis vitae, posuere at, velit. Cras lorem lorem, luctus ut, pellentesque eget, dictum placerat, augue. Sed molestie. Sed id risus quis diam luctus lobortis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Mauris ut quam vel sapien imperdiet ornare. In faucibus. Morbi vehicula. Pellentesque tincidunt tempus risus. Donec egestas. Duis ac arcu. Nunc mauris. Morbi non sapien molestie orci tincidunt adipiscing. Mauris molestie pharetra nibh. Aliquam ornare,",
-		"size": 74,
-		"tags": ["green"],
-		"dateCreated": "1434017426",
-		"lastUpdate": "1427993983"
-	},
-	{
-		"subject": "mauris elit, dictum",
-		"body": "tincidunt. Donec vitae erat vel pede blandit congue. In scelerisque scelerisque dui. Suspendisse ac metus vitae velit egestas lacinia. Sed congue, elit sed consequat auctor, nunc nulla vulputate dui, nec tempus mauris erat eget ipsum. Suspendisse sagittis.",
-		"size": 34,
-		"tags": ["yellow"],
-		"dateCreated": "1438344414",
-		"lastUpdate": "1448066094"
-	},
-	{
-		"subject": "ullamcorper, nisl arcu",
-		"body": "magna et ipsum cursus vestibulum. Mauris magna. Duis dignissim tempor arcu. Vestibulum ut eros non enim commodo hendrerit. Donec porttitor tellus non magna. Nam ligula elit, pretium et, rutrum non, hendrerit id, ante. Nunc mauris sapien, cursus in, hendrerit consectetuer, cursus et, magna. Praesent interdum ligula eu enim. Etiam imperdiet dictum magna. Ut tincidunt orci quis lectus. Nullam suscipit, est ac facilisis facilisis, magna tellus faucibus leo, in lobortis tellus justo sit amet nulla. Donec non justo. Proin non massa non ante bibendum ullamcorper.",
+		"subject": "Intro to Express",
+		"body": "* Express makes Node better at handling incoming http data\n* Express = \"node library for request handling\"\n* Express = a convenience\n* node’s request and response objects are built for handling requests and responses\n\n### Looking at an HTTP request\nRoute: verb or method plus URI  (often looks like a file path)\n\n_Verbs_: `GET` (read), `POST` (create), `PUT` (update), `DELETE`\n\n* Headers:  hostname plus meta information about browser\n* Body: string full of information for server\n\n### Looking at an HTTP response\n* Status code\n* Headers (includes length, type, date, and much more)\n* Body (i.e. payload)",
 		"size": 63,
-		"tags": ["yellow"],
+		"tags": ["express", "node", "javascript"],
 		"dateCreated": "1455783726",
 		"lastUpdate": "1455699092"
 	},
 	{
-		"subject": "nec quam. Curabitur",
-		"body": "molestie in, tempus eu, ligula. Aenean euismod mauris eu elit. Nulla facilisi. Sed neque. Sed eget lacus. Mauris non dui nec urna suscipit nonummy. Fusce fermentum fermentum arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus ornare. Fusce mollis. Duis sit amet diam eu dolor egestas rhoncus. Proin nisl sem, consequat nec, mollis",
+		"subject": "Express Tips and Tricks",
+		"body": "**nodemon** is a useful package to auto-restart node server!\n\nInstructor quote: \"Always handle your errors!\"\n\n## examples\n\n    app.use(‘/path’)\n    next() \n    app.listen\n    app.get\n    app.all \n    response.send()\n    response.render() \n    response.end() \n    response.json \n    response.send()\n\n\n#### Recall:\n> Four score and seven errors ago, our forefathers brought forth upon this server a new application, conceived in Javascript, and dedicated to the proposition that all variables are instantiated equally.\n\n",
 		"size": 50,
-		"tags": ["green"],
-		"dateCreated": "1446230126",
-		"lastUpdate": "1448515592"
+		"tags": ["express","javascript"],
+		"dateCreated": "1458863600",
+		"lastUpdate": "1458863700"
+	},
+	{
+		"subject": "Write a spy function",
+		"body": "https://repl.it/By9T\n\n     var spyOn = function (func) {\n      var callCount = 0,\n    \t  callVals  = [],\n    \t  retVals\t= [];\n      var spy = function () {\n    \tvar args = [].slice.call(arguments);\n    \tvar retVal = func.apply(this, args); // this is context\n    \tretVals.push(retVal);\n    \tcallVals = callVals.concat(args);\n    \tcallCount++;\n    \treturn retVal;\n      };\n      spy.getCallCount = function () { return callCount; };\n      spy.wasCalledWith = function (val) { return (callVals.indexOf(val) > -1); };\n      spy.returned = function (val) { return (retVals.indexOf(val) > -1); };\n      return spy;\n    };\n    \n    var person =\n    {name : \'ian\'\n    sayHi : function(greeting) {\n    return greeting + this.name\n    }\n    }\n\nuse call or apply to avoid this referring to global window object",
+		"size": 66,
+		"tags": ["testing", "REACTO"],
+		"dateCreated": "1458863900",
+		"lastUpdate": "1458863950"
+	},
+	{
+		"subject": "Selection Sort",
+		"body": "http://slides.com/gtelljohann/reacto-selection-sort#/1\n**Selection sort** starts at the first element in an array adn compares it with all elements to the right of it. It identifies the _smallest value_ and swaps the positions of those two elements. It then repeats the process with the rest of the array.\n\n    function selectionSort(array) {\n    \n    \t// For each element in the array...\n    \tfor (var i = 0; i < array.length; i++) {\n    \tvar minVal = array[i];\n    \tvar minIdx = i;\n    \n    \t// look through every element beginning there...\n    \tfor (var j = i + 1; j < array.length; j++) {\n    \n    \t\t// and keep track of the lowest one.\n    \t\tif (array[j] < array[minIdx]) {\n    \t\tminVal = array[j];\n    \t\tminIdx = j;\n    \t\t}\n    \t}\n    \n    \t// Swap the lowest value with the current element\n    \tarray[minIdx] = array[i];\n    \tarray[i] = minVal;\n    \t}\n    \treturn array;\n    \t}",
+		"size": 65,
+		"tags": ["javascript","REACTO"],
+		"dateCreated": "1458864000",
+		"lastUpdate": "1458864100"
 	},
 	{
 		"subject": "in, tempus eu,",
@@ -780,23 +780,23 @@ module.exports = [
 		"body": "vel sapien imperdiet ornare. In faucibus. Morbi vehicula. Pellentesque tincidunt tempus risus. Donec egestas. Duis ac arcu. Nunc mauris. Morbi non sapien molestie orci tincidunt adipiscing. Mauris molestie pharetra nibh. Aliquam ornare, libero at auctor ullamcorper, nisl arcu iaculis enim, sit amet ornare lectus justo eu arcu. Morbi sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus pede, ultrices a, auctor non, feugiat nec, diam. Duis mi enim, condimentum eget,",
 		"size": 15,
 		"tags": ["yellow"],
-		"dateCreated": "1437103122",
-		"lastUpdate": "1427362196"
+		"dateCreated": "1458863700",
+		"lastUpdate": "1458863800"
 	},
 	{
-		"subject": "magna. Sed eu",
-		"body": "Donec vitae erat vel pede blandit congue. In scelerisque scelerisque dui. Suspendisse ac metus vitae velit egestas lacinia. Sed congue, elit sed consequat auctor, nunc nulla vulputate dui, nec tempus mauris erat eget ipsum. Suspendisse sagittis. Nullam vitae diam. Proin dolor. Nulla semper tellus id nunc interdum feugiat. Sed nec metus facilisis lorem tristique aliquet. Phasellus fermentum convallis ligula. Donec luctus aliquet odio. Etiam ligula tortor, dictum eu, placerat eget, venenatis a, magna. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Etiam laoreet, libero et tristique pellentesque, tellus sem mollis dui, in sodales elit",
-		"size": 66,
-		"tags": ["red"],
-		"dateCreated": "1456430499",
-		"lastUpdate": "1458188604"
+		"subject": "dolor sit amet,",
+		"body": "et ultrices posuere cubilia Curae; Phasellus ornare. Fusce mollis. Duis sit amet diam eu dolor egestas rhoncus. Proin nisl sem, consequat nec, mollis vitae, posuere at, velit. Cras lorem lorem, luctus ut, pellentesque eget, dictum placerat, augue. Sed molestie. Sed id risus quis diam luctus lobortis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Mauris ut quam vel sapien imperdiet ornare. In faucibus. Morbi vehicula. Pellentesque tincidunt tempus risus. Donec egestas. Duis ac arcu. Nunc mauris. Morbi non sapien molestie orci tincidunt adipiscing. Mauris molestie pharetra nibh. Aliquam ornare,",
+		"size": 74,
+		"tags": ["green"],
+		"dateCreated": "1434017426",
+		"lastUpdate": "1427993983"
 	},
 	{
-		"subject": "sapien, cursus in,",
-		"body": "sapien, cursus in, hendrerit consectetuer, cursus et, magna. Praesent interdum ligula eu enim. Etiam imperdiet dictum magna. Ut tincidunt orci quis lectus. Nullam suscipit, est ac facilisis facilisis, magna tellus faucibus leo, in lobortis tellus justo sit amet nulla. Donec non justo. Proin non massa non ante bibendum ullamcorper. Duis cursus, diam at pretium",
-		"size": 65,
+		"subject": "mauris elit, dictum",
+		"body": "tincidunt. Donec vitae erat vel pede blandit congue. In scelerisque scelerisque dui. Suspendisse ac metus vitae velit egestas lacinia. Sed congue, elit sed consequat auctor, nunc nulla vulputate dui, nec tempus mauris erat eget ipsum. Suspendisse sagittis.",
+		"size": 34,
 		"tags": ["yellow"],
-		"dateCreated": "1436751521",
-		"lastUpdate": "1436987434"
+		"dateCreated": "1438344414",
+		"lastUpdate": "1448066094"
 	}
 ]

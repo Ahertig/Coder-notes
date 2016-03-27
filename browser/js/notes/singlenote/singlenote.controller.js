@@ -78,7 +78,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
       }
       NotesFactory.saveNote(currentNotebook,$scope.currentNote()._id, $scope.savenote)
       .then(function(note) {
-          $scope.successmessage="Note saved successfully!" + note;
+          $scope.successmessage="Note saved successfully!";
         }, function(err) {
           $scope.errormessage = "Error saving note" + err;
         })    
