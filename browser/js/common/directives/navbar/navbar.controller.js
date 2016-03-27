@@ -14,18 +14,16 @@ app.controller('NavbarCtrl', function($scope, NotesFactory,AuthService,$rootScop
         .then(function(newNote){
             NotesFactory.setCurrentNote(newNote);
             NotesFactory.setCurrentNotebook(notebook);
-
         })
         .then(null, function(err){
           console.error("Error saving new note!", err);
        });
-
     }
     $scope.newNotebook = function(notebookTitle) {
         return NotesFactory.newNotebook(notebookTitle)
         .then(function(newNotebook) {
-            NotesFactory.setCurrentNotebook(newNotebook);
-            // $rootScope.currentNote = newNotebook;
+          $scope.newNote(newNotebook)
+    // $rootScope.currentNote = newNotebook;
         })
         .then(null, function(err){
             console.log(err);
