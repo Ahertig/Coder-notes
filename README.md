@@ -9,7 +9,7 @@ Ksenia, Zhengshi, Alyssa, Dorothy
 * Marked
 
 ## Test user
-**Email:** grace@gracehopper.com
+**Email:** grace@gracehopperacademy.com
 **Password:** 123
 
 ## Chrome Extension installation instructions
