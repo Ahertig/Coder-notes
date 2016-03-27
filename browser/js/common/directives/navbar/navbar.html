@@ -53,7 +53,7 @@
 					</li> <!-- /.dropdown -->
 
 					<li class="dropdown">	
-						<input width="25" type="text" placeholder="Search All Public Notes">	
+						<input width="25" type="text" placeholder="Search public notes" ng-model="searchTerm"> <button ui-sref="community({searchTerm: searchTerm})" class="fa fa-search btn-default"></button>
 					</li>
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#" ng-click="getnotes()">

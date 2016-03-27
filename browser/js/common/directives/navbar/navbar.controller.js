@@ -25,7 +25,6 @@ app.controller('NavbarCtrl', function($scope, NotesFactory,notesService,AuthServ
         return NotesFactory.newNotebook(notebookTitle)
         .then(function(newNotebook) {
             NotesFactory.setCurrentNotebook(newNotebook);
-            console.log('here is the new notebook?', newNotebook)
             // $rootScope.currentNote = newNotebook;
         })
         .then(null, function(err){
