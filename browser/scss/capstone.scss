@@ -76,3 +76,27 @@ a.muted {
 	    }
 	}
 }
+
+
+/* sidenav scroll */
+
+.outer-scroll {
+	height: 400px;
+	overflow: auto;
+}
+
+.inner-scroll {
+	height: 110px;
+	overflow: auto;
+}
+
+.trash-scroll {
+	height: 161px;
+	overflow: auto;
+}
+
+/* code formatting in Note Preview */
+
+code {
+	white-space: pre-line;
+}

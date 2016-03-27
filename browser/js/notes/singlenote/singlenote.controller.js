@@ -106,8 +106,19 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
     }
 
     // Gists 
-    $scope.createGist = function(note) {
-      GithubFactory.createGist(note)
+
+    $scope.newGist = {
+      "description": "astalavista",
+      "public": true,
+      "files": {
+        "file1.txt": {
+          "content": "astalavista"
+        }
+      }
+    }
+
+    $scope.createGist = function() {
+      GithubFactory.createGist($scope.newGist)
     }
 
 

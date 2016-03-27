@@ -5,57 +5,69 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 </script>
 <div class="alert alert-success" role="alert" ng-if="successmessage">{{successmessage}}</div>
 <div class="alert alert-error" role="alert" ng-if="errormessage">{{errormessage}}</div>
+
 <div class="col-lg-6 col-md-6 col-sm-12">
-	<div class="panel panel-default">
-		<div class="panel-heading">
 
-			<label for="notesubject" class="muted">Note title</label> 
-			<input ng-model="currentNote().subject" class="form-control" id="notesubject" placeholder="{{currentNote().subject}}">
+	<ul class="nav nav-tabs">
+	  <li role="presentation" class="active"><a href="#preview" data-toggle="tab">Preview</a></li>
+	  <li role="presentation"><a href="#edit" data-toggle="tab">Edit</a></li>
+	</ul>
 
-		</div>
-		<div class="panel-body">
-
-			<textarea enter-key="runTonic()" rows="20" id="notebody" ng-model="currentNote().body" placeholder="{{currentNote().body}}" class="form-control" >
-			</textarea>
-			<p class="muted"><em>To run code, highlight and click "Run Code" or press Ctrl-Enter</em></p>
-
-		</div>
-		<div class="panel-body">
-			<button class="btn btn-primary" ng-click="save()">Save Changes</button>
-			<button ng-if="tonic" class="btn btn-primary" ng-click="runTonic()">Run Code</button>
-			<button ng-if="!tonic" class="btn btn-primary" ng-click="closeTonic()">Close Code Window</button>
-			<button ng-click="deleteNote(currentNote()._id)" ng-show="!currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
-				 Delete Note
-			</button>
-			<button ng-click="restoreNote(currentNote()._id)" ng-show="currentNote().trash"type="button" class="btn btn-success"  data-toggle="tooltip" title="Restore note">
-				Restore Note from Trash
-			</button>
-			<button ng-click="createGist(currentNote())" type="button" class="btn btn-success"  data-toggle="tooltip" title="Create gist">
-				Create a Gist
-			</button>
-		</div>
-		<div class="alert alert-success" role="alert" ng-if="tagsavesuccess">{{tagsavesuccess}}</div>
-		<div class="alert alert-danger" role="alert" ng-if="tagsavefailure && !tagsavesuccess">{{tagsavefailure}}</div>
-		<tagfooter></tagfooter>
-
-
-	</div>
-</div>
-<div class="col lg-3 col-md-3 col-sm-12">
-	<div ng-hide="tonic" class="col-lg-12 col-md-12 col-sm-12">
-		<div id="my-element"></div>
-	</div> 
-
-	<div id="markdown-wrapper" class="panel panel-default">
-		<div class="panel-heading">
-		<h4 class="panel-title">Note Preview</h4>
-		</div>
-		<div class="panel-body">
-			<h2>{{currentNote().subject}}</h2>
-			<div marked="currentNote().body">
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="preview">
+			<h2>Preview Note</h2>
+			<div id="markdown-wrapper" class="panel panel-default">
+				<div class="panel-body">
+					<h2>{{currentNote().subject}}</h2>
+					<div marked="currentNote().body">
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
+		</div> <!-- end .tab-pane #preview -->
+
+		<div class="tab-pane fade" id="edit">
+			<h2>Edit Note</h2>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<label for="notesubject" class="muted">Note title</label> 
+					<input ng-model="currentNote().subject" class="form-control" id="notesubject" placeholder="{{currentNote().subject}}">
+				</div>
+
+				<div class="panel-body">
+					<textarea enter-key="runTonic()" rows="20" id="notebody" ng-model="currentNote().body" placeholder="{{currentNote().body}}" class="form-control" >
+					</textarea>
+					<p class="muted"><em>To run code, highlight and click "Run Code" or press Ctrl-Enter</em></p>
+				</div>
+
+				<div class="panel-body">
+					<button class="btn btn-primary" ng-click="save()">Save Changes</button>
+					<button ng-if="tonic" class="btn btn-primary" ng-click="runTonic()">Run Code</button>
+					<button ng-if="!tonic" class="btn btn-primary" ng-click="closeTonic()">Close Code Window</button>
+					<button ng-click="deleteNote(currentNote()._id)" ng-show="!currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
+						 Delete Note
+					</button>
+					<button ng-click="restoreNote(currentNote()._id)" ng-show="currentNote().trash"type="button" class="btn btn-success"  data-toggle="tooltip" title="Restore note">
+						Restore Note from Trash
+					</button>
+					<button ng-click="createGist()" type="button" class="btn btn-success"  data-toggle="tooltip" title="Create gist">
+						Create a Gist
+					</button>
+				</div>
+
+				<div class="alert alert-success" role="alert" ng-if="tagsavesuccess">{{tagsavesuccess}}</div>
+				<div class="alert alert-danger" role="alert" ng-if="tagsavefailure && !tagsavesuccess">{{tagsavefailure}}</div>
+				<tagfooter></tagfooter>
+
+			</div>
+		</div> <!-- end .tab-pane #edit -->
+	</div> <!-- end .tab-content -->
+</div> <!-- end column -->
+
+<div ng-hide="tonic" class="col-lg-3 col-md-3 col-sm-6">
+	<div id="my-element"></div>
+</div> 
+
+<div class="col lg-3 col-md-3 col-sm-6">
 
 	<div class="panel panel-default">
 		<div class="panel-heading">
