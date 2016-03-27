@@ -3,13 +3,16 @@ app.config(function ($stateProvider) {
 
   // this is the main state to show user content.
   $stateProvider.state('community', {
-    url: '/public',
+    url: '/public/:searchTerm',
     templateUrl: 'js/notes/public-notes/public-notes.html',
     controller: 'CommunityCtrl',
     resolve: {
       publicNotes: function(NotesFactory) {
         return NotesFactory.fetchPublicNotes();
       }
+      // noteAuthors: function() {
+
+      // }
     }
   })
   .state('note', {
@@ -22,10 +25,6 @@ app.config(function ($stateProvider) {
         return NotesFactory.getNote($stateParams.id)
       }
     }
-    // controller: function($scope, $stateParams) {
-    //   console.log('getting here', $stateParams.id);
-    //   $scope.note = $scope.publicNotes[$stateParams.id];
-    // }
   });
 
 });
