@@ -39,22 +39,8 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 					</textarea>
 					<p class="muted"><em>To run code, highlight and click "Run Code" or press Ctrl-Enter</em></p>
 				</div>
-
-				<div class="panel-body">
-					<button class="btn btn-primary" ng-click="save()">Save Changes</button>
-					<button ng-if="tonic" class="btn btn-primary" ng-click="runTonic()">Run Code</button>
-					<button ng-if="!tonic" class="btn btn-primary" ng-click="closeTonic()">Close Code Window</button>
-					<button ng-click="deleteNote(currentNote()._id)" ng-show="!currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
-						 Delete Note
-					</button>
-					<button ng-click="restoreNote(currentNote()._id)" ng-show="currentNote().trash"type="button" class="btn btn-success"  data-toggle="tooltip" title="Restore note">
-						Restore Note from Trash
-					</button>
-				</div>
-
-				<div class="alert alert-success" role="alert" ng-if="tagsavesuccess">{{tagsavesuccess}}</div>
+                <div class="alert alert-success" role="alert" ng-if="tagsavesuccess">{{tagsavesuccess}}</div>
 				<div class="alert alert-danger" role="alert" ng-if="tagsavefailure && !tagsavesuccess">{{tagsavefailure}}</div>
-				<!-- <tagfooter></tagfooter> -->
 				<div class="panel-footer">
 				<div>
 					<h4>Tags: </h4>
@@ -71,7 +57,23 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 							<span ng-click="addTag(currentNote(), tagToAdd)" class="input-group-addon">+</span> 
 						</div>
 				</form>	
-			</div>
+
+</div>
+				 <!-- <tagfooter></tagfooter> -->
+				<div class="panel-body">
+					<button class="btn btn-primary" ng-click="save()">Save Changes</button>
+					<button ng-if="tonic" class="btn btn-primary" ng-click="runTonic()">Run Code</button>
+					<button ng-if="!tonic" class="btn btn-primary" ng-click="closeTonic()">Close Code Window</button>
+					<button ng-click="trashNote(currentNote()._id)" ng-show="!currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
+						 Trash Note
+					</button>
+					<button ng-click="deleteNote(currentNote())" ng-show="currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
+						 Delete Note
+					</button>
+					<button ng-click="restoreNote(currentNote()._id)" ng-show="currentNote().trash"type="button" class="btn btn-success"  data-toggle="tooltip" title="Restore note">
+						Restore Note from Trash
+					</button>
+				</div>
 
 			</div>
 		</div> <!-- end .tab-pane #edit -->

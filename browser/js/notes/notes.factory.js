@@ -87,8 +87,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	}
     
     NotesFactory.updateNoteInNotebookCache = function(notebookID, note, action){
-    	var notebook = NotesFactory.findNotebookById(notebookID); 
-    	
+    	var notebook = NotesFactory.findNotebookById(notebookID); 	
  		if(action === 'add'){ 
          	notebook.notes.unshift(note);         	
  		}
@@ -97,7 +96,9 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
  			angular.copy(note,notebook.notes[index]);
  		}
  		else if(action === 'delete'){
+ 			console.log("deleting note from notebook: ",notebook, note._id);
  			var index = NotesFactory.findNoteIndex(notebook,note._id);
+ 			console.log("index, ", index);
  			notebook.notes.splice(index,1)
  		}
 	}
@@ -298,7 +299,6 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	// }
 
 	NotesFactory.trashNote = function(noteId) {
-		console.log("inside NotesFactory.trashNote",noteId)
 		return $http.put('/api/notes/' + noteId + '/trash/add')
 		.then(function(response) {
 			var trashNote = response.data;
@@ -308,6 +308,17 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 		},
 		function(err) {
 			console.error("error trashing note", err)
+		})
+	}
+
+	NotesFactory.deleteNote = function(note){
+		console.log("deleting note from trash", note._id);
+		return $http.delete('/api/trash/' + note._id)
+		.then(function(response){
+			console.log("deleted note,", response.data)
+			var notebookID = NotesFactory.findParentNotebook(note._id) 
+			console.log("notebook ID,", notebookID)
+			NotesFactory.updateNoteInNotebookCache(notebookID, note, 'delete');
 		})
 	}
 

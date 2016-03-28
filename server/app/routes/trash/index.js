@@ -5,6 +5,7 @@ var router = require('express').Router();
 module.exports = router;
 var mongoose = require('mongoose');
 var _ = require('lodash');
+var Note = mongoose.model('Note');
 
 // Get notes in the trash
 router.get('/notes', function(req, res, next){
@@ -44,4 +45,11 @@ router.delete('/', function(req, res, next) {
 		res.json('Successfully deleted trash')
 	})
 	.then(null, next)
+})
+
+router.delete('/:noteId', function(req, res, next){
+	return Note.findById(req.params.noteId).remove().exec()
+	.then(function(deletedNote){
+		res.json(deletedNote);
+	})
 })

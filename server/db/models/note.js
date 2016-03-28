@@ -24,7 +24,8 @@ var noteSchema = new mongoose.Schema({
         type: Number
     },
     lastUpdate: {
-        type: Date
+        type: Date,
+        default: Date.now
     },
     tags: {
         type: [String]
@@ -35,17 +36,19 @@ var noteSchema = new mongoose.Schema({
 });
 
 
-noteSchema.post('save', function() {
-  return this.set({lastUpdate: new Date()}).save();
-});
+// noteSchema.post('save', function() {
+//   return this.set({lastUpdate: new Date()}).save();
+// });
 
 // Removing note from Notebook.notes
-noteSchema.post('remove', function() {
-    return mongoose.model('Notebook')
+noteSchema.pre('remove', function(next) {
+    mongoose.model('Notebook')
         .findOneAndUpdate(
-            {notes: {$elemMatch: {$eq : this._id}}},
-             {$pull: {notes: this._id}})
-        .exec();
+            {notes: {$elemMatch: {$eq : this._id}}},{$pull: {notes: this._id}})
+        .exec()
+        .then(function(notebook){
+            next();
+        }, next);
 })
 
 noteSchema.methods.addTag = function(tag) {

@@ -16,8 +16,7 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter) {
     $scope.setTag = function(tag){
     	$scope.currentTag = tag.tag;
     }
-    $scope.removeNotebook = function(notebook){
-    	console.log("remove notebook")
+    $scope.trashNotebook = function(notebook){
     	NotesFactory.removeNotebook(notebook);
     }
 })
