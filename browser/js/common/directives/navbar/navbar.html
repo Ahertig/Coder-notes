@@ -17,7 +17,7 @@
             <button class="btn btn-default" ui-sref="usercontent">My notes</button>
           </li>
 
-					<li class="dropdown" ng-if="isLoggedIn()">	
+					<li class="dropdown" ng-if="isLoggedIn() && !('home' | isState)">	
             <form ng-submit="search(searchTerm)">
   						<input size="35" type="text" placeholder="Search public notes" ng-model="searchTerm">
               <button type="submit" class="fa fa-search btn-default"></button>
@@ -32,7 +32,6 @@
 						<ul class="dropdown-menu dropdown-messages">
 							<div ng-repeat="note in notes | limitTo: 5 | orderBy: '-lastUpdate'" >
 							<li ng-click = setCurrentNote(note)>
-			<!-- 					<a href="#"> -->
 								<div>
 									<strong>{{note.subject}}</strong>
 									<span class="pull-right text-muted">
