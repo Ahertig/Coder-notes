@@ -85,8 +85,6 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			}
 			return -1;
 	}
-   
-	
     
     NotesFactory.updateNoteInNotebookCache = function(notebookID, note, action){
     	var notebook = NotesFactory.findNotebookById(notebookID); 	
@@ -96,6 +94,8 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
  		else if(action === 'update'){
  			var index = NotesFactory.findNoteIndex(notebook,note._id);
  			angular.copy(note,notebook.notes[index]);
+ 			//notesCache.splice(notesCache.indexOf(note),1)
+
  		}
  		else if(action === 'delete'){ 
  		        var original=[];			
@@ -354,12 +354,12 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 
 	NotesFactory.addTag = function(noteId, tag) {
         NotesFactory.updateTagsCache(tag, 'add');
-		return $http.post('/api/notes/' +  noteId + '/tags', {tag: tag})
+		//return $http.post('/api/notes/' +  noteId + '/tags', {tag: tag})
 	}
 
 	NotesFactory.removeTag = function(noteId, tag) {
         NotesFactory.updateTagsCache(tag, 'delete');
-		return $http.put('/api/notes/' +  noteId + '/tags', {tag: tag});
+		//return $http.put('/api/notes/' +  noteId + '/tags', {tag: tag});
 	}
 
 	NotesFactory.findParentNotebook = function(noteId) {

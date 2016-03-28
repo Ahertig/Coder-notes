@@ -121,7 +121,7 @@
 									<div class="panel-collapse collapse" id="{{tag.tag}}">
 										<div class="panel-body inner-scroll">
 											<div class="list-group">
-												<a ng-click="setCurrentNote(note)" class="list-group-item" ng-repeat="note in getnotes() | filterByTag: currentTag: note">{{note.subject}}</a>
+												<a ng-click="setCurrentNote(note)" class="list-group-item" ng-repeat="note in getnotes() | filterByTag: filters[tag.tag]: note">{{note.subject}}</a>
 											</div>
 										</div>
 									</div>
