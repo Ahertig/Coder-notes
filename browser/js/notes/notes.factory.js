@@ -179,10 +179,8 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	}
 
 	NotesFactory.fetchMyNotes = function() {
-		
 		return NotesFactory.fetchMyNotebooks()
 		.then(function(notebookCache){
-
 		for (var i = 0; i < notebookCache.length; i++) {
 			notesCache = notesCache.concat(notebookCache[i].notes);
 		}
@@ -191,11 +189,11 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	}
 
 	NotesFactory.fetchPublicNotes = function() {
-    return $http.get('/api/public/notes/all')
-    .then(function(response) {
-        return response.data;
-    })
-  }
+		return $http.get('/api/public/notes')
+		.then(function(response) {
+			return response.data;
+		})
+	}
 
 	// this function is working!
 	NotesFactory.fetchMyTags = function() {
@@ -213,7 +211,6 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	NotesFactory.getNote = function (noteId) {
 		return $http.get('/api/notes/' + noteId)
 		.then(function(response) {
-
 			return response.data;
 		}, function(err) {
 			console.error("could not find note", err)

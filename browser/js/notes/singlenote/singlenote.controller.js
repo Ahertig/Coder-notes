@@ -172,8 +172,8 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
 
     $scope.singleNoteColumnWidth = function() {
       if($scope.isSideNavOpen()) {
-        if (!$scope.tonic) return 'col-lg-6 col-md-6'; // if tonic is SHOWING
-        return 'col-lg-9 col-md-9'
+        if (!$scope.tonic) return 'col-lg-5 col-md-5'; // if tonic is SHOWING
+        return 'col-lg-8 col-md-8'
       }
       else {
         if(!$scope.tonic) return 'col-lg-6 col-md-6'; // if tonic is SHOWING

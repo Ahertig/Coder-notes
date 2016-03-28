@@ -24,7 +24,7 @@ router.delete('/notebooks/all', function(req, res, next) {
 	.then(null, next)
 })
 
-// Find all Notes
+// Find all Notes (public and private)
 router.get('/notes/all', function(req, res, next) {
 	Note.find()
 	.then(function(notes) {
