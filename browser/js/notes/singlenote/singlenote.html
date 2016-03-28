@@ -49,7 +49,7 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 					<button ng-click="restoreNote(currentNote()._id)" ng-show="currentNote().trash"type="button" class="btn btn-success"  data-toggle="tooltip" title="Restore note">
 						Restore Note from Trash
 					</button>
-					<button ng-click="createGist()" type="button" class="btn btn-success"  data-toggle="tooltip" title="Create gist">
+					<button ng-click="createGist(currentNote())" type="button" class="btn btn-success"  data-toggle="tooltip" title="Create gist">
 						Create a Gist
 					</button>
 				</div>

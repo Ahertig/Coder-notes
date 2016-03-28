@@ -120,18 +120,21 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
 
     // Gists 
 
-    $scope.newGist = {
-      "description": "astalavista",
-      "public": true,
-      "files": {
-        "file1.txt": {
-          "content": "astalavista"
+
+    $scope.createGist = function(note) {
+      var headers = { "Authorization": "token df49b06200366cb23f2e1edfd07ebd75f257a746" };
+      // var headers = { 'authToken': "df49b06200366cb23f2e1edfd07ebd75f257a746" };
+      var newGist = {
+        "description": "third-test-gist-banana",
+        "public": true,
+        "user": "ksenia0822",
+        "files": {
+          "file1.txt": {
+            "content": "THIRD TEST GIST BANANA"
+          }
         }
       }
-    }
-
-    $scope.createGist = function() {
-      GithubFactory.createGist($scope.newGist)
+      GithubFactory.createGist(newGist, headers)
     }
 
 

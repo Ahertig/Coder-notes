@@ -24,7 +24,8 @@ module.exports = function (app) {
                 } else {
                     return UserModel.create({
                         github: {
-                            id: profile.id
+                            id: profile.id, 
+                            token: accessToken
                         }
                     });
                 }
