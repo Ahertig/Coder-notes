@@ -88,6 +88,8 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
       .then(function(){
         $('#edit-tab').removeClass('active');
         $('#preview-tab').addClass('active');
+        $('#edit').removeClass('in active');
+        $('#preview').addClass('in active');
       })
       
     }
