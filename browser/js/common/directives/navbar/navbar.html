@@ -12,53 +12,12 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <ul class="nav navbar-top-links navbar-right">
-					<li class ="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown">
-							<button type="button" class="btn btn-success align-right"  data-toggle="tooltip" title="Add a notebook">
-								<i class="fa fa-plus"> add notebook
-								</i>
-							</button>
-						</a>
-						<ul class="dropdown-menu dropdown-messages">
-							<li>
-								<div class="input-group">
-									<form ng-submit="newNotebook(notebookTitle)">
-										<input id="notebook" type="text" ng-model="notebookTitle">
-										<!-- <button class="btn btn-small btn-link" type="submit">+</button> -->
-									</form>
-									<span class="pull-right text-muted">
-									</span>
-								</div>
-							</li>
-						</ul> <!-- /.dropdown-messages -->
-						<!-- <a ng-click="newNotebook()"></a> -->
-					</li> <!-- /.dropdown -->
 
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#" ng-click="getNotebooks()">
-							<button type="button" class="btn btn-success align-right"  data-toggle="tooltip" title="Add a note">
-									<i class="fa fa-plus"> add note
-									</i>
-							</button>
-						</a>
-						<ul class="dropdown-menu dropdown-messages">
-							<div ng-repeat="notebook in notebooks | filter: {trash: false}">
-							<li>
-								<div>
-									<a ng-click="newNote(notebook)">Add a note to {{notebook.title}}</a>
-									<span class="pull-right text-muted">
-									</span>
-								</div>
-							</li>
-							<li class="divider"></li>
-							</div>
-						</ul> <!-- /.dropdown-messages -->
-					</li> <!-- /.dropdown -->
-
-					<li class="dropdown">	
+					<li class="dropdown" ng-if="isLoggedIn()">	
 						<input width="25" type="text" placeholder="Search public notes" ng-model="searchTerm"> <button ui-sref="community({searchTerm: searchTerm})" class="fa fa-search btn-default"></button>
 					</li>
-					<li class="dropdown">
+
+					<li class="dropdown" ng-if="isLoggedIn()">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#" ng-click=getNotes()>
 							<i class="fa fa-clock-o"></i>
 							<i class="fa fa-caret-down"></i>
@@ -81,7 +40,7 @@
 						</ul> <!-- /.dropdown-messages -->
 					</li> <!-- /.dropdown -->
 
-					<li class="dropdown">
+					<li ng-if="isLoggedIn()" class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 						<i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
 						</a>
@@ -94,6 +53,14 @@
 							<li><a ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
 						</ul> <!-- /.dropdown-user -->
 					</li> <!-- /.dropdown -->
+
+					<li ng-if="!isLoggedIn()">
+              <a class="page-scroll btn-default" ui-sref="login">Login</a>
+          </li>
+
+					<li ng-if="!isLoggedIn()">
+              <a class="page-scroll btn-default" ui-sref="signup">Sign up</a>
+          </li>
 		</ul> <!-- /.navbar-top-links -->
 	</div><!-- /.container -->
 </nav>

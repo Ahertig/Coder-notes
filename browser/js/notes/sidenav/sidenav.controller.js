@@ -13,18 +13,58 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter) {
 			NotesFactory.setCurrentNotebook(notebook);
 		}
 	}
-    $scope.setTag = function(tag){
-    	$scope.currentTag = tag.tag;
-    }
-    $scope.trashNotebook = function(notebook){
-    	NotesFactory.removeNotebook(notebook);
-    }
-    $scope.deleteNotebook = function(notebook){
-    	console.log("deleteNotebook is undefined now!!");
-    }
-    $scope.restoreNotebook = function(notebook){
-    	NotesFactory.restoreNotebook(notebook);
-    }
+  $scope.setTag = function(tag){
+  	$scope.currentTag = tag.tag;
+  }
+  $scope.trashNotebook = function(notebook){
+  	NotesFactory.removeNotebook(notebook);
+  }
+  $scope.deleteNotebook = function(notebook){
+  	console.log("deleteNotebook is undefined now!!");
+  }
+  $scope.restoreNotebook = function(notebook){
+  	NotesFactory.restoreNotebook(notebook);
+  }
+
+  $scope.setCurrentNote = NotesFactory.setCurrentNote;
+
+  $scope.getNotes = function(){
+    $scope.notes = NotesFactory.getAllCacheNotes();
+  }
+
+   $scope.newNote = function(notebook) {
+      // NotesFactory.getCachedNotebooks();
+
+      NotesFactory.newNote(notebook._id)
+      .then(function(newNote){
+          NotesFactory.setCurrentNote(newNote);
+          NotesFactory.setCurrentNotebook(notebook);
+      })
+      .then(null, function(err){
+        console.error("Error saving new note!", err);
+     });
+  }
+  $scope.newNotebook = function(notebookTitle) {
+      console.log('getting here');
+      return NotesFactory.newNotebook(notebookTitle)
+      .then(function(newNotebook) {
+        $scope.newNote(newNotebook)
+        // $rootScope.currentNote = newNotebook;
+      })
+      .then(null, function(err){
+          console.log(err);
+      })
+  }
+
+  $scope.getNotebooks = function() {
+     NotesFactory.fetchMyNotebooks()
+     .then(function(_notebooks){
+          $scope.notebooks = _notebooks;
+     })
+     .then(null, function(err){
+        console.error("Error retrieving notebooks!", err);
+     });
+  }
 })
 
 app.filter('filterByTag', function(){
