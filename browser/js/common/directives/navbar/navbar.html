@@ -42,7 +42,7 @@
 							</button>
 						</a>
 						<ul class="dropdown-menu dropdown-messages">
-							<div ng-repeat="notebook in notebooks">
+							<div ng-repeat="notebook in notebooks | filter: {trash: false}">
 							<li>
 								<div>
 									<a ng-click="newNote(notebook)">Add a note to {{notebook.title}}</a>
