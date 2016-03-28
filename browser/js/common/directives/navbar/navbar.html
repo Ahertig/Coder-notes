@@ -12,7 +12,7 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <ul class="nav navbar-top-links navbar-right">
-					<li class ="dropdown">
+					<li class="dropdown" ng-if="isLoggedIn()">
 						<a class="dropdown-toggle" data-toggle="dropdown">
 							<button type="button" class="btn btn-success align-right"  data-toggle="tooltip" title="Add a notebook">
 								<i class="fa fa-plus"> add notebook
@@ -34,7 +34,7 @@
 						<!-- <a ng-click="newNotebook()"></a> -->
 					</li> <!-- /.dropdown -->
 
-					<li class="dropdown">
+					<li class="dropdown" ng-if="isLoggedIn()">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#" ng-click="getNotebooks()">
 							<button type="button" class="btn btn-success align-right"  data-toggle="tooltip" title="Add a note">
 									<i class="fa fa-plus"> add note
@@ -55,10 +55,11 @@
 						</ul> <!-- /.dropdown-messages -->
 					</li> <!-- /.dropdown -->
 
-					<li class="dropdown">	
+					<li class="dropdown" ng-if="isLoggedIn()">	
 						<input width="25" type="text" placeholder="Search public notes" ng-model="searchTerm"> <button ui-sref="community({searchTerm: searchTerm})" class="fa fa-search btn-default"></button>
 					</li>
-					<li class="dropdown">
+
+					<li class="dropdown" ng-if="isLoggedIn()">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#" ng-click=getNotes()>
 							<i class="fa fa-clock-o"></i>
 							<i class="fa fa-caret-down"></i>
@@ -81,7 +82,7 @@
 						</ul> <!-- /.dropdown-messages -->
 					</li> <!-- /.dropdown -->
 
-					<li class="dropdown">
+					<li ng-if="isLoggedIn()" class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 						<i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
 						</a>
@@ -94,6 +95,14 @@
 							<li><a ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
 						</ul> <!-- /.dropdown-user -->
 					</li> <!-- /.dropdown -->
+
+					<li ng-if="!isLoggedIn()">
+              <a class="page-scroll btn-default" ui-sref="login">Login</a>
+          </li>
+
+					<li ng-if="!isLoggedIn()">
+              <a class="page-scroll btn-default" ui-sref="signup">Sign up</a>
+          </li>
 		</ul> <!-- /.navbar-top-links -->
 	</div><!-- /.container -->
 </nav>
