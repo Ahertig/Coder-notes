@@ -13,6 +13,9 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter) {
 			NotesFactory.setCurrentNotebook(notebook);
 		}
 	}
+    $scope.toggleSideNav = NotesFactory.toggleSideNav;
+    $scope.isSideNavOpen = NotesFactory.isSideNavOpen;
+
   $scope.setTag = function(tag){
   	$scope.currentTag = tag.tag;
   }
