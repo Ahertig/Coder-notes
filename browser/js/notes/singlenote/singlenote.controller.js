@@ -133,6 +133,9 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
           }
         }
         GithubFactory.createGist(newGist, headers)
+        .then(function(gist) {
+          $scope.successmessage="Gist created successfully!";
+        })
       })
     }
 
