@@ -13,6 +13,10 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <ul class="nav navbar-top-links navbar-right">
 
+          <li class="dropdown" ng-if="isLoggedIn() && (('community' | isState) || ('note' | isState))">
+            <button class="btn btn-default" ui-sref="usercontent">My notes</button>
+          </li>
+
 					<li class="dropdown" ng-if="isLoggedIn()">	
             <form ng-submit="search(searchTerm)">
   						<input size="35" type="text" placeholder="Search public notes" ng-model="searchTerm">
