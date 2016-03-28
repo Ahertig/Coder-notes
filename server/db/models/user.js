@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var _ = require('lodash');
 var Promise = require('bluebird');
 var deepPopulate = require('mongoose-deep-populate')(mongoose);
+var Github = require('github'); 
 
 var userSchema = new mongoose.Schema({
     firstName: {
@@ -38,7 +39,7 @@ var userSchema = new mongoose.Schema({
     },
     github: {
         id: String, 
-        token: String
+        token: {type: String, select: false}
     }
 });
 
@@ -186,6 +187,46 @@ userSchema.methods.createNotebook = function(body) {
         return notebook;
    })
 }
+
+function makePromisifiedGithubClient() {
+  var client = new Github({
+    version: "3.0.0"
+  })
+
+  for(var key in client) {
+    if(client.hasOwnProperty(key) && typeof client[key] === 'object' && !Array.isArray(client[key])) {
+      Promise.promisifyAll(client[key])
+    }
+  }
+
+  return client;
+}
+
+
+userSchema.methods.getGithubClientSync = function() {
+  if (!this.github.token) return Promise.reject("no access token")
+  var client = makePromisifiedGithubClient()
+
+  client.authenticate({
+    type: 'oauth',
+    token: this.github.token
+  })
+
+  return client; 
+}
+
+
+userSchema.methods.getGithubClient = function() {
+  return mongoose
+    .model('User')
+    .findById(this._id)
+    .select('+github.token')
+    .exec()
+    .then(function(u) {
+      return u.getGithubClientSync()
+    })
+}
+
 
 // method to remove sensitive information from user objects before sending them out
 userSchema.methods.sanitize =  function () {

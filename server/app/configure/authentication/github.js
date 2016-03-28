@@ -5,6 +5,32 @@ var passport = require('passport');
 var GithubStrategy = require('passport-github2').Strategy; // ?
 var mongoose = require('mongoose');
 var UserModel = mongoose.model('User');
+var Promise = require('bluebird');
+var _ = require('lodash')
+
+
+function createUserWithGithubEmail(profile, accessToken){
+    return Promise.resolve(UserModel.create({
+        github: {
+            id: profile.id, 
+            token: accessToken
+        }
+    })).bind({})
+    .then(function(user){
+        this.user = user; 
+        return user.getGithubClient()
+    })
+    .then(function(client){
+        return client.user.getEmailsAsync({per_page: 100})
+    })
+    .then(function(emails){
+        var emailObject = _.find(emails, function(e){
+            return e.primary === true; 
+        })
+        this.user.set('email', emailObject.email)
+        return this.user.save()
+    })
+}
 
 module.exports = function (app) {
 
@@ -22,14 +48,10 @@ module.exports = function (app) {
                 if (user) {
                     return user;
                 } else {
-                    return UserModel.create({
-                        github: {
-                            id: profile.id, 
-                            token: accessToken
-                        }
-                    });
+                 return createUserWithGithubEmail(profile, accessToken)
                 }
-            }).then(function (userToLogin) {
+            })
+            .then(function (userToLogin) {
                 done(null, userToLogin);
             }, function (err) {
                 console.error('Error creating user from Github authentication', err);
