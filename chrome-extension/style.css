@@ -8,9 +8,9 @@ html {
   width: 300px;
 }
 
-.background {
+/*.background {
   background-color: #E4ECF3;
-}
+}*/
 
 h4 {
   font-family: "Times New Roman";
@@ -25,26 +25,33 @@ hr {
 
 textarea {
   width: 100%;
-  border: 0px;
+  height: 200px;
+  border: 4px solid #DAEEF5;
   padding: 6px;
 }
 
 input {
   width: 100%;
-  border: 0px;
+  border: 4px solid #DAEEF5;
   padding: 6px;
 }
 
 button {
   border: 0px;
   padding: 10px;
-  background-color: #FF0000;
+  background-color: #DAEEF5;
 }
 
 .form-group button {
-  color: #D4D4D4;
+  color: black;
 }
 
-input #submit {
-  background-color: orange;
+/*input #submit {
+  background-color: #DAEEF5;
+}*/
+
+img.logo {
+  margin: auto;
+  display: block;
 }
+

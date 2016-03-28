@@ -1,4 +1,4 @@
-app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
+app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, GithubFactory, AuthService) {
     $scope.savenote = {};
     $scope.tagform = {};
 
@@ -97,7 +97,6 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
     $scope.highlightPre = function() {
       hljs.initHighlighting();
     }
-    
 
     $scope.addPre = function() {
       var domElement = $('#testdiv')[0];
@@ -121,9 +120,31 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
         element: document.getElementById("my-element"),
         source: TonicFactory.getSelectionText()
       })       
-
-    $scope.tonic = false;
+      $scope.tonic = false;
     }
+
+    // Creating Gists 
+    $scope.createGist = function(note) {
+      AuthService.getLoggedInUser()
+      .then( function(user) {
+        var headers = { "Authorization": "token " + user.github.token };
+        var newGist = {
+          "description": note.subject,
+          "public": false,
+          "files": {
+            "file1.txt": {
+              "content": note.body
+            }
+          }
+        }
+        GithubFactory.createGist(newGist, headers)
+        .then(function(gist) {
+          $scope.successmessage="Gist created successfully!";
+        })
+      })
+    }
+
+
 
 })
 

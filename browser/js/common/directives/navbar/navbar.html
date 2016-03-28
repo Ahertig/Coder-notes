@@ -21,8 +21,11 @@
 						</a>
 						<ul class="dropdown-menu dropdown-messages">
 							<li>
-								<div>
-									<input type="text" ng-model="notebookTitle"><button class="btn btn-small btn-link" ng-click="newNotebook(notebookTitle)">+</button>
+								<div class="input-group">
+									<form ng-submit="newNotebook(notebookTitle)">
+										<input id="notebook" type="text" ng-model="notebookTitle">
+										<!-- <button class="btn btn-small btn-link" type="submit">+</button> -->
+									</form>
 									<span class="pull-right text-muted">
 									</span>
 								</div>

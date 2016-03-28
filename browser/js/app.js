@@ -16,6 +16,7 @@ app.config(function ($urlRouterProvider, $locationProvider, hljsServiceProvider)
     $urlRouterProvider.when('/auth/:provider', function () {
         window.location.reload();
     });
+
 });
 
 // This app.run is for controlling access to specific states.

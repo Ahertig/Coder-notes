@@ -32,6 +32,7 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 		</button>
 
 		<div class="tab-pane fade" id="edit" ng-hide="currentNote().trash">
+
 			<h2>Edit Note</h2>
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -44,7 +45,9 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 					</textarea>
 					<p class="muted"><em>To run code, highlight and click "Run Code" or press Ctrl-Enter</em></p>
 				</div>
-                <div class="alert alert-success" role="alert" ng-if="tagsavesuccess">{{tagsavesuccess}}</div>
+
+				<div class="alert alert-success" role="alert" ng-if="tagsavesuccess">{{tagsavesuccess}}</div>
+
 				<div class="alert alert-danger" role="alert" ng-if="tagsavefailure && !tagsavesuccess">{{tagsavefailure}}</div>
 				<div class="panel-footer">
 				<div>
@@ -71,6 +74,9 @@ new zeditor({ wrapperField : document.querySelector('.zp2')});
 					<button ng-if="!tonic" class="btn btn-primary" ng-click="closeTonic()">Close Code Window</button>
 					<button ng-click="trashNote(currentNote()._id)" ng-show="!currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
 						 Trash Note
+					</button>
+					<button ng-click="createGist(currentNote())" type="button" class="btn btn-success"  data-toggle="tooltip" title="Create gist">
+						Create a Gist
 					</button>
 				</div>
 
