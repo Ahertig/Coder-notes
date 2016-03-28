@@ -122,3 +122,13 @@ code {
 .dropdown-menu div li div a:hover {
 	cursor:pointer;
 }
+
+/* delete buttons */
+i.glyphicon-minus-sign {
+	color: red;
+}
+
+.tab-content span.muted {
+	margin: 0.5em;
+	padding: 0.5em;
+}
