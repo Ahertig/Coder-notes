@@ -107,7 +107,7 @@ notebookSchema.methods.removeShare = function(userEmail) {
         user.sharedWithMeNotebooks.pull(thisNotebook._id)
         return user.save();
     })
-    .then(function() {
+    .then(function(user) {
         return thisNotebook;
     })
 }
