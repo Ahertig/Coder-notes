@@ -26,9 +26,12 @@ router.get('/',function(req,res,next){
 	.deepPopulate('myNotebooks.notes')
 	.then(function(user) {
 		user.myNotebooks.forEach(function(notebook){
-			notebook.notes.forEach(function(note){
-                tags = tags.concat(note.tags);
-			})
+			if(notebook.trash === false){
+				notebook.notes.forEach(function(note){
+					if (note.trash === false)
+	                tags = tags.concat(note.tags);
+				})
+			}
 		})
 		var _tagObj = _.groupBy(tags);
 		res.json(tagCount(_tagObj));

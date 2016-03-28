@@ -16,13 +16,17 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter) {
     $scope.setTag = function(tag){
     	$scope.currentTag = tag.tag;
     }
+    $scope.removeNotebook = function(notebook){
+    	console.log("remove notebook")
+    	NotesFactory.removeNotebook(notebook);
+    }
 })
 
 app.filter('filterByTag', function(){
 	return function (notes, tag) { 
 		return notes.filter(
 			function(note){
-				return note.tags.indexOf(tag) > -1;
+				return (note.tags.indexOf(tag) > -1) && (note.trash == false);
 		});
     }
 });
