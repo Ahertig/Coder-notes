@@ -21,7 +21,6 @@ app.config(function ($stateProvider) {
     controller: 'NoteCtrl',
     resolve: {
       theNote: function(NotesFactory, $stateParams){
-        console.log('here is state params', $stateParams)
         return NotesFactory.getNote($stateParams.id)
       }
     }
