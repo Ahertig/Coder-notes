@@ -6,7 +6,8 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 		sharedNotebookCache = [],
 		tagsCache = [], 
 		currentNote,
-		currentNotebook;
+		currentNotebook,
+		sideNavOpen = true;
 	
 	NotesFactory.getCurrentNote = function() {
 		if(currentNote) {
@@ -330,5 +331,15 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			}
 		}
 	}
+
+	NotesFactory.isSideNavOpen = function() {
+		return sideNavOpen;
+	}
+
+	NotesFactory.toggleSideNav = function() {
+		console.log("toggleSideNav running. sideNavOpen is now",sideNavOpen)
+		sideNavOpen = !sideNavOpen;
+	}
+
 	return NotesFactory; 
 })

@@ -20,6 +20,10 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter) {
     	console.log("remove notebook")
     	NotesFactory.removeNotebook(notebook);
     }
+
+    $scope.toggleSideNav = NotesFactory.toggleSideNav;
+    $scope.isSideNavOpen = NotesFactory.isSideNavOpen;
+
 })
 
 app.filter('filterByTag', function(){

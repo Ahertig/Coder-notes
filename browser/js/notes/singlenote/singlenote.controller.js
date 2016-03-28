@@ -139,7 +139,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
       })
     }
 
-
+    $scope.isSideNavOpen = NotesFactory.isSideNavOpen;
 
 })
 
