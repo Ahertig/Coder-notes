@@ -1,7 +1,9 @@
 <div class="col-sm-12" ng-class="{'col-lg-3 col-md-3': isSideNavOpen(), 'col-lg-1 col-md-1': !isSideNavOpen()}" ng-controller="SidenavCtrl">
 	<div class="panel panel-default">
 		<div class="panel-heading"><span ng-show="isSideNavOpen()">My Stuff</span>
-			<div class="pull-right"><button ng-click="toggleSideNav()"><i class="glyphicon" ng-class="{'glyphicon-arrow-left' : isSideNavOpen(), 'glyphicon-arrow-right' : !isSideNavOpen()}"></i></button></div>
+			<div class="pull-right">
+				<button type="button" width="50%" class="btn btn-default" data-toggle="tooltip" data-placement="right" ng-attr-title="isSideNavOpen() ? 'Hide Notes Navigator' : 'Show Notes Navigator'" ng-click="toggleSideNav()"><i class="glyphicon" ng-class="{'glyphicon-arrow-left' : isSideNavOpen(), 'glyphicon-arrow-right' : !isSideNavOpen()}"></i></button>
+	</div>
 		</div>
 		<div class="panel-body" ng-if="isSideNavOpen()">
 			<ul class="nav nav-pills nav-justified nav-pills-sm">
