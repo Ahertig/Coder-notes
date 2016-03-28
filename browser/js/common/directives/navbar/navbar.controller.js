@@ -1,10 +1,13 @@
-app.controller('NavbarCtrl', function($scope, NotesFactory,AuthService,$rootScope) {
-
+app.controller('NavbarCtrl', function($scope, $state, NotesFactory,AuthService,$rootScope) {
 
     $scope.setCurrentNote = NotesFactory.setCurrentNote;
 
     $scope.getNotes = function(){
       $scope.notes = NotesFactory.getAllCacheNotes();
+    }
+
+    $scope.search = function(searchTerm) {
+        $state.go('community', {searchTerm: searchTerm})
     }
 
  });
