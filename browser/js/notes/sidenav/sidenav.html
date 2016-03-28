@@ -96,9 +96,28 @@
 							<div class="list-group" id="side-menu-2">   						
 								<div ng-repeat="notebook in getCachedNotebooks() | filter:{title: searchNotebooktitle} | filter: {trash: false}">
 									<!-- <div class="muted">Notebook ID:{{notebook._id}}</div> -->
-									<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item" ng-click="setCurrentNotebook(notebook)"> {{notebook.title}} </a>
+										<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item clearfix" ng-click="setCurrentNotebook(notebook)"> {{notebook.title}} <i ng-click="trashNotebook(notebook)" data-toggle="tooltip" title="Trash notebook" class="glyphicon glyphicon-minus-sign pull-right"></i> </a>
+										
+
+
+<!-- <div class="list-group">
+  <a href="#" class="list-group-item clearfix">
+    <span class="glyphicon glyphicon-file"></span>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    <span class="pull-right">
+      <button class="btn btn-xs btn-info">CCS</button>
+      <button class="btn btn-xs btn-warning">
+        <span class="glyphicon glyphicon-trash"></span>
+      </button>
+    </span>
+  </a>
+</div> -->
+
+
+
+
+
 									<div class="panel-collapse collapse" id="{{notebook._id}}">
-										<button ng-click="trashNotebook(notebook)" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Trash notebook">Trash</button>
 										<div class="panel-body inner-scroll">
 											<div class="list-group">
 												<a ng-click="setCurrentNote(oneNote,notebook)" class="list-group-item" ng-repeat="oneNote in notebook.notes| filter:{trash: false}" >{{oneNote.subject}}
@@ -166,8 +185,8 @@
 									<a data-toggle="collapse" ng-href="#trash-{{notebook._id}}" class="list-group-item" ng-click="setCurrentNotebook(notebook)">{{notebook.title}}</a>
 
 									<div class="panel-collapse collapse" id="trash-{{notebook._id}}">
-										<button ng-click="deleteNotebook(notebook)" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete notebook">delete</button>
-										<button ng-click="restoreNotebook(notebook)" type="button" class="btn btn-success"  data-toggle="tooltip" title="restore notebook will also restore all notes in it">restore</button>
+										<button ng-click="deleteNotebook(notebook)" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Permanently delete notebook">delete</button>
+										<button ng-click="restoreNotebook(notebook)" type="button" class="btn btn-success"  data-toggle="tooltip" title="Restoring a notebook will also restore all the notes in it">restore</button>
 
 										<div class="panel-body inner-scroll">
 											<div class="list-group">
