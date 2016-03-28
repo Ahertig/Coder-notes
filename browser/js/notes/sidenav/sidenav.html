@@ -89,9 +89,51 @@
 							<div class="list-group" id="side-menu-2">   						
 								<div ng-repeat="notebook in getCachedNotebooks() | filter:{title: searchNotebooktitle} | filter: {trash: false}">
 									<!-- <div class="muted">Notebook ID:{{notebook._id}}</div> -->
-									<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item" ng-click="setCurrentNotebook(notebook)"> {{notebook.title}} <button data-toggle="modal" data-target="#shareNotebook" type="button" class="btn btn-success"  data-toggle="tooltip" title="Share notebook">Share</button> <i class="glyphicon glyphicon-remove" ng-click="trashNotebook(notebook)"></i> </a>
+
+									<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item" ng-click="setCurrentNotebook(notebook)"> {{notebook.title}}</a>
+
+										<!-- Popup -->
+										<div id="shareNotebook{{notebook._id}}" class="modal fade" role="dialog">
+										  <div class="modal-dialog">
+
+										    <!-- Modal content-->
+										    <div class="modal-content">
+										      <div class="modal-header">
+										        <button type="button" class="close" data-dismiss="modal">&times;</button>
+										        <h4 class="modal-title">Share Notebook</h4>
+										      </div>
+										      <div class="modal-body">
+
+						      				    <form ng-submit="shareNotebook(notebook, shareEmail)">
+														<div class="input-group"> 
+															<input ng-model="shareEmail" type="text" class="form-control" placeholder="Add an email to share"> 
+															<span ng-click="shareNotebook(notebook, shareEmail)" class="input-group-addon" data-dismiss="modal">+</span> 
+														</div>
+												</form>	
+
+
+												<form ng-submit="removeNotebookShare(notebook, removeShareEmail)">
+														<div class="input-group"> 
+															<input ng-model="removeShareEmail" type="text" class="form-control" placeholder="Email to remove share"> 
+															<span ng-click="removeNotebookShare(notebook, removeShareEmail)" class="input-group-addon" data-dismiss="modal">-</span> 
+														</div>
+												</form>	
+	<!-- 									      	<input ng-model='shareEmail' placeholder='Add email to share'></input>
+										      	<button ng-click="shareNotebook(notebook, shareEmail)" type="button" class="btn btn-default" data-dismiss="modal">Share</button> -->
+										      </div>
+										<!--       <div class="modal-footer">
+										        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										      </div> -->
+										    </div>
+										  </div>
+										</div>
+										<!-- Closing Popup -->
+
 									<div class="panel-collapse collapse" id="{{notebook._id}}">
-								<!-- 		<button ng-click="trashNotebook(notebook)" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Trash notebook">Trash</button> -->
+										<button ng-click="trashNotebook(notebook)" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Trash notebook">Trash</button>
+										<button data-toggle="modal" data-target="#shareNotebook{{notebook._id}}" type="button" class="btn btn-success"  data-toggle="tooltip" title="Share notebook">Share</button>
+
+
 										<div class="panel-body inner-scroll">
 											<div class="list-group">
 												<a ng-click="setCurrentNote(oneNote,notebook)" class="list-group-item" ng-repeat="oneNote in notebook.notes| filter:{trash: false}" >{{oneNote.subject}}
@@ -99,31 +141,6 @@
 											</div>
 										</div>
 									</div>
-
-								<!-- Modal -->
-								<div id="shareNotebook" class="modal fade" role="dialog">
-								  <div class="modal-dialog">
-
-								    <!-- Modal content-->
-								    <div class="modal-content">
-								      <div class="modal-header">
-								        <button type="button" class="close" data-dismiss="modal">&times;</button>
-								        <h4 class="modal-title">Share Notebook</h4>
-								      </div>
-								      <div class="modal-body">
-								      	<input ng-model='shareEmail' placeholder='Add email to share'></input>
-								      	<button ng-click="shareNotebook(notebook, shareEmail)" type="button" class="btn btn-default" data-dismiss="modal">Share</button>
-								      </div>
-								<!--       <div class="modal-footer">
-								        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-								      </div> -->
-								    </div>
-
-								  </div>
-								</div>
-								<!-- Closing Modal -->
-
-
 
 
 								</div>

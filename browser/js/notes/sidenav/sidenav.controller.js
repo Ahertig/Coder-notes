@@ -67,11 +67,15 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter, ShareFacto
   }
 
 
-  // Share notebook
-  $scope.shareNotebook = function(notebook, email) {
-    console.log('email in ctrl: ', email)
-    ShareFactory.shareNotebook(notebook, email)
-  }
+  // Manage Notebook Share
+    $scope.shareNotebook = function(notebook, email) {
+      ShareFactory.shareNotebook(notebook, email)
+    }
+    
+    $scope.removeNotebookShare = function(notebook, email) {
+      console.log('in the controller: ', notebook, email)
+      ShareFactory.removeNotebookShare(notebook, email)
+    }
 })
 
 app.filter('filterByTag', function(){

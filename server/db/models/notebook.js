@@ -91,7 +91,7 @@ notebookSchema.methods.share = function(userEmail) {
     var thisNotebook = this;
     return mongoose.model('User').findOne({email: userEmail})
     .then(function (user) {
-        user.sharedWithMeNotebooks.push(thisNotebook._id)
+        user.sharedWithMeNotebooks.addToSet(thisNotebook._id)
         return user.save();
     })
     .then(function() {
