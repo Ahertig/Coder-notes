@@ -31,9 +31,6 @@ var userSchema = new mongoose.Schema({
     salt: {
         type: String
     },
-    // google: {
-    //     id: String
-    // }, 
     google: {
         id: String, 
         email: String,

@@ -1,4 +1,4 @@
-app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
+app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, GithubFactory, AuthService) {
     $scope.savenote = {};
     $scope.tagform = {};
 
@@ -17,7 +17,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
     //$scope.currentNotebook = NotesFactory.getCurrentNotebook;
     $scope.showmarkdown = false;
     $scope.successmessage = null;
-    $scope.tagsremoved = []
+   
     $scope.removeTag = function(note, tag) {
       console.log("remove tag");
       if(note.tags.indexOf(tag) === -1){
@@ -41,9 +41,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
       if(note.tags.indexOf(tag) === -1){
         NotesFactory.addTag(note._id, tag)
         .then(function(newNote) {       
-          console.log("this is newnote",newNote.data)
            var currentNotebookID = NotesFactory.findParentNotebook(note._id);
-          console.log("current notebook",$scope.currentNotebook);
           NotesFactory.updateNoteInNotebookCache(currentNotebookID, newNote.data, 'update');
           $scope.tagsavesuccess = "Tag saved successfully!";
           $scope.tagToAdd = "";
@@ -63,13 +61,14 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
 
     $scope.save = function(){ 
       var currentNotebook;
+      var lastUpdateDate = Date.now();
       var subjectToSave = $('#notesubject').val();
       var bodyToSave = $('#notebody').val();
       $scope.savenote = {
         "subject": subjectToSave,
-        "body": bodyToSave
+        "body": bodyToSave,
+        "lastUpdate": lastUpdateDate
       }  
-
       if(!$scope.getCurrentNootbook())  {
         currentNotebook = NotesFactory.findParentNotebook($scope.currentNote()._id);
       }
@@ -84,15 +83,20 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
         })    
     }
 
-    $scope.deleteNote = function(noteId) {
-      console.log("inside deleteNote")
+    $scope.trashNote = function(noteId) {
       NotesFactory.trashNote(noteId);
+    }
+
+    $scope.deleteNote = function(note) {
+      NotesFactory.deleteNote(note);
+    }
+    $scope.restoreNote = function(noteId){
+      NotesFactory.restoreNote(noteId);
     }
 
     $scope.highlightPre = function() {
       hljs.initHighlighting();
     }
-
 
     $scope.addPre = function() {
       var domElement = $('#testdiv')[0];
@@ -116,9 +120,31 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
         element: document.getElementById("my-element"),
         source: TonicFactory.getSelectionText()
       })       
-
-    $scope.tonic = false;
+      $scope.tonic = false;
     }
+
+    // Creating Gists 
+    $scope.createGist = function(note) {
+      AuthService.getLoggedInUser()
+      .then( function(user) {
+        var headers = { "Authorization": "token " + user.github.token };
+        var newGist = {
+          "description": note.subject,
+          "public": false,
+          "files": {
+            "file1.txt": {
+              "content": note.body
+            }
+          }
+        }
+        GithubFactory.createGist(newGist, headers)
+        .then(function(gist) {
+          $scope.successmessage="Gist created successfully!";
+        })
+      })
+    }
+
+
 
 })
 

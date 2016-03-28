@@ -5,7 +5,7 @@ var router = require('express').Router();
 module.exports = router;
 var mongoose = require('mongoose');
 
-// Add to Trash
+// Add to Trash 
 router.put('/add', function(req, res) {
 	req.currentNote.addToTrash()
 		.then(function(note) {
@@ -13,7 +13,7 @@ router.put('/add', function(req, res) {
 		})
 })
 
-// Remove from Trash
+// Remove from Trash ==> set trash = false 
 router.put('/remove', function(req, res) {
 	req.currentNote.removeFromTrash()
 		.then(function(note) {
