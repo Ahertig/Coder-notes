@@ -1,4 +1,4 @@
-app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, GithubFactory) {
+app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, GithubFactory, AuthService) {
     $scope.savenote = {};
     $scope.tagform = {};
 
@@ -118,23 +118,22 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
       $scope.tonic = false;
     }
 
-    // Gists 
-
-
+    // Creating Gists 
     $scope.createGist = function(note) {
-      var headers = { "Authorization": "token df49b06200366cb23f2e1edfd07ebd75f257a746" };
-      // var headers = { 'authToken': "df49b06200366cb23f2e1edfd07ebd75f257a746" };
-      var newGist = {
-        "description": "third-test-gist-banana",
-        "public": true,
-        "user": "ksenia0822",
-        "files": {
-          "file1.txt": {
-            "content": "THIRD TEST GIST BANANA"
+      AuthService.getLoggedInUser()
+      .then( function(user) {
+        var headers = { "Authorization": "token " + user.github.token };
+        var newGist = {
+          "description": note.subject,
+          "public": false,
+          "files": {
+            "file1.txt": {
+              "content": note.body
+            }
           }
         }
-      }
-      GithubFactory.createGist(newGist, headers)
+        GithubFactory.createGist(newGist, headers)
+      })
     }
 
 
