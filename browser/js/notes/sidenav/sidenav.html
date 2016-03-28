@@ -22,7 +22,7 @@
 						</div>
 						<div class="panel-body outer-scroll">
 							<div class='list-group' id="side-menu-1">
-      							<a ng-click="setCurrentNote(note)"  class="list-group-item" ng-repeat="note in notes | filter:searchNotes | filter: {trash: false}">{{note.subject}}</a>
+      							<a ng-click="setCurrentNote(note)"  class="list-group-item" ng-repeat="note in getnotes() | filter:searchNotes | filter: {trash: false}">{{note.subject}}</a>
 							</div>
 						</div>
 					</div>
@@ -68,7 +68,7 @@
 									<div class="panel-collapse collapse" id="{{tag.tag}}">
 										<div class="panel-body inner-scroll">
 											<div class="list-group">
-												<a ng-click="setCurrentNote(note)" class="list-group-item" ng-repeat="note in notes | filterByTag: currentTag: note">{{note.subject}}</a>
+												<a ng-click="setCurrentNote(note)" class="list-group-item" ng-repeat="note in getnotes() | filterByTag: currentTag: note">{{note.subject}}</a>
 											</div>
 										</div>
 									</div>
@@ -139,7 +139,7 @@
 						</div>
 							<div class="panel-body inner-scroll">
 							<div class='list-group' id="side-menu-1">
-									<a class="list-group-item" ng-repeat="note in notes | filter: searchNotes | filter: {trash: true}" ng-click="setCurrentNote(note)">{{note.subject}}</a>
+									<a class="list-group-item" ng-repeat="note in getnotes() | filter: searchNotes | filter: {trash: true}" ng-click="setCurrentNote(note)">{{note.subject}}</a>
 							</div>
 
 

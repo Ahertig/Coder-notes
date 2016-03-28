@@ -2,7 +2,7 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter) {
 
 	$scope.getCachedNotebooks = NotesFactory.getCachedNotebooks;
 	$scope.getTagsCache = NotesFactory.getTagsCache;
-	$scope.notes = NotesFactory.getAllCacheNotes();
+	$scope.getnotes = NotesFactory.getAllCacheNotes;
 	$scope.setCurrentNotebook = function(notebook){
 		NotesFactory.setCurrentNotebook(notebook);
 	}

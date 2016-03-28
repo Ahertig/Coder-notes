@@ -46,7 +46,7 @@ noteSchema.pre('remove', function(next) {
         .findOneAndUpdate(
             {notes: {$elemMatch: {$eq : this._id}}},{$pull: {notes: this._id}})
         .exec()
-        .then(function(notebook){
+        .then(function(){
             next();
         }, next);
 })

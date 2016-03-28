@@ -96,10 +96,13 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
  			angular.copy(note,notebook.notes[index]);
  		}
  		else if(action === 'delete'){
- 			console.log("deleting note from notebook: ",notebook, note._id);
- 			var index = NotesFactory.findNoteIndex(notebook,note._id);
- 			console.log("index, ", index);
- 			notebook.notes.splice(index,1)
+ 			if(notebook.notes.length === 1) {
+ 				notebook.notes = [];
+ 			}
+ 			else {
+	 			var index = NotesFactory.findNoteIndex(notebook,note._id);
+	 			notebook.notes.splice(index,1)
+ 			}
  		}
 	}
     // this is to add/ update/ delete notebooks 
@@ -315,10 +318,9 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 		console.log("deleting note from trash", note._id);
 		return $http.delete('/api/trash/' + note._id)
 		.then(function(response){
-			console.log("deleted note,", response.data)
 			var notebookID = NotesFactory.findParentNotebook(note._id) 
-			console.log("notebook ID,", notebookID)
 			NotesFactory.updateNoteInNotebookCache(notebookID, note, 'delete');
+			NotesFactory.setCurrentNote(null);
 		})
 	}
 
