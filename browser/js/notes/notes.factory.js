@@ -6,7 +6,8 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 		sharedNotebookCache = [],
 		tagsCache = [], 
 		currentNote,
-		currentNotebook;
+		currentNotebook,
+		sideNavOpen = true;
 	
 	NotesFactory.getCurrentNote = function() {
 		if(currentNote) {
@@ -222,7 +223,6 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	NotesFactory.saveNote = function (notebookId, noteId,noteUpdate) {
 		return $http.put('/api/notes/' + noteId, noteUpdate)
 		.then(function(response) {
-
 			NotesFactory.updateNoteInNotebookCache(notebookId,response.data,'update');
 			return response.data;
 		},
@@ -234,6 +234,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	NotesFactory.newNote = function (notebookId) {
 		return $http.post('/api/notebooks/' + notebookId + '/notes')
 		.then(function(response) {
+			console.log("* NotesFactory - I just created a new note", response.data)
             NotesFactory.updateNoteInNotebookCache(notebookId, response.data, 'add');
 			return response.data;
 		}, 
@@ -373,5 +374,15 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			}
 		}
 	}
+
+	NotesFactory.isSideNavOpen = function() {
+		return sideNavOpen;
+	}
+
+	NotesFactory.toggleSideNav = function() {
+		console.log("toggleSideNav running. sideNavOpen is now",sideNavOpen)
+		sideNavOpen = !sideNavOpen;
+	}
+
 	return NotesFactory; 
 })

@@ -1,5 +1,4 @@
-app.controller('NavbarCtrl', function($scope, NotesFactory,AuthService,$rootScope) {
-
+app.controller('NavbarCtrl', function($scope, $state, NotesFactory,AuthService,$rootScope) {
 
     $scope.setCurrentNote = NotesFactory.setCurrentNote;
 
@@ -7,38 +6,10 @@ app.controller('NavbarCtrl', function($scope, NotesFactory,AuthService,$rootScop
       $scope.notes = NotesFactory.getAllCacheNotes();
     }
 
-     $scope.newNote = function(notebook) {
-        // NotesFactory.getCachedNotebooks();
-
-        NotesFactory.newNote(notebook._id)
-        .then(function(newNote){
-            NotesFactory.setCurrentNote(newNote);
-            NotesFactory.setCurrentNotebook(notebook);
-        })
-        .then(null, function(err){
-          console.error("Error saving new note!", err);
-       });
-    }
-    $scope.newNotebook = function(notebookTitle) {
-        return NotesFactory.newNotebook(notebookTitle)
-        .then(function(newNotebook) {
-          $scope.newNote(newNotebook)
-    // $rootScope.currentNote = newNotebook;
-        })
-        .then(null, function(err){
-            console.log(err);
-        })
+    $scope.search = function(searchTerm) {
+        $state.go('community', {searchTerm: searchTerm})
     }
 
-    $scope.getNotebooks = function() {
-       NotesFactory.fetchMyNotebooks()
-       .then(function(_notebooks){
-            $scope.notebooks = _notebooks;
-       })
-       .then(null, function(err){
-          console.error("Error retrieving notebooks!", err);
-       });
-    }
  });
 app.filter('trunc', function () {
         return function (value, wordwise, max, tail) {
