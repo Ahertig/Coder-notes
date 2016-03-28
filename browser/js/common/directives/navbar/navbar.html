@@ -21,8 +21,11 @@
 						</a>
 						<ul class="dropdown-menu dropdown-messages">
 							<li>
-								<div>
-									<input type="text" ng-model="notebookTitle"><button class="btn btn-small btn-link" ng-click="newNotebook(notebookTitle)">+</button>
+								<div class="input-group">
+									<form ng-submit="newNotebook(notebookTitle)">
+										<input id="notebook" type="text" ng-model="notebookTitle">
+										<!-- <button class="btn btn-small btn-link" type="submit">+</button> -->
+									</form>
 									<span class="pull-right text-muted">
 									</span>
 								</div>
@@ -53,15 +56,15 @@
 					</li> <!-- /.dropdown -->
 
 					<li class="dropdown">	
-						<input width="25" type="text" placeholder="Search All Public Notes">	
+						<input width="25" type="text" placeholder="Search public notes" ng-model="searchTerm"> <button ui-sref="community({searchTerm: searchTerm})" class="fa fa-search btn-default"></button>
 					</li>
 					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#" ng-click="getnotes()">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" ng-click=getNotes()>
 							<i class="fa fa-clock-o"></i>
 							<i class="fa fa-caret-down"></i>
 						</a>
 						<ul class="dropdown-menu dropdown-messages">
-							<div ng-repeat="note in notes | limitTo: 3 | orderBy: note.lastUpdate" >
+							<div ng-repeat="note in notes | limitTo: 5 | orderBy: '-lastUpdate'" >
 							<li ng-click = setCurrentNote(note)>
 			<!-- 					<a href="#"> -->
 								<div>
@@ -83,7 +86,7 @@
 						<i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
 						</a>
 						<ul class="dropdown-menu dropdown-user">
-							<li> Welcome, {{user.firstName}}!</li>
+							<li>Welcome, {{user.firstName}}!</li>
 							<li class="muted"> My user id: {{user._id}}</li>
 							<li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a></li>
 							<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
@@ -91,7 +94,8 @@
 							<li><a ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
 						</ul> <!-- /.dropdown-user -->
 					</li> <!-- /.dropdown -->
-				</ul> <!-- /.navbar-top-links -->
-    </div>
-    <!-- /.container -->
+		</ul> <!-- /.navbar-top-links -->
+	</div><!-- /.container -->
 </nav>
+
+

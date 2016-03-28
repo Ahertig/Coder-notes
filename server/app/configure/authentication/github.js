@@ -24,7 +24,8 @@ module.exports = function (app) {
                 } else {
                     return UserModel.create({
                         github: {
-                            id: profile.id
+                            id: profile.id, 
+                            token: accessToken
                         }
                     });
                 }
@@ -39,7 +40,7 @@ module.exports = function (app) {
 
     passport.use(new GithubStrategy(githubCredentials, verifyCallback));
 
-    app.get('/auth/github', passport.authenticate('github', { scope: ['user:email'] }));
+    app.get('/auth/github', passport.authenticate('github', { scope: ['user:email', 'user', 'gist'] }));
 
     app.get('/auth/github/callback',
         passport.authenticate('github', { failureRedirect: '/login' }),
