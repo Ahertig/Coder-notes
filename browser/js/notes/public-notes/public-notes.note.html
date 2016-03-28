@@ -1,7 +1,7 @@
 <div class="container">
-  dbsdoaifhodsl
-  <h3>{{note.subject}}</h3>
+  <h1>{{note.subject}}</h1>
+  <hr />
   <div>{{note.dummy}}</div>
-  <div>{{note.body}}</div>
-  <div><strong>Last updated</strong> {{note.dateCreated}}</div>
+  <div marked="note.body"></div>
+  <div><strong>Last updated</strong> {{note.dateCreated | date: 'longDate'}}</div>
 </div>

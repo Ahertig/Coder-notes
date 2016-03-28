@@ -3,7 +3,7 @@ app.config(function ($stateProvider) {
 
   // this is the main state to show user content.
   $stateProvider.state('community', {
-    url: '/public/:searchTerm',
+    url: '/search/:searchTerm',
     templateUrl: 'js/notes/public-notes/public-notes.html',
     controller: 'CommunityCtrl',
     resolve: {
