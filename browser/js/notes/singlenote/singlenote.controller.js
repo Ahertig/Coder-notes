@@ -84,11 +84,19 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
     }
 
     $scope.trashNote = function(noteId) {
-      NotesFactory.trashNote(noteId);
+      NotesFactory.trashNote(noteId)
+      .then(function(){
+        $('#edit-tab').removeClass('active');
+        $('#preview-tab').addClass('active');
+      })
+      
     }
 
     $scope.deleteNote = function(note) {
-      NotesFactory.deleteNote(note);
+      NotesFactory.deleteNote(note)
+        .then(function (data) {
+          console.log("this note has been deleted", data);
+        });
     }
     $scope.restoreNote = function(noteId){
       NotesFactory.restoreNote(noteId);
