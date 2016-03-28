@@ -88,13 +88,19 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
     }
 
     $scope.deleteNote = function(note) {
-      NotesFactory.deleteNote(note);
+      NotesFactory.deleteNote(note)
+      .then({function(){
+        NotesFactory.setCurrentNote();
+      }})
+    }
+    $scope.restoreNote = function(noteId){
+      NotesFactory.restoreNote(noteId);
     }
 
     $scope.highlightPre = function() {
       hljs.initHighlighting();
     }
-
+    
 
     $scope.addPre = function() {
       var domElement = $('#testdiv')[0];

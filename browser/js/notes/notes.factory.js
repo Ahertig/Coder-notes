@@ -321,6 +321,23 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			var notebookID = NotesFactory.findParentNotebook(note._id) 
 			NotesFactory.updateNoteInNotebookCache(notebookID, note, 'delete');
 			NotesFactory.setCurrentNote(null);
+			return response.data;
+		}, function(err) {
+			console.error("error trashing note", err)
+		})
+
+	}
+
+	NotesFactory.restoreNote = function(noteId) {
+		return $http.put('/api/notes/' + noteId + '/trash/remove')
+		.then(function(response) {
+			var trashNote = response.data;
+			var notebookID = NotesFactory.findParentNotebook(trashNote._id) 
+            NotesFactory.updateNoteInNotebookCache(notebookID, trashNote, 'update');
+			return response.data;
+		},
+		function(err) {
+			console.error("error trashing note", err)
 		})
 	}
 
