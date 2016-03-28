@@ -18,9 +18,7 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter) {
     $scope.toggleSideNav = NotesFactory.toggleSideNav;
     $scope.isSideNavOpen = NotesFactory.isSideNavOpen;
 
-  $scope.setTag = function(tag){
-  	$scope.currentTag = tag.tag;
-  }
+  
   $scope.trashNotebook = function(notebook){
   	NotesFactory.removeNotebook(notebook);
   }
@@ -70,7 +68,14 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter) {
         console.error("Error retrieving notebooks!", err);
      });
   }
+   $scope.filters = {};
+  $scope.setTag = function(tag){
+    $scope.currentTag = tag.tag;
+    $scope.filters[tag.tag] = tag.tag;
+  }
+ 
 })
+
 
 app.filter('filterByTag', function(){
 	return function (notes, tag) { 
