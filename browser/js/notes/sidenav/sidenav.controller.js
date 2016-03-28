@@ -3,6 +3,8 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter, ShareFacto
 	$scope.getCachedNotebooks = NotesFactory.getCachedNotebooks;
 	$scope.getTagsCache = NotesFactory.getTagsCache;
 	$scope.getnotes = NotesFactory.getAllCacheNotes;
+
+	console.log($scope.getnotes());
 	$scope.setCurrentNotebook = function(notebook){
 		NotesFactory.setCurrentNotebook(notebook);
 	}
@@ -13,6 +15,9 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter, ShareFacto
 			NotesFactory.setCurrentNotebook(notebook);
 		}
 	}
+    $scope.toggleSideNav = NotesFactory.toggleSideNav;
+    $scope.isSideNavOpen = NotesFactory.isSideNavOpen;
+
   $scope.setTag = function(tag){
   	$scope.currentTag = tag.tag;
   }

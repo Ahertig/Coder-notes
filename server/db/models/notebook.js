@@ -78,6 +78,7 @@ notebookSchema.methods.createNote = function(body) {
     var note;
     return mongoose.model('Note').create(body)
     .then(function(_note) {
+        console.log("I just created note", _note)
         note = _note;
         notebook.notes.push(note._id)         
         return notebook.save();

@@ -84,11 +84,21 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
     }
 
     $scope.trashNote = function(noteId) {
-      NotesFactory.trashNote(noteId);
+      NotesFactory.trashNote(noteId)
+      .then(function(){
+        $('#edit-tab').removeClass('active');
+        $('#preview-tab').addClass('active');
+        $('#edit').removeClass('in active');
+        $('#preview').addClass('in active');
+      })
+      
     }
 
     $scope.deleteNote = function(note) {
-      NotesFactory.deleteNote(note);
+      NotesFactory.deleteNote(note)
+        .then(function (data) {
+          console.log("this note has been deleted", data);
+        });
     }
     $scope.restoreNote = function(noteId){
       NotesFactory.restoreNote(noteId);
@@ -144,7 +154,18 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
       })
     }
 
+    $scope.isSideNavOpen = NotesFactory.isSideNavOpen;
 
+    $scope.singleNoteColumnWidth = function() {
+      if($scope.isSideNavOpen()) {
+        if (!$scope.tonic) return 'col-lg-5 col-md-5'; // if tonic is SHOWING
+        return 'col-lg-8 col-md-8'
+      }
+      else {
+        if(!$scope.tonic) return 'col-lg-6 col-md-6'; // if tonic is SHOWING
+        return 'col-lg-11 col-md-11';
+      }
+   }
 
 })
 

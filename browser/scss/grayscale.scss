@@ -150,7 +150,7 @@ input {
     padding: 100px 0;
     text-align: center;
     color: #fff;
-    background: url(../img/desktop.png) no-repeat bottom center scroll;
+    background: url(../img/desktop.jpg) no-repeat bottom center scroll;
     background-color: #000;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -315,8 +315,7 @@ input {
 .btn-default:focus {
     border: 1px solid #8562A6;
     outline: 0;
-    /*color: #000;*/
-    background-color: black;
+    color: black;
 }
 
 ul.banner-social-buttons {

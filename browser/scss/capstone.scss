@@ -41,7 +41,7 @@ a.muted {
 			border-right: none;
 		}		
 		a {
-		padding: 6px 9px;
+		padding: 6px 5px;
 		font-size: 95%;
 		border-radius: 0px;
 		}
@@ -77,6 +77,20 @@ a.muted {
 	}
 }
 
+sidenav .panel-heading button {
+	border-color: #aaa;
+	border-radius: 2px;
+	&:hover {
+		color: #ddd;
+	}
+	i.glypicon:hover {
+		color: #ddd;
+	}
+}
+
+sidenav .form-inline .dropdown {
+	display: inline-block;
+}
 
 /* sidenav scroll */
 

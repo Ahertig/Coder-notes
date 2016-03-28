@@ -6,7 +6,8 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 		sharedNotebookCache = [],
 		tagsCache = [], 
 		currentNote,
-		currentNotebook;
+		currentNotebook,
+		sideNavOpen = true;
 	
 	NotesFactory.getCurrentNote = function() {
 		if(currentNote) {
@@ -48,6 +49,9 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
     NotesFactory.getAllCacheNotes = function(){
     	return notesCache;
     }
+    NotesFactory.getCachedNotebooks = function() {
+		return notebookCache;
+	}
     NotesFactory.getTagsCache = function() {
 		return tagsCache;
 	}
@@ -82,9 +86,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			return -1;
 	}
    
-	NotesFactory.getCachedNotebooks = function() {
-		return notebookCache;
-	}
+	
     
     NotesFactory.updateNoteInNotebookCache = function(notebookID, note, action){
     	var notebook = NotesFactory.findNotebookById(notebookID); 	
@@ -95,9 +97,14 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
  			var index = NotesFactory.findNoteIndex(notebook,note._id);
  			angular.copy(note,notebook.notes[index]);
  		}
- 		else if(action === 'delete'){ 			
+ 		else if(action === 'delete'){ 
+ 		        var original=[];			
 	 			var index = NotesFactory.findNoteIndex(notebook,note._id);
 	 			notebook.notes.splice(index,1)
+	 			angular.copy(notesCache, original)
+	 			console.log("notesCache: ",original);
+  				notesCache.splice(notesCache.indexOf(note),1)
+  				console.log("updated notesCache: ",notesCache)
  		}
 	}
     // this is to add/ update/ delete notebooks 
@@ -172,10 +179,8 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	}
 
 	NotesFactory.fetchMyNotes = function() {
-		
 		return NotesFactory.fetchMyNotebooks()
 		.then(function(notebookCache){
-
 		for (var i = 0; i < notebookCache.length; i++) {
 			notesCache = notesCache.concat(notebookCache[i].notes);
 		}
@@ -184,11 +189,11 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	}
 
 	NotesFactory.fetchPublicNotes = function() {
-    return $http.get('/api/public/notes/all')
-    .then(function(response) {
-        return response.data;
-    })
-  }
+		return $http.get('/api/public/notes')
+		.then(function(response) {
+			return response.data;
+		})
+	}
 
 	// this function is working!
 	NotesFactory.fetchMyTags = function() {
@@ -206,7 +211,6 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	NotesFactory.getNote = function (noteId) {
 		return $http.get('/api/notes/' + noteId)
 		.then(function(response) {
-
 			return response.data;
 		}, function(err) {
 			console.error("could not find note", err)
@@ -216,7 +220,6 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	NotesFactory.saveNote = function (notebookId, noteId,noteUpdate) {
 		return $http.put('/api/notes/' + noteId, noteUpdate)
 		.then(function(response) {
-
 			NotesFactory.updateNoteInNotebookCache(notebookId,response.data,'update');
 			return response.data;
 		},
@@ -228,6 +231,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	NotesFactory.newNote = function (notebookId) {
 		return $http.post('/api/notebooks/' + notebookId + '/notes')
 		.then(function(response) {
+			console.log("* NotesFactory - I just created a new note", response.data)
             NotesFactory.updateNoteInNotebookCache(notebookId, response.data, 'add');
 			return response.data;
 		}, 
@@ -367,5 +371,15 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			}
 		}
 	}
+
+	NotesFactory.isSideNavOpen = function() {
+		return sideNavOpen;
+	}
+
+	NotesFactory.toggleSideNav = function() {
+		console.log("toggleSideNav running. sideNavOpen is now",sideNavOpen)
+		sideNavOpen = !sideNavOpen;
+	}
+
 	return NotesFactory; 
 })
