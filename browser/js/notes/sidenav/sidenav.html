@@ -1,60 +1,66 @@
-<div class="col-lg-3 col-md-3 col-sm-12" ng-controller="SidenavCtrl">
+<div class="col-sm-12" ng-class="{'col-lg-3 col-md-3': isSideNavOpen(), 'col-lg-1 col-md-1': !isSideNavOpen()}" ng-controller="SidenavCtrl">
 	<div class="panel panel-default">
 		<div class="panel-body">
-					<table style="width:100%">
-					  <tr>
-					    <td>
-					    	<div class="dropdown">
-									<a class="dropdown-toggle" data-toggle="dropdown">
-										<button type="button" class="btn btn-success align-right"  data-toggle="tooltip" title="Add a notebook">
-											<i class="fa fa-plus"> notebook
-											</i>
-										</button>
-									</a>
-									<ul class="dropdown-menu dropdown-messages">
-										<li>
-											<div class="input-group">
-												<form ng-submit="newNotebook(notebookTitle)">
-													<input id="notebook" type="text" ng-model="notebookTitle">
-													<!-- <button class="btn btn-small btn-link" type="submit">+</button> -->
-												</form>
-												<span class="pull-right text-muted">
-												</span>
-											</div>
-										</li>
-									</ul> <!-- /.dropdown-messages -->
-									<!-- <a ng-click="newNotebook()"></a> -->
-								</div> <!-- /.dropdown -->
-							</td>
-							<td>
-								<div class="dropdown">
-									<a class="dropdown-toggle" data-toggle="dropdown" href="#" ng-click="getNotebooks()">
-										<button type="button" class="btn btn-success align-right"  data-toggle="tooltip" title="Add a note">
-												<i class="fa fa-plus"> note
-												</i>
-										</button>
-									</a>
-									<ul class="dropdown-menu dropdown-messages">
-										<div ng-repeat="notebook in notebooks">
-										<li>
-											<div>
-												<a ng-click="newNote(notebook)">Add a note to {{notebook.title}}</a>
-												<span class="pull-right text-muted">
-												</span>
-											</div>
-										</li>
-										<li class="divider"></li>
-										</div>
-									</ul> <!-- /.dropdown-messages -->
-								</div> <!-- /.dropdown -->
-					    </td> 
-					  </tr>
-					</table>
+			<div class="form-inline" ng-if="isSideNavOpen()">
+<!-- 			<table style="width:100%">
+			  <tr>
+			    <td> -->
+			    	<div class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown">
+								<button type="button" class="btn btn-success align-right"  data-toggle="tooltip" title="Add a notebook">
+									<i class="fa fa-plus"> notebook
+									</i>
+								</button>
+							</a>
+							<ul class="dropdown-menu dropdown-messages">
+								<li>
+									<div class="input-group">
+										<form ng-submit="newNotebook(notebookTitle)">
+											<input id="notebook" type="text" ng-model="notebookTitle">
+											<button class="btn btn-small btn-link" type="submit">+</button>
+										</form>
+										<span class="pull-right text-muted">
+										</span>
+									</div>
+								</li>
+							</ul> <!-- /.dropdown-messages -->
+							<!-- <a ng-click="newNotebook()"></a> -->
+						</div> <!-- /.dropdown -->
+<!-- 					</td>
+					<td>
+ -->						<div class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#" ng-click="getNotebooks()">
+								<button type="button" class="btn btn-success align-right"  data-toggle="tooltip" title="Add a note">
+										<i class="fa fa-plus"> note
+										</i>
+								</button>
+							</a>
+							<ul class="dropdown-menu dropdown-messages">
+								<div ng-repeat="notebook in notebooks">
+								<li>
+									<div>
+										<a ng-click="newNote(notebook)">Add a note to {{notebook.title}}</a>
+										<span class="pull-right text-muted">
+										</span>
+									</div>
+								</li>
+								<li class="divider"></li>
+								</div>
+							</ul> <!-- /.dropdown-messages -->
+						</div> <!-- /.dropdown -->
+<!-- 			    </td> 
+			  </tr>
+			</table> -->
+			</div>
 		</div> <!-- ./panel body outer -->
 	</div> <!-- ./panel panel default outer -->				
 	<div class="panel panel-default">
-		<div class="panel-heading">My Stuff</div>
-		<div class="panel-body" >
+		<div class="panel-heading"><span ng-show="isSideNavOpen()">My Stuff</span>
+			<div class="pull-right">
+				<button type="button" width="50%" class="btn btn-default" data-toggle="tooltip" data-placement="right" ng-attr-title="isSideNavOpen() ? 'Hide Notes Navigator' : 'Show Notes Navigator'" ng-click="toggleSideNav()"><i class="glyphicon" ng-class="{'glyphicon-arrow-left' : isSideNavOpen(), 'glyphicon-arrow-right' : !isSideNavOpen()}"></i></button>
+			</div>
+		</div>
+		<div class="panel-body" ng-if="isSideNavOpen()">
 			<ul class="nav nav-pills nav-justified nav-pills-sm">
 				<li class="active"><a href="#notes" data-toggle="tab">Notes</a>
 				</li>
@@ -67,7 +73,7 @@
 				<li class="last"><a href="#trash" data-toggle="tab"><i class="fa fa-trash-o"></i></a>
 				</li>
 			</ul> <!-- ./nav -->
-			<div class="tab-content">
+			<div class="tab-content" ng-if="isSideNavOpen()">
 				<div class="tab-pane fade active" id="notes">
 					<div class="panel panel-default">
 						<div class="panel-heading">

@@ -77,6 +77,20 @@ a.muted {
 	}
 }
 
+sidenav .panel-heading button {
+	border-color: #aaa;
+	border-radius: 2px;
+	&:hover {
+		color: #ddd;
+	}
+	i.glypicon:hover {
+		color: #ddd;
+	}
+}
+
+sidenav .form-inline .dropdown {
+	display: inline-block;
+}
 
 /* sidenav scroll */
 
