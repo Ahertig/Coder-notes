@@ -49,6 +49,9 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
     NotesFactory.getAllCacheNotes = function(){
     	return notesCache;
     }
+    NotesFactory.getCachedNotebooks = function() {
+		return notebookCache;
+	}
     NotesFactory.getTagsCache = function() {
 		return tagsCache;
 	}
@@ -83,9 +86,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			return -1;
 	}
    
-	NotesFactory.getCachedNotebooks = function() {
-		return notebookCache;
-	}
+	
     
     NotesFactory.updateNoteInNotebookCache = function(notebookID, note, action){
     	var notebook = NotesFactory.findNotebookById(notebookID); 	
@@ -96,9 +97,14 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
  			var index = NotesFactory.findNoteIndex(notebook,note._id);
  			angular.copy(note,notebook.notes[index]);
  		}
- 		else if(action === 'delete'){ 			
+ 		else if(action === 'delete'){ 
+ 		        var original=[];			
 	 			var index = NotesFactory.findNoteIndex(notebook,note._id);
 	 			notebook.notes.splice(index,1)
+	 			angular.copy(notesCache, original)
+	 			console.log("notesCache: ",original);
+  				notesCache.splice(notesCache.indexOf(note),1)
+  				console.log("updated notesCache: ",notesCache)
  		}
 	}
     // this is to add/ update/ delete notebooks 

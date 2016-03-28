@@ -3,8 +3,8 @@
 
 <div class="col-sm-12" ng-class="singleNoteColumnWidth()">
 	<ul class="nav nav-tabs">
-	  <li role="presentation" class="active"><a href="#preview" data-toggle="tab">Preview</a></li>
-	  <li role="presentation"><a href="#edit" data-toggle="tab" ng-hide="currentNote().trash === true">Edit</a></li>
+	  <li id="preview-tab" role="presentation" class="active"><a href="#preview" data-toggle="tab">Preview</a></li>
+	  <li id="edit-tab" role="presentation"><a href="#edit" data-toggle="tab" ng-hide="currentNote().trash === true">Edit</a></li>
 	</ul>
 
 	<div class="tab-content">
