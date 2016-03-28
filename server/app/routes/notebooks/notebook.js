@@ -33,6 +33,7 @@ router.delete('/', function(req, res, next){
 })
 
 router.post('/share', function(req, res, next) {
+	console.log('req.body: ', req.body)
 	req.currentNotebook.share(req.body.email)
 	.then(function(sharedNotebook) {
 		res.json(sharedNotebook)
