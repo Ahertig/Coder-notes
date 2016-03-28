@@ -97,26 +97,6 @@
 								<div ng-repeat="notebook in getCachedNotebooks() | filter:{title: searchNotebooktitle} | filter: {trash: false}">
 									<!-- <div class="muted">Notebook ID:{{notebook._id}}</div> -->
 										<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item clearfix" ng-click="setCurrentNotebook(notebook)"> {{notebook.title}} <i ng-click="trashNotebook(notebook)" data-toggle="tooltip" title="Trash notebook" class="glyphicon glyphicon-minus-sign pull-right"></i> </a>
-										
-
-
-<!-- <div class="list-group">
-  <a href="#" class="list-group-item clearfix">
-    <span class="glyphicon glyphicon-file"></span>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-    <span class="pull-right">
-      <button class="btn btn-xs btn-info">CCS</button>
-      <button class="btn btn-xs btn-warning">
-        <span class="glyphicon glyphicon-trash"></span>
-      </button>
-    </span>
-  </a>
-</div> -->
-
-
-
-
-
 									<div class="panel-collapse collapse" id="{{notebook._id}}">
 										<div class="panel-body inner-scroll">
 											<div class="list-group">
