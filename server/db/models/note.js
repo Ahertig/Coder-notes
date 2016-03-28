@@ -70,6 +70,13 @@ noteSchema.methods.removeFromTrash = function() {
     this.set({trash: false})
     return this.save()
 }
+noteSchema.methods.deleteTrash = function() {
+    var note = this;
+    return this.remove()
+    .then(function(){
+        return note;
+    })    
+}
 
 mongoose.model('Note', noteSchema);
 

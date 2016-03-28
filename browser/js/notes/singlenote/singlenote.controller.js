@@ -88,10 +88,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory) {
     }
 
     $scope.deleteNote = function(note) {
-      NotesFactory.deleteNote(note)
-      .then({function(){
-        NotesFactory.setCurrentNote();
-      }})
+      NotesFactory.deleteNote(note);
     }
     $scope.restoreNote = function(noteId){
       NotesFactory.restoreNote(noteId);

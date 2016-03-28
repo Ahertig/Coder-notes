@@ -181,7 +181,6 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 		
 		return NotesFactory.fetchMyNotebooks()
 		.then(function(notebookCache){
-			console.log("notebookCache,", notebookCache);
 		for (var i = 0; i < notebookCache.length; i++) {
 			notesCache = notesCache.concat(notebookCache[i].notes);
 		}
@@ -212,7 +211,6 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	NotesFactory.getNote = function (noteId) {
 		return $http.get('/api/notes/' + noteId)
 		.then(function(response) {
-			console.log("I just got note", response.data)
 			return response.data;
 		}, function(err) {
 			console.error("could not find note", err)
@@ -220,12 +218,9 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	}
 
 	NotesFactory.saveNote = function (notebookId, noteId,noteUpdate) {
-		console.log("this is notebookId (saveNote), ", notebookId);
 		return $http.put('/api/notes/' + noteId, noteUpdate)
 		.then(function(response) {
-		    console.log()
 			NotesFactory.updateNoteInNotebookCache(notebookId,response.data,'update');
-			console.log("response data is", response.data)
 			return response.data;
 		},
 		function(err) {
@@ -275,6 +270,20 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			console.log("remove notebook failed", err);
 		})
 	}
+
+	NotesFactory.restoreNotebook = function(notebook){
+		return $http.put('/api/notebooks/' + notebook._id + '/trash/remove')
+		.then(function(response){
+			NotesFactory.updateNotebookCache(response.data,'update');
+		})
+		.then(null, function(err){
+			console.log("remove notebook failed", err);
+		})
+	}
+
+	NotesFactory.deleteNotebook = function(notebook){
+		
+	}
  
  //this is not consitant with how back-end dealing with trash note. 
  //when trash note-> set note.trash = true but not removing from notebook
@@ -315,11 +324,11 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	}
 
 	NotesFactory.deleteNote = function(note){
-		console.log("deleting note from trash", note._id);
 		return $http.delete('/api/trash/' + note._id)
 		.then(function(response){
+			var trashNote = response.data;
 			var notebookID = NotesFactory.findParentNotebook(note._id) 
-			NotesFactory.updateNoteInNotebookCache(notebookID, note, 'delete');
+			NotesFactory.updateNoteInNotebookCache(notebookID,trashNote,'delete');
 			NotesFactory.setCurrentNote(null);
 			return response.data;
 		}, function(err) {

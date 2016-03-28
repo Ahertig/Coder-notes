@@ -48,7 +48,10 @@ router.delete('/', function(req, res, next) {
 })
 
 router.delete('/:noteId', function(req, res, next){
-	return Note.findById(req.params.noteId).remove().exec()
+	return Note.findById(req.params.noteId).
+	then(function(note){
+		return note.deleteTrash()
+	})
 	.then(function(deletedNote){
 		res.json(deletedNote);
 	})

@@ -19,6 +19,12 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter) {
     $scope.trashNotebook = function(notebook){
     	NotesFactory.removeNotebook(notebook);
     }
+    $scope.deleteNotebook = function(notebook){
+    	console.log("deleteNotebook is undefined now!!");
+    }
+    $scope.restoreNotebook = function(notebook){
+    	NotesFactory.restoreNotebook(notebook);
+    }
 })
 
 app.filter('filterByTag', function(){
