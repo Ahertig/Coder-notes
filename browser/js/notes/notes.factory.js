@@ -95,19 +95,13 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
  			var index = NotesFactory.findNoteIndex(notebook,note._id);
  			angular.copy(note,notebook.notes[index]);
  		}
- 		else if(action === 'delete'){
- 			if(notebook.notes.length === 1) {
- 				notebook.notes = [];
- 			}
- 			else {
+ 		else if(action === 'delete'){ 			
 	 			var index = NotesFactory.findNoteIndex(notebook,note._id);
 	 			notebook.notes.splice(index,1)
- 			}
  		}
 	}
     // this is to add/ update/ delete notebooks 
 	 NotesFactory.updateNotebookCache = function(notebook, action) {
-
         if(action === 'add'){ 
          	notebookCache.unshift(notebook);         	
  		}
