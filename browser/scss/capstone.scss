@@ -114,3 +114,11 @@ sidenav .form-inline .dropdown {
 code {
 	white-space: pre-line;
 }
+
+/* hover cursor pointer */
+
+.list-group a:hover,
+.dropdown-menu div li:hover,
+.dropdown-menu div li div a:hover {
+	cursor:pointer;
+}
