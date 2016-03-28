@@ -95,10 +95,15 @@
 						<div class="panel-body outer-scroll">
 							<div class="list-group" id="side-menu-2">   						
 								<div ng-repeat="notebook in getCachedNotebooks() | filter:{title: searchNotebooktitle} | filter: {trash: false}">
+
 									<!-- <div class="muted">Notebook ID:{{notebook._id}}</div> -->
 
-									<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item" ng-click="setCurrentNotebook(notebook)"> {{notebook.title}}</a>
+									<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item clearfix" ng-click="setCurrentNotebook(notebook)"> {{notebook.title}} 
 
+										<i ng-click="trashNotebook(notebook)" data-toggle="tooltip" title="Trash notebook" class="glyphicon glyphicon-minus-sign pull-right"></i> 
+										<i data-toggle="modal" data-target="#shareNotebook{{notebook._id}}" class="pull-right glyphicon glyphicon-share"  data-toggle="tooltip" title="Share notebook"></i>
+
+								    </a>
 										<!-- Share Popup -->
 										<div id="shareNotebook{{notebook._id}}" class="modal fade" role="dialog">
 										  <div class="modal-dialog">
@@ -137,8 +142,8 @@
 										<!-- Closing Popup -->
 
 									<div class="panel-collapse collapse" id="{{notebook._id}}">
-										<button ng-click="trashNotebook(notebook)" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Trash notebook">Trash</button>
-										<button data-toggle="modal" data-target="#shareNotebook{{notebook._id}}" type="button" class="btn btn-success"  data-toggle="tooltip" title="Share notebook">Manage Sharing</button>
+										
+										
 
 
 										<div class="panel-body inner-scroll">
@@ -165,7 +170,7 @@
 									<div class="panel-collapse collapse" id="{{tag.tag}}">
 										<div class="panel-body inner-scroll">
 											<div class="list-group">
-												<a ng-click="setCurrentNote(note)" class="list-group-item" ng-repeat="note in getnotes() | filterByTag: currentTag: note">{{note.subject}}</a>
+												<a ng-click="setCurrentNote(note)" class="list-group-item" ng-repeat="note in getnotes() | filterByTag: filters[tag.tag]: note">{{note.subject}}</a>
 											</div>
 										</div>
 									</div>
@@ -210,8 +215,8 @@
 									<a data-toggle="collapse" ng-href="#trash-{{notebook._id}}" class="list-group-item" ng-click="setCurrentNotebook(notebook)">{{notebook.title}}</a>
 
 									<div class="panel-collapse collapse" id="trash-{{notebook._id}}">
-										<button ng-click="deleteNotebook(notebook)" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete notebook">delete</button>
-										<button ng-click="restoreNotebook(notebook)" type="button" class="btn btn-success"  data-toggle="tooltip" title="restore notebook will also restore all notes in it">restore</button>
+										<button ng-click="deleteNotebook(notebook)" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Permanently delete notebook">delete</button>
+										<button ng-click="restoreNotebook(notebook)" type="button" class="btn btn-success"  data-toggle="tooltip" title="Restoring a notebook will also restore all the notes in it">restore</button>
 
 										<div class="panel-body inner-scroll">
 											<div class="list-group">

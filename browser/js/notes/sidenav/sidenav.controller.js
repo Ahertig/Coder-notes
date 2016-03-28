@@ -18,9 +18,7 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter, ShareFacto
     $scope.toggleSideNav = NotesFactory.toggleSideNav;
     $scope.isSideNavOpen = NotesFactory.isSideNavOpen;
 
-  $scope.setTag = function(tag){
-  	$scope.currentTag = tag.tag;
-  }
+  
   $scope.trashNotebook = function(notebook){
   	NotesFactory.removeNotebook(notebook);
   }
@@ -71,7 +69,6 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter, ShareFacto
      });
   }
 
-
   // Manage Notebook Share
     $scope.shareNotebook = function(notebook, email) {
       ShareFactory.shareNotebook(notebook, email)
@@ -81,7 +78,15 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter, ShareFacto
       console.log('in the controller: ', notebook, email)
       ShareFactory.removeNotebookShare(notebook, email)
     }
+  
+  $scope.filters = {};
+  $scope.setTag = function(tag){
+    $scope.currentTag = tag.tag;
+    $scope.filters[tag.tag] = tag.tag;
+  } 
+
 })
+
 
 app.filter('filterByTag', function(){
 	return function (notes, tag) { 
