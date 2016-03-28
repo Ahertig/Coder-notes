@@ -1,11 +1,15 @@
 
-<header class="intro">
+<header class="intro" ng-controller="SearchCtrl">
     <div class="intro-body">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <h1>Coder Notes</h1>
-                    <input size="60" placeholder="Search for notes" ng-model="searchTerm"> <button ui-sref="community({searchTerm: searchTerm})" class="fa fa-search btn-default"></button>
+                    <form ng-submit="search()">
+                        <input size="60" placeholder="Search code notes" ng-model="searchTerm"> 
+                        <button type="submit" class="fa fa-search btn-default"></button>
+                    </form>
+
                     <p class="intro-text">A free, open source notebook for coders—the "Evernote for Code."
                     <br><a href="#about" class="btn btn-circle page-scroll"><i class="fa fa-angle-double-down animated"></i>
                     </a>
