@@ -1,5 +1,58 @@
 <div class="col-lg-3 col-md-3 col-sm-12" ng-controller="SidenavCtrl">
 	<div class="panel panel-default">
+		<div class="panel-body">
+					<table style="width:100%">
+					  <tr>
+					    <td>
+					    	<div class="dropdown">
+									<a class="dropdown-toggle" data-toggle="dropdown">
+										<button type="button" class="btn btn-success align-right"  data-toggle="tooltip" title="Add a notebook">
+											<i class="fa fa-plus"> notebook
+											</i>
+										</button>
+									</a>
+									<ul class="dropdown-menu dropdown-messages">
+										<li>
+											<div class="input-group">
+												<form ng-submit="newNotebook(notebookTitle)">
+													<input id="notebook" type="text" ng-model="notebookTitle">
+													<!-- <button class="btn btn-small btn-link" type="submit">+</button> -->
+												</form>
+												<span class="pull-right text-muted">
+												</span>
+											</div>
+										</li>
+									</ul> <!-- /.dropdown-messages -->
+									<!-- <a ng-click="newNotebook()"></a> -->
+								</div> <!-- /.dropdown -->
+							</td>
+							<td>
+								<div class="dropdown">
+									<a class="dropdown-toggle" data-toggle="dropdown" href="#" ng-click="getNotebooks()">
+										<button type="button" class="btn btn-success align-right"  data-toggle="tooltip" title="Add a note">
+												<i class="fa fa-plus"> note
+												</i>
+										</button>
+									</a>
+									<ul class="dropdown-menu dropdown-messages">
+										<div ng-repeat="notebook in notebooks">
+										<li>
+											<div>
+												<a ng-click="newNote(notebook)">Add a note to {{notebook.title}}</a>
+												<span class="pull-right text-muted">
+												</span>
+											</div>
+										</li>
+										<li class="divider"></li>
+										</div>
+									</ul> <!-- /.dropdown-messages -->
+								</div> <!-- /.dropdown -->
+					    </td> 
+					  </tr>
+					</table>
+		</div> <!-- ./panel body outer -->
+	</div> <!-- ./panel panel default outer -->				
+	<div class="panel panel-default">
 		<div class="panel-heading">My Stuff</div>
 		<div class="panel-body" >
 			<ul class="nav nav-pills nav-justified nav-pills-sm">
@@ -22,28 +75,23 @@
 						</div>
 						<div class="panel-body outer-scroll">
 							<div class='list-group' id="side-menu-1">
-      							<a ng-click="setCurrentNote(note)"  class="list-group-item" ng-repeat="note in notes | filter:searchNotes | filter: {trash: false}">{{note.subject}}</a>
+      							<a ng-click="setCurrentNote(note)"  class="list-group-item" ng-repeat="note in getnotes() | filter:searchNotes | filter: {trash: false}">{{note.subject}}</a>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="tab-pane fade" id="notebooks">
-					<div class="panel panel-default">
-						
+					<div class="panel panel-default">						
 						<div class="panel-heading">
 							<input ng-model="searchNotebooktitle" width="25" type="text" class="form-control" placeholder="Search Notebooks">
-						</div>
-						
+						</div>						
 						<div class="panel-body outer-scroll">
-							<div class="list-group" id="side-menu-2">
-    						
+							<div class="list-group" id="side-menu-2">   						
 								<div ng-repeat="notebook in getCachedNotebooks() | filter:{title: searchNotebooktitle} | filter: {trash: false}">
 									<!-- <div class="muted">Notebook ID:{{notebook._id}}</div> -->
 									<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item" ng-click="setCurrentNotebook(notebook)"> {{notebook.title}} </a>
-								    
-
-
-									<div class="panel-collapse collapse" id="{{notebook._id}}"><i class="glyphicon glyphicon-remove" ng-click="removeNotebook(notebook)"></i>
+									<div class="panel-collapse collapse" id="{{notebook._id}}">
+										<button ng-click="trashNotebook(notebook)" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Trash notebook">Trash</button>
 										<div class="panel-body inner-scroll">
 											<div class="list-group">
 												<a ng-click="setCurrentNote(oneNote,notebook)" class="list-group-item" ng-repeat="oneNote in notebook.notes| filter:{trash: false}" >{{oneNote.subject}}
@@ -52,12 +100,10 @@
 										</div>
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
 				</div>
-
 				<div class="tab-pane fade" id="tags">
 					<div class="panel panel-default">
 						<div class="panel-heading">My Tags</div>
@@ -68,12 +114,11 @@
 									<div class="panel-collapse collapse" id="{{tag.tag}}">
 										<div class="panel-body inner-scroll">
 											<div class="list-group">
-												<a ng-click="setCurrentNote(note)" class="list-group-item" ng-repeat="note in notes | filterByTag: currentTag: note">{{note.subject}}</a>
+												<a ng-click="setCurrentNote(note)" class="list-group-item" ng-repeat="note in getnotes() | filterByTag: currentTag: note">{{note.subject}}</a>
 											</div>
 										</div>
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
@@ -81,16 +126,11 @@
 
 				<div class="tab-pane fade" id="shared">
 					<div class="panel panel-default">
-
-
 						<div class="panel-heading">
 							<input ng-model="searchSharedNotebooktitle" width="25" type="text" class="form-control" placeholder="Search Shared Notebooks">
 						</div>
-
-
 						<div class="panel-body outer-scroll">
 							<div class="list-group" id="side-menu-4">
-
 								<div ng-repeat="sharednotebook in sharednotebooks | filter:{title: searchSharedNotebooktitle} | filter: {trash: false}">
 									<a data-toggle="collapse" ng-href="#{{sharednotebook._id}}" class="list-group-item">{{sharednotebook.title}}</a>
 									<div class="panel-collapse collapse" id="{{sharednotebook._id}}">
@@ -111,7 +151,6 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<input ng-model="searchNotebooks" width="25" type="text" class="form-control" placeholder="Search Notebooks in Trash">
-
 						</div>
 						<div class="panel-body trash-scroll">
 							<div class="list-group" id="side-menu-5">
@@ -119,8 +158,10 @@
 									<!-- <div class="muted">Notebook ID:{{notebook._id}}</div> -->
 									<a data-toggle="collapse" ng-href="#trash-{{notebook._id}}" class="list-group-item" ng-click="setCurrentNotebook(notebook)">{{notebook.title}}</a>
 
-
 									<div class="panel-collapse collapse" id="trash-{{notebook._id}}">
+										<button ng-click="deleteNotebook(notebook)" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete notebook">delete</button>
+										<button ng-click="restoreNotebook(notebook)" type="button" class="btn btn-success"  data-toggle="tooltip" title="restore notebook will also restore all notes in it">restore</button>
+
 										<div class="panel-body inner-scroll">
 											<div class="list-group">
 												<a ng-click="setCurrentNote(oneNote,notebook)" class="list-group-item" ng-repeat="oneNote in notebook.notes">{{oneNote.subject}}
@@ -139,20 +180,12 @@
 						</div>
 							<div class="panel-body inner-scroll">
 							<div class='list-group' id="side-menu-1">
-									<a class="list-group-item" ng-repeat="note in notes | filter: searchNotes | filter: {trash: true}" ng-click="setCurrentNote(note)">{{note.subject}}</a>
+									<a class="list-group-item" ng-repeat="note in getnotes() | filter: searchNotes | filter: {trash: true}" ng-click="setCurrentNote(note)">{{note.subject}}</a>
 							</div>
-
-
 						</div>
 					</div>			
 				</div>
 			</div>
-
-			<!-- <input width="25" type="text" placeholder="Search All Public Notes"> -->
-			<!-- <input ng-model="searchNotes" width="25" type="text" placeholder="Search My Notes">
-
-			<a class="list-group-item" ng-repeat="note in notes | filter:searchNotes | filter:filters.tag" ng-click="switchCurrentNote(note)">{{note.subject}}</a> -->
-
 		</div> <!-- ./panel body outer -->
 	</div> <!-- ./panel panel default outer -->
 </div> 
