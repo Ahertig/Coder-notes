@@ -89,22 +89,22 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
     NotesFactory.updateNoteInNotebookCache = function(notebookID, note, action){
     	var notebook = NotesFactory.findNotebookById(notebookID); 	
  		if(action === 'add'){ 
-         	notebook.notes.unshift(note);         	
+         	notebook.notes.unshift(note); 
+         	notesCache.unshift(note);
+
  		}
  		else if(action === 'update'){
  			var index = NotesFactory.findNoteIndex(notebook,note._id);
- 			angular.copy(note,notebook.notes[index]);
- 			//notesCache.splice(notesCache.indexOf(note),1)
-
+ 			angular.copy(note, notebook.notes[index]);
+ 			var note_index  = NotesFactory.findNoteInNoteCache(note._id);
+ 			angular.copy(note, notesCache[note_index]);
+ 			//notesCache[notesCache.indexOf(note)] = note;
  		}
- 		else if(action === 'delete'){ 
- 		        var original=[];			
+ 		else if(action === 'delete'){ 		
 	 			var index = NotesFactory.findNoteIndex(notebook,note._id);
+	 			var note_index  = NotesFactory.findNoteInNoteCache(note._id);
 	 			notebook.notes.splice(index,1)
-	 			angular.copy(notesCache, original)
-	 			console.log("notesCache: ",original);
-  				notesCache.splice(notesCache.indexOf(note),1)
-  				console.log("updated notesCache: ",notesCache)
+  				notesCache.splice(note_index,1)
  		}
 	}
     // this is to add/ update/ delete notebooks 
@@ -150,6 +150,13 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
      NotesFactory.findNoteIndex = function(notebook, noteId) {
 		for (var i = 0; i < notebook.notes.length; i++) {
 			if(noteId == notebook.notes[i]._id) {
+				return i;
+			}
+		}
+	}
+	NotesFactory.findNoteInNoteCache = function(noteId) {
+		for (var i = 0; i < notesCache.length; i++) {
+			if(noteId == notesCache[i]._id) {
 				return i;
 			}
 		}
