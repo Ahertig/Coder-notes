@@ -5,6 +5,6 @@
     <div class="list-group-item" ng-repeat="note in publicNotes | filter:searchNotes">
       <h3><a ui-sref="note({id: note._id})">{{note.subject}}</a></h3>
       <div>{{note.body | trunc:true:300:' ...'}}</div>
-      <div><strong>Last updated</strong> {{note.dateCreated}}</div>
+      <div><strong>Last updated</strong> {{note.dateCreated | date: 'longDate'}}</div>
     </div>
 </div>
