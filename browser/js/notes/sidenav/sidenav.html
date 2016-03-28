@@ -95,8 +95,7 @@
 						<div class="panel-body outer-scroll">
 							<div class="list-group" id="side-menu-2">   						
 								<div ng-repeat="notebook in getCachedNotebooks() | filter:{title: searchNotebooktitle} | filter: {trash: false}">
-									<!-- <div class="muted">Notebook ID:{{notebook._id}}</div> -->
-										<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item clearfix" ng-click="setCurrentNotebook(notebook)"> {{notebook.title}} <i ng-click="trashNotebook(notebook)" data-toggle="tooltip" title="Trash notebook" class="glyphicon glyphicon-minus-sign pull-right"></i> </a>
+									<a data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item clearfix" ng-click="setCurrentNotebook(notebook)"> {{notebook.title}} <i ng-click="trashNotebook(notebook)" data-toggle="tooltip" title="Trash notebook" class="glyphicon glyphicon-minus-sign pull-right"></i> </a>
 									<div class="panel-collapse collapse" id="{{notebook._id}}">
 										<div class="panel-body inner-scroll">
 											<div class="list-group">
