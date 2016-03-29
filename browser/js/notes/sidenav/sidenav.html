@@ -112,26 +112,21 @@
 										    <div class="modal-content">
 										      <div class="modal-header">
 										        <button type="button" class="close" data-dismiss="modal">&times;</button>
-										        <h4 class="modal-title">Share Notebook</h4>
+										        <h4 class="modal-title">Manage Sharing</h4>
 										      </div>
 										      <div class="modal-body">
 
 						      				    <form ng-submit="shareNotebook(notebook, shareEmail)">
 														<div class="input-group"> 
-															<input ng-model="shareEmail" type="text" class="form-control" placeholder="Type friend's email to share"> 
-															<span ng-click="shareNotebook(notebook, shareEmail)" class="input-group-addon" data-dismiss="modal">+</span> 
+															<input ng-model="shareEmail" type="text" class="form-control" placeholder="Add friend's email to share or "> 
+															<span ng-click="shareNotebook(notebook, shareEmail)" class="input-group-addon btn btn-success" data-dismiss="modal">Share</span> 
+															<span ng-click="removeNotebookShare(notebook, shareEmail)" class="input-group-addon btn btn-danger" data-dismiss="modal">Remove Share</span> 
 														</div>
 												</form>	
 
+												<div class="alert alert-error" role="alert" ng-if="errormessage">{{errormessage}}</div>
 
-												<form ng-submit="removeNotebookShare(notebook, removeShareEmail)">
-														<div class="input-group"> 
-															<input ng-model="removeShareEmail" type="text" class="form-control" placeholder="Type friend's email to remove share"> 
-															<span ng-click="removeNotebookShare(notebook, removeShareEmail)" class="input-group-addon" data-dismiss="modal">-</span> 
-														</div>
-												</form>	
-	<!-- 									      	<input ng-model='shareEmail' placeholder='Add email to share'></input>
-										      	<button ng-click="shareNotebook(notebook, shareEmail)" type="button" class="btn btn-default" data-dismiss="modal">Share</button> -->
+
 										      </div>
 										<!--       <div class="modal-footer">
 										        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

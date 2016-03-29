@@ -95,9 +95,9 @@ notebookSchema.methods.share = function(userEmail) {
         user.sharedWithMeNotebooks.addToSet(thisNotebook._id)
         return user.save();
     })
-    .then(function() {
-        return thisNotebook;
-    })
+    // .then(function() {
+    //     return thisNotebook;
+    // })
 }
 
 notebookSchema.methods.removeShare = function(userEmail) {

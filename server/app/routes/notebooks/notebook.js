@@ -34,16 +34,17 @@ router.delete('/', function(req, res, next){
 
 router.put('/share', function(req, res, next) {
 	req.currentNotebook.share(req.body.email)
-	.then(function(sharedNotebook) {
-		res.json(sharedNotebook)
+	.then(function(result) {
+		console.log(result)
+		res.json(result)
 	})
 })
 
 router.put('/removeshare', function(req, res, next) {
-	console.log(req.body)
 	req.currentNotebook.removeShare(req.body.email)
-	.then(function(sharedNotebook) {
-		res.json(sharedNotebook)
+	.then(function(result) {
+		console.log(result)
+		res.json(result)
 	})
 })
 
