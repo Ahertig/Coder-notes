@@ -1,5 +1,9 @@
 $(document).ready(function(){
 
+  if($("#notebook").length > 0){
+    retrieveNotebooks();
+  }
+
   // Retrieve login information
   $("#loginCE").submit(function( event ) {
     var email = $("#email").val();
@@ -24,32 +28,6 @@ $(document).ready(function(){
     saveNote(subject, notebook, body, tags);
     event.preventDefault();
   });
-
-  // retrieves the user's notebooks
-  chrome.storage.sync.get('currentUser', function(result) {
-    if (result.currentUser) {
-      var currentUser = result.currentUser;
-
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", 'http://localhost:1337/api/notebooks/', true);
-      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-
-      xhr.onreadystatechange = function() {//Call a function when the state changes.
-        if(xhr.readyState == 4 && xhr.status == 200) {
-          var notebooksJSON = JSON.parse(xhr.responseText);
-
-          chrome.storage.sync.set({notebooks: notebooksJSON}, function() {
-            for (var i = 0; i < notebooksJSON.length; i++) {
-              var notebook = "<option>" + notebooksJSON[i].title + "</option>"
-              $(notebook).appendTo("#notebook");
-            }
-          })
-
-        }
-      }
-      xhr.send();
-    }
-  })
 
   // grab highlighted text from the page
   // set up an event listener that triggers when chrome.extension.sendRequest is fired.
@@ -81,8 +59,6 @@ function loginCE(email, password) {
   var xhr = new XMLHttpRequest();
   xhr.open("POST", 'http://localhost:1337/login', true);
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-  xhr.setRequestHeader("Content-length", params.length);
-  xhr.setRequestHeader("Connection", "close");
 
   xhr.onreadystatechange = function() {//Call a function when the state changes.
     if(xhr.readyState == 4 && xhr.status == 200) {
@@ -108,6 +84,35 @@ function logoutCE() {
     }
   }
   xhr.send();
+}
+
+// retrieves the current user's notebooks
+function retrieveNotebooks() {
+  chrome.storage.sync.get('currentUser', function(result) {
+    if (result.currentUser) {
+      var currentUser = result.currentUser;
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", 'http://localhost:1337/api/notebooks/', true);
+      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+      xhr.onreadystatechange = function() {//Call a function when the state changes.
+        if(xhr.readyState == 4 && xhr.status == 200) {
+          var notebooksJSON = JSON.parse(xhr.responseText);
+
+          chrome.storage.sync.set({notebooks: notebooksJSON}, function() {
+            console.log(notebooksJSON);
+            for (var i = 0; i < notebooksJSON.length; i++) {
+              var notebook = "<option>" + notebooksJSON[i].title + "</option>"
+              $(notebook).appendTo("#notebook");
+            }
+          })
+
+        }
+      }
+      xhr.send();
+    }
+  })
 }
 
 // Change to the correct view
@@ -137,9 +142,11 @@ function saveNote(subject, notebook, body, tags) {
       var selectedNotebookObj;
 
       for (var i = 0; i < result.length; i++) {
+        console.log('getting here', result[i].title, typeof result[i].title)
         if (result[i].title === selectedNotebookName) var selectedNotebookObj = result[i];
       }
 
+      console.log('selectedNotebookName?', selectedNotebookName);
 
       var xhr = new XMLHttpRequest();
       xhr.open("POST", 'http://localhost:1337/api/notebooks/' + selectedNotebookObj._id + '/notes/', true);
