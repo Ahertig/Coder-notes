@@ -1,13 +1,13 @@
-app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, GithubFactory, AuthService) {
+app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, GithubFactory, AuthService,$window) {
     $scope.savenote = {};
     $scope.tagform = {};
 
     $scope.showTagEditWindow = false
 
     var stroutput = "";
-  
+   
     $scope.currentNote = NotesFactory.getCurrentNote;
-    
+
     $scope.getCurrentNootbook = function(){
       NotesFactory.getCurrentNotebook()
       .then(function(_currentNotebook){
@@ -18,42 +18,54 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
     $scope.showmarkdown = false;
     $scope.successmessage = null;
    
+  
     $scope.removeTag = function(note, tag) {
       console.log("remove tag");
       if(note.tags.indexOf(tag) === -1){
         console.log("this note doesn't have this tag!");
       }
       else {
-        NotesFactory.removeTag(note._id, tag)
-        .then(function(newNote){
-          var currentNotebookID = NotesFactory.findParentNotebook(note._id);
-          NotesFactory.updateNoteInNotebookCache(currentNotebookID, newNote.data, 'update');
-          $scope.tagsremoved.push(tag);
-        });
-      }
+        NotesFactory.removeTag(note._id, tag);
+        $scope.currentNote().tags.splice($scope.currentNote().tags.indexOf(tag),1);
+       }
     }
 
     $scope.addTag = function(note, tag) {
+      console.log("scope.tags:", $scope.tags);
       if(!tag) { 
         $scope.tagsavefailure = "Cannot save an empty tag!"; 
         return;
       }
       if(note.tags.indexOf(tag) === -1){
-        NotesFactory.addTag(note._id, tag)
-        .then(function(newNote) {       
-           var currentNotebookID = NotesFactory.findParentNotebook(note._id);
-          NotesFactory.updateNoteInNotebookCache(currentNotebookID, newNote.data, 'update');
-          $scope.tagsavesuccess = "Tag saved successfully!";
-          $scope.tagToAdd = "";
-        })
-        .then(null, function(err) {
-         console.error("error saving tag",err)
-        })
+        $scope.currentNote().tags.push(tag);
+        NotesFactory.addTag(note._id, tag);
+        $scope.tagToAdd = "";
       }
       else {
         $scope.tagsavefailure = "this tag is in tags! add a new tag?";
       }
     } 
+    // $scope.addTag = function(note, tag) {
+    //    console.log("tag list", $scope.tags);
+    //   if(!tag) { 
+    //     $scope.tagsavefailure = "Cannot save an empty tag!"; 
+    //     return;
+    //   }
+    //   if(note.tags.indexOf(tag) === -1){
+    //       $scope.tags.push(tag);
+    //       console.log("adding tag", tag);
+    //       var currentNotebookID = NotesFactory.findParentNotebook(note._id);
+    //       note.tags.push(tag);
+    //       NotesFactory.updateNoteInNotebookCache(currentNotebookID, note, 'update');
+    //       $scope.tagsavesuccess = "Tag saved successfully!";
+    //       $scope.tagToAdd = "";
+    //     }
+    //   else {
+    //     $scope.tagsavefailure = "this tag is in tags! add a new tag?";
+    //   }
+
+    // } 
+
 
     $scope.openTagWindow = function() {
       $scope.showTagEditWindow = !$scope.showTagEditWindow;
@@ -61,13 +73,15 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
 
     $scope.save = function(){ 
       var currentNotebook;
+      var tags = $scope.currentNote().tags;
       var lastUpdateDate = Date.now();
       var subjectToSave = $('#notesubject').val();
       var bodyToSave = $('#notebody').val();
       $scope.savenote = {
         "subject": subjectToSave,
         "body": bodyToSave,
-        "lastUpdate": lastUpdateDate
+        "lastUpdate": lastUpdateDate,
+        "tags": tags
       }  
       if(!$scope.getCurrentNootbook())  {
         currentNotebook = NotesFactory.findParentNotebook($scope.currentNote()._id);
