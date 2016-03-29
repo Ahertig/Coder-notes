@@ -82,7 +82,7 @@
 						</div>
 						<div class="panel-body outer-scroll">
 							<div class='list-group' id="side-menu-1">
-      							<a ng-click="setCurrentNote(note)"  class="list-group-item" ng-repeat="note in getnotes() | filter:searchNotes | filter: {trash: false}">{{note.subject}}</a>
+      							<a ng-click="setCurrentNote(note)"  class="list-group-item" ng-repeat="note in getnotes() | filter:searchNotes | filter: {trash: false} | orderBy: '-lastUpdate'">{{note.subject}}</a>
 							</div>
 						</div>
 					</div>
@@ -94,7 +94,7 @@
 						</div>						
 						<div class="panel-body outer-scroll">
 							<div class="list-group" id="side-menu-2">   						
-								<div ng-repeat="notebook in getCachedNotebooks() | filter:{title: searchNotebooktitle} | filter: {trash: false}">
+								<div ng-repeat="notebook in getCachedNotebooks() | filter:{title: searchNotebooktitle} | filter: {trash: false} | orderBy: '-date'">
 
 									<!-- <div class="muted">Notebook ID:{{notebook._id}}</div> -->
 
