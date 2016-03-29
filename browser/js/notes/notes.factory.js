@@ -17,7 +17,15 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			currentNote = {};
 			return NotesFactory.getCurrentNotebook()
 			.then(function(currentNotebook){
-				angular.copy(currentNotebook.notes[0], currentNote);
+				if(currentNotebook.notes.length === 0){
+					angular.copy(currentNotebook.notes[0], currentNote);
+			    }
+			    else {
+			    	NotesFactory.newNote(currentNotebook._id)
+			    	.then(function(newnote){
+			    		angular.copy(currentNotebook.notes[0], currentNote);	
+			    	})
+			    }
 				return currentNote;
 			})
 		}
