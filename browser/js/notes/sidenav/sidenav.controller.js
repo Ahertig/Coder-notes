@@ -1,4 +1,4 @@
-app.controller('SidenavCtrl', function($scope, NotesFactory, $filter) {
+app.controller('SidenavCtrl', function($scope, NotesFactory, $filter, ShareFactory) {
 
 	$scope.getCachedNotebooks = NotesFactory.getCachedNotebooks;
 	$scope.getTagsCache = NotesFactory.getTagsCache;
@@ -68,12 +68,23 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter) {
         console.error("Error retrieving notebooks!", err);
      });
   }
+
+  // Manage Notebook Share
+    $scope.shareNotebook = function(notebook, email) {
+      ShareFactory.shareNotebook(notebook, email)
+    }
+    
+    $scope.removeNotebookShare = function(notebook, email) {
+      console.log('in the controller: ', notebook, email)
+      ShareFactory.removeNotebookShare(notebook, email)
+    }
   
   $scope.filters = {};
   $scope.setTag = function(tag){
     $scope.currentTag = tag.tag;
     $scope.filters[tag.tag] = tag.tag;
   } 
+
 })
 
 

@@ -92,12 +92,12 @@ notebookSchema.methods.share = function(userEmail) {
     var thisNotebook = this;
     return mongoose.model('User').findOne({email: userEmail})
     .then(function (user) {
-        user.sharedWithMeNotebooks.push(thisNotebook._id)
+        user.sharedWithMeNotebooks.addToSet(thisNotebook._id)
         return user.save();
     })
-    .then(function() {
-        return thisNotebook;
-    })
+    // .then(function() {
+    //     return thisNotebook;
+    // })
 }
 
 notebookSchema.methods.removeShare = function(userEmail) {
@@ -107,7 +107,7 @@ notebookSchema.methods.removeShare = function(userEmail) {
         user.sharedWithMeNotebooks.pull(thisNotebook._id)
         return user.save();
     })
-    .then(function() {
+    .then(function(user) {
         return thisNotebook;
     })
 }
