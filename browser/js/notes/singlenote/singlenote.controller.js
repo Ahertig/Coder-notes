@@ -17,6 +17,12 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
     //$scope.currentNotebook = NotesFactory.getCurrentNotebook;
     $scope.showmarkdown = false;
     $scope.successmessage = null;
+
+    // Hide notification upon click anywhere in the single note
+    $scope.hideNotification = function() {
+          $scope.successmessage = null;
+          $scope.errormessage = null;
+    }
    
   
     $scope.removeTag = function(note, tag) {
