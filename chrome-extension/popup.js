@@ -9,6 +9,12 @@ $(document).ready(function(){
     event.preventDefault();
   });
 
+  // Launch logout function
+  $("#logoutCE").submit(function(event) {
+    logoutCE();
+    event.preventDefault();
+  });
+
   // Save a note
   $("#saveNote").submit(function( event ) {
     var subject = $("#subject").val();
@@ -21,26 +27,28 @@ $(document).ready(function(){
 
   // retrieves the user's notebooks
   chrome.storage.sync.get('currentUser', function(result) {
-    var currentUser = result.currentUser;
+    if (result.currentUser) {
+      var currentUser = result.currentUser;
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", 'http://localhost:1337/api/notebooks/', true);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", 'http://localhost:1337/api/notebooks/', true);
+      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-    xhr.onreadystatechange = function() {//Call a function when the state changes.
-      if(xhr.readyState == 4 && xhr.status == 200) {
-        var notebooksJSON = JSON.parse(xhr.responseText);
+      xhr.onreadystatechange = function() {//Call a function when the state changes.
+        if(xhr.readyState == 4 && xhr.status == 200) {
+          var notebooksJSON = JSON.parse(xhr.responseText);
 
-        chrome.storage.sync.set({notebooks: notebooksJSON}, function() {
-          for (var i = 0; i < notebooksJSON.length; i++) {
-            var notebook = "<option>" + notebooksJSON[i].title + "</option>"
-            $(notebook).appendTo("#notebook");
-          }
-        })
+          chrome.storage.sync.set({notebooks: notebooksJSON}, function() {
+            for (var i = 0; i < notebooksJSON.length; i++) {
+              var notebook = "<option>" + notebooksJSON[i].title + "</option>"
+              $(notebook).appendTo("#notebook");
+            }
+          })
 
+        }
       }
+      xhr.send();
     }
-    xhr.send();
   })
 
   // grab highlighted text from the page
@@ -51,10 +59,15 @@ $(document).ready(function(){
       $('textarea').val( request.selection );
   });
 
-  if(chrome.tabs) {
+  if (chrome.tabs) {
       chrome.tabs.executeScript(null, {code: "chrome.extension.sendRequest({selection: window.getSelection().toString() });"});
   }
 
+  // For links to the outside world
+  $('body').on('click', 'a', function(){
+     chrome.tabs.create({url: $(this).attr('href')});
+     return false;
+   });
 
 });
 
@@ -81,6 +94,20 @@ function loginCE(email, password) {
     }
   }
   xhr.send(JSON.stringify(params));
+}
+
+function logoutCE() {
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", 'http://localhost:1337/logout', true);
+  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+  xhr.onreadystatechange = function() {//Call a function when the state changes.
+    if(xhr.readyState == 4 && xhr.status == 200) {
+      // var response = JSON.parse(xhr.responseText);
+      changePopup('login.html')
+    }
+  }
+  xhr.send();
 }
 
 // Change to the correct view
