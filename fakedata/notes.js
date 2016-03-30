@@ -752,12 +752,12 @@ module.exports = [
 		"lastUpdate": "1458864100"
 	},
 	{
-		"subject": "in, tempus eu,",
-		"body": "diam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce aliquet magna a neque. Nullam ut nisi a odio semper cursus. Integer mollis. Integer tincidunt aliquam arcu. Aliquam ultrices iaculis odio. Nam interdum enim non nisi. Aenean eget metus. In nec orci. Donec nibh. Quisque nonummy ipsum non arcu. Vivamus sit amet risus. Donec egestas. Aliquam nec enim. Nunc ut erat. Sed nunc est, mollis non, cursus non, egestas a, dui. Cras pellentesque. Sed dictum. Proin eget odio. Aliquam vulputate ullamcorper magna. Sed eu eros. Nam consequat",
+		"subject": "Lodash Note - Share with Ksenia!",
+		"body": "Lodash Note for Ksenia\n### Check out these functions!\n#### Hello function\n\n     function hello() {\n          return \"hello\"\n     }\n     hello()\n\n#### Lodash function\n\n     var _ = require(\'lodash\')\n    \n     function testLodash() {\n            return _.chunk([\'a\', \'b\', \'c\', \'d\'], 2)\n     }\n    \n     testLodash()",
 		"size": 67,
-		"tags": ["blue"],
-		"dateCreated": "1448989403",
-		"lastUpdate": "1426759856"
+		"tags": ["lodash","javascript"],
+		"dateCreated": "1458865000",
+		"lastUpdate": "1458865500"
 	},
 	{
 		"subject": "sit amet, consectetuer",
@@ -768,12 +768,12 @@ module.exports = [
 		"lastUpdate": "1437800314"
 	},
 	{
-		"subject": "consequat dolor vitae",
-		"body": "mus. Aenean eget magna. Suspendisse tristique neque venenatis lacus. Etiam bibendum fermentum metus. Aenean sed pede nec ante blandit viverra. Donec tempus, lorem fringilla ornare placerat, orci lacus vestibulum lorem, sit amet ultricies sem magna nec quam. Curabitur vel lectus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec dignissim magna a tortor. Nunc commodo auctor velit. Aliquam nisl. Nulla eu neque pellentesque massa lobortis ultrices. Vivamus rhoncus. Donec est. Nunc ullamcorper, velit in aliquet lobortis, nisi nibh lacinia orci, consectetuer euismod est arcu ac orci. Ut semper",
+		"subject": "Intro to NodeJS",
+		"body": "* node = \"runtime environment\"\n* Chrome is also a runtime environment\n* module.exports is a way to store properties & functions across files\n* `module` is a global variable in node\n\n### require\n\n* finds a file\n* executes it\n* imports its files\n\n     \/\/\/\/ file A\n     var someVar = require(\'.\/\/fileB\')\n     console.log(someVar.x);\n\n     \/\/\/\/ file B\n     var x = {\"blah\"} \n     module.exports =  { x:x };\n\nOR\n\n     module.exports.x = x;\n\n* npm  = node package manager\n* npm install will download a bunch of files\n\n`package.json` - describes dependencies and contains information for publishing, sharing\n\n`npm init` will create your package.json file\n\n     npm install express - - save \/\/\/\/ this will add it to package.json dependencies\n     npm install express -g \/\/\/\/ global - want to be able to use this library anywhere\n\n### Other notes\n\n* JS is single-threaded, but its runtime environment is not\n* asynchronous means execution order is independent of command order\n* a function is asynchronous if it takes a callback\n* some JS functions are naturally asynchronous (like setTimeout)\n* There are a limited number of native JS async functions\n* functions that take error and data are asynchronous\n* \"a callback executes when its async event finishes\"\n* usually if people say \"callback\", they mean asynchronous\n* many functions have synchronous callbacks- forEach, map, etc.\n* node.js doesn\'t make all functions asynchronous - it just gives you a bunch of new asynchronous options\n\n     process.stdin.on(\'data\',function(input) { \n          \/\/\/\/ this tells node prompt to wait for input\n          \/\/\/\/ doSomething with input\n     } );\n\n_NOTE: return is a synchronous thing_\n\n`output = aSyncFunc(foo,func() { return bar; } ) \/\/\/\/ does not work`\n\n     \/\/\/\/ to filter out non unique lines\n          var nonRepeating = lines.filter(function(line, index) {\n             return line!=lines[index - 1];\n          })",
 		"size": 65,
-		"tags": ["yellow"],
-		"dateCreated": "1433724573",
-		"lastUpdate": "1451800852"
+		"tags": ["node","javascript"],
+		"dateCreated": "1458864300",
+		"lastUpdate": "1458864400"
 	},
 	{
 		"subject": "risus. Quisque libero",
