@@ -13,9 +13,9 @@
 		<div class="tab-pane fade in active" id="preview">
 <!-- 			<h2>Preview Note</h2> -->
 			<div id="markdown-wrapper" class="panel panel-default">
-				<div class="panel-body">
+				<div class="panel-body" tabindex=0  enter-key="runTonic()">
 					<h2>{{currentNote().subject}}</h2>
-					<div enter-key="runTonic()" marked="currentNote().body">
+					<div  marked="currentNote().body">
 					</div>
 				</div>
 			</div>

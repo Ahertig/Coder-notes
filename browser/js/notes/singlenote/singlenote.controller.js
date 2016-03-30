@@ -191,8 +191,11 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
 
 // Tonic Keypress Directive
 app.directive('enterKey', function(TonicFactory) {
+
     return function(scope, element, attrs) {
+      console.log(element)
         element.bind("keydown keypress", function(event) {
+          console.log('got key event', event);
             var keyCode = event.which || event.keyCode;
             if (keyCode === 13 && event.ctrlKey) {    
                 scope.$apply(function() {
