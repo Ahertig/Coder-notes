@@ -693,7 +693,7 @@ module.exports = [
 		"size": 50,
 		"tags": ["yellow"],
 		"dateCreated": "1438918840",
-		"lastUpdate": "1453052463"
+		"lastUpdate": "1459243560"
 	},
 	{
 		"subject": "commodo hendrerit. Donec",
@@ -701,7 +701,7 @@ module.exports = [
 		"size": 93,
 		"tags": ["orange"],
 		"dateCreated": "1430075239",
-		"lastUpdate": "1426909605"
+		"lastUpdate": "1459243560"
 	},
 	{
 		"subject": "nec tempus scelerisque,",
@@ -709,7 +709,7 @@ module.exports = [
 		"size": 56,
 		"tags": ["blue"],
 		"dateCreated": "1441469674",
-		"lastUpdate": "1457098141"
+		"lastUpdate": "1459243560"
 	},
 	{
 		"subject": "nunc ac mattis",
@@ -717,7 +717,7 @@ module.exports = [
 		"size": 86,
 		"tags": ["orange"],
 		"dateCreated": "1427739736",
-		"lastUpdate": "1439655676"
+		"lastUpdate": "1459243560"
 	},
 	{
 		"subject": "Intro to Express",
@@ -725,7 +725,7 @@ module.exports = [
 		"size": 63,
 		"tags": ["express", "node", "javascript"],
 		"dateCreated": "1455783726",
-		"lastUpdate": "1455699092"
+		"lastUpdate": "1459243560"
 	},
 	{
 		"subject": "Express Tips and Tricks",
@@ -733,7 +733,7 @@ module.exports = [
 		"size": 50,
 		"tags": ["express","javascript"],
 		"dateCreated": "1458863600",
-		"lastUpdate": "1458863700"
+		"lastUpdate": "1459243560"
 	},
 	{
 		"subject": "Write a spy function",
@@ -741,7 +741,7 @@ module.exports = [
 		"size": 66,
 		"tags": ["testing", "REACTO"],
 		"dateCreated": "1458863900",
-		"lastUpdate": "1458863950"
+		"lastUpdate": "1459243560"
 	},
 	{
 		"subject": "Selection Sort",
@@ -749,7 +749,7 @@ module.exports = [
 		"size": 65,
 		"tags": ["javascript","REACTO"],
 		"dateCreated": "1458864000",
-		"lastUpdate": "1458864100"
+		"lastUpdate": "1459243560"
 	},
 	{
 		"subject": "Lodash Note - Share with Ksenia!",
@@ -757,7 +757,7 @@ module.exports = [
 		"size": 67,
 		"tags": ["lodash","javascript"],
 		"dateCreated": "1458865000",
-		"lastUpdate": "1458865500"
+		"lastUpdate": "1459243560"
 	},
 	{
 		"subject": "sit amet, consectetuer",
@@ -765,38 +765,38 @@ module.exports = [
 		"size": 83,
 		"tags": ["blue"],
 		"dateCreated": "1453472469",
-		"lastUpdate": "1437800314"
+		"lastUpdate": "1459243560"
 	},
 	{
 		"subject": "Intro to NodeJS",
-		"body": "* node = \"runtime environment\"\n* Chrome is also a runtime environment\n* module.exports is a way to store properties & functions across files\n* `module` is a global variable in node\n\n### require\n\n* finds a file\n* executes it\n* imports its files\n\n     \/\/\/\/ file A\n     var someVar = require(\'.\/\/fileB\')\n     console.log(someVar.x);\n\n     \/\/\/\/ file B\n     var x = {\"blah\"} \n     module.exports =  { x:x };\n\nOR\n\n     module.exports.x = x;\n\n* npm  = node package manager\n* npm install will download a bunch of files\n\n`package.json` - describes dependencies and contains information for publishing, sharing\n\n`npm init` will create your package.json file\n\n     npm install express - - save \/\/\/\/ this will add it to package.json dependencies\n     npm install express -g \/\/\/\/ global - want to be able to use this library anywhere\n\n### Other notes\n\n* JS is single-threaded, but its runtime environment is not\n* asynchronous means execution order is independent of command order\n* a function is asynchronous if it takes a callback\n* some JS functions are naturally asynchronous (like setTimeout)\n* There are a limited number of native JS async functions\n* functions that take error and data are asynchronous\n* \"a callback executes when its async event finishes\"\n* usually if people say \"callback\", they mean asynchronous\n* many functions have synchronous callbacks- forEach, map, etc.\n* node.js doesn\'t make all functions asynchronous - it just gives you a bunch of new asynchronous options\n\n     process.stdin.on(\'data\',function(input) { \n          \/\/\/\/ this tells node prompt to wait for input\n          \/\/\/\/ doSomething with input\n     } );\n\n_NOTE: return is a synchronous thing_\n\n`output = aSyncFunc(foo,func() { return bar; } ) \/\/\/\/ does not work`\n\n     \/\/\/\/ to filter out non unique lines\n          var nonRepeating = lines.filter(function(line, index) {\n             return line!=lines[index - 1];\n          })",
+		"body": "* node = \"runtime environment\"\n* Chrome is also a runtime environment\n* module.exports is a way to store properties & functions across files\n* `module` is a global variable in node\n\n### require\n\n* finds a file\n* executes it\n* imports its files\n\n\n      var someVar = require(\'.\')\n      console.log(someVar.x);\n      var x = {\"blah\"} \n      module.exports =  { x:x };\n\nOR\n\n      module.exports.x = x;\n\n\n     function(input) { doSomething(input)});\n    output = aSyncFunc(foo,func() { return bar; }) \n        var nonRepeating = lines.filter(function(line, index) {\n      return line!=lines[index - 1];\n        })",
 		"size": 65,
 		"tags": ["node","javascript"],
-		"dateCreated": "1458864300",
-		"lastUpdate": "1458864400"
+		"dateCreated": "1458867600",
+		"lastUpdate": "1459243560"
 	},
 	{
-		"subject": "risus. Quisque libero",
-		"body": "vel sapien imperdiet ornare. In faucibus. Morbi vehicula. Pellentesque tincidunt tempus risus. Donec egestas. Duis ac arcu. Nunc mauris. Morbi non sapien molestie orci tincidunt adipiscing. Mauris molestie pharetra nibh. Aliquam ornare, libero at auctor ullamcorper, nisl arcu iaculis enim, sit amet ornare lectus justo eu arcu. Morbi sit amet massa. Quisque porttitor eros nec tellus. Nunc lectus pede, ultrices a, auctor non, feugiat nec, diam. Duis mi enim, condimentum eget,",
+		"subject": "Stack of stacks",
+		"body": "* Start with a data structure of fixed size: set of stacks\n* Initialize with maximum value\n* If max value exceeded, create new stack\n *Implement as linked list\n\n     function Node(value) {\n     this.value = value;\n }\n\n     function Stack() {\n     this.top = null;\n     this.length = 0;\n}    \n    Stack.prototype.push = function(value) {\n     var newNode = new Node(value);\n     if(!this.top) {\n     this.top = newNode;\n    }\n     else {\n newNode.next = this.top;\n     this.top = newNode;\n    }",
 		"size": 15,
-		"tags": ["yellow"],
-		"dateCreated": "1458863700",
-		"lastUpdate": "1458863800"
+		"tags": ["javascript","REACTO"],
+		"dateCreated": "1458867900",
+		"lastUpdate": "1459243560"
 	},
 	{
-		"subject": "dolor sit amet,",
-		"body": "et ultrices posuere cubilia Curae; Phasellus ornare. Fusce mollis. Duis sit amet diam eu dolor egestas rhoncus. Proin nisl sem, consequat nec, mollis vitae, posuere at, velit. Cras lorem lorem, luctus ut, pellentesque eget, dictum placerat, augue. Sed molestie. Sed id risus quis diam luctus lobortis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Mauris ut quam vel sapien imperdiet ornare. In faucibus. Morbi vehicula. Pellentesque tincidunt tempus risus. Donec egestas. Duis ac arcu. Nunc mauris. Morbi non sapien molestie orci tincidunt adipiscing. Mauris molestie pharetra nibh. Aliquam ornare,",
+		"subject": "Sequelize",
+		"body": "* **hasOne** * adds a foreign key to the target and singular association mixins to the source.\n* **belongsTo** * add a foreign key and singular association mixins to the source.\n* **hasMany** * adds a foreign key to target and plural association mixins to the source.\n* **belongsToMany** * creates an N:M association with a join table and adds plural association mixins to the source. The junction table is created with sourceId and targetId.",
 		"size": 74,
-		"tags": ["green"],
-		"dateCreated": "1434017426",
-		"lastUpdate": "1427993983"
+		"tags": ["databases"],
+		"dateCreated": "1458868300",
+		"lastUpdate": "1459243560"
 	},
 	{
-		"subject": "mauris elit, dictum",
-		"body": "tincidunt. Donec vitae erat vel pede blandit congue. In scelerisque scelerisque dui. Suspendisse ac metus vitae velit egestas lacinia. Sed congue, elit sed consequat auctor, nunc nulla vulputate dui, nec tempus mauris erat eget ipsum. Suspendisse sagittis.",
+		"subject": "The JavaScript Engine",
+		"body": "When V8 enters the _execution context_ of `bar` in the following code, a few steps will occur.\n\n     var foo = \'bar\';\n\n     function bar() {\n      var foo = \'baz\';\n     }\n\n     function baz(foo) {\n       foo = \'bam\';\n       bam = \'yay\';\n     }",
 		"size": 34,
-		"tags": ["yellow"],
-		"dateCreated": "1438344414",
-		"lastUpdate": "1448066094"
+		"tags": ["javascript","browsers","compiling"],
+		"dateCreated": "1458868100",
+		"lastUpdate": "1459243560"
 	}
 ]
