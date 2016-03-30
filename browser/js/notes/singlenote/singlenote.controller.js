@@ -9,11 +9,11 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
     $scope.currentNote = NotesFactory.getCurrentNote;
 
     $scope.getCurrentNootbook = function(){
-      NotesFactory.getCurrentNotebook()
-      .then(function(_currentNotebook){
-       return _currentNotebook;
-      })
-   }
+      var theNotebookID = NotesFactory.findParentNotebook($scope.currentNote()._id);
+      return NotesFactory.findNotebookById(theNotebookID);
+    }
+    
+    $scope.getCurrentNootbook();
     //$scope.currentNotebook = NotesFactory.getCurrentNotebook;
     $scope.showmarkdown = false;
     $scope.successmessage = null;
@@ -89,12 +89,12 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
         "lastUpdate": lastUpdateDate,
         "tags": tags
       }  
-      if(!$scope.getCurrentNootbook())  {
+      // if(!$scope.getCurrentNootbook())  {
         currentNotebook = NotesFactory.findParentNotebook($scope.currentNote()._id);
-      }
-      else {
-        currentNotebook = $scope.getCurrentNootbook();
-      }
+      // }
+      // else {
+      //   currentNotebook = $scope.getCurrentNootbook();
+      // }
       NotesFactory.saveNote(currentNotebook,$scope.currentNote()._id, $scope.savenote)
       .then(function(note) {
           $scope.successmessage="Note saved successfully!";

@@ -17,7 +17,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			currentNote = {};
 			return NotesFactory.getCurrentNotebook()
 			.then(function(currentNotebook){
-				if(currentNotebook.notes.length === 0){
+				if(currentNotebook.notes.length !== 0){
 					angular.copy(currentNotebook.notes[0], currentNote);
 			    }
 			    else {
@@ -42,6 +42,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			currentNotebook = {};
 			return NotesFactory.fetchMyNotebooks()
 					.then(function(notebooks) {
+						//console.log("soreted notebooks: ", notebooks)
 						angular.copy(notebooks[0], currentNotebook);
 				// console.log("set current notebook initially to", currentNotebook)
 				return currentNotebook;	

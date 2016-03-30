@@ -6,6 +6,7 @@ module.exports = router;
 var mongoose = require('mongoose');
 var Notebook = mongoose.model('Notebook');
 var Note = mongoose.model('Note');
+var _ = require('lodash');
 
 // Create a notebook
 router.post('/', function(req, res, next) {
@@ -25,12 +26,24 @@ router.post('/', function(req, res, next) {
 router.get('/', function(req, res, next) {
 	req.user
 	.deepPopulate('myNotebooks.notes')
-	.then(function(user) {
-		res.json(user.myNotebooks)
+	.then(function(user){
+		user = user.toObject();
+		//console.log("mynotebook notes: ",user.myNotebooks[0].notes)
+		return user.myNotebooks = user.myNotebooks.map( function(myNotebook){
+			//console.log("original notes, ", myNotebook.notes);
+			myNotebook.notes = _.sortBy(myNotebook.notes, 'lastUpdate');
+			console.log("sorted notes, ", _(myNotebook.notes).reverse());
+			return myNotebook;
+		});
+	})
+	.then(function(myNotebooks){
+		console.log("my notebooks: ", myNotebooks);
+		myNotebooks = _.sortBy(myNotebooks, 'date');
+		console.log("sorted notebook", _(myNotebooks).reverse());
+		res.json(myNotebooks);
 	})
 	.then(null, next)
 })
-
 
 // Get shared notebooks:
 router.get('/shared', function(req, res, next) {
