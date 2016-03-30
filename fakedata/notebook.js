@@ -138,10 +138,10 @@ module.exports = [
 		"title": "Express"
 	},
 	{
-		"title": "Whiteboarding algorithms"
+		"title": "Web Clipper Notes"
 	},
 	{
-		"title": "CSS"
+		"title": "Notes to share"
 	},
 	{
 		"title": "NodeJS"
