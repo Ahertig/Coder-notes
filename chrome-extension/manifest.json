@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "Code clipping app",
-  "description": "This app allows you to save snippets of code from around the web",
-  "version": "1.0",
+  "name": "Coder Notes",
+  "description": "This extension allows you to save snippets of code from around the web",
+  "version": "0.0.0.1",
 
   "browser_action": {
     "default_icon": "icon.png",
@@ -12,20 +12,21 @@
   },
   "permissions": [
     "storage",
+    "unlimitedStorage",
     "activeTab",
     "https://ajax.googleapis.com/",
     "tabs",
-    "http://localhost:1337/*"
+    "http://limitless-island-46764.herokuapp.com/*"
   ],
   "background":
   {
     "scripts": ["jquery-1.12.2.min.js", "popup.js"]
   },
   "content_scripts": [{
-    "matches": ["http://localhost:1337/*"],
+    "matches": ["http://limitless-island-46764.herokuapp.com/*"],
     "js": ["jquery-1.12.2.min.js", "popup.js"]
   }],
   "externally_connectable": {
-    "matches": ["http://localhost:1337/*"]
+    "matches": ["http://limitless-island-46764.herokuapp.com/*"]
   }
 }
