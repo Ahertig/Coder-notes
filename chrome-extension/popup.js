@@ -1,5 +1,9 @@
 $(document).ready(function(){
 
+  if($("#notebook").length > 0){
+    retrieveNotebooks();
+  }
+
   // Retrieve login information
   $("#loginCE").submit(function( event ) {
     var email = $("#email").val();
@@ -24,32 +28,6 @@ $(document).ready(function(){
     saveNote(subject, notebook, body, tags);
     event.preventDefault();
   });
-
-  // retrieves the user's notebooks
-  chrome.storage.sync.get('currentUser', function(result) {
-    if (result.currentUser) {
-      var currentUser = result.currentUser;
-
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", 'http://localhost:1337/api/notebooks/', true);
-      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-
-      xhr.onreadystatechange = function() {//Call a function when the state changes.
-        if(xhr.readyState == 4 && xhr.status == 200) {
-          var notebooksJSON = JSON.parse(xhr.responseText);
-
-          chrome.storage.sync.set({notebooks: notebooksJSON}, function() {
-            for (var i = 0; i < notebooksJSON.length; i++) {
-              var notebook = "<option>" + notebooksJSON[i].title + "</option>"
-              $(notebook).appendTo("#notebook");
-            }
-          })
-
-        }
-      }
-      xhr.send();
-    }
-  })
 
   // grab highlighted text from the page
   // set up an event listener that triggers when chrome.extension.sendRequest is fired.
@@ -79,10 +57,8 @@ function loginCE(email, password) {
   }
 
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", 'http://localhost:1337/login', true);
+  xhr.open("POST", 'http://limitless-island-46764.herokuapp.com/login', true);
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-  xhr.setRequestHeader("Content-length", params.length);
-  xhr.setRequestHeader("Connection", "close");
 
   xhr.onreadystatechange = function() {//Call a function when the state changes.
     if(xhr.readyState == 4 && xhr.status == 200) {
@@ -98,7 +74,7 @@ function loginCE(email, password) {
 
 function logoutCE() {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", 'http://localhost:1337/logout', true);
+  xhr.open("GET", 'http://limitless-island-46764.herokuapp.com/logout', true);
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
   xhr.onreadystatechange = function() {//Call a function when the state changes.
@@ -108,6 +84,40 @@ function logoutCE() {
     }
   }
   xhr.send();
+}
+
+// retrieves the current user's notebooks
+function retrieveNotebooks() {
+  chrome.storage.sync.get('currentUser', function(result) {
+    if (result.currentUser) {
+      var currentUser = result.currentUser;
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", 'http://limitless-island-46764.herokuapp.com/api/notebooks/', true);
+      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+      xhr.onreadystatechange = function() {//Call a function when the state changes.
+        if(xhr.readyState == 4 && xhr.status == 200) {
+          var notebooksJSON = JSON.parse(xhr.responseText);
+
+          var notebooks = [];
+
+          for (var i = 0; i < notebooksJSON.length; i++) {
+              notebooks.push([notebooksJSON[i].title, notebooksJSON[i]._id]);
+          }
+
+          chrome.storage.sync.set({notebooks: notebooks}, function() {
+            for (var i = 0; i < notebooksJSON.length; i++) {
+              var notebook = "<option>" + notebooksJSON[i].title + "</option>"
+              $(notebook).appendTo("#notebook");
+            }
+          })
+
+        }
+      }
+      xhr.send();
+    }
+  })
 }
 
 // Change to the correct view
@@ -131,18 +141,17 @@ function saveNote(subject, notebook, body, tags) {
     var currentUser = result.currentUser;
 
     chrome.storage.sync.get('notebooks', function(result) {
-      result = result.notebooks
+      result = result.notebooks;
 
       var selectedNotebookName = $('#notebook').val();
       var selectedNotebookObj;
 
       for (var i = 0; i < result.length; i++) {
-        if (result[i].title === selectedNotebookName) var selectedNotebookObj = result[i];
+        if (result[i][0] === selectedNotebookName) var selectedNotebookObj = result[i];
       }
 
-
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", 'http://localhost:1337/api/notebooks/' + selectedNotebookObj._id + '/notes/', true);
+      xhr.open("POST", 'http://limitless-island-46764.herokuapp.com/api/notebooks/' + selectedNotebookObj[1] + '/notes/', true);
       xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
       xhr.onreadystatechange = function() {
