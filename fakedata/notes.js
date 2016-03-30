@@ -753,7 +753,7 @@ module.exports = [
 	},
 	{
 		"subject": "Lodash Note - Share with Ksenia!",
-		"body": "Lodash Note for Ksenia\n### Check out these functions!\n#### Hello function\n\n     function hello() {\n          return hello\n     }\n     hello()\n\n#### Lodash function\n\n     var _ = require(\'lodash\')\n    \n     function testLodash() {\n            return _.chunk([\'a\', \'b\', \'c\', \'d\'], 2)\n     }\n    \n     testLodash()",
+		"body": "Lodash Note for Ksenia\n### Check out these functions!\n#### Hello function\n\n     function hello() {\n          return \"hello\"\n     }\n     hello()\n\n#### Lodash function\n\n     var _ = require(\'lodash\')\n    \n     function testLodash() {\n            return _.chunk([\'a\', \'b\', \'c\', \'d\'], 2)\n     }\n    \n     testLodash()",
 		"size": 67,
 		"tags": ["lodash","javascript"],
 		"dateCreated": "1458865000",
