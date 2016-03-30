@@ -41,7 +41,11 @@ var seedUsers = function () {
 };
 
 var notesDB,notebookDB,userDB;
-connectToDb.then(function () {
+connectToDb
+.then(function() {
+    return Promise.all([User.remove({}), Notebook.remove({}), Note.remove({})])
+})
+.then(function () {
     for (var i = 0 ; i < Notes.length; i++) {
         if (i % 3 === 0  && i > 0) Notes[i].type = 'public';
         if(i % 5 === 0 && i > 0) Notes[i].trash = true;
@@ -76,6 +80,6 @@ connectToDb.then(function () {
     })
     .catch(function (err) {
         console.error(err);
-        process.kill(1);
+        process.kill(0);
     });
 });
