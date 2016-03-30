@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "Code clipping app",
-  "description": "This app allows you to save snippets of code from around the web",
+  "name": "Coder Notes",
+  "description": "This extension allows you to save snippets of code from around the web",
   "version": "0.0.0.1",
 
   "browser_action": {
