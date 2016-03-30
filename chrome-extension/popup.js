@@ -57,7 +57,7 @@ function loginCE(email, password) {
   }
 
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", 'http://localhost:1337/login', true);
+  xhr.open("POST", 'http://limitless-island-46764.herokuapp.com/login', true);
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
   xhr.onreadystatechange = function() {//Call a function when the state changes.
@@ -74,7 +74,7 @@ function loginCE(email, password) {
 
 function logoutCE() {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", 'http://localhost:1337/logout', true);
+  xhr.open("GET", 'http://limitless-island-46764.herokuapp.com/logout', true);
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
   xhr.onreadystatechange = function() {//Call a function when the state changes.
@@ -93,7 +93,7 @@ function retrieveNotebooks() {
       var currentUser = result.currentUser;
 
       var xhr = new XMLHttpRequest();
-      xhr.open("GET", 'http://localhost:1337/api/notebooks/', true);
+      xhr.open("GET", 'http://limitless-island-46764.herokuapp.com/api/notebooks/', true);
       xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
       xhr.onreadystatechange = function() {//Call a function when the state changes.
@@ -147,14 +147,11 @@ function saveNote(subject, notebook, body, tags) {
       var selectedNotebookObj;
 
       for (var i = 0; i < result.length; i++) {
-        console.log('getting here', result[i])
         if (result[i][0] === selectedNotebookName) var selectedNotebookObj = result[i];
       }
 
-      console.log('selectedNotebookName?', selectedNotebookName);
-
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", 'http://localhost:1337/api/notebooks/' + selectedNotebookObj[1] + '/notes/', true);
+      xhr.open("POST", 'http://limitless-island-46764.herokuapp.com/api/notebooks/' + selectedNotebookObj[1] + '/notes/', true);
       xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
       xhr.onreadystatechange = function() {
