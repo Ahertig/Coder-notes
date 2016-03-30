@@ -100,8 +100,13 @@ function retrieveNotebooks() {
         if(xhr.readyState == 4 && xhr.status == 200) {
           var notebooksJSON = JSON.parse(xhr.responseText);
 
-          chrome.storage.sync.set({notebooks: notebooksJSON}, function() {
-            console.log(notebooksJSON);
+          var notebooks = [];
+
+          for (var i = 0; i < notebooksJSON.length; i++) {
+              notebooks.push([notebooksJSON[i].title, notebooksJSON[i]._id]);
+          }
+
+          chrome.storage.sync.set({notebooks: notebooks}, function() {
             for (var i = 0; i < notebooksJSON.length; i++) {
               var notebook = "<option>" + notebooksJSON[i].title + "</option>"
               $(notebook).appendTo("#notebook");
@@ -136,20 +141,20 @@ function saveNote(subject, notebook, body, tags) {
     var currentUser = result.currentUser;
 
     chrome.storage.sync.get('notebooks', function(result) {
-      result = result.notebooks
+      result = result.notebooks;
 
       var selectedNotebookName = $('#notebook').val();
       var selectedNotebookObj;
 
       for (var i = 0; i < result.length; i++) {
-        console.log('getting here', result[i].title, typeof result[i].title)
-        if (result[i].title === selectedNotebookName) var selectedNotebookObj = result[i];
+        console.log('getting here', result[i])
+        if (result[i][0] === selectedNotebookName) var selectedNotebookObj = result[i];
       }
 
       console.log('selectedNotebookName?', selectedNotebookName);
 
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", 'http://localhost:1337/api/notebooks/' + selectedNotebookObj._id + '/notes/', true);
+      xhr.open("POST", 'http://localhost:1337/api/notebooks/' + selectedNotebookObj[1] + '/notes/', true);
       xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
       xhr.onreadystatechange = function() {
