@@ -3,7 +3,7 @@
 
   "name": "Code clipping app",
   "description": "This app allows you to save snippets of code from around the web",
-  "version": "1.0",
+  "version": "0.0.0.1",
 
   "browser_action": {
     "default_icon": "icon.png",
