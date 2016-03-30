@@ -752,12 +752,12 @@ module.exports = [
 		"lastUpdate": "1458864100"
 	},
 	{
-		"subject": "in, tempus eu,",
-		"body": "diam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce aliquet magna a neque. Nullam ut nisi a odio semper cursus. Integer mollis. Integer tincidunt aliquam arcu. Aliquam ultrices iaculis odio. Nam interdum enim non nisi. Aenean eget metus. In nec orci. Donec nibh. Quisque nonummy ipsum non arcu. Vivamus sit amet risus. Donec egestas. Aliquam nec enim. Nunc ut erat. Sed nunc est, mollis non, cursus non, egestas a, dui. Cras pellentesque. Sed dictum. Proin eget odio. Aliquam vulputate ullamcorper magna. Sed eu eros. Nam consequat",
+		"subject": "Lodash Note - Share with Ksenia!",
+		"body": "Lodash Note for Ksenia\n### Check out these functions!\n#### Hello function\n\n     function hello() {\n          return hello\n     }\n     hello()\n\n#### Lodash function\n\n     var _ = require(\'lodash\')\n    \n     function testLodash() {\n            return _.chunk([\'a\', \'b\', \'c\', \'d\'], 2)\n     }\n    \n     testLodash()",
 		"size": 67,
-		"tags": ["blue"],
-		"dateCreated": "1448989403",
-		"lastUpdate": "1426759856"
+		"tags": ["lodash","javascript"],
+		"dateCreated": "1458865000",
+		"lastUpdate": "1458865500"
 	},
 	{
 		"subject": "sit amet, consectetuer",
