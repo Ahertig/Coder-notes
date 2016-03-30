@@ -12,11 +12,9 @@
 								<li>
 									<div class="input-group">
 										<form ng-submit="newNotebook(notebookTitle)">
-											<input id="notebook" type="text" ng-model="notebookTitle">
-											<button class="btn btn-small btn-link" type="submit">+</button>
+											<input id="notebook" type="text" ng-model="notebookTitle" placeholder="Enter notebook title">
+											<button class="btn btn-small btn-default" type="submit">Save</button>
 										</form>
-										<span class="pull-right text-muted">
-										</span>
 									</div>
 								</li>
 							</ul> <!-- /.dropdown-messages -->
@@ -29,16 +27,9 @@
 								</button>
 							</a>
 							<ul class="dropdown-menu dropdown-messages">
-								<div ng-repeat="notebook in notebooks">
-								<li>
-									<div>
-										<a ng-click="newNote(notebook)">Add a note to {{notebook.title}}</a>
-										<span class="pull-right text-muted">
-										</span>
-									</div>
+								<li ng-repeat="notebook in notebooks">
+									<a ng-click="newNote(notebook)">Add a note to "{{notebook.title}}"</a>
 								</li>
-								<li class="divider"></li>
-								</div>
 							</ul> <!-- /.dropdown-messages -->
 						</div> <!-- /.dropdown -->
 			</div>

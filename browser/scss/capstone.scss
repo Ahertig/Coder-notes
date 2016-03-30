@@ -164,14 +164,29 @@ i.glyphicon-minus-sign {
 	min-height: 42px;
 }
 
-sidenav button i {
+sidenav button i,
+sidenav .dropdown a {
 	font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
+sidenav ul.dropdown-menu.dropdown-messages li {
+	margin: 4px;
+	padding: 4px;
+	border-bottom: 1px solid #e5e5e5;
+	a {
+		cursor: pointer;
+		color: deepskyblue;
 
+		&:hover {
+		 	color: #1d9b6c;
+		 	text-decoration: underline;
+		}
+	}
+}
 
-
-
+input#notebook {
+	margin-bottom: 0.5em;
+}
 
 
 
