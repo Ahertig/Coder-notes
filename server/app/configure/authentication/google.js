@@ -15,21 +15,51 @@ module.exports = function (app) {
         callbackURL: googleConfig.callbackURL
     };
 
-    var verifyCallback = function (accessToken, refreshToken, profile, done) {
+    // var verifyCallback = function (accessToken, refreshToken, profile, done) {
+    //     UserModel.findOne({ 'google.id': profile.id }).exec()
+    //         .then(function (user) {
+    //             if (user) {
+    //                 return user;
+    //             } else {
+    //                 return UserModel.create({
+    //                     email: profile._json.email,
+    //                     google: {
+    //                         id: profile.id
+    //                     }
+    //                 });
+    //             }
+    //         }).then(function (userToLogin) {
+    //             done(null, userToLogin);
+    //         }, function (err) {
+    //             console.error('Error creating user from Google authentication', err);
+    //             done(err);
+    //         });
 
-        UserModel.findOne({ 'google.id': profile.id }).exec()
+    // };
+
+        var verifyCallback = function (accessToken, refreshToken, profile, done) {
+        UserModel.findOne({ 'email': profile._json.email }).exec()
             .then(function (user) {
                 if (user) {
-                    return user;
+                    console.log('user already existed: ', user)
+                    user.set({
+                        google: {
+                            email: profile._json.email,
+                            id: profile.id, 
+                            token: accessToken
+                        }
+                    })
+                    return user.save();
                 } else {
                     return UserModel.create({
                         email: profile._json.email,
                         google: {
-                            id: profile.id
+                            email: profile._json.email,
+                            id: profile.id, 
+                            token: accessToken
                         }
                     });
                 }
-
             }).then(function (userToLogin) {
                 done(null, userToLogin);
             }, function (err) {
