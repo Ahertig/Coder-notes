@@ -17,7 +17,15 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			currentNote = {};
 			return NotesFactory.getCurrentNotebook()
 			.then(function(currentNotebook){
-				angular.copy(currentNotebook.notes[0], currentNote);
+				if(currentNotebook.notes.length !== 0){
+					angular.copy(currentNotebook.notes[0], currentNote);
+			    }
+			    else {
+			    	NotesFactory.newNote(currentNotebook._id)
+			    	.then(function(newnote){
+			    		angular.copy(currentNotebook.notes[0], currentNote);	
+			    	})
+			    }
 				return currentNote;
 			})
 		}
@@ -34,6 +42,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			currentNotebook = {};
 			return NotesFactory.fetchMyNotebooks()
 					.then(function(notebooks) {
+						//console.log("soreted notebooks: ", notebooks)
 						angular.copy(notebooks[0], currentNotebook);
 				// console.log("set current notebook initially to", currentNotebook)
 				return currentNotebook;	
@@ -96,6 +105,7 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
  		else if(action === 'update'){
  			var index = NotesFactory.findNoteIndex(notebook,note._id);
  			angular.copy(note, notebook.notes[index]);
+ 			notebook.date = note.lastUpdate;
  			var note_index  = NotesFactory.findNoteInNoteCache(note._id);
  			angular.copy(note, notesCache[note_index]);
  			//notesCache[notesCache.indexOf(note)] = note;

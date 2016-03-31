@@ -13,10 +13,8 @@ router.get('/', function(req,res, next) {
 
 // Add a new tag to the note
 router.post('/', function(req, res, next) {
-	console.log("^^ routes > notes > note.tags.js > post req body", req.body)
 	req.currentNote.addTag(req.body.tag)
 	.then(function(note) {
-		console.log("^^ routes > notes > note.tags.js > post note response", note)
 		res.json(note);	
 	})
 	.then(null, next)

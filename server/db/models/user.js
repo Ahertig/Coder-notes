@@ -142,7 +142,9 @@ userSchema.methods.getNotesInTrash = function(tags) {
 }
 
 userSchema.methods.getNotebooksInTrash = function() {
-    return _.filter(this.myNotebooks, {trash: true})
+    var res = _.filter(this.myNotebooks, {trash: true})
+    console.log(res)
+    return res
 }
 
 userSchema.methods.getTrash = function () {
@@ -183,7 +185,6 @@ userSchema.methods.createNotebook = function(body) {
         return thisUser.save();       
    })
    .then(function(){
-        console.log("this is notebook,",notebook );
         return notebook;
    })
 }
@@ -206,7 +207,6 @@ function makePromisifiedGithubClient() {
 userSchema.methods.getGithubClientSync = function() {
   if (!this.github.token) return Promise.reject("no access token")
   var client = makePromisifiedGithubClient()
-
   client.authenticate({
     type: 'oauth',
     token: this.github.token
@@ -222,7 +222,7 @@ userSchema.methods.getGithubClient = function() {
     .findById(this._id)
     .select('+github.token')
     .exec()
-    .then(function(u) {
+    .then(function(u) { 
       return u.getGithubClientSync()
     })
 }
