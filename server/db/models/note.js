@@ -51,6 +51,17 @@ noteSchema.pre('remove', function(next) {
         }, next);
 })
 
+noteSchema.post('save', function(next) {
+    if(this.trash !== true){
+        return mongoose.model('Notebook')
+        .findOneAndUpdate(
+            {notes: {$elemMatch: {$eq : this._id}}},{$set: {date: this.lastUpdate}},{new: true})
+        .then(function(notebook){
+            console.log("notebook, ",notebook)
+        }, function(err){console.log("Error: ", err)});
+    }
+})
+
 noteSchema.methods.addTag = function(tag) {
     this.tags.addToSet(tag)
     return this.save()
