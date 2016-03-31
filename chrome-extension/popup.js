@@ -25,6 +25,7 @@ $(document).ready(function(){
     var notebook = $("#notebook").val();
     var body = $("#body").val();
     var tags = $("#tags").val();
+    console.log('Here is the subject', subject);
     saveNote(subject, notebook, body, tags);
     event.preventDefault();
   });
