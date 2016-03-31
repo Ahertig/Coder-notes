@@ -11,7 +11,6 @@ router.use('/members', require('./members'));
 router.use('/notebooks', require('./notebooks'));
 router.use('/notes', require('./notes'));
 router.use('/trash', require('./trash'));
-	// router.use('/api.github.com', require('./github'));
 	
 // Make sure this is after all of
 // the registered routes!

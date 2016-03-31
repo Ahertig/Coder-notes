@@ -17,10 +17,6 @@ router.post('/', function(req, res, next) {
 	.then(null, next)
 })
 
-// // Get all own and shared notebooks of a user
-// router.get('/all', function(req, res, next) {
-// 	res.json(req.user.myNotebooks.concat(req.user.sharedWithMeNotebooks))
-// })
 
 //Get all own notebooks of a user
 router.get('/', function(req, res, next) {
@@ -28,22 +24,36 @@ router.get('/', function(req, res, next) {
 	.deepPopulate('myNotebooks.notes')
 	.then(function(user){
 		user = user.toObject();
-		//console.log("mynotebook notes: ",user.myNotebooks[0].notes)
 		return user.myNotebooks = user.myNotebooks.map( function(myNotebook){
-			//console.log("original notes, ", myNotebook.notes);
 			myNotebook.notes = _.sortBy(myNotebook.notes, 'lastUpdate');
-			// console.log("sorted notes, ", _(myNotebook.notes).reverse());
 			return myNotebook;
 		});
 	})
 	.then(function(myNotebooks){
-		// console.log("my notebooks: ", myNotebooks);
+
 		myNotebooks = _.sortBy(myNotebooks, 'date');
-		// console.log("sorted notebook", _(myNotebooks).reverse());
+
 		res.json(myNotebooks);
 	})
 	.then(null, next)
 })
+
+// Get all own and shared notebooks of a user
+// router.get('/all', function(req, res, next) {
+// 	res.json(req.user.myNotebooks.concat(req.user.sharedWithMeNotebooks))
+// })
+
+router.get('/nontrash', function(req, res, next) {
+	res.json(_.filter(req.user.myNotebooks, {trash: false} ))
+})
+
+// router.get('/', function(req, res, next){
+// 		req.user.getNotesInTrash(req.query)
+// 		.then(function(notes) {
+// 		    res.json(notes);
+// 		})
+// 		.then(null, next)
+// });
 
 // Get shared notebooks:
 router.get('/shared', function(req, res, next) {
