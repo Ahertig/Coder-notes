@@ -1,4 +1,4 @@
-app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, GithubFactory, AuthService,$window) {
+app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, GithubFactory, AuthService,$window, NotebookFactory) {
     $scope.savenote = {};
     $scope.tagform = {};
 
@@ -9,12 +9,12 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
     $scope.currentNote = NotesFactory.getCurrentNote;
 
     $scope.getCurrentNootbook = function(){
-      var theNotebookID = NotesFactory.findParentNotebook($scope.currentNote()._id);
-      return NotesFactory.findNotebookById(theNotebookID);
+      var theNotebookID = NotebookFactory.findParentNotebook($scope.currentNote()._id);
+      return NotebookFactory.findNotebookById(theNotebookID);
     }
     
     $scope.getCurrentNootbook();
-    //$scope.currentNotebook = NotesFactory.getCurrentNotebook;
+
     $scope.showmarkdown = false;
     $scope.successmessage = null;
 
@@ -51,27 +51,6 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
         $scope.tagsavefailure = "this tag is in tags! add a new tag?";
       }
     } 
-    // $scope.addTag = function(note, tag) {
-    //    console.log("tag list", $scope.tags);
-    //   if(!tag) { 
-    //     $scope.tagsavefailure = "Cannot save an empty tag!"; 
-    //     return;
-    //   }
-    //   if(note.tags.indexOf(tag) === -1){
-    //       $scope.tags.push(tag);
-    //       console.log("adding tag", tag);
-    //       var currentNotebookID = NotesFactory.findParentNotebook(note._id);
-    //       note.tags.push(tag);
-    //       NotesFactory.updateNoteInNotebookCache(currentNotebookID, note, 'update');
-    //       $scope.tagsavesuccess = "Tag saved successfully!";
-    //       $scope.tagToAdd = "";
-    //     }
-    //   else {
-    //     $scope.tagsavefailure = "this tag is in tags! add a new tag?";
-    //   }
-
-    // } 
-
 
     $scope.openTagWindow = function() {
       $scope.showTagEditWindow = !$scope.showTagEditWindow;
@@ -90,7 +69,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
         "tags": tags
       }  
       // if(!$scope.getCurrentNootbook())  {
-        currentNotebook = NotesFactory.findParentNotebook($scope.currentNote()._id);
+        currentNotebook = NotebookFactory.findParentNotebook($scope.currentNote()._id);
       // }
       // else {
       //   currentNotebook = $scope.getCurrentNootbook();
