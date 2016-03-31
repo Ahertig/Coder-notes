@@ -155,14 +155,13 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
 
     // Creating Gists 
     $scope.createGist = function(note) {
-      AuthService.getLoggedInUser()
-      .then( function(user) {
-        // var headers = { "Authorization": "token " + user.github.token };
+      // AuthService.getLoggedInUser()
+      // .then( function(user) {
         GithubFactory.createGist(note)
         .then(function(gist) {
           $scope.successmessage="Gist created successfully!";
         })
-      })
+      // })
     }
 
     $scope.isSideNavOpen = NotesFactory.isSideNavOpen;
