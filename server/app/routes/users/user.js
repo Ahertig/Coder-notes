@@ -5,29 +5,6 @@ var router = require('express').Router({mergeParams: true});
 module.exports = router;
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
-// var Gists = require('gists');
-// var gists = new Gists({
-//   username: 'ksenia0822', 
-//   password: 'card1979'
-// })
-
-// router.get('/creategist', function(req, res, next) {
-//   var gist = {
-//   "description": "kitten",
-//   "public": true,
-//   "files": {
-//     "file1.txt": {
-//       "content": "kitten"
-//     }
-//   }
-// }
-//   gists.create(gist, function() {
-//     console.log('kittens are here')
-//   })
-// })
-
-
-
 
 // Get my account
 router.get('/', function(req, res, next){
