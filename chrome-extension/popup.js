@@ -93,7 +93,7 @@ function retrieveNotebooks() {
       var currentUser = result.currentUser;
 
       var xhr = new XMLHttpRequest();
-      xhr.open("GET", 'http://limitless-island-46764.herokuapp.com/api/notebooks/', true);
+      xhr.open("GET", 'http://limitless-island-46764.herokuapp.com/api/notebooks/nontrash', true);
       xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
       xhr.onreadystatechange = function() {//Call a function when the state changes.
