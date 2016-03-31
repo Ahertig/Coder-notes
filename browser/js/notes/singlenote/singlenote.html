@@ -1,6 +1,3 @@
-<div>
-currentNote(){{currentNote()}}
-</div>
 <div class="col-sm-12" ng-class="singleNoteColumnWidth()">
 	<div class="alert alert-success" role="alert" ng-if="successmessage">{{successmessage}}</div>
 	<div class="alert alert-error" role="alert" ng-if="errormessage">{{errormessage}}</div>
@@ -23,6 +20,7 @@ currentNote(){{currentNote()}}
 					</div>
 				</div>
 			</div>
+			<p class="muted"><em>To run code, highlight text and press Ctrl-Enter</em></p>			
 		</div> <!-- end .tab-pane #preview -->
         <button ng-click="deleteNote(currentNote())" ng-show="currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
 			Delete Forever
@@ -43,7 +41,7 @@ currentNote(){{currentNote()}}
 				<div class="panel-body">
 					<textarea enter-key="runTonic()" rows="20" id="notebody" ng-model="currentNote().body" placeholder="{{currentNote().body}}" class="form-control" >
 					</textarea>
-					<p class="muted"><em>To run code, highlight and click "Run Code" or press Ctrl-Enter</em></p>
+					<p class="muted"><em>To run code, highlight text and press Ctrl-Enter</em></p>
 				</div>
 
 				<div class="alert alert-success" role="alert" ng-if="tagsavesuccess">{{tagsavesuccess}}</div>
@@ -70,7 +68,7 @@ currentNote(){{currentNote()}}
 				 <!-- <tagfooter></tagfooter> -->
 				<div class="panel-body">
 					<button class="btn btn-primary" ng-click="save()">Save Changes</button>
-					<button ng-if="tonic" class="btn btn-primary" ng-click="runTonic()">Run Code</button>
+					<button ng-if="tonic" class="btn btn-primary" ng-click="runTonic()">Open Code Window</button>
 					<button ng-if="!tonic" class="btn btn-primary" ng-click="closeTonic()">Close Code Window</button>
 					<button data-toggle="modal" data-target="#trashNote{{currentNote()._id}}" ng-show="!currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
 						 Trash Note
