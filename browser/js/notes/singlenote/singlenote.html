@@ -60,7 +60,20 @@
 							<span ng-click="addTag(currentNote(), tagToAdd)" class="input-group-addon">+</span> 
 						</div>
 				</form>  
-				<notetype type="currentNote().type"></notetype>
+				<div class="radio" >
+					<!-- <input name="notetype" type="checkbox" ng-model="currentNote().type" ng-checked="currentNote().type == 'public'">
+					<label for="notetype">Public note?</label> -->
+					{{currentNote().type}}
+					<label>
+					 <input type="radio" name="gridRadios" id="ispublic"  value="public" ng-model="type"> Public 
+					</label>	      
+					{{type}}
+					<label>
+					  <input type="radio" name="gridRadios" id="isprivate" value="private" ng-model="type">Private
+					</label>
+					notetype: {{type}}
+				</div>	
+			<!-- 	<notetype type="currentNote().type"></notetype> -->
 
          </div>
 				 <!-- <tagfooter></tagfooter> -->

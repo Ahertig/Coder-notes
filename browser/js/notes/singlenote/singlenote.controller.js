@@ -51,42 +51,24 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
         $scope.tagsavefailure = "this tag is in tags! add a new tag?";
       }
     } 
-    // $scope.addTag = function(note, tag) {
-    //    console.log("tag list", $scope.tags);
-    //   if(!tag) { 
-    //     $scope.tagsavefailure = "Cannot save an empty tag!"; 
-    //     return;
-    //   }
-    //   if(note.tags.indexOf(tag) === -1){
-    //       $scope.tags.push(tag);
-    //       console.log("adding tag", tag);
-    //       var currentNotebookID = NotesFactory.findParentNotebook(note._id);
-    //       note.tags.push(tag);
-    //       NotesFactory.updateNoteInNotebookCache(currentNotebookID, note, 'update');
-    //       $scope.tagsavesuccess = "Tag saved successfully!";
-    //       $scope.tagToAdd = "";
-    //     }
-    //   else {
-    //     $scope.tagsavefailure = "this tag is in tags! add a new tag?";
-    //   }
-
-    // } 
-
-  
+    
     $scope.openTagWindow = function() {
       $scope.showTagEditWindow = !$scope.showTagEditWindow;
     }
-    $scope.type = $scope.currentNote().type;
-    console.log("note type:", $scope.type);
+    
+    
+    // console.log("note type:", $scope.type);
     $scope.save = function(){ 
       var currentNotebook;
+      console.log("currentNote, ", $scope.currentNote())
       var tags = $scope.currentNote().tags;
+      var type = $scope.currentNote().type;
       var lastUpdateDate = Date.now();
       var subjectToSave = $('#notesubject').val();
       var bodyToSave = $('#notebody').val();
-      
-      console.log("saving type:", $scope.type)
-      $scope.savenote = {
+
+     console.log("saving type:", $scope.type)
+     $scope.savenote = {
         "subject": subjectToSave,
         "body": bodyToSave,
         "lastUpdate": lastUpdateDate,
