@@ -19,6 +19,20 @@ router.put('/', function(req, res, next) {
 	.then(null, next)
 })
 
+router.put('/share', function(req, res, next) {
+	req.currentNote.share(req.body.email)
+	.then(function(result) {
+		res.json(result)
+	})
+})
+
+router.put('/removeshare', function(req, res, next) {
+	req.currentNote.removeShare(req.body.email)
+	.then(function(result) {
+		res.json(result)
+	})
+})
+
 router.use('/tags', require('./note.tags.js'));
 router.use('/trash', require('./note.trash.js'));
 

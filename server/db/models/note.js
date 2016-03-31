@@ -9,6 +9,10 @@ var noteSchema = new mongoose.Schema({
         enum: ['private', 'public'],
         default: 'private'
     },
+    owner: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
     subject: {
         type: String,
         default: 'Untitled'
@@ -87,6 +91,24 @@ noteSchema.methods.deleteTrash = function() {
     .then(function(){
         return note;
     })    
+}
+
+noteSchema.methods.share = function(userEmail) {
+    var thisNote = this;
+    return mongoose.model('User').findOne({email: userEmail})
+    .then(function (user) {
+        thisNote.owner.addToSet(user._id)
+        return thisNote.save();
+    })
+}
+
+noteSchema.methods.removeShare = function(userEmail) {
+    var thisNote = this;
+    return mongoose.model('User').findOne({email: userEmail})
+    .then(function (user) {
+        thisNote.owner.pull(user._id)
+        return thisNote.save();
+    })
 }
 
 mongoose.model('Note', noteSchema);
