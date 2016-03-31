@@ -7,7 +7,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
     var stroutput = "";
    
     $scope.currentNote = NotesFactory.getCurrentNote;
-
+    
     $scope.getCurrentNootbook = function(){
       var theNotebookID = NotesFactory.findParentNotebook($scope.currentNote()._id);
       return NotesFactory.findNotebookById(theNotebookID);
@@ -72,22 +72,26 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
 
     // } 
 
-
+  
     $scope.openTagWindow = function() {
       $scope.showTagEditWindow = !$scope.showTagEditWindow;
     }
-
+    $scope.type = $scope.currentNote().type;
+    console.log("note type:", $scope.type);
     $scope.save = function(){ 
       var currentNotebook;
       var tags = $scope.currentNote().tags;
       var lastUpdateDate = Date.now();
       var subjectToSave = $('#notesubject').val();
       var bodyToSave = $('#notebody').val();
+      
+      console.log("saving type:", $scope.type)
       $scope.savenote = {
         "subject": subjectToSave,
         "body": bodyToSave,
         "lastUpdate": lastUpdateDate,
-        "tags": tags
+        "tags": tags,
+         "type": $scope.type
       }  
       // if(!$scope.getCurrentNootbook())  {
         currentNotebook = NotesFactory.findParentNotebook($scope.currentNote()._id);
@@ -97,6 +101,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
       // }
       NotesFactory.saveNote(currentNotebook,$scope.currentNote()._id, $scope.savenote)
       .then(function(note) {
+        console.log("new note", note)
           $scope.successmessage="Note saved successfully!";
         }, function(err) {
           $scope.errormessage = "Error saving note" + err;
@@ -185,9 +190,9 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
         if(!$scope.tonic) return 'col-lg-6 col-md-6'; // if tonic is SHOWING
         return 'col-lg-11 col-md-11';
       }
-   }
-
+    }
 })
+
 
 // Tonic Keypress Directive
 app.directive('enterKey', function(TonicFactory) {

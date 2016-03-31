@@ -53,16 +53,16 @@
 							{{tag}} <i class="glyphicon glyphicon-remove" ng-click="removeTag(currentNote(), tag)"></i>
 						</li>
 					</ul>
-				</div>
-					
+				</div>	
 			    <form ng-submit="addTag(currentNote(), tagToAdd)">
 						<div class="input-group"> 
 							<input ng-model="tagToAdd" type="text" class="form-control" placeholder="Add a tag"> 
 							<span ng-click="addTag(currentNote(), tagToAdd)" class="input-group-addon">+</span> 
 						</div>
-				</form>	
+				</form>  
+				<notetype type="currentNote().type"></notetype>
 
-</div>
+         </div>
 				 <!-- <tagfooter></tagfooter> -->
 				<div class="panel-body">
 					<button class="btn btn-primary" ng-click="save()">Save Changes</button>
