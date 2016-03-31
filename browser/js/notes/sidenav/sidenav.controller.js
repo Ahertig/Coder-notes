@@ -1,11 +1,19 @@
-app.controller('SidenavCtrl', function($scope, NotesFactory, $filter, ShareFactory, NotebookFactory) {
+app.controller('SidenavCtrl', function($scope, SideNavFactory, NotesFactory, $filter, ShareFactory, NotebookFactory) {
 
 	$scope.getCachedNotebooks = NotebookFactory.getCachedNotebooks;
 	$scope.getTagsCache = NotesFactory.getTagsCache;
 	$scope.getnotes = NotesFactory.getAllCacheNotes;
 
-	console.log("all notes: ", $scope.getnotes());
-  console.log("all notebook: ", NotebookFactory.getCachedNotebooks());
+	$scope.createNote = function(notebook) {
+    console.log("creating note in sidenavctrl")
+    SideNavFactory.createNote(notebook);
+	}
+
+	$scope.createNotebook = SideNavFactory.createNotebook.bind(SideNavFactory);
+
+	// console.log("all notes: ", $scope.getnotes());
+  // console.log("all notebook: ", NotebookFactory.getCachedNotebooks());
+
 	$scope.setCurrentNotebook = function(notebook){
 		NotebookFactory.setCurrentNotebook(notebook);
 	}
@@ -16,13 +24,15 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter, ShareFacto
 			NotebookFactory.setCurrentNotebook(notebook);
 		}
 	}
-    $scope.toggleSideNav = NotesFactory.toggleSideNav;
-    $scope.isSideNavOpen = NotesFactory.isSideNavOpen;
+
+  $scope.toggleSideNav = NotesFactory.toggleSideNav;
+  $scope.isSideNavOpen = NotesFactory.isSideNavOpen;
 
   
   $scope.trashNotebook = function(notebook){
   	NotebookFactory.removeNotebook(notebook);
   }
+
   $scope.deleteNotebook = function(notebook){
   	console.log("deleteNotebook is undefined now!!");
   }
@@ -33,30 +43,6 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter, ShareFacto
 
   $scope.getNotes = function(){
     $scope.notes = NotesFactory.getAllCacheNotes();
-  }
-
-   $scope.newNote = function(notebook) {
-      // NotebookFactory.getCachedNotebooks();
-
-      NotesFactory.newNote(notebook._id)
-      .then(function(newNote){
-          NotesFactory.setCurrentNote(newNote);
-          NotebookFactory.setCurrentNotebook(notebook);
-      })
-      .then(null, function(err){
-        console.error("Error saving new note!", err);
-     });
-  }
-  $scope.newNotebook = function(notebookTitle) {
-      console.log('getting here');
-      return NotebookFactory.createNotebook(notebookTitle)
-      .then(function(newNotebook) {
-        $scope.newNote(newNotebook)
-        // $rootScope.currentNote = newNotebook;
-      })
-      .then(null, function(err){
-          console.log(err);
-      })
   }
 
   $scope.getNotebooks = function() {
@@ -92,7 +78,7 @@ app.filter('filterByTag', function(){
 	return function (notes, tag) { 
 		return notes.filter(
 			function(note){
-				return (note.tags.indexOf(tag) > -1) && (note.trash == false);
+				return (note.tags.indexOf(tag) > -1) && (note.trash === false);
 		});
     }
 });

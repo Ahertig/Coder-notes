@@ -8,39 +8,41 @@ app.factory('NotesFactory', function($http, $q, NotebookFactory) {
 	var notesAPI = {
 
 		getCurrentNote: function() {
-			if (currentNote) return $q.when(currentNote);
+			if (currentNote) return $q.when(currentNote); 
 			else {
 				return NotebookFactory.getCurrentNotebook()
 				.then(function(currentNotebook){
 					if (currentNotebook.notes.length > 0){
 						currentNote = currentNotebook.notes[0]
-				    }
-				    else {
-				    	notesAPI.newNote(currentNotebook._id)
-				    	.then(function(newnote){
-				    		currentNote = currentNotebook.notes[0]
-				    	})
-				    }
+						}
+					else {
+						notesAPI.newNote(currentNotebook._id)
+						.then(function(newnote){
+							currentNote = currentNotebook.notes[0]
+						})
+					}
 					return currentNote;
 				})
 			}
 		},
-		setCurrentNote: function(_currentNote) {
-			currentNote = _currentNote;
-			// console.log("this is factory currentNote ", currentNote);
+		getCurrentNoteSync: function() {
+			return currentNote;
 		},
-	    
-	    getAllCacheNotes: function(){
-	    	return notesCache;
-	    },
+		setCurrentNote: function(_currentNote) {
+			console.log("* NotesFactory setCurrentNote to", _currentNote.subject)
+			currentNote = _currentNote;
+		},
+		getAllCacheNotes: function(){
+			return notesCache;
+		},
 
-	    getTagsCache: function() {
+		getTagsCache: function() {
 			return tagsCache;
 		},
 
 		updateTagsCache: function(tag, action) {	
-	 		var index = notesAPI.getIndex(tag);
-			if(action == 'add'){
+			var index = notesAPI.getIndex(tag);
+			if(action === 'add'){
 				if (index === -1) {
 					tagsCache.unshift({tag:tag, count:1});
 				}
@@ -49,7 +51,7 @@ app.factory('NotesFactory', function($http, $q, NotebookFactory) {
 				}
 
 			}
-			else if(action == 'delete') {
+			else if(action === 'delete') {
 				if (tagsCache[index].count > 1) {
 					tagsCache[index].count -= 1;
 				}
@@ -57,49 +59,48 @@ app.factory('NotesFactory', function($http, $q, NotebookFactory) {
 					tagsCache.splice(index,1);
 				}	
 			}
-			console.log("tags cache is now", tagsCache)
 		},
 
 		getIndex: function(tag) {
-				for (var i = 0; i < tagsCache.length; i++) {
-					if(tagsCache[i].tag === tag) {
-						return i;
-					}
+			for (var i = 0; i < tagsCache.length; i++) {
+				if(tagsCache[i].tag === tag) {
+					return i;
 				}
-				return -1;
+			}
+			return -1;
 		},
 	    
-	    updateNoteInNotebookCache: function(notebookID, note, action){
-	    	var notebook = NotebookFactory.findNotebookById(notebookID); 	
-	 		if(action === 'add'){ 
-	         	notebook.notes.unshift(note); 
-	         	notesCache.unshift(note);
-
-	 		}
-	 		else if(action === 'update'){
-	 			var index = notesAPI.findNoteIndex(notebook,note._id);
-	 			angular.copy(note, notebook.notes[index]);
-	 			notebook.date = note.lastUpdate;
-	 			var note_index  = notesAPI.findNoteInNoteCache(note._id);
-	 			angular.copy(note, notesCache[note_index]);
-	 			//notesCache[notesCache.indexOf(note)] = note;
-	 		}
-	 		else if(action === 'delete'){ 		
-		 			var index = notesAPI.findNoteIndex(notebook,note._id);
-		 			var note_index  = notesAPI.findNoteInNoteCache(note._id);
-		 			notebook.notes.splice(index,1)
-	  				notesCache.splice(note_index,1)
-	 		}
-		},
+		updateNoteInNotebookCache: function(notebookID, note, action){
+				var notebook = NotebookFactory.findNotebookById(notebookID);
+				var note_index, index; 	
+				if(action === 'add'){ 
+					notebook.notes.unshift(note); 
+					notesCache.unshift(note);
+		 		}
+				else if(action === 'update'){
+					index = notesAPI.findNoteIndex(notebook,note._id);
+					angular.copy(note, notebook.notes[index]);
+					notebook.date = note.lastUpdate;
+					note_index = notesAPI.findNoteInNoteCache(note._id);
+					angular.copy(note, notesCache[note_index]);
+		 		}
+		 		else if(action === 'delete'){ 		
+					index = notesAPI.findNoteIndex(notebook,note._id);
+					note_index = notesAPI.findNoteInNoteCache(note._id);
+					notebook.notes.splice(index,1)
+					notesCache.splice(note_index,1)
+		 		}
+			},
 
 	    
-	     findNoteIndex: function(notebook, noteId) {
+		findNoteIndex: function(notebook, noteId) {
 			for (var i = 0; i < notebook.notes.length; i++) {
-				if(noteId == notebook.notes[i]._id) {
+				if(noteId === notebook.notes[i]._id) {
 					return i;
 				}
 			}
 		},
+
 		findNoteInNoteCache: function(noteId) {
 			for (var i = 0; i < notesCache.length; i++) {
 				if(noteId == notesCache[i]._id) {
@@ -111,7 +112,7 @@ app.factory('NotesFactory', function($http, $q, NotebookFactory) {
 		fetchMyNotes: function() {
 			return NotebookFactory.fetchMyNotebooks()
 			.then(function(notebookCache){
-			for (var i = 0; i < notebookCache.length; i++) {
+				for (var i = 0; i < notebookCache.length; i++) {
 				notesCache = notesCache.concat(notebookCache[i].notes);
 			}
 				return notesCache;
@@ -125,12 +126,10 @@ app.factory('NotesFactory', function($http, $q, NotebookFactory) {
 			})
 		},
 
-		// this function is working!
 		fetchMyTags: function() {
 			return $http.get('/api/tags')
 			.then(function(response) {
 				angular.copy(response.data, tagsCache);
-				// console.log('tagsCache',tagsCache);
 				return tagsCache;
 			})	
 		},
@@ -154,19 +153,17 @@ app.factory('NotesFactory', function($http, $q, NotebookFactory) {
 		newNote: function (notebookId) {
 			return $http.post('/api/notebooks/' + notebookId + '/notes')
 			.then(function(response) {
-				console.log("* notesAPI - I just created a new note", response.data)
-	            notesAPI.updateNoteInNotebookCache(notebookId, response.data, 'add');
+				notesAPI.updateNoteInNotebookCache(notebookId, response.data, 'add');
 				return response.data;
 			})	
 		},
 
 		trashNote: function(noteId) {
-
 			return $http.put('/api/notes/' + noteId + '/trash/add')
 			.then(function(response) {
 				var trashNote = response.data;
 				var notebookID = NotebookFactory.findParentNotebook(trashNote._id) 
-	            notesAPI.updateNoteInNotebookCache(notebookID, trashNote, 'update');
+				notesAPI.updateNoteInNotebookCache(notebookID, trashNote, 'update');
 				return response.data;
 			})
 		},
@@ -188,18 +185,18 @@ app.factory('NotesFactory', function($http, $q, NotebookFactory) {
 			.then(function(response) {
 				var trashNote = response.data;
 				var notebookID = NotebookFactory.findParentNotebook(trashNote._id) 
-	            notesAPI.updateNoteInNotebookCache(notebookID, trashNote, 'update');
+				notesAPI.updateNoteInNotebookCache(notebookID, trashNote, 'update');
 				return response.data;
 			})
 		},
 
 		addTag: function(noteId, tag) {
-	        notesAPI.updateTagsCache(tag, 'add');
+			notesAPI.updateTagsCache(tag, 'add');
 			//return $http.post('/api/notes/' +  noteId + '/tags', {tag: tag})
 		},
 
 		removeTag: function(noteId, tag) {
-	        notesAPI.updateTagsCache(tag, 'delete');
+			notesAPI.updateTagsCache(tag, 'delete');
 			//return $http.put('/api/notes/' +  noteId + '/tags', {tag: tag});
 		},
 
@@ -208,7 +205,6 @@ app.factory('NotesFactory', function($http, $q, NotebookFactory) {
 		},
 
 		toggleSideNav: function() {
-			console.log("toggleSideNav running. sideNavOpen is now",sideNavOpen)
 			sideNavOpen = !sideNavOpen;
 		}
 

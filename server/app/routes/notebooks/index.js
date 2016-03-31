@@ -32,14 +32,14 @@ router.get('/', function(req, res, next) {
 		return user.myNotebooks = user.myNotebooks.map( function(myNotebook){
 			//console.log("original notes, ", myNotebook.notes);
 			myNotebook.notes = _.sortBy(myNotebook.notes, 'lastUpdate');
-			console.log("sorted notes, ", _(myNotebook.notes).reverse());
+			// console.log("sorted notes, ", _(myNotebook.notes).reverse());
 			return myNotebook;
 		});
 	})
 	.then(function(myNotebooks){
-		console.log("my notebooks: ", myNotebooks);
+		// console.log("my notebooks: ", myNotebooks);
 		myNotebooks = _.sortBy(myNotebooks, 'date');
-		console.log("sorted notebook", _(myNotebooks).reverse());
+		// console.log("sorted notebook", _(myNotebooks).reverse());
 		res.json(myNotebooks);
 	})
 	.then(null, next)

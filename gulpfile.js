@@ -47,6 +47,10 @@ gulp.task('buildJS', ['lintJS'], function () {
         .pipe(sourcemaps.init())
         .pipe(concat('main.js'))
         .pipe(babel())
+        // .pipe(babel({
+        //     presets: ['es2015']
+        // }))
+        // .on('error', console.error.bind(console))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('./public'));
 });

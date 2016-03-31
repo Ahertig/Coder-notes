@@ -28,11 +28,6 @@ app.config(function ($stateProvider) {
 			currentNote: function(NotesFactory) {
 				return NotesFactory.getCurrentNote();
 			}
-			// ,
-			// showSideNavPromise: function(NotesFactory) {
-			// 	return NotesFactory.showSideNav;
-			// }
-
     	}
 	});
 });
