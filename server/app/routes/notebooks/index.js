@@ -28,18 +28,13 @@ router.get('/', function(req, res, next) {
 	.deepPopulate('myNotebooks.notes')
 	.then(function(user){
 		user = user.toObject();
-		//console.log("mynotebook notes: ",user.myNotebooks[0].notes)
 		return user.myNotebooks = user.myNotebooks.map( function(myNotebook){
-			//console.log("original notes, ", myNotebook.notes);
 			myNotebook.notes = _.sortBy(myNotebook.notes, 'lastUpdate');
-			console.log("sorted notes, ", _(myNotebook.notes).reverse());
 			return myNotebook;
 		});
 	})
 	.then(function(myNotebooks){
-		console.log("my notebooks: ", myNotebooks);
 		myNotebooks = _.sortBy(myNotebooks, 'date');
-		console.log("sorted notebook", _(myNotebooks).reverse());
 		res.json(myNotebooks);
 	})
 	.then(null, next)

@@ -5,6 +5,7 @@ module.exports = router;
 var mongoose = require('mongoose');
 var github = require('github')
 
+// Creating Gists
 router.post('/createGist', function(req, res, next) {
 	req.user.getGithubClient()
 	.then(function (client) {

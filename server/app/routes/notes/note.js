@@ -12,10 +12,8 @@ router.get('/', function(req,res, next) {
 
 // Update one Note
 router.put('/', function(req, res, next) {
-	console.log("updating one note")
 	return req.currentNote.set(req.body).save()
 	.then(function(updatedNote) {
-		console.log("updated note", updatedNote)
 		res.json(updatedNote)
 	})
 	.then(null, next)
