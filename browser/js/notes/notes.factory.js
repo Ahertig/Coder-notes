@@ -11,6 +11,8 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 	
 	NotesFactory.getCurrentNote = function() {
 		if(currentNote) {
+			// AW: wrap currentNote in $q.resolve so getCurrentNote always
+			// returns a promise 
 			return currentNote;
 		}
 		else {
@@ -26,6 +28,8 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 		currentNote = _currentNote;
 		// console.log("this is factory currentNote ", currentNote);
 	}
+
+	//AW: put in a notebook factory 
 	NotesFactory.getCurrentNotebook = function() {
 		if(currentNotebook){
 			return $q.resolve(currentNotebook);
@@ -86,6 +90,8 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 			return -1;
 	}
     
+
+    // AW: create separate functions for each operation: add, update, delete 
     NotesFactory.updateNoteInNotebookCache = function(notebookID, note, action){
     	var notebook = NotesFactory.findNotebookById(notebookID); 	
  		if(action === 'add'){ 
@@ -107,6 +113,9 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
   				notesCache.splice(note_index,1)
  		}
 	}
+
+	// AW: same. create separate methods for each please 
+
     // this is to add/ update/ delete notebooks 
 	 NotesFactory.updateNotebookCache = function(notebook, action) {
         if(action === 'add'){ 
@@ -128,7 +137,14 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 				return notebookCache[i];
 			}
 		}
+
+		// AW: use lodash!
+		// return _.find(notebookCache, function(notebook){
+		// 	return notebookId === notebook._id; 
+		// })
 	}
+
+	// AW: same, use lodash find!
 	NotesFactory.findNotebookIndex = function(notebookId) {
 		for (var i = 0; i < notebookCache.length; i++) {
 			if(notebookId == notebookCache[i]._id) {
@@ -379,6 +395,8 @@ app.factory('NotesFactory', function($http, $rootScope, $q) {
 		}
 	}
 
+
+	// AW: should be somewhere else. 
 	NotesFactory.isSideNavOpen = function() {
 		return sideNavOpen;
 	}

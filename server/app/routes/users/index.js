@@ -5,6 +5,8 @@ module.exports = router;
 var mongoose = require('mongoose');
 var github = require('github')
 
+
+// AW: maybe nest this under /github and give it its own file ... 
 router.post('/createGist', function(req, res, next) {
 	req.user.getGithubClient()
 	.then(function (client) {

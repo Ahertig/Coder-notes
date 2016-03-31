@@ -38,6 +38,7 @@ router.put('/share', function(req, res, next) {
 		console.log(result)
 		res.json(result)
 	})
+	// AW: error handling
 })
 
 router.put('/removeshare', function(req, res, next) {
@@ -46,6 +47,7 @@ router.put('/removeshare', function(req, res, next) {
 		console.log(result)
 		res.json(result)
 	})
+	// AW: error handling 
 })
 
 router.use('/notes', require('./notebook.notes.js'));

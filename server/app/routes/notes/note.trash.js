@@ -11,6 +11,7 @@ router.put('/add', function(req, res) {
 		.then(function(note) {
 			res.json(note)		
 		})
+    // AW: error handling!
 })
 
 // Remove from Trash ==> set trash = false 
@@ -19,4 +20,5 @@ router.put('/remove', function(req, res) {
 		.then(function(note) {
 			res.json(note)		
 		})
+    //AW: error handling!
 })

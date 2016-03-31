@@ -10,6 +10,10 @@ app.config(function ($stateProvider) {
 			currentUser: function(NotesFactory,AuthService) {
 				return AuthService.getLoggedInUser()
 			},
+
+			/*
+				AW: why not put all of these in a $q.all ??
+			*/
 			myNotebooks: function(NotesFactory) {
 				// console.log("usercontent state. fetching notes for",currentUser._id)
 				return NotesFactory.fetchMyNotebooks()

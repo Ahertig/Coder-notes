@@ -20,6 +20,8 @@ router.get('/notes', function(req, res, next){
 // Get notes and notebooks in the trash
 router.get('/notebooks', function(req, res, next){
 	// ? is _.filter async?
+	// AW: _.filter is not async... it's just like teh `filter` method on array prototype, 
+	// but faster!
 	res.json(_.filter(req.user.myNotebooks, {trash: true}))
 	// req.user.getNotebooksInTrash()
 	// .then(function(notebooks) {

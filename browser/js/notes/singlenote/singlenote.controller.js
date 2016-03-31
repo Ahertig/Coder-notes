@@ -10,6 +10,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
 
     $scope.getCurrentNootbook = function(){
       NotesFactory.getCurrentNotebook()
+      // AW: unnecessary .then 
       .then(function(_currentNotebook){
        return _currentNotebook;
       })

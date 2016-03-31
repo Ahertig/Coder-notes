@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
   if($("#notebook").length > 0){
+    // AW: catching errors?
     retrieveNotebooks();
   }
 

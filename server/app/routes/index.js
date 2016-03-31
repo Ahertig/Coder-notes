@@ -10,6 +10,7 @@ router.use('/notebooks', require('./notebooks'));
 router.use('/notes', require('./notes'));
 router.use('/trash', require('./trash'));
 // router.use('/api.github.com', require('./github'));
+// AW: why not '/users', require('./users') ??
 router.use('/', require('./users'));
 
 // Make sure this is after all of

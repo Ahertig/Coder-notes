@@ -65,6 +65,15 @@ notebookSchema.post('remove', function(doc, next) {
     .then(function() {
         next()
     })
+
+    // AW: this ^ is totally fine, here's how you can do it without populate
+    // Promise.map(doc.notes, function(noteId){
+    //     return mongoose.model('Note').remove({_id: noteId})
+    // })
+    // .then(function(){
+    //     next
+    // }, next)
+
 })
 
 // METHODS

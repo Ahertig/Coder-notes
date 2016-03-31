@@ -19,7 +19,10 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter, ShareFacto
     $scope.isSideNavOpen = NotesFactory.isSideNavOpen;
 
   
-  $scope.trashNotebook = function(notebook){
+  $scope.trashNotebook = function(notebook){ 
+    // AW: I see that you're catching the error in your factory 
+    // but you could catch it here and then display a message
+    // to the user saying, "remove notebook failed"
   	NotesFactory.removeNotebook(notebook);
   }
   $scope.deleteNotebook = function(notebook){
@@ -64,6 +67,7 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter, ShareFacto
      .then(function(_notebooks){
           $scope.notebooks = _notebooks;
      })
+     // AW: good that you're catching the error here in the controller 
      .then(null, function(err){
         console.error("Error retrieving notebooks!", err);
      });

@@ -75,7 +75,13 @@ noteSchema.methods.deleteTrash = function() {
     return this.remove()
     .then(function(){
         return note;
-    })    
+    })
+
+    // AW: nothing wrong with this, but we could use Promise.bind...
+    // return Promise.resolve(this.remove()).bind(this)
+    // .then(function(){
+    //     return this;
+    // })    
 }
 
 mongoose.model('Note', noteSchema);
