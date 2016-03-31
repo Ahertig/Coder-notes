@@ -142,23 +142,13 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
 
     // Creating Gists 
     $scope.createGist = function(note) {
-      AuthService.getLoggedInUser()
-      .then( function(user) {
-        var headers = { "Authorization": "token " + user.github.token };
-        var newGist = {
-          "description": note.subject,
-          "public": false,
-          "files": {
-            "file1.txt": {
-              "content": note.body
-            }
-          }
-        }
-        GithubFactory.createGist(newGist, headers)
+      // AuthService.getLoggedInUser()
+      // .then( function(user) {
+        GithubFactory.createGist(note)
         .then(function(gist) {
           $scope.successmessage="Gist created successfully!";
         })
-      })
+      // })
     }
 
     $scope.isSideNavOpen = NotesFactory.isSideNavOpen;
@@ -175,19 +165,4 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
     }
 })
 
-
-// Tonic Keypress Directive
-app.directive('enterKey', function(TonicFactory) {
-    return function(scope, element, attrs) {
-        element.bind("keydown keypress", function(event) {
-            var keyCode = event.which || event.keyCode;
-            if (keyCode === 13 && event.ctrlKey) {    
-                scope.$apply(function() {
-                    scope.$eval(attrs.enterKey);
-                });
-                event.preventDefault();
-            }
-        });
-    };
-})
 

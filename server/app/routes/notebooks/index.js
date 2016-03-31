@@ -17,10 +17,6 @@ router.post('/', function(req, res, next) {
 	.then(null, next)
 })
 
-// // Get all own and shared notebooks of a user
-// router.get('/all', function(req, res, next) {
-// 	res.json(req.user.myNotebooks.concat(req.user.sharedWithMeNotebooks))
-// })
 
 //Get all own notebooks of a user
 router.get('/', function(req, res, next) {
@@ -34,12 +30,28 @@ router.get('/', function(req, res, next) {
 		});
 	})
 	.then(function(myNotebooks){
-		console.log("my notebooks: ", myNotebooks);
 		myNotebooks = _.sortBy(myNotebooks, 'date');
 		res.json(myNotebooks);
 	})
 	.then(null, next)
 })
+
+// Get all own and shared notebooks of a user
+// router.get('/all', function(req, res, next) {
+// 	res.json(req.user.myNotebooks.concat(req.user.sharedWithMeNotebooks))
+// })
+
+router.get('/nontrash', function(req, res, next) {
+	res.json(_.filter(req.user.myNotebooks, {trash: false} ))
+})
+
+// router.get('/', function(req, res, next){
+// 		req.user.getNotesInTrash(req.query)
+// 		.then(function(notes) {
+// 		    res.json(notes);
+// 		})
+// 		.then(null, next)
+// });
 
 // Get shared notebooks:
 router.get('/shared', function(req, res, next) {
