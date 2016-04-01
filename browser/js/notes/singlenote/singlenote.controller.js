@@ -1,4 +1,4 @@
-app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, GithubFactory, AuthService,$window) {
+app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, GithubFactory, ShareNoteFactory, AuthService,$window) {
     $scope.savenote = {};
     $scope.tagform = {};
 
@@ -162,6 +162,10 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
           $scope.successmessage="Gist created successfully!";
         })
       // })
+    }
+
+    $scope.shareNote = function(note, email) {
+      return ShareNoteFactory.shareNote(note, email)
     }
 
     $scope.isSideNavOpen = NotesFactory.isSideNavOpen;
