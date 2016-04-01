@@ -4,11 +4,8 @@ app.controller('CommunityCtrl', function($scope, NotesFactory, publicNotes, $sta
   if (!$scope.searchNotes) {
     $scope.searchNotes = $stateParams.searchTerm;
   }
-
 });
 
 app.controller('NoteCtrl', function($scope, theNote) {
-
   $scope.note = theNote;
-
 })

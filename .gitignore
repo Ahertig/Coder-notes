@@ -3,6 +3,5 @@ node_modules
 npm-debug.log
 public
 .DS_Store
-coverage
-bower_components
 commitnotes
+coverage
