@@ -1,0 +1,8 @@
+## Tweak public notes state
+
+* modify URL that was being called in NotesFactory.fetchPublicNotes()
+* add markdown support to public singlenote page (browser > js > notes > public-notes > public-notes.note.html)
+* add date filter to public singlenote page
+* modify URL path for initial search results (was /public but is now /search/:searchterm)
+* public note url remains /public/:noteID
+
