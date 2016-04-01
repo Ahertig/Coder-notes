@@ -8,8 +8,9 @@
 
 	<div class="tab-content">
 		<span ng-if="currentNote().trash" class="muted pull-right"><i title="Note is in trash" class="glyphicon glyphicon-trash"></i></span>
-		<span class="muted small pull-left">Notebook: {{getCurrentNootbook().title}}</span>
-		<span class="muted small pull-right">Last updated: {{currentNote().lastUpdate | date : 'longDate'}}</span>
+		<span class="muted small pull-right">Notebook: {{getCurrentNotebook().title}}</span>
+		<span class="muted small pull-right">Last updated: {{currentNote().lastUpdate | date : 'shortDate'}}</span>
+
 		<div class="tab-pane fade in active" id="preview">
 <!-- 			<h2>Preview Note</h2> -->
 			<div id="markdown-wrapper" class="panel panel-default">
@@ -20,6 +21,7 @@
 					</div>
 				</div>
 			</div>
+			<p class="muted"><em>To run code, highlight text and press Ctrl-Enter</em></p>			
 		</div> <!-- end .tab-pane #preview -->
         <button ng-click="deleteNote(currentNote())" ng-if="currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
 			Delete Forever
@@ -40,7 +42,7 @@
 				<div class="panel-body">
 					<textarea enter-key="runTonic()" rows="20" id="notebody" ng-model="currentNote().body" placeholder="{{currentNote().body}}" class="form-control" >
 					</textarea>
-					<p class="muted"><em>To run code, highlight and click "Run Code" or press Ctrl-Enter</em></p>
+					<p class="muted"><em>To run code, highlight text and press Ctrl-Enter</em></p>
 				</div>
 
 				<div class="alert alert-success" role="alert" ng-if="tagsavesuccess">{{tagsavesuccess}}</div>
@@ -74,7 +76,7 @@
 
 				<div class="panel-body">
 					<button class="btn btn-primary" ng-click="save()">Save Changes</button>
-					<button ng-if="tonic" class="btn btn-primary" ng-click="runTonic()">Run Code</button>
+					<button ng-if="tonic" class="btn btn-primary" ng-click="runTonic()">Open Code Window</button>
 					<button ng-if="!tonic" class="btn btn-primary" ng-click="closeTonic()">Close Code Window</button>
 					<button data-toggle="modal" data-target="#trashNote{{currentNote()._id}}" ng-show="!currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
 						 Trash Note

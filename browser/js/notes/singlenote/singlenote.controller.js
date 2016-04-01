@@ -1,4 +1,5 @@
-app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, GithubFactory, AuthService) {
+
+app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, GithubFactory, AuthService, NotebookFactory) {
     $scope.savenote = {};
     $scope.tagform = {};
 
@@ -6,20 +7,22 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
 
     var stroutput = "";
    
-    $scope.currentNote = NotesFactory.getCurrentNote;
+    $scope.currentNote = NotesFactory.getCurrentNoteSync; // added Sync
 
-    
-    $scope.getCurrentNootbook = function(){
-      var theNotebookID = NotesFactory.findParentNotebook($scope.currentNote()._id);
-      return NotesFactory.findNotebookById(theNotebookID);
+
+    $scope.getCurrentNotebook = function(){
+      var theNotebookID = NotebookFactory.findParentNotebook($scope.currentNote()._id);
+      return NotebookFactory.findNotebookById(theNotebookID);
+
     }
     
-    $scope.getCurrentNootbook();
-    //$scope.currentNotebook = NotesFactory.getCurrentNotebook;
+    $scope.getCurrentNotebook();
+
     $scope.showmarkdown = false;
     $scope.successmessage = null;
 
     // Hide notification upon click anywhere in the single note
+
     $scope.hideNotification = function() {
           $scope.successmessage = null;
           $scope.errormessage = null;
@@ -32,7 +35,6 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
 
       console.log('test', $scope.currentNote())
     }
-   
   
     $scope.removeTag = function(note, tag) {
       console.log("remove tag");
@@ -60,6 +62,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
         $scope.tagsavefailure = "this tag is in tags! add a new tag?";
       }
     } 
+<<<<<<< HEAD
     
     $scope.openTagWindow = function() {
       $scope.showTagEditWindow = !$scope.showTagEditWindow;
@@ -82,21 +85,17 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
         "lastUpdate": lastUpdateDate,
         "tags": tags,
          "type": type
-      }  
-      // if(!$scope.getCurrentNootbook())  {
-        currentNotebook = NotesFactory.findParentNotebook($scope.currentNote()._id);
-      // }
-      // else {
-      //   currentNotebook = $scope.getCurrentNootbook();
-      // }
+      } 
+
+      currentNotebook = NotebookFactory.findParentNotebook($scope.currentNote()._id);
       NotesFactory.saveNote(currentNotebook,$scope.currentNote()._id, $scope.savenote)
       .then(function(note) {
-        console.log("new note", note)
-          $scope.successmessage="Note saved successfully!";
+        $scope.successmessage="Note saved successfully!";
         }, function(err) {
-          $scope.errormessage = "Error saving note" + err;
-        })    
-    }
+        $scope.errormessage = "Error saving note" + err;
+        })
+    } 
+     
 
     $scope.trashNote = function(noteId) {
       NotesFactory.trashNote(noteId)

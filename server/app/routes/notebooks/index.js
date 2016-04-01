@@ -31,6 +31,7 @@ router.get('/', function(req, res, next) {
 		});
 	})
 	.then(function(myNotebooks){
+
 		myNotebooks = _.sortBy(myNotebooks, 'date');
 		res.json(_(myNotebooks).reverse());
 	})

@@ -1,4 +1,4 @@
-app.controller('NavbarCtrl', function($scope, $state, NotesFactory,AuthService,$rootScope) {
+app.controller('NavbarCtrl', function($scope, $state, NotesFactory,AuthService) {
 
     $scope.setCurrentNote = NotesFactory.setCurrentNote;
 

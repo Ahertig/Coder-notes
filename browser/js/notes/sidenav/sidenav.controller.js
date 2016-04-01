@@ -1,33 +1,45 @@
-app.controller('SidenavCtrl', function($scope, NotesFactory, $filter, ShareFactory) {
+app.controller('SidenavCtrl', function($scope, SideNavFactory, NotesFactory, $filter, ShareFactory, NotebookFactory) {
 
-	$scope.getCachedNotebooks = NotesFactory.getCachedNotebooks;
+	$scope.getCachedNotebooks = NotebookFactory.getCachedNotebooks;
 	$scope.getTagsCache = NotesFactory.getTagsCache;
 	$scope.getnotes = NotesFactory.getAllCacheNotes;
 
-  $scope.setCurrentNotebook = function(notebook){
-		NotesFactory.setCurrentNotebook(notebook);
+
+	$scope.createNote = function(notebook) {
+    console.log("creating note in sidenavctrl")
+    SideNavFactory.createNote(notebook);
+	}
+
+	$scope.createNotebook = SideNavFactory.createNotebook.bind(SideNavFactory);
+
+	// console.log("all notes: ", $scope.getnotes());
+  // console.log("all notebook: ", NotebookFactory.getCachedNotebooks());
+
+	$scope.setCurrentNotebook = function(notebook){
+		NotebookFactory.setCurrentNotebook(notebook);
 	}
 
 	$scope.setCurrentNote = function(note, notebook){
 		NotesFactory.setCurrentNote(note);
 		if (notebook){
-			NotesFactory.setCurrentNotebook(notebook);
+			NotebookFactory.setCurrentNotebook(notebook);
 		}
 	}
-    $scope.toggleSideNav = NotesFactory.toggleSideNav;
-    $scope.isSideNavOpen = NotesFactory.isSideNavOpen;
+
+  $scope.toggleSideNav = NotesFactory.toggleSideNav;
+  $scope.isSideNavOpen = NotesFactory.isSideNavOpen;
 
   
   $scope.trashNotebook = function(notebook){
-  	NotesFactory.removeNotebook(notebook);
+  	NotebookFactory.removeNotebook(notebook);
   }
+
   $scope.deleteNotebook = function(notebook){
   	console.log("deleteNotebook is undefined now!!");
   }
-  $scope.restoreNotebook = function(notebook){
-  	NotesFactory.restoreNotebook(notebook);
-  }
-
+  
+  $scope.restoreNotebook = NotebookFactory.restoreNotebook.bind(NotebookFactory)
+  
   $scope.setCurrentNote = NotesFactory.setCurrentNote;
 
   $scope.getNotes = function(){
@@ -57,7 +69,7 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter, ShareFacto
   }
 
   $scope.getNotebooks = function() {
-     NotesFactory.fetchMyNotebooks()
+     NotebookFactory.fetchMyNotebooks()
      .then(function(_notebooks){
           $scope.notebooks = _notebooks;
      })
@@ -87,7 +99,7 @@ app.filter('filterByTag', function(){
 	return function (notes, tag) { 
 		return notes.filter(
 			function(note){
-				return (note.tags.indexOf(tag) > -1) && (note.trash == false);
+				return (note.tags.indexOf(tag) > -1) && (note.trash === false);
 		});
     }
 });
