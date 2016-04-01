@@ -1,4 +1,4 @@
-app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, GithubFactory, AuthService,$window) {
+app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, GithubFactory, AuthService,$window, NotebookFactory) {
     $scope.savenote = {};
     $scope.tagform = {};
 
@@ -6,23 +6,23 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
 
     var stroutput = "";
    
-    $scope.currentNote = NotesFactory.getCurrentNote;
+    $scope.currentNote = NotesFactory.getCurrentNoteSync; // added Sync
 
-    $scope.getCurrentNootbook = function(){
-      var theNotebookID = NotesFactory.findParentNotebook($scope.currentNote()._id);
-      return NotesFactory.findNotebookById(theNotebookID);
+    $scope.getCurrentNotebook = function(){
+      var theNotebookID = NotebookFactory.findParentNotebook($scope.currentNote()._id);
+      return NotebookFactory.findNotebookById(theNotebookID);
     }
     
-    $scope.getCurrentNootbook();
-    //$scope.currentNotebook = NotesFactory.getCurrentNotebook;
+    $scope.getCurrentNotebook();
+
     $scope.showmarkdown = false;
     $scope.successmessage = null;
 
     // Hide notification upon click anywhere in the single note
-    $scope.hideNotification = function() {
-          $scope.successmessage = null;
-          $scope.errormessage = null;
-    }
+		$scope.hideNotification = function() {
+			$scope.successmessage = null;
+			$scope.errormessage = null;
+		}
    
   
     $scope.removeTag = function(note, tag) {
@@ -51,57 +51,31 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
         $scope.tagsavefailure = "this tag is in tags! add a new tag?";
       }
     } 
-    // $scope.addTag = function(note, tag) {
-    //    console.log("tag list", $scope.tags);
-    //   if(!tag) { 
-    //     $scope.tagsavefailure = "Cannot save an empty tag!"; 
-    //     return;
-    //   }
-    //   if(note.tags.indexOf(tag) === -1){
-    //       $scope.tags.push(tag);
-    //       console.log("adding tag", tag);
-    //       var currentNotebookID = NotesFactory.findParentNotebook(note._id);
-    //       note.tags.push(tag);
-    //       NotesFactory.updateNoteInNotebookCache(currentNotebookID, note, 'update');
-    //       $scope.tagsavesuccess = "Tag saved successfully!";
-    //       $scope.tagToAdd = "";
-    //     }
-    //   else {
-    //     $scope.tagsavefailure = "this tag is in tags! add a new tag?";
-    //   }
-
-    // } 
-
 
     $scope.openTagWindow = function() {
       $scope.showTagEditWindow = !$scope.showTagEditWindow;
     }
 
-    $scope.save = function(){ 
-      var currentNotebook;
-      var tags = $scope.currentNote().tags;
-      var lastUpdateDate = Date.now();
-      var subjectToSave = $('#notesubject').val();
-      var bodyToSave = $('#notebody').val();
-      $scope.savenote = {
-        "subject": subjectToSave,
-        "body": bodyToSave,
-        "lastUpdate": lastUpdateDate,
-        "tags": tags
-      }  
-      // if(!$scope.getCurrentNootbook())  {
-        currentNotebook = NotesFactory.findParentNotebook($scope.currentNote()._id);
-      // }
-      // else {
-      //   currentNotebook = $scope.getCurrentNootbook();
-      // }
-      NotesFactory.saveNote(currentNotebook,$scope.currentNote()._id, $scope.savenote)
-      .then(function(note) {
-          $scope.successmessage="Note saved successfully!";
-        }, function(err) {
-          $scope.errormessage = "Error saving note" + err;
-        })    
-    }
+		$scope.save = function(){ 
+			var currentNotebook;
+			var tags = $scope.currentNote().tags;
+			var lastUpdateDate = Date.now();
+			var subjectToSave = $('#notesubject').val();
+			var bodyToSave = $('#notebody').val();
+			$scope.savenote = {
+				"subject": subjectToSave,
+				"body": bodyToSave,
+				"lastUpdate": lastUpdateDate,
+				"tags": tags
+			}  
+			currentNotebook = NotebookFactory.findParentNotebook($scope.currentNote()._id);
+			NotesFactory.saveNote(currentNotebook,$scope.currentNote()._id, $scope.savenote)
+			.then(function(note) {
+				$scope.successmessage="Note saved successfully!";
+				}, function(err) {
+				$scope.errormessage = "Error saving note" + err;
+				})
+		}
 
     $scope.trashNote = function(noteId) {
       NotesFactory.trashNote(noteId)

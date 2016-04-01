@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 
 // Create a note in this notebook
 router.post('/', function(req, res, next) {
-	console.log("creating new note in notebook. req.body is", req.body)
+	// console.log("creating new note in notebook. req.body is", req.body)
 	req.currentNotebook.createNote(req.body)
 	.then(function(newNote) {
 		res.json(newNote)
