@@ -4,9 +4,7 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter, ShareFacto
 	$scope.getTagsCache = NotesFactory.getTagsCache;
 	$scope.getnotes = NotesFactory.getAllCacheNotes;
 
-	console.log("all notes: ", $scope.getnotes());
-  console.log("all notebook: ", NotesFactory.getCachedNotebooks());
-	$scope.setCurrentNotebook = function(notebook){
+  $scope.setCurrentNotebook = function(notebook){
 		NotesFactory.setCurrentNotebook(notebook);
 	}
 
@@ -36,20 +34,18 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter, ShareFacto
     $scope.notes = NotesFactory.getAllCacheNotes();
   }
 
-   $scope.newNote = function(notebook) {
-      // NotesFactory.getCachedNotebooks();
+  $scope.newNote = function(notebook) {
 
-      NotesFactory.newNote(notebook._id)
-      .then(function(newNote){
-          NotesFactory.setCurrentNote(newNote);
-          NotesFactory.setCurrentNotebook(notebook);
-      })
-      .then(null, function(err){
-        console.error("Error saving new note!", err);
-     });
+    NotesFactory.newNote(notebook._id)
+    .then(function(newNote){
+        NotesFactory.setCurrentNote(newNote);
+        NotesFactory.setCurrentNotebook(notebook);
+    })
+    .then(null, function(err){
+      console.error("Error saving new note!", err);
+   });
   }
   $scope.newNotebook = function(notebookTitle) {
-      console.log('getting here');
       return NotesFactory.newNotebook(notebookTitle)
       .then(function(newNotebook) {
         $scope.newNote(newNotebook)
@@ -85,9 +81,7 @@ app.controller('SidenavCtrl', function($scope, NotesFactory, $filter, ShareFacto
     $scope.currentTag = tag.tag;
     $scope.filters[tag.tag] = tag.tag;
   } 
-
 })
-
 
 app.filter('filterByTag', function(){
 	return function (notes, tag) { 

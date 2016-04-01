@@ -8,8 +8,8 @@
 
 	<div class="tab-content">
 		<span ng-if="currentNote().trash" class="muted pull-right"><i title="Note is in trash" class="glyphicon glyphicon-trash"></i></span>
-		<span class="muted small pull-right">Notebook: {{getCurrentNootbook().title}}</span>
-		<span class="muted small pull-right">Last updated: {{currentNote().lastUpdate | date : 'shortDate'}}</span>
+		<span class="muted small pull-left">Notebook: {{getCurrentNootbook().title}}</span>
+		<span class="muted small pull-right">Last updated: {{currentNote().lastUpdate | date : 'longDate'}}</span>
 		<div class="tab-pane fade in active" id="preview">
 <!-- 			<h2>Preview Note</h2> -->
 			<div id="markdown-wrapper" class="panel panel-default">
@@ -21,10 +21,10 @@
 				</div>
 			</div>
 		</div> <!-- end .tab-pane #preview -->
-        <button ng-click="deleteNote(currentNote())" ng-show="currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
+        <button ng-click="deleteNote(currentNote())" ng-if="currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
 			Delete Forever
 		</button>
-        <button ng-click="restoreNote(currentNote()._id)" ng-show="currentNote().trash" type="button" class="btn btn-success"  data-toggle="tooltip" title="Restore note">
+        <button ng-click="restoreNote(currentNote()._id)" ng-if="currentNote().trash" type="button" class="btn btn-success"  data-toggle="tooltip" title="Restore note">
 			Restore Note from Trash
 		</button>
 
@@ -63,8 +63,6 @@
 				</form>  
 
 				<div class="radio" >
-					<!-- <input name="notetype" type="checkbox" ng-model="currentNote().type" ng-checked="currentNote().type == 'public'">
-					<label for="notetype">Public note?</label> -->
 					<label>
 					 <input type="radio" name="gridRadios" id="ispublic" ng-model="currentNote().type"  value="public" ng-change="change('public')"> Public 
 					</label>	      
@@ -72,10 +70,8 @@
 					  <input type="radio" name="gridRadios" id="isprivate" ng-model="currentNote().type" value="private" ng-change="change('private')">Private
 					</label>
 				</div>	
-			<!-- 	<notetype type="currentNote().type"></notetype> -->
-
          </div>
-				 <!-- <tagfooter></tagfooter> -->
+
 				<div class="panel-body">
 					<button class="btn btn-primary" ng-click="save()">Save Changes</button>
 					<button ng-if="tonic" class="btn btn-primary" ng-click="runTonic()">Run Code</button>
