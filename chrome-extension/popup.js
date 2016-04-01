@@ -50,6 +50,8 @@ $(document).ready(function(){
 
 });
 
+var url = "http://codernotes.herokuapp.com/";
+
 // Login to the chrome extension
 function loginCE(email, password) {
   var params = {
@@ -58,7 +60,7 @@ function loginCE(email, password) {
   }
 
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", 'http://limitless-island-46764.herokuapp.com/login', true);
+  xhr.open("POST", url + 'login', true);
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
   xhr.onreadystatechange = function() {//Call a function when the state changes.
@@ -75,7 +77,7 @@ function loginCE(email, password) {
 
 function logoutCE() {
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", 'http://limitless-island-46764.herokuapp.com/logout', true);
+  xhr.open("GET", url + 'logout', true);
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
   xhr.onreadystatechange = function() {//Call a function when the state changes.
@@ -94,7 +96,7 @@ function retrieveNotebooks() {
       var currentUser = result.currentUser;
 
       var xhr = new XMLHttpRequest();
-      xhr.open("GET", 'http://limitless-island-46764.herokuapp.com/api/notebooks/nontrash', true);
+      xhr.open("GET", url + 'api/notebooks/nontrash', true);
       xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
       xhr.onreadystatechange = function() {//Call a function when the state changes.
@@ -152,7 +154,7 @@ function saveNote(subject, notebook, body, tags) {
       }
 
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", 'http://limitless-island-46764.herokuapp.com/api/notebooks/' + selectedNotebookObj[1] + '/notes/', true);
+      xhr.open("POST", url + 'api/notebooks/' + selectedNotebookObj[1] + '/notes/', true);
       xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
       xhr.onreadystatechange = function() {
