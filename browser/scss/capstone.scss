@@ -1,3 +1,31 @@
+/*
+
+LIGHTER COLOR SCHEME:
+
+PURPLE:
+ultralight: D3C2D9	
+light: 8B639D
+base: 5D2971
+dark: 330645
+ultradark: 120019
+
+YELLOW:
+ultralight: FDFEE3
+light: E5EA8F
+base: A2A838
+dark: 626706
+ultradarK: 242500
+
+*/
+
+a {
+	color: #330645;
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+
 .sidebar {
 	margin-top: 0 !important;
 }
@@ -167,10 +195,32 @@ sidenav ul.dropdown-menu.dropdown-messages li {
 
 .nav-pills > li.active > a {
 	&:active,
-	&:hover {background-color: #003a69;}
+	&:hover {
+		background-color: #003a69 !important;
+	}
 }
 input#notebook {
 	margin-bottom: 0.5em;
+}
+
+/*.nav-pills > li.active > a, 
+.nav-pills > li.active > a:hover, 
+.nav-pills > li.active > a:focus
+*/
+.nav-pills-purple > li > a {
+	background-color: #8B639D;
+	color: #D3C2D9;
+	&:active,
+	&:hover,
+	&:focus {
+		background-color: #D3C2D9;
+		color: #8b639d;
+	}
+}
+
+.nav-pills-purple > li.active a {
+	background-color: #8B639D !important;
+	color: #D3C2D9 !important;
 }
 
 
@@ -194,13 +244,14 @@ a.navbar-brand {
 }
 
 .navbar-custom {
-	padding: 0;
+	padding: 5px 0px 0px 0px !important;
 }
 
 
+body,
 #sidenav,
 .navbar-custom {
-	background-color: #c2f2ff !important; /* #73bcf0 !important;*/
+	background-color: #cdcdcd !important; /*#FDFEE3 !important; */
 }
 
 /* bootstrap columns */
