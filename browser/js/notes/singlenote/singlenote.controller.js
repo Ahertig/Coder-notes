@@ -1,4 +1,5 @@
-app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, GithubFactory, AuthService,$window, NotebookFactory) {
+
+app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, GithubFactory, AuthService, NotebookFactory) {
     $scope.savenote = {};
     $scope.tagform = {};
 
@@ -8,9 +9,11 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
    
     $scope.currentNote = NotesFactory.getCurrentNoteSync; // added Sync
 
+
     $scope.getCurrentNotebook = function(){
       var theNotebookID = NotebookFactory.findParentNotebook($scope.currentNote()._id);
       return NotebookFactory.findNotebookById(theNotebookID);
+
     }
     
     $scope.getCurrentNotebook();
@@ -19,11 +22,19 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
     $scope.successmessage = null;
 
     // Hide notification upon click anywhere in the single note
-		$scope.hideNotification = function() {
-			$scope.successmessage = null;
-			$scope.errormessage = null;
-		}
-   
+
+    $scope.hideNotification = function() {
+          $scope.successmessage = null;
+          $scope.errormessage = null;
+    }
+
+    $scope.change = function(value){
+      var currentNote = $scope.currentNote()
+      currentNote.type = value;
+      NotesFactory.setCurrentNote(currentNote)
+
+      console.log('test', $scope.currentNote())
+    }
   
     $scope.removeTag = function(note, tag) {
       console.log("remove tag");
@@ -51,31 +62,38 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
         $scope.tagsavefailure = "this tag is in tags! add a new tag?";
       }
     } 
-
     $scope.openTagWindow = function() {
       $scope.showTagEditWindow = !$scope.showTagEditWindow;
     }
+    
+    
+    // console.log("note type:", $scope.type);
+    $scope.save = function(){ 
+      var currentNotebook;
+      var tags = $scope.currentNote().tags;
+      var type = $scope.currentNote().type;
+      var lastUpdateDate = Date.now();
+      var subjectToSave = $('#notesubject').val();
+      var bodyToSave = $('#notebody').val();
 
-		$scope.save = function(){ 
-			var currentNotebook;
-			var tags = $scope.currentNote().tags;
-			var lastUpdateDate = Date.now();
-			var subjectToSave = $('#notesubject').val();
-			var bodyToSave = $('#notebody').val();
-			$scope.savenote = {
-				"subject": subjectToSave,
-				"body": bodyToSave,
-				"lastUpdate": lastUpdateDate,
-				"tags": tags
-			}  
-			currentNotebook = NotebookFactory.findParentNotebook($scope.currentNote()._id);
-			NotesFactory.saveNote(currentNotebook,$scope.currentNote()._id, $scope.savenote)
-			.then(function(note) {
-				$scope.successmessage="Note saved successfully!";
-				}, function(err) {
-				$scope.errormessage = "Error saving note" + err;
-				})
-		}
+     console.log("saving type:", $scope.type)
+     $scope.savenote = {
+        "subject": subjectToSave,
+        "body": bodyToSave,
+        "lastUpdate": lastUpdateDate,
+        "tags": tags,
+         "type": type
+      } 
+
+      currentNotebook = NotebookFactory.findParentNotebook($scope.currentNote()._id);
+      NotesFactory.saveNote(currentNotebook,$scope.currentNote()._id, $scope.savenote)
+      .then(function(note) {
+        $scope.successmessage="Note saved successfully!";
+        }, function(err) {
+        $scope.errormessage = "Error saving note" + err;
+        })
+    } 
+     
 
     $scope.trashNote = function(noteId) {
       NotesFactory.trashNote(noteId)
@@ -149,8 +167,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
         if(!$scope.tonic) return 'col-lg-6 col-md-6'; // if tonic is SHOWING
         return 'col-lg-11 col-md-11';
       }
-   }
-
+    }
 })
 
 
