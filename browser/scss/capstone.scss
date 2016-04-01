@@ -1,15 +1,3 @@
-/* additional theming for capstone */
-
-/* gh dark blue: #003a69 */
-
-/* gh yellow: f0d600 */
-
-panel-gh>.panel-heading {
-    color: #fff;
-    background-color: #003a69;
-    border-color: #003a69;
-}
-
 .sidebar {
 	margin-top: 0 !important;
 }
@@ -18,13 +6,13 @@ panel-gh>.panel-heading {
 	/* this copies bootstrap form-control class */
     display: block;
     width: 100%;
-    padding: .375rem .75rem;
+    /*padding: .375rem .75rem;*/
     line-height: 1.5;
     color: #55595c;
     background-color: #fff;
     background-image: none;
     border: 1px solid #ccc;
-    border-radius: .25rem;
+    /*border-radius: .25rem;*/
 }
 .muted,
 a.muted {
@@ -32,11 +20,11 @@ a.muted {
 }
 
 .nav-pills-sm {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	margin-bottom: 1em;
+	/*border: 1px solid #ddd;*/
+	/*border-radius: 3px;*/
+	/*margin-bottom: 1em;*/
 	li {
-		border-right: 1px solid #ddd;
+		/*border-right: 1px solid #ddd;*/
 		&.last {
 			border-right: none;
 		}		
@@ -62,24 +50,25 @@ a.muted {
 		font-size: 1%;
 	}
 	.nav-pills li {
-	    color: #555;
+	    color: #003a69;
 	    cursor: pointer;
 	    background-color: #fff;
-	    border: 1px solid #888;
-	    border-radius: 4px;
+	    /*border: 1px solid #888;*/
+	    /*border-radius: 4px;*/
 	    display: block;
 	    position: relative;
 	    padding: 5px 7px;
-	    &:hover {
-	    	background-color: #555;
-	    	color: #fff;
+	    &:hover,
+	    &:active {
+	    	background-color: #003a69; /* #555 */
+	    	color: #f0d600; /* #fff */
 	    }
 	}
 }
 
 sidenav .panel-heading button {
-	border-color: #aaa;
-	border-radius: 2px;
+	/*border-color: #aaa;*/
+	/*border-radius: 2px;*/
 	&:hover {
 		color: #ddd;
 	}
@@ -144,14 +133,6 @@ i.glyphicon-minus-sign {
 
 }
 
-#delete-note-confirmation {
-	h4 {
-		display: inline-block;
-		margin-right: 4em;
-	}
-
-}
-
 
 /* sidenav */
 
@@ -172,10 +153,10 @@ sidenav .dropdown a {
 sidenav ul.dropdown-menu.dropdown-messages li {
 	margin: 4px;
 	padding: 4px;
-	border-bottom: 1px solid #e5e5e5;
+	/*border-bottom: 1px solid #e5e5e5;*/
 	a {
 		cursor: pointer;
-		color: deepskyblue;
+		/*color: deepskyblue;*/
 
 		&:hover {
 		 	color: #1d9b6c;
@@ -184,10 +165,68 @@ sidenav ul.dropdown-menu.dropdown-messages li {
 	}
 }
 
+.nav-pills > li.active > a {
+	&:active,
+	&:hover {background-color: #003a69;}
+}
 input#notebook {
 	margin-bottom: 0.5em;
 }
 
 
+/* navbar */
+
+nav.navbar {
+	margin-bottom: 0;
+	border-bottom: 1px solid #003a69;
+}
+.navbar-top-links li {
+	display: inline-block !important;
+}
+
+.navbar input {
+	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+a.navbar-brand {
+	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 32px;
+}
+
+.navbar-custom {
+	padding: 0;
+}
+
+
+#sidenav,
+.navbar-custom {
+	background-color: #c2f2ff !important; /* #73bcf0 !important;*/
+}
+
+/* bootstrap columns */
+
+@for $i from 1 through 12 {
+    .col-lg-#{$i},
+    .col-md-#{$i},
+    .col-sm-#{$i} {
+		padding-left: 0 !important;
+		padding-right: 0 !important;    
+	}
+}
+
+
+/* additional theming for capstone */
+
+/* gh dark blue: #003a69 */
+
+/* gh yellow: f0d600 */
+
+/* gh light blue: 73bcf0 */
+
+panel-gh>.panel-heading {
+    color: #fff;
+    background-color: #003a69;
+    /*border-color: #003a69;*/
+}
 
 
