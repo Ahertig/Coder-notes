@@ -67,7 +67,18 @@
 </div>
 				 <!-- <tagfooter></tagfooter> -->
 				<div class="panel-body">
-					<button class="btn btn-primary" ng-click="save()">Save Changes</button>
+					<!-- <button class="btn btn-primary" ng-click="save()">Save Changes</button>
+					<button ng-if="tonic" class="btn btn-primary" ng-click="runTonic()">Open Code Window</button>
+					<button ng-if="!tonic" class="btn btn-primary" ng-click="closeTonic()">Close Code Window</button>
+					<button data-toggle="modal" data-target="#trashNote{{currentNote()._id}}" ng-show="!currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
+						 Trash Note
+					</button>
+					<button ng-click="createGist(currentNote())" type="button" class="btn btn-success"  data-toggle="tooltip" title="Create gist">
+						Create a Gist
+					</button> -->
+	
+					<i class="fa fa-save" ng-click="save()"></i>
+
 					<button ng-if="tonic" class="btn btn-primary" ng-click="runTonic()">Open Code Window</button>
 					<button ng-if="!tonic" class="btn btn-primary" ng-click="closeTonic()">Close Code Window</button>
 					<button data-toggle="modal" data-target="#trashNote{{currentNote()._id}}" ng-show="!currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
