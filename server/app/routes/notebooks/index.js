@@ -26,12 +26,13 @@ router.get('/', function(req, res, next) {
 		user = user.toObject();
 		return user.myNotebooks = user.myNotebooks.map( function(myNotebook){
 			myNotebook.notes = _.sortBy(myNotebook.notes, 'lastUpdate');
+		    myNotebook.notes = _(myNotebook.notes).reverse();
 			return myNotebook;
 		});
 	})
 	.then(function(myNotebooks){
 		myNotebooks = _.sortBy(myNotebooks, 'date');
-		res.json(myNotebooks);
+		res.json(_(myNotebooks).reverse());
 	})
 	.then(null, next)
 })

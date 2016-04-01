@@ -7,6 +7,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
     var stroutput = "";
    
     $scope.currentNote = NotesFactory.getCurrentNote;
+
     
     $scope.getCurrentNootbook = function(){
       var theNotebookID = NotesFactory.findParentNotebook($scope.currentNote()._id);
@@ -22,6 +23,14 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
     $scope.hideNotification = function() {
           $scope.successmessage = null;
           $scope.errormessage = null;
+    }
+
+    $scope.change = function(value){
+      var currentNote = $scope.currentNote()
+      currentNote.type = value;
+      NotesFactory.setCurrentNote(currentNote)
+
+      console.log('test', $scope.currentNote())
     }
    
   
@@ -60,7 +69,6 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
     // console.log("note type:", $scope.type);
     $scope.save = function(){ 
       var currentNotebook;
-      console.log("currentNote, ", $scope.currentNote())
       var tags = $scope.currentNote().tags;
       var type = $scope.currentNote().type;
       var lastUpdateDate = Date.now();
@@ -73,7 +81,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
         "body": bodyToSave,
         "lastUpdate": lastUpdateDate,
         "tags": tags,
-         "type": $scope.type
+         "type": type
       }  
       // if(!$scope.getCurrentNootbook())  {
         currentNotebook = NotesFactory.findParentNotebook($scope.currentNote()._id);
