@@ -107,6 +107,22 @@ describe('Notebook Route', function () {
 			})
 		})
 
+		it('should trash a note', function (done) {
+			loggedInAgent.put('/api/notes/' + notes[0]._id + '/trash/add').expect(200).end(function(err, response) {
+				if(err) return done(err);
+				expect(response.body.trash).to.equal(true)
+				done()
+			})
+		})
+
+		it('should remove note from trash', function (done) {
+			loggedInAgent.put('/api/notes/' + notes[0]._id + '/trash/remove').expect(200).end(function(err, response) {
+				if(err) return done(err);
+				expect(response.body.trash).to.equal(false)
+				done()
+			})
+		})
+
 	});
 
 });
