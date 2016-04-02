@@ -134,7 +134,6 @@ userSchema.methods.getNotesInTrash = function(tags) {
 
 userSchema.methods.getNotebooksInTrash = function() {
     var res = _.filter(this.myNotebooks, {trash: true})
-    console.log(res)
     return res
 }
 

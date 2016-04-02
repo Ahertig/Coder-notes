@@ -48,6 +48,11 @@ describe('Notebook Route', function () {
 
 		});
 
+		// beforeEach('Create loggedIn user agent and authenticate', function (done) {
+		// 	loggedInAgent = supertest.agent(app);
+		// 	loggedInAgent.post('/login').send(userInfo).end(done);
+		// });
+
 		beforeEach('Create loggedIn user agent and authenticate', function (done) {
 			loggedInAgent = supertest.agent(app);
 			loggedInAgent.post('/login').send(userInfo).end(done);
@@ -102,6 +107,22 @@ describe('Notebook Route', function () {
 				expect(response.body.length).to.equal(1);
 				expect(response.body[0].subject).to.equal('First note')
 				done();
+			})
+		})
+
+		it('should trash a notebook', function (done) {
+			loggedInAgent.put('/api/notebooks/' + user1.myNotebooks[1] + '/trash/add').expect(200).end(function(err, response) {
+				if(err) return done(err);
+				expect(response.body.trash).to.equal(true)
+				done()
+			})
+		})
+
+		it('should remove notebook from trash', function (done) {
+			loggedInAgent.put('/api/notebooks/' + user1.myNotebooks[1] + '/trash/remove').expect(200).end(function(err, response) {
+				if(err) return done(err);
+				expect(response.body.trash).to.equal(false)
+				done()
 			})
 		})
 
