@@ -16,7 +16,7 @@ var userSchema = new mongoose.Schema({
     email: {
         type: String,
         unique: true //,
-        // required: true
+     // required: true
     },
     password: {
         type: String
@@ -63,32 +63,22 @@ userSchema.pre('save', function(next) {
     else next();
 })
 
-userSchema.post('remove', function(doc) {
-    Promise.map(doc.myNotebooks, function(notebook) {
-        return notebook.remove()
-    })       
-})
+//check later
+// userSchema.post('remove', function(doc) {
+//     Promise.map(doc.myNotebooks, function(notebook) {
+//         console.log('doc', doc);
+//         return notebook.remove();
+//     })       
+// })
 
-// userSchema.methods.getAllNotes = function() {
-//     var multidimensionalArrayOfNodeIds = [], 
-//         arrayOfNoteIds = [], 
-//         multidimensionalArrayOfTags = [], 
-//         arrayOfTags = [];
+userSchema.pre('save', function (next) {
+    if (this.isModified('password')) {
+        this.salt = this.constructor.generateSalt();
+        this.password = this.constructor.encryptPassword(this.password, this.salt);
+    }
+    next();
 
-//     multidimensionalArrayOfNodeIds = this.myNotebooks.map(function(element) { 
-//         return element.notes 
-//     })
-
-//     arrayOfNoteIds = multidimensionalArrayOfNodeIds.reduce(function(a, b) {
-//          return a.concat(b);
-//         });
-
-//    return mongoose.model('Note').find({
-//         _id: {
-//             $in: arrayOfNoteIds
-//         }
-//     })
-// }
+});
 
 userSchema.methods.getAllNotes = function(tags) {
     var multidimensionalArrayOfNodeIds = [], 
@@ -115,7 +105,6 @@ userSchema.methods.getAllNotes = function(tags) {
             }, 
         })       
     } else {
-
         return mongoose.model('Note').find({
             _id: {
                 $in: arrayOfNoteIds
@@ -126,6 +115,8 @@ userSchema.methods.getAllNotes = function(tags) {
         })       
     }
 }
+
+
 
 userSchema.methods.getNonTrashNotes = function(tags) {
     return this.getAllNotes(tags)
@@ -239,6 +230,7 @@ var generateSalt = function () {
     return crypto.randomBytes(16).toString('base64');
 };
 
+
 var encryptPassword = function (plainText, salt) {
     var hash = crypto.createHash('sha1');
     hash.update(plainText);
@@ -246,14 +238,7 @@ var encryptPassword = function (plainText, salt) {
     return hash.digest('hex');
 };
 
-userSchema.pre('save', function (next) {
-    if (this.isModified('password')) {
-        this.salt = this.constructor.generateSalt();
-        this.password = this.constructor.encryptPassword(this.password, this.salt);
-    }
-    next();
 
-});
 
 
 userSchema.statics.generateSalt = generateSalt;
