@@ -37,23 +37,16 @@ describe('Notebook Route', function () {
 			User.create(userInfo)
 			.then(function (user) {
 				user1 = user;
+				return user.createNotebook({title: 'Another Notebook'})
+			})
+			.then(function(notebook) {
+				return notebook.createNote({subject: 'First note'})
+			})
+			.then(function(note) {
 				done()
 			})
+
 		});
-
-		// var user2
-		// var userInfo = {
-		// 	email: 'user2@gmail.com',
-		// 	password: 'user2'
-		// };
-
-		// beforeEach('Create a second user', function (done) {
-		// 	User.create(userInfo)
-		// 	.then(function (user) {
-		// 		user2 = user;
-		// 		done()
-		// 	})
-		// });
 
 		beforeEach('Create loggedIn user agent and authenticate', function (done) {
 			loggedInAgent = supertest.agent(app);
@@ -64,8 +57,9 @@ describe('Notebook Route', function () {
 			loggedInAgent.get('/api/notebooks').expect(200).end(function (err, response) {
 				if (err) return done(err);
 				expect(response.body).to.be.an('array');
-				expect(response.body.length).to.equal(1);
-				expect(response.body[0].title).to.equal('My First Notebook');
+				expect(response.body.length).to.equal(2);
+				expect(response.body[1].title).to.equal('My First Notebook');
+				expect(response.body[0].title).to.equal('Another Notebook');
 				done();
 			})
 		})
@@ -79,16 +73,39 @@ describe('Notebook Route', function () {
 			});
 		})
 
-		// it('should share notebook', function (done) {
-		// 	loggedInAgent
-		// 	.put('/api/notebooks/' + user1.myNotebooks[0]).send({email: })
-		// 	.get('/api/notebooks/' + user2.myNotebooks[0]).expect(200).end(function (err, response) {
-		// 		if (err) return done(err);
-		// 		expect(response.body).to.be.an('object');
-		// 		expect(response.body.title).to.equal('My First Notebook');
-		// 		done();
-		// 	});
-		// })
+		it('should get one notebook', function (done) {
+			loggedInAgent
+			.get('/api/notebooks/' + user1.myNotebooks[0]).expect(200).end(function (err, response) {
+				if (err) return done(err);
+				expect(response.body).to.be.an('object');
+				expect(response.body.title).to.equal('My First Notebook');
+				done();
+			});
+		})
+
+
+		it('should create a note in one notebook', function (done) {
+			loggedInAgent
+			.post('/api/notebooks/' + user1.myNotebooks[0] + '/notes').send({subject: 'My first note'}).expect(200).end(function (err, response) {
+				if (err) return done(err);
+				expect(response.body).to.be.an('object');
+				expect(response.body.subject).to.equal('My first note');
+				done();
+			})
+		})
+
+		it('should get all notes in notebook', function (done) {
+			loggedInAgent
+			.get('/api/notebooks/' + user1.myNotebooks[1] + '/notes').expect(200).end(function (err, response) {
+				if (err) return done(err);
+				expect(response.body).to.be.an('array');
+				expect(response.body.length).to.equal(1);
+				expect(response.body[0].subject).to.equal('First note')
+				done();
+			})
+		})
+
+
 
 	});
 
