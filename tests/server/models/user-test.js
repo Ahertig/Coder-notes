@@ -4,13 +4,15 @@ var clearDB = require('mocha-mongoose')(dbURI);
 var sinon = require('sinon');
 var expect = require('chai').expect;
 var mongoose = require('mongoose');
+var Promise = require('bluebird');
 
 // Require in all models.
 require('../../../server/db/models');
 
 var User = mongoose.model('User');
+var Notebook = mongoose.model('Notebook');
 
-describe('User model', function () {
+xdescribe('User model', function () {
 
     beforeEach('Establish DB connection', function (done) {
         if (mongoose.connection.db) return done();
@@ -158,7 +160,31 @@ describe('User model', function () {
                 });
             });
         });
+    });   
+    describe('hooks', function(){
+        var  createuser1 = function () {
+            return User.create({ email: 'gracehopper@gmail.com', password: 'potus' })
+        };
+        var user1,  notebook1;
 
+        beforeEach(function(done){
+            createuser1()
+            .then(function(_user1){
+                user1 = _user1;
+            })
+            .then(function(){
+                return Notebook.findById(user1.myNotebooks[0])
+            })
+            .then(function(_notebook1){
+                notebook1 = _notebook1; 
+                done(); 
+            })
+            .then(null, done);
+        }) 
+        it('should create first notebook when user is created', function(done){
+            expect(user1.myNotebooks).to.have.length(1);
+            expect(notebook1.title).to.equal('My First Notebook');
+            done();
+        });
     });
-
 });
