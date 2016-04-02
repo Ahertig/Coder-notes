@@ -1,0 +1,31 @@
+<input ng-model="searchNotebooks" width="25" type="text" class="form-control" placeholder="Search Notebooks in Trash">
+<div class="trash-scroll">
+	<div class="list-group" id="side-menu-5">
+		<div ng-repeat="notebook in getCachedNotebooks() | filter:searchNotebooks | filter: {trash: true}" > <!-- check trash logic ? -->
+			<a data-toggle="collapse" ng-href="#trash-{{notebook._id}}" class="list-group-item" ng-click="setCurrentNotebook(notebook)">{{notebook.title}}</a>
+
+			<div class="panel-collapse collapse" id="trash-{{notebook._id}}">
+				<button ng-click="deleteNotebook(notebook)" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Permanently delete notebook">delete</button>
+				<button ng-click="restoreNotebook(notebook)" type="button" class="btn btn-success"  data-toggle="tooltip" title="Restoring a notebook will also restore all the notes in it">restore</button>
+
+				<div class="panel-body inner-scroll">
+					<div class="list-group">
+						<a ng-click="setCurrentNote(oneNote,notebook)" class="list-group-item" ng-repeat="oneNote in notebook.notes">{{oneNote.subject}}
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<input ng-model="searchNotes" width="25" type="text" class="form-control" placeholder="Search Notes In Trash">
+
+	</div>
+		<div class="panel-body inner-scroll">
+		<div class='list-group' id="side-menu-1">
+				<a class="list-group-item" ng-repeat="note in getnotes() | filter: searchNotes | filter: {trash: true}" ng-click="setCurrentNote(note)">{{note.subject}}</a>
+		</div>
+	</div>
+</div>			
