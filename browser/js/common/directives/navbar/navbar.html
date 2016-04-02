@@ -19,8 +19,8 @@
 
 					<li class="dropdown" ng-if="isLoggedIn() && !('home' | isState)">	
             <form ng-submit="search(searchTerm)">
-  						<input size="35" type="text" placeholder="Search public notes" ng-model="searchTerm">
-              <button type="submit" class="fa fa-search btn-default"></button>
+				<input size="35" type="text" placeholder="Search public notes" ng-model="searchTerm">
+				<button type="submit" class="fa fa-search btn-invisible"></button>
             </form>
 					</li>
 

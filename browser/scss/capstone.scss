@@ -1,4 +1,4 @@
-@import 'sidenav';
+
 
 /*
 
@@ -124,6 +124,11 @@ input#notebook {
 
 /* top navbar */
 
+nav.navbar .btn-invisible {
+	border: none;
+	background-color: transparent;
+}
+
 nav.navbar {
 	margin-bottom: 0;
 	/*border-bottom: 1px solid #003a69;*/
@@ -145,11 +150,10 @@ a.navbar-brand {
 	padding: 5px 0px 0px 0px !important;
 }
 
-
 body,
 #sidenav,
 .navbar-custom {
-	background-color: #cdcdcd !important; /*#FDFEE3 !important; */
+	background-color: #dddddd !important; 
 }
 
 /* bootstrap columns */
@@ -164,12 +168,17 @@ body,
 }
 
 
-/* additional theming for capstone */
+button {
+	cursor:pointer;
+	color: #454545;
+	&:hover {
+		color: #787878;
+	}
+}
 
-/* gh dark blue: #003a69 */
+.code-instructions {
+	color: #787878;
+	font-size: 14px;
+}
 
-/* gh yellow: f0d600 */
-
-/* gh light blue: 73bcf0 */
-
-
+@import 'sidenav';

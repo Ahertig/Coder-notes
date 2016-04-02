@@ -52,6 +52,7 @@ sidenav .form-inline .dropdown {
 #togglesidenav.btn {
 	padding: 0 0.25em;
 	margin: 0 0.25em;
+	height: 39px;
 }
 
 #mystuffheading.panel-heading {
@@ -84,6 +85,17 @@ sidenav ul.dropdown-menu.dropdown-messages li {
 	font-weight: bold;
 }
 
+
+#toggesidenav {
+	background-color: #8b639d;
+	color: #d3c2d9;
+	height: 39px;
+	&:hover {
+		background-color: #d3c2d9;
+		color: #8b639d;
+	}
+}
+
 .nav-pills-purple > li > a {
 	background-color: #8B639D;
 	color: #D3C2D9;
@@ -91,5 +103,14 @@ sidenav ul.dropdown-menu.dropdown-messages li {
 	&:focus {
 		background-color: #D3C2D9;
 		color: #8b639d;
+	}
+}
+sidenav button {
+	background: #D3C2D9;
+	cursor:pointer;
+	color: #120019;
+	&:hover {
+		color: #330645;
+		background-color: #8b639d;
 	}
 }
