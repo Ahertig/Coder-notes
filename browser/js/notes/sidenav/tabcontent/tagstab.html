@@ -1,0 +1,14 @@
+<div class="outer-scroll">
+	<div class="list-group" id="side-menu-3">
+		<div ng-repeat="tag in getTagsCache()">
+			<a ng-href="#{{tag.tag}}" data-toggle="collapse" class="list-group-item" ng-click="setTag(tag)"><span>{{tag.tag}} </span> <span class="pull-right">{{tag.count}} notes</span></a>
+			<div class="panel-collapse collapse" id="{{tag.tag}}">
+				<div class="panel-body inner-scroll">
+					<div class="list-group">
+						<a ng-click="setCurrentNote(note)" class="list-group-item" ng-repeat="note in getnotes() | filterByTag: filters[tag.tag]: note">{{note.subject}}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

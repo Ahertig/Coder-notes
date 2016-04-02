@@ -1,0 +1,7 @@
+
+<input ng-model="searchNotes" width="25" type="text" class="form-control" placeholder="Search Notes">
+<div class="outer-scroll">
+	<div class='list-group' id="side-menu-1">
+			<a ng-class="{activenotebook: note._id == getCurrentNote()._id}" ng-click="setCurrentNote(note)"  class="list-group-item" ng-repeat="note in getnotes() | filter:searchNotes | filter: {trash: false} | orderBy: '-lastUpdate'">{{note.subject}}</a>
+	</div>
+</div>
