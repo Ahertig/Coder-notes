@@ -5,7 +5,7 @@
 			    	<div class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown">
 								<button type="button" class="btn btn-success align-right"  data-toggle="tooltip" title="Add a notebook">
-									<i class="fa fa-plus"></i><span class="pull-right"> Add Notebook</span>
+									<i class="fa fa-plus"></i><span class="pull-right"><i class="fa fa-book"></i></span>
 								</button>
 							</a>
 							<ul class="dropdown-menu dropdown-messages">
@@ -23,7 +23,7 @@
 						<div class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#" ng-click="getNotebooks()">
 								<button type="button" class="btn btn-success align-right"  data-toggle="tooltip" title="Add a note">
-										<i class="fa fa-plus"></i> Add Note
+										<i class="fa fa-plus"></i><i class="fa fa-sticky-note-o"></i>
 								</button>
 							</a>
 							<ul class="dropdown-menu dropdown-messages">
@@ -43,13 +43,13 @@
 		</div>
 		<div class="panel-body" ng-if="isSideNavOpen()">
 			<ul class="nav nav-pills nav-justified nav-pills-sm">
-				<li class="active"><a href="#notes" data-toggle="tab">Notes</a>
+				<li class="active"><a href="#notes" data-toggle="tab"><i class="fa fa-sticky-note-o"></i></a>
 				</li>
-				<li > <a href="#notebooks" data-toggle="tab" aria-expanded="true">Notebooks</a>
+				<li > <a href="#notebooks" data-toggle="tab" aria-expanded="true"><i class="fa fa-book"></i></a>
 				</li>
-				<li><a href="#tags" data-toggle="tab">Tags</a>
+				<li><a href="#tags" data-toggle="tab"><i class="fa fa-tags"></i></a>
 				</li>
-				<li><a href="#shared" data-toggle="tab">Shared</a>
+				<li><a href="#shared" data-toggle="tab"><i class="fa fa-share-alt"></i></a>
 				</li>
 				<li class="last"><a href="#trash" data-toggle="tab"><i class="fa fa-trash-o"></i></a>
 				</li>
@@ -273,6 +273,5 @@
 		</div> <!-- ./panel body outer -->
 	</div> <!-- ./panel panel default outer -->
 </div> 
-
 
 
