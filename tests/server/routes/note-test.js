@@ -42,7 +42,7 @@ describe('Notebook Route', function () {
 			})
 			.then(function(notebook) {
 				notebook2 = notebook
-				return Promise.all([notebook.createNote({subject: 'First note'}),
+				return Promise.all([notebook.createNote({subject: 'First note', tags: ['tag1', 'tag2']}),
 							 notebook.createNote({subject: 'Second note'})
 				])
 			})
@@ -69,7 +69,7 @@ describe('Notebook Route', function () {
 			})
 		})
 
-		it('should get one notes for a user', function(done) {
+		it('should get one note', function(done) {
 			loggedInAgent.get('/api/notes/' + notes[0]._id ).expect(200).end(function(err, response) {
 				if (err) return done(err);
 					expect(response.body).to.be.an('object');
@@ -78,7 +78,34 @@ describe('Notebook Route', function () {
 			})
 		})
 
+		it('should  update one note', function(done) {
+			loggedInAgent.put('/api/notes/' + notes[0]._id ).send({subject: "First note updated", body: "this is the updated body of the first note"}).expect(200).end(function(err, response) {
+				if (err) return done(err);
+					expect(response.body).to.be.an('object');
+					expect(response.body.subject).to.equal('First note updated');
+					expect(response.body.body).to.equal('this is the updated body of the first note');
+					done()
+			})
+		})
 
+
+		it('should  add a tag to a note', function(done) {
+			loggedInAgent.post('/api/notes/' + notes[0]._id + '/tags').send({tag: 'test'}).expect(200).end(function(err, response) {
+				if (err) return done(err);
+					expect(response.body.tags.length).to.equal(3);
+					expect(response.body.tags[2]).to.equal('test');
+					done()
+			})
+		})
+
+		it('should  remove a tag from a note', function(done) {
+			loggedInAgent.put('/api/notes/' + notes[0]._id + '/tags').send({tag: 'test'}).expect(200).end(function(err, response) {
+				if (err) return done(err);
+					expect(response.body.tags.length).to.equal(2);
+					expect(response.body.tags[1]).to.equal('tag2');
+					done()
+			})
+		})
 
 	});
 

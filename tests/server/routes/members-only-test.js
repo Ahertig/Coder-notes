@@ -36,8 +36,6 @@ describe('Members Route', function () {
 				.end(done);
 		});
 
-
-
 	});
 
 	describe('Authenticated request', function () {
