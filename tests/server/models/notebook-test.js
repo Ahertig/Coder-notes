@@ -27,7 +27,9 @@ xdescribe('Notebook model', function () {
         expect(Notebook).to.be.a('function');
     });
 
+
     xdescribe('Hooks',function(){
+
     	var user, notebook;
     	var  createuser1 = function () {
             	return User.create({ email: 'gracehopper@gmail.com', password: 'potus' })
@@ -52,6 +54,7 @@ xdescribe('Notebook model', function () {
         // 		done();
         // 	})
         // 	.then(null, done)
+
     	});
 
         xit('should remove notebook id from user.myNotebooks array when a notebook is deleted',function(){
@@ -67,6 +70,7 @@ xdescribe('Notebook model', function () {
        			 User.findById(user._id)
        			 .then(function(user){
        			  	console.log("user", user);
+
        			 	expect(user.myNotebooks.length).to.equal(1);
        			 })
 
