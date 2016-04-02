@@ -179,6 +179,7 @@ button {
 .code-instructions {
 	color: #787878;
 	font-size: 14px;
+	margin-left: 20px;
 }
 
 // alert messages
@@ -193,6 +194,10 @@ button {
 
 .alert-error-new {
 	background-color: #CD6D63;
+}
+
+.alert {
+	width: 95%;
 }
 
 @import 'sidenav';

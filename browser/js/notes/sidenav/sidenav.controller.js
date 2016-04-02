@@ -16,8 +16,21 @@ app.controller('SidenavCtrl', function($scope, SideNavFactory, NotesFactory, $fi
 	// console.log("all notebook: ", NotebookFactory.getCachedNotebooks());
 
 	$scope.setCurrentNotebook = function(notebook){
-	NotebookFactory.setCurrentNotebook(notebook);
+		NotebookFactory.setCurrentNotebook(notebook);
 	}
+
+
+	// was trying to set notes margin by calling this on index. did not work
+	// $scope.setMarginTop =  function(index) {
+	// 	console.log("setting margin top. index is", index)
+	// 	return {
+	// 		'margin-top': (-20 * index)
+	// 	}
+	// };
+
+	$scope.getCurrentNotebook = NotebookFactory.getCurrentNotebookSync;
+
+	$scope.getCurrentNote = NotesFactory.getCurrentNoteSync;
 
 	$scope.setCurrentNote = function(note, notebook){
 		// it would be nice here to set old current note's parent to 'closed'

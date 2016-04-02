@@ -18,6 +18,7 @@ app.factory('NotebookFactory', function($http, $q){
 		},
 
     getCurrentNotebookSync: function(){
+      // console.log("currentNotebook ID is", currentNotebook._id);
       return currentNotebook;
     },
 

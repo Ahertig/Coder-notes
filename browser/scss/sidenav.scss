@@ -79,6 +79,9 @@ sidenav ul.dropdown-menu.dropdown-messages li {
 	}
 }
 
+ul.nav-pills-purple {
+	background-color: #785978;
+}
 .nav-pills-purple > li.active > a {
 	background-color: #8e6b8e !important;
 	color: #fff;
@@ -113,4 +116,19 @@ sidenav button {
 		color: #330645;
 		background-color: #8b639d;
 	}
+}
+
+.noteslist.list-group {
+	margin-bottom: 0;
+}
+
+.activenotebook {
+	background-color: #dedede !important;
+	font-weight: bold !important;
+}
+
+sidenav input {
+	border-radius: 20px !important; 
+	margin: 7px auto !important;
+	width: 98% !important;
 }

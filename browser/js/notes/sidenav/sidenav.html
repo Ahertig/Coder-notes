@@ -1,5 +1,36 @@
 <div id="sidenav" class="col-sm-12" ng-class="{'col-lg-4 col-md-4': isSideNavOpen(), 'col-lg-1 col-md-1': !isSideNavOpen()}" ng-controller="SidenavCtrl">
 
+	<div class="dropdown" style="display: inline-block">
+		<a class="dropdown-toggle" data-toggle="dropdown">
+			<button type="button" class="btn align-right"  data-toggle="tooltip" title="Add a notebook">
+				<i class="fa fa-plus"></i><i class="fa fa-book"></i>
+			</button>
+		</a>
+		<ul class="dropdown-menu dropdown-messages">
+			<li>
+				<div class="input-group">
+					<form ng-submit="createNotebook(notebookTitle)">
+						<input id="notebook" type="text" ng-model="notebookTitle" placeholder="Enter notebook title">
+						<button class="btn btn-small btn-default" data-toggle="tooltip" title="Save Notebook" type="submit"><i class="fa fa-save"></i></button>
+					</form>
+				</div>
+			</li>
+		</ul> <!-- /.dropdown-messages -->
+	</div> <!-- /.dropdown -->
+
+	<div class="dropdown" style="display: inline-block"> 
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#" ng-click="getNotebooks()">
+			<button type="button" class="btn align-right"  data-toggle="tooltip" title="Add a note">
+					<i class="fa fa-plus"></i><i class="fa fa-sticky-note-o"></i>
+			</button>
+		</a>
+		<ul class="dropdown-menu dropdown-messages">
+			<li ng-repeat="notebook in notebooks">
+				<a ng-click="createNote(notebook)">Add a note to "{{notebook.title}}"</a>
+			</li>
+		</ul> <!-- /.dropdown-messages -->
+	</div> <!-- /.dropdown -->	
+
 	<div class="pull-right">
 		<button type="button" id="togglesidenav" class="btn btn-default" data-toggle="tooltip" data-placement="right" ng-attr-title="isSideNavOpen() ? 'Hide Notes Navigator' : 'Show Notes Navigator'" ng-click="toggleSideNav()"><i class="glyphicon" ng-class="{'glyphicon-arrow-left' : isSideNavOpen(), 'glyphicon-arrow-right' : !isSideNavOpen()}"></i></button>
 	</div>
