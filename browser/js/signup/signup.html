@@ -1,40 +1,59 @@
 <div class="container">
-    <form id="signup-form" name="signupForm" ng-submit="signupForm.$valid && sendSignup(signup)">
-        <!-- <h3>Signup for Coder Notes</h3> -->
-        <uib-alert type="danger" ng-show="error">
-            {{ error }}
-        </uib-alert>
+    <div class="col-lg-6 signup-form">
+        <div class="panel panel-gh">
+            <div class="panel-heading">
+                <h3>Sign up for Coder Notes</h3>
+            </div>
+            <div class="panel-body">
+                <form id="signup-form" name="signupForm" ng-submit="signupForm.$valid && sendSignup(signup)">
+                    <uib-alert type="danger" ng-show="error">
+                        {{ error }}
+                    </uib-alert>
 
-<!--         <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" ng-model="signup.firstName" ng-required="false" class="form-control" id="name" placeholder="Your name">
-        </div> -->
+            <!--         <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" ng-model="signup.firstName" ng-required="false" class="form-control" id="name" placeholder="Your name">
+                    </div> -->
 
-        <div class="form-group">
-            <label for="email">Email address</label>
-            <input type="text" ng-model="signup.email" ng-required="true" class="form-control" id="email" placeholder="Your email">
-        </div>
+                    <div class="form-group">
+                        <label for="firstName">First name</label>
+                        <input type="text" ng-model="signup.firstName" ng-required="true" class="form-control" id="firstName" placeholder="First name">
+                    </div>
 
-        <div class="form-group">
-            <label for="signup-password">Password</label>
-            <input type="password" id="pass1" name="pass1" ng-model="signup.password" ng-required="true" class="form-control" placeholder="Password">
-        </div>
+                    <div class="form-group">
+                        <label for="lastName">Last name</label>
+                        <input type="text" ng-model="signup.lastName" ng-required="true" class="form-control" id="lastName" placeholder="Last name">
+                    </div>
 
-         <div id="social-buttons">
-            <div class="text-center">
-                <a href="/auth/google" class="btn btn-social-icon btn-google-plus">
-                    <i class="fa fa-google-plus"></i>
-                </a>
-                <a href="/auth/github" class="btn btn-social-icon btn-github">
-                    <i class="fa fa-github"></i>
-                </a>
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="text" ng-model="signup.email" ng-required="true" class="form-control" id="email" placeholder="Your email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="pass1" name="pass1" ng-model="signup.password" ng-required="true" class="form-control" placeholder="Password">
+                    </div>
+
+                     <div id="social-buttons">
+                        <div class="text-center">
+                            <a href="/auth/google" class="btn btn-social-icon btn-google-plus">
+                                <i class="fa fa-google-plus"></i>
+                            </a>
+                            <a href="/auth/github" class="btn btn-social-icon btn-github">
+                                <i class="fa fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-default" ng-disabled="!signupForm.$valid">Sign up</button>
+
+                </form>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-default" ng-disabled="!signupForm.$valid">Sign up</button>
-
-        <div>
+        <div class="text-center">
             Already have an account? <a ui-sref="login">Login</a>
         </div>
-    </form>
+    </div>
 </div>
