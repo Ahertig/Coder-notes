@@ -47,8 +47,7 @@ connectToDb
 })
 .then(function () {
     for (var i = 0 ; i < Notes.length; i++) {
-        if (i % 3 === 0  && i > 0) Notes[i].type = 'public';
-        if(i % 5 === 0 && i > 0) Notes[i].trash = true;
+        if (i % 2 === 0  && i > 0) Notes[i].type = 'public';
     }
     Note.findAsync({})
     .then(function (notes) {
@@ -59,19 +58,18 @@ connectToDb
         }
     })
     .then(function (notes) {
-        for(i=0; i<Notebooks.length; i++){
-            if(i % 3 === 0 && i > 0) Notebooks[i].type = 'public';
-            // if (i % 4 === 0) Notebooks[i].trash = true;
-
-            Notebooks[i].notes=[notes[2*i]._id,notes[2*i+1]._id];
-        }
+            Notebooks[0].notes=[notes[0]._id,notes[1]._id]
+            Notebooks[1].type = 'public'
+            Notebooks[1].notes=[notes[2]._id,notes[3]._id,notes[4]._id];
+            Notebooks[2].notes = [notes[5]._id];
+            Notebooks[2].type ='public'
+            Notebooks[3].notes = [notes[6]._id,notes[7]._id]
+            Notebooks[4].notes = [notes[8]._id];    
         return seedNotebooks();
     })
     .then(function(notebooks){
-        for (i=0; i<Users.length;i++){
-            Users[i].myNotebooks = [notebooks[5*i]._id,notebooks[5*i+1]._id,notebooks[5*i+2]._id,notebooks[5*i+3]._id,notebooks[5*i+4]._id]
-            if(notebooks[5*i+8]) {Users[i].sharedWithMeNotebooks = [notebooks[5*i+7]._id, notebooks[5*i+8]._id]}
-        }
+            Users[0].myNotebooks = [notebooks[0]._id,notebooks[1]._id,notebooks[2]._id,notebooks[3]._id,notebooks[4]._id]
+        
         return seedUsers();
     })
     .then(function(){
