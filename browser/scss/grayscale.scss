@@ -73,7 +73,6 @@ input {
 
 .navbar-custom .navbar-brand {
     font-weight: 700;
-    font-size: 32px;
 }
 
 .navbar-custom .navbar-brand:focus {
@@ -169,6 +168,7 @@ input {
 
 .intro .intro-body .intro-text {
     font-size: 18px;
+    font-family: 'Cutive mono'
 }
 
 @media(min-width:768px) {
@@ -182,7 +182,7 @@ input {
     }
 
     .intro .intro-body .intro-text {
-        font-size: 20px;
+        font-size: 25px;
     }
 }
 
