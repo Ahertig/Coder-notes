@@ -54,7 +54,7 @@ xdescribe('Notebook model', function () {
         // 	.then(null, done)
     	});
 
-        it('should remove notebook id from user.myNotebooks array when a notebook is deleted',function(){
+        xit('should remove notebook id from user.myNotebooks array when a notebook is deleted',function(){
         		// Notebook.remove({_id: notebook._id})
         		// .then(function(){	
         		// 	console.log("user",user._id);
