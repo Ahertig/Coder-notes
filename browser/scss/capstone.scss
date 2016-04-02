@@ -183,8 +183,16 @@ button {
 
 // alert messages
 
-.alert-success {
-	background-color: #D0E3D1;
+.alert-success-test {
+	background-color: #A8CCA7;
+}
+
+.alert-danger-test {
+	background-color: #CD6D63;
+}
+
+.alert-error-test {
+	background-color: #CD6D63;
 }
 
 @import 'sidenav';
