@@ -1,6 +1,6 @@
 <div class="col-sm-12" ng-class="singleNoteColumnWidth()">
-	<div class="alert alert-success-test" role="alert" ng-if="successmessage">{{successmessage}}</div>
-	<div class="alert alert-error-test" role="alert" ng-if="errormessage">{{errormessage}}</div>
+	<div class="alert alert-success-new" role="alert" ng-if="successmessage">{{successmessage}}</div>
+	<div class="alert alert-error-new" role="alert" ng-if="errormessage">{{errormessage}}</div>
 	<ul class="nav nav-tabs">
 	  <li id="preview-tab" role="presentation" class="active"><a href="#preview" data-toggle="tab"><i class="fa fa-eye"></i></a></li>
 	  <li id="edit-tab" role="presentation"><a href="#edit" data-toggle="tab" ng-hide="currentNote().trash === true"><i class="fa fa-pencil"></i></a></li>
@@ -45,9 +45,9 @@
 					<p class="code-instructions"><em>To run code, highlight text and press Ctrl-Enter</em></p>
 				</div>
 
-				<div class="alert alert-success-test" role="alert" ng-if="tagsavesuccess">{{tagsavesuccess}}</div>
+				<div class="alert alert-success-new" role="alert" ng-if="tagsavesuccess">{{tagsavesuccess}}</div>
 
-				<div class="alert alert-danger-test" role="alert" ng-if="tagsavefailure && !tagsavesuccess">{{tagsavefailure}}</div>
+				<div class="alert alert-danger-new" role="alert" ng-if="tagsavefailure && !tagsavesuccess">{{tagsavefailure}}</div>
 				<div class="panel-footer">
 				<div>
 					<ul class="nav nav-pills">
