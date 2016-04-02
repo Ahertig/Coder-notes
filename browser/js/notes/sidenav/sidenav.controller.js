@@ -6,94 +6,108 @@ app.controller('SidenavCtrl', function($scope, SideNavFactory, NotesFactory, $fi
 
 
 	$scope.createNote = function(notebook) {
-    console.log("creating note in sidenavctrl")
-    SideNavFactory.createNote(notebook);
+	// console.log("creating note in sidenavctrl")
+		SideNavFactory.createNote(notebook);
 	}
 
 	$scope.createNotebook = SideNavFactory.createNotebook.bind(SideNavFactory);
 
 	// console.log("all notes: ", $scope.getnotes());
-  // console.log("all notebook: ", NotebookFactory.getCachedNotebooks());
+	// console.log("all notebook: ", NotebookFactory.getCachedNotebooks());
 
 	$scope.setCurrentNotebook = function(notebook){
 		NotebookFactory.setCurrentNotebook(notebook);
 	}
 
+
+	// was trying to set notes margin by calling this on index. did not work
+	// $scope.setMarginTop =  function(index) {
+	// 	console.log("setting margin top. index is", index)
+	// 	return {
+	// 		'margin-top': (-20 * index)
+	// 	}
+	// };
+
+	$scope.getCurrentNotebook = NotebookFactory.getCurrentNotebookSync;
+
+	$scope.getCurrentNote = NotesFactory.getCurrentNoteSync;
+
 	$scope.setCurrentNote = function(note, notebook){
-    // it would be nice here to set old current note's parent to 'closed'
+		// it would be nice here to set old current note's parent to 'closed'
 		NotesFactory.setCurrentNote(note);
 		if (notebook){
 			NotebookFactory.setCurrentNotebook(notebook);
 		}
 	}
 
-  $scope.toggleSideNav = NotesFactory.toggleSideNav;
-  $scope.isSideNavOpen = NotesFactory.isSideNavOpen;
+	$scope.toggleSideNav = NotesFactory.toggleSideNav;
+	$scope.isSideNavOpen = NotesFactory.isSideNavOpen;
 
-  
-  $scope.trashNotebook = function(notebook){
-  	NotebookFactory.removeNotebook(notebook);
-  }
 
-  $scope.deleteNotebook = function(notebook){
-  	console.log("deleteNotebook is undefined now!!");
-  }
-  
-  $scope.restoreNotebook = NotebookFactory.restoreNotebook.bind(NotebookFactory)
-  
-  $scope.setCurrentNote = NotesFactory.setCurrentNote;
+	$scope.trashNotebook = function(notebook){
+		NotebookFactory.removeNotebook(notebook);
+	}
 
-  $scope.getNotes = function(){
-    $scope.notes = NotesFactory.getAllCacheNotes();
-  }
+	$scope.deleteNotebook = function(notebook){
+		console.log("deleteNotebook is undefined now!!");
+	}
 
-  $scope.newNote = function(notebook) {
+	$scope.restoreNotebook = NotebookFactory.restoreNotebook.bind(NotebookFactory)
 
-    NotesFactory.newNote(notebook._id)
-    .then(function(newNote){
-        NotesFactory.setCurrentNote(newNote);
-        NotebookFactory.setCurrentNotebook(notebook);
-    })
-    .then(null, function(err){
-      console.error("Error saving new note!", err);
-   });
-  }
-  $scope.newNotebook = function(notebookTitle) {
-      return NotesFactory.newNotebook(notebookTitle)
-      .then(function(newNotebook) {
-        $scope.newNote(newNotebook)
-        // $rootScope.currentNote = newNotebook;
-      })
-      .then(null, function(err){
-          console.log(err);
-      })
-  }
+	$scope.setCurrentNote = NotesFactory.setCurrentNote;
 
-  $scope.getNotebooks = function() {
-     NotebookFactory.fetchMyNotebooks()
-     .then(function(_notebooks){
-          $scope.notebooks = _notebooks;
-     })
-     .then(null, function(err){
-        console.error("Error retrieving notebooks!", err);
-     });
-  }
+	$scope.getNotes = function(){
+		$scope.notes = NotesFactory.getAllCacheNotes();
+	}
 
-  // Manage Notebook Share
-    $scope.shareNotebook = function(notebook, email) {
-      ShareFactory.shareNotebook(notebook, email)
-    }
-    
-    $scope.removeNotebookShare = function(notebook, email) {
-      console.log('in the controller: ', notebook, email)
-      ShareFactory.removeNotebookShare(notebook, email)
-    }
-  
-  $scope.filters = {};
-  $scope.setTag = function(tag){
-    $scope.currentTag = tag.tag;
-    $scope.filters[tag.tag] = tag.tag;
-  } 
+	$scope.newNote = function(notebook) {
+
+	NotesFactory.newNote(notebook._id)
+	.then(function(newNote){
+		NotesFactory.setCurrentNote(newNote);
+		NotebookFactory.setCurrentNotebook(notebook);
+	})
+	.then(null, function(err){
+		console.error("Error saving new note!", err);
+	});
+	}
+
+	$scope.newNotebook = function(notebookTitle) {
+		return NotesFactory.newNotebook(notebookTitle)
+		.then(function(newNotebook) {
+			$scope.newNote(newNotebook)
+		})
+		.then(null, function(err){
+			console.log(err);
+		})
+	}
+
+	$scope.getNotebooks = function() {
+		NotebookFactory.fetchMyNotebooks()
+		.then(function(_notebooks){
+			$scope.notebooks = _notebooks;
+		})
+		.then(null, function(err){
+			console.error("Error retrieving notebooks!", err);
+		});
+	}
+
+	// Manage Notebook Share
+	$scope.shareNotebook = function(notebook, email) {
+		ShareFactory.shareNotebook(notebook, email)
+	}
+
+	$scope.removeNotebookShare = function(notebook, email) {
+		// console.log('in the controller: ', notebook, email)
+		ShareFactory.removeNotebookShare(notebook, email)
+	}
+
+	$scope.filters = {};
+	
+	$scope.setTag = function(tag){
+		$scope.currentTag = tag.tag;
+		$scope.filters[tag.tag] = tag.tag;
+	} 
 })
 
 app.filter('filterByTag', function(){
