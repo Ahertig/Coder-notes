@@ -1,3 +1,5 @@
+@import 'sidenav';
+
 /*
 
 LIGHTER COLOR SCHEME:
@@ -47,22 +49,6 @@ a.muted {
 	color: #bcbcbc;
 }
 
-.nav-pills-sm {
-	/*border: 1px solid #ddd;*/
-	/*border-radius: 3px;*/
-	/*margin-bottom: 1em;*/
-	li {
-		/*border-right: 1px solid #ddd;*/
-		&.last {
-			border-right: none;
-		}		
-		a {
-		padding: 6px 5px;
-		font-size: 95%;
-		border-radius: 0px;
-		}
-	}
-}
 
 .panel-footer {
 	.input-group {
@@ -94,37 +80,6 @@ a.muted {
 	}
 }
 
-sidenav .panel-heading button {
-	/*border-color: #aaa;*/
-	/*border-radius: 2px;*/
-	&:hover {
-		color: #ddd;
-	}
-	i.glypicon:hover {
-		color: #ddd;
-	}
-}
-
-sidenav .form-inline .dropdown {
-	display: inline-block;
-}
-
-/* sidenav scroll */
-
-.outer-scroll {
-	height: 500px;
-	overflow: auto;
-}
-
-.inner-scroll {
-	height: 150px;
-	overflow: auto;
-}
-
-.trash-scroll {
-	height: 161px;
-	overflow: auto;
-}
 
 /* code formatting in Note Preview */
 
@@ -161,74 +116,17 @@ i.glyphicon-minus-sign {
 
 }
 
-
-/* sidenav */
-
-#togglesidenav.btn {
-	padding: 0 0.25em;
-	margin: 0 0.25em;
-}
-
-#mystuffheading.panel-heading {
-	min-height: 42px;
-}
-
-sidenav button i,
-sidenav .dropdown a {
-	font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
-}
-
-sidenav ul.dropdown-menu.dropdown-messages li {
-	margin: 4px;
-	padding: 4px;
-	/*border-bottom: 1px solid #e5e5e5;*/
-	a {
-		cursor: pointer;
-		/*color: deepskyblue;*/
-
-		&:hover {
-		 	color: #1d9b6c;
-		 	text-decoration: underline;
-		}
-	}
-}
-
-.nav-pills > li.active > a {
-	&:active,
-	&:hover {
-		background-color: #003a69 !important;
-	}
-}
 input#notebook {
 	margin-bottom: 0.5em;
 }
 
-/*.nav-pills > li.active > a, 
-.nav-pills > li.active > a:hover, 
-.nav-pills > li.active > a:focus
-*/
-.nav-pills-purple > li > a {
-	background-color: #8B639D;
-	color: #D3C2D9;
-	&:active,
-	&:hover,
-	&:focus {
-		background-color: #D3C2D9;
-		color: #8b639d;
-	}
-}
-
-.nav-pills-purple > li.active a {
-	background-color: #8B639D !important;
-	color: #D3C2D9 !important;
-}
 
 
-/* navbar */
+/* top navbar */
 
 nav.navbar {
 	margin-bottom: 0;
-	border-bottom: 1px solid #003a69;
+	/*border-bottom: 1px solid #003a69;*/
 }
 .navbar-top-links li {
 	display: inline-block !important;
@@ -239,7 +137,7 @@ nav.navbar {
 }
 
 a.navbar-brand {
-	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-family: 'Courier New', Courier, Monospace, sans-serif;
 	font-size: 32px;
 }
 
@@ -273,11 +171,5 @@ body,
 /* gh yellow: f0d600 */
 
 /* gh light blue: 73bcf0 */
-
-panel-gh>.panel-heading {
-    color: #fff;
-    background-color: #003a69;
-    /*border-color: #003a69;*/
-}
 
 

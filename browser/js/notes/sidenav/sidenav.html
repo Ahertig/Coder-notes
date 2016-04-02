@@ -45,6 +45,7 @@
 						<!-- <div class="panel-body outer-scroll"> -->
 						<div class="outer-scroll">
 							<div class="list-group" id="side-menu-2">   						
+								
 								<div ng-repeat="notebook in getCachedNotebooks() | filter:{title: searchNotebooktitle} | filter: {trash: false} | orderBy: '-date'">
 
 									<!-- <div class="muted">Notebook ID:{{notebook._id}}</div> -->
@@ -139,8 +140,8 @@
 										</div> -->
 										<!-- Closing editPopup -->
 
-									<div class="panel-collapse collapse" id="{{notebook._id}}">
-										
+									<!-- <div class="panel-collapse collapse" id="{{notebook._id}}"> -->
+									<div class="collapse" id="{{notebook._id}}">	
 										
 
 
