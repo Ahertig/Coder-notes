@@ -33,34 +33,21 @@ describe('Notebook Route', function () {
 			password: 'shoopdawoop'
 		};
 
-		var user1
-		// beforeEach('Create a user', function (done) {
-		// 	User.create(userInfo)
-		// 	.then(function (user) {
-		// 		user1 = user;
-		// 		return user.createNotebook({title: 'Another Notebook'})
-		// 	})
-		// 	.then(function(notebook) {
-		// 		return notebook.createNote({subject: 'First note'})
-		// 	})
-		// 	.then(function(note) {
-		// 		done()
-		// 	})
-
-		// });
-
-			beforeEach('Create a user', function (done) {
+		var user1, notebook2, notes
+		beforeEach('Create a user', function (done) {
 			User.create(userInfo)
 			.then(function (user) {
 				user1 = user;
 				return user.createNotebook({title: 'Another Notebook'})
 			})
 			.then(function(notebook) {
-				Promise.all([notebook.createNote({subject: 'First note'}),
+				notebook2 = notebook
+				return Promise.all([notebook.createNote({subject: 'First note'}),
 							 notebook.createNote({subject: 'Second note'})
 				])
 			})
-			.then(function(notes) {
+			.then(function(n) {
+				notes = n
 				done()
 			})
 
@@ -74,11 +61,19 @@ describe('Notebook Route', function () {
 		it('should get all notes for a user', function(done) {
 			loggedInAgent.get('/api/notes').expect(200).end(function(err, response) {
 				if (err) return done(err);
-					console.log(response.body)
 					expect(response.body).to.be.an('array');
 					expect(response.body.length).to.equal(2);
 					expect(response.body[0].subject).to.equal('First note');
 					expect(response.body[1].subject).to.equal('Second note');
+					done()
+			})
+		})
+
+		it('should get one notes for a user', function(done) {
+			loggedInAgent.get('/api/notes/' + notes[0]._id ).expect(200).end(function(err, response) {
+				if (err) return done(err);
+					expect(response.body).to.be.an('object');
+					expect(response.body.subject).to.equal('First note');
 					done()
 			})
 		})
