@@ -20,6 +20,7 @@ app.controller('SidenavCtrl', function($scope, SideNavFactory, NotesFactory, $fi
 	}
 
 	$scope.setCurrentNote = function(note, notebook){
+    // it would be nice here to set old current note's parent to 'closed'
 		NotesFactory.setCurrentNote(note);
 		if (notebook){
 			NotebookFactory.setCurrentNotebook(notebook);
