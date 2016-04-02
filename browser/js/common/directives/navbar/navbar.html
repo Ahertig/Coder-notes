@@ -1,5 +1,6 @@
 <!-- Navigation -->
-<nav class="navbar navbar-custom navbar-static-top" role="navigation">
+
+<nav class="navbar navbar-custom" ng-class="{'navbar-fixed-top': ('home' | isState), 'navbar-static-top': !('home' | isState)}" role="navigation">
     <!-- <div class="container"> -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
