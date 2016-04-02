@@ -21,7 +21,7 @@
 					</div>
 				</div>
 			</div>
-			<p class="muted"><em>To run code, highlight text and press Ctrl-Enter</em></p>			
+			<p class="code-instructions"><em>To run code, highlight text and press Ctrl-Enter</em></p>			
 		</div> <!-- end .tab-pane #preview -->
         <button ng-click="deleteNote(currentNote())" ng-if="currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
 			Delete Forever
@@ -42,7 +42,7 @@
 				<div class="panel-body">
 					<textarea enter-key="runTonic()" rows="20" id="notebody" ng-model="currentNote().body" placeholder="{{currentNote().body}}" class="form-control" >
 					</textarea>
-					<p class="muted"><em>To run code, highlight text and press Ctrl-Enter</em></p>
+					<p class="code-instructions"><em>To run code, highlight text and press Ctrl-Enter</em></p>
 				</div>
 
 				<div class="alert alert-success" role="alert" ng-if="tagsavesuccess">{{tagsavesuccess}}</div>
@@ -50,7 +50,6 @@
 				<div class="alert alert-danger" role="alert" ng-if="tagsavefailure && !tagsavesuccess">{{tagsavefailure}}</div>
 				<div class="panel-footer">
 				<div>
-					<h4>Tags: </h4>
 					<ul class="nav nav-pills">
 						<li ng-repeat="tag in currentNote().tags">
 							{{tag}} <i class="glyphicon glyphicon-remove" ng-click="removeTag(currentNote(), tag)"></i>
