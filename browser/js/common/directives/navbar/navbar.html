@@ -1,5 +1,77 @@
 <!-- Navigation -->
-<nav class="navbar navbar-custom navbar-static-top" role="navigation">
+<nav ng-if="('home' | isState)" class="navbar navbar-custom navbar-fixed-top" role="navigation">
+  <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand page-scroll" href="#page-top">
+                <!-- <span class="light"><img src="img/sillyLogo.png"> -->Coder</span> Notes
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <ul class="nav navbar-top-links navbar-right">
+
+          <li class="dropdown" ng-if="isLoggedIn() && (('community' | isState) || ('note' | isState) || ('home' | isState))">
+            <button class="btn btn-default" ui-sref="usercontent">My notes</button>
+          </li>
+
+          <li class="dropdown" ng-if="isLoggedIn() && !('home' | isState)"> 
+            <form ng-submit="search(searchTerm)">
+              <input size="35" type="text" placeholder="Search public notes" ng-model="searchTerm">
+              <button type="submit" class="fa fa-search btn-default"></button>
+            </form>
+          </li>
+
+          <li class="dropdown" ng-if="isLoggedIn()">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" ng-click=getNotes()>
+              <i class="fa fa-clock-o"></i>
+              <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-messages">
+              <div ng-repeat="note in notes | limitTo: 5 | orderBy: '-lastUpdate'" >
+              <li ng-click = setCurrentNote(note)>
+                <div>
+                  <strong>{{note.subject}}</strong>
+                  <span class="pull-right text-muted">
+                  </span>
+                </div>
+                <div>{{note.body | trunc:true:80:' ...'}}</div>
+                <div style="font-size: 80%"><em>Last updated {{note.lastUpdate | date : 'short'}}</em></div>
+                <!-- </a> -->
+              </li>
+              <li class="divider"></li>
+              </div>
+            </ul> <!-- /.dropdown-messages -->
+          </li> <!-- /.dropdown -->
+
+          <li ng-if="isLoggedIn()" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user">
+              <!-- <li>Welcome, {{user.firstName}}!</li> -->
+              <!-- <li class="muted"> My user id: {{user._id}}</li> -->
+              <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a></li>
+              <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
+              <li class="divider"></li>
+              <li><a ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+            </ul> <!-- /.dropdown-user -->
+          </li> <!-- /.dropdown -->
+
+          <li ng-if="!isLoggedIn()">
+              <a class="page-scroll btn-default" ui-sref="login">Login</a>
+          </li>
+
+          <li ng-if="!isLoggedIn()">
+              <a class="page-scroll btn-default" ui-sref="signup">Sign up</a>
+          </li>
+    </ul> <!-- /.navbar-top-links -->
+  </div><!-- /.container -->
+</nav>
+
+<nav ng-if="('usercontent' | isState)" class="navbar navbar-custom navbar-static-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
