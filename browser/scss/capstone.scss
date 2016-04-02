@@ -153,7 +153,7 @@ a.navbar-brand {
 body,
 #sidenav,
 .navbar-custom {
-	background-color: #f3f2f3!important; 
+	background-color: transparent!important; 
 }
 
 /* bootstrap columns */
@@ -182,7 +182,7 @@ button {
 	margin-left: 20px;
 }
 
-// alert messages
+/* alert messages */
 
 .alert-success-new {
 	background-color: #A8CCA7;
@@ -198,6 +198,23 @@ button {
 
 .alert {
 	width: 95%;
+}
+
+/* confirmation messages */
+.modal-header {
+	background-color: #f3f2f3;
+}
+
+.modal-body {
+	background-color: #f3f2f3;
+}
+
+.btn-danger-new {
+	background-color: #CD6D63;
+}
+
+.btn-success-new {
+	background-color: #A8CCA7;
 }
 
 @import 'sidenav';
