@@ -1,6 +1,6 @@
 <div class="col-sm-12" ng-class="singleNoteColumnWidth()">
-	<div class="alert alert-success" role="alert" ng-if="successmessage">{{successmessage}}</div>
-	<div class="alert alert-error" role="alert" ng-if="errormessage">{{errormessage}}</div>
+	<div class="alert alert-success-new" role="alert" ng-if="successmessage">{{successmessage}}</div>
+	<div class="alert alert-error-new" role="alert" ng-if="errormessage">{{errormessage}}</div>
 	<ul class="nav nav-tabs">
 	  <li id="preview-tab" role="presentation" class="active"><a href="#preview" data-toggle="tab"><i class="fa fa-eye"></i></a></li>
 	  <li id="edit-tab" role="presentation"><a href="#edit" data-toggle="tab" ng-hide="currentNote().trash === true"><i class="fa fa-pencil"></i></a></li>
@@ -45,9 +45,9 @@
 					<p class="code-instructions"><em>To run code, highlight text and press Ctrl-Enter</em></p>
 				</div>
 
-				<div class="alert alert-success" role="alert" ng-if="tagsavesuccess">{{tagsavesuccess}}</div>
+				<div class="alert alert-success-new" role="alert" ng-if="tagsavesuccess">{{tagsavesuccess}}</div>
 
-				<div class="alert alert-danger" role="alert" ng-if="tagsavefailure && !tagsavesuccess">{{tagsavefailure}}</div>
+				<div class="alert alert-danger-new" role="alert" ng-if="tagsavefailure && !tagsavesuccess">{{tagsavefailure}}</div>
 				<div class="panel-footer">
 				<div>
 					<ul class="nav nav-pills">
@@ -74,15 +74,6 @@
          </div>
 
 				<div class="panel-body">
-					<!-- <button class="btn btn-primary" ng-click="save()">Save Changes</button>
-					<button ng-if="tonic" class="btn btn-primary" ng-click="runTonic()">Open Code Window</button>
-					<button ng-if="!tonic" class="btn btn-primary" ng-click="closeTonic()">Close Code Window</button>
-					<button data-toggle="modal" data-target="#trashNote{{currentNote()._id}}" ng-show="!currentNote().trash" type="button" class="btn btn-danger"  data-toggle="tooltip" title="Delete note">
-						 Trash Note
-					</button>
-					<button ng-click="createGist(currentNote())" type="button" class="btn btn-success"  data-toggle="tooltip" title="Create gist">
-						Create a Gist
-					</button> -->
 	
 					<i class="fa fa-save" ng-click="save()" data-toggle="tooltip" title="Save note"></i>
 					&nbsp; &nbsp; &nbsp;
