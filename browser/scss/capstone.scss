@@ -58,7 +58,7 @@ a.muted {
 		cursor: pointer;
 	}
 	i.glyphicon {
-		color: red;
+		color: grey;
 	}
 	.tiny {
 		font-size: 1%;
@@ -181,6 +181,9 @@ button {
 
 @import 'sidenav';
 
+.navbar-right {
+	margin-right: 15px !important;
+}
 
 
 #login  {
@@ -240,15 +243,24 @@ button {
 .trash-modal {
 	text-align: center;
 	font-size: 30px;
+	color: #bbbbbb;
 }
 
 .trash-modal i {
 	margin-left: 120px;
 }
 
+#share-btn {
+	margin-left: 15px;
+}
 
+#restore-btn {
+	margin-right: 15px;
+}
 
-
+.note-panel {
+	background-color: white;
+}
 
 
 
