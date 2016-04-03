@@ -29,7 +29,7 @@ module.exports = [
 	},
 	{
 		"subject": "Stack of stacks",
-		"body": "* Start with a data structure of fixed size: set of stacks\n* Initialize with maximum value\n* If max value exceeded, create new stack\n *Implement as linked list\n\n     function Node(value) {\n     this.value = value;\n }\n\n     function Stack() {\n     this.top = null;\n     this.length = 0;\n}    \n    Stack.prototype.push = function(value) {\n     var newNode = new Node(value);\n     if(!this.top) {\n     this.top = newNode;\n    }\n     else {\n newNode.next = this.top;\n     this.top = newNode;\n    }",
+		"body": "Start with a data structure of fixed size: set of stacks and initialize with maximum value. If max value exceeded, create new stack\n\n### Possible solution \n \n     function Node(value) {\n     \tthis.value = value;\n     }\n\n     function Stack() {\n     \tthis.top = null;\n     \tthis.length = 0;\n     }\n     Stack.prototype.push = function(value) {\n     \tvar newNode = new Node(value);\n     \tif(!this.top) {\n     \t\tthis.top = newNode;\n     \t}\n     \telse {\n     \t\tnewNode.next = this.top;\n     \t\tthis.top = newNode;\n     \t}\n     }",
 		"tags": ["javascript","REACTO"],
 		"dateCreated": "2016-03-28T12:54:13-07:00",
 		"lastUpdate": "2016-03-30T04:24:13-07:00"

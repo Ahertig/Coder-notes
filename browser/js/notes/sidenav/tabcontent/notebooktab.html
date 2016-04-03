@@ -1,59 +1,48 @@
+<input ng-model="searchNotebooktitle" width="20" type="text" class="form-control note-notebook-search" placeholder="Search Notebooks">
+<div class="noresults muted" ng-show="filteredNotebooks.length == 0">No notebooks found!</div>
 
-<input ng-model="searchNotebooktitle" width="25" type="text" class="form-control" placeholder="Search Notebooks">
 <div class="outer-scroll">
 	<div class="list-group" id="side-menu-2">   						
-		
+					
+		<div ng-repeat="notebook in filteredNotebooks = (getCachedNotebooks() | filter:{title: searchNotebooktitle} | filter: {trash: false} | orderBy: '-date')">
 
-			<div class="row" ng-repeat="notebook in getCachedNotebooks() | filter:{title: searchNotebooktitle} | filter: {trash: false} | orderBy: '-date'">
+			<a ng-class="{activenotebook: getCurrentNotebook()._id == notebook._id}" data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item clearfix" ng-click="setCurrentNotebook(notebook)"> {{notebook.title}} 
 
-				<div class="col-lg-6 col-md-6 col-sm-6" >
+				<i id="share-btn" data-toggle="modal" data-target="#trashNotebook{{notebook._id}}" data-toggle="tooltip" title="Trash notebook" class="fa fa-trash-o pull-right"></i> 
 
-					<a ng-class="{activenotebook: getCurrentNotebook()._id == notebook._id}" ng-href="#{{notebook._id}}" class="list-group-item clearfix" ng-click="setCurrentNotebook(notebook)"> {{notebook.title}} 
+				<i data-toggle="modal" data-target="#shareNotebook{{notebook._id}}" class="pull-right fa fa-share-alt"  data-toggle="tooltip" title="Share notebook"></i>
 
-						<i data-toggle="modal" data-target="#trashNotebook{{notebook._id}}" data-toggle="tooltip" title="Trash notebook" class="glyphicon glyphicon-minus-sign pull-right"></i> 
+				<!-- <i data-toggle="modal" data-target="#editNotebook{{notebook._id}}" class="pull-right glyphicon glyphicon-cog"  data-toggle="tooltip" title="setting"></i> -->
 
-						<i data-toggle="modal" data-target="#shareNotebook{{notebook._id}}" class="pull-right glyphicon glyphicon-share"  data-toggle="tooltip" title="Share notebook"></i>
+		    </a>
 
-						<!-- <i data-toggle="modal" data-target="#editNotebook{{notebook._id}}" class="pull-right glyphicon glyphicon-cog"  data-toggle="tooltip" title="setting"></i> -->
-
-					</a>
-
-				</div>
-
-				<div class="col-lg-6 col-md-6 col-sm-6">
-
-					<!-- Notes in Notebook -->
-					<!-- <div class="notescolumn" id="{{notebook._id}}">	 -->
-
-						<div class="noteslist list-group" ng-if="getCurrentNotebook()._id == notebook._id" id="{{notebook._id}}">
-							<a ng-click="setCurrentNote(oneNote,notebook)" class="list-group-item" ng-repeat="oneNote in notebook.notes| filter:{trash: false} | orderBy: '-lastUpdate'" >{{oneNote.subject}}
-							</a>
-						</div>
-
-					<!-- </div> -->
-				</div>
-
-				<!-- modal windows -->
-				<div>
-					<!-- Delete Popup -->
-					<div id="trashNotebook{{notebook._id}}" class="modal fade" role="dialog">
-						<deletemodal></deletemodal>
-					</div>
-
-					<!-- Share Popup -->
-					<div id="shareNotebook{{notebook._id}}" class="modal fade" role="dialog">
-						<sharemodal></sharemodal>
-					</div>
-
-
-					<!-- Edit Notebook Popup (not yet working) -->
-					<div id="editNotebook{{notebook._id}}" class="modal fade" role="dialog">
-						<editnotebookmodal></editnotebookmodal>
+			<div class="collapse" id="{{notebook._id}}">	
+				<div class="panel-body inner-scroll">
+					<div class="list-group">
+						<a ng-click="setCurrentNote(oneNote,notebook)" class="list-group-item" ng-repeat="oneNote in notebook.notes| filter:{trash: false} | orderBy: '-lastUpdate'" >{{oneNote.subject}}
+						</a>
 					</div>
 				</div>
-
 			</div>
+
+			<!-- Delete Popup -->
+			<div class="trash-modal">
+				<div id="trashNotebook{{notebook._id}}" class="modal fade" role="dialog">
+					<deletemodal></deletemodal>
+				</div>
+			</div>
+
+			<!-- Share Popup -->
+			<div id="shareNotebook{{notebook._id}}" class="modal fade" role="dialog">
+				<sharemodal></sharemodal>
+			</div>
+
+
+			<!-- Edit Notebook Popup (not yet working) -->
+<!-- 		<div id="editNotebook{{notebook._id}}" class="modal fade" role="dialog">
+				<editnotebookmodal></editnotebookmodal>
+			</div> -->
+
+		</div>
 	</div>
 </div>
-
-
