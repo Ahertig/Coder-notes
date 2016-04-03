@@ -113,14 +113,11 @@ i.glyphicon-minus-sign {
 		display: inline-block;
 		margin-right: 2em;
 	}
-
 }
 
 input#notebook {
 	margin-bottom: 0.5em;
 }
-
-
 
 /* top navbar */
 
@@ -199,6 +196,45 @@ button {
 	font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
+#log-form {
+	background-color: #f3f2f3;
+	border: #f3f2f3 !important;
+	margin-top: 100px;
+}
 
+#log-form button {
+    background-color: transparent;
+    border-radius: 5px;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    &:hover {
+        background-color: #dddddd;
+    }
+}
+
+#log-form a {
+	margin-left: 10px;
+}
+
+#social-buttons {
+	margin-bottom: 20px;
+}
+
+#signup-form {
+	margin-top: 100px;
+}
+
+#signup-form button {
+    background-color: transparent;
+    border-radius: 5px;
+    margin-left: 15px;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    &:hover {
+        background-color: #dddddd;
+    }
+}
+
+#signup-form a {
+	margin-left: 10px;
+}
 
 
