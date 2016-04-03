@@ -11,12 +11,6 @@ navbar {
     padding-top: 20px;
   }
 
-  fullstack-logo {
-    margin-top: 5px;
-    margin-right: 20px;
-    width: 40px;
-  }
-
   a {
     color: black;
     font-size: 16px;
@@ -37,26 +31,13 @@ navbar {
     }
   }
 
-  .login-button {
+ .login-button {
     float: right;
     border: 1px solid black;
     margin-top: 10px;
     background: none;
     outline: none !important;
-  }
+  } 
 
-  .welcome {
-    float: right;
-    margin-top: 12px;
-    span {
-      color: black;
-      font-size: 16px;
-      margin-right: 5px;
-    }
-    a {
-      color: #f30046;
-      cursor: pointer;
-    }
-  }
 
 }
