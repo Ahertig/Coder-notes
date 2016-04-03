@@ -6,7 +6,12 @@ app.factory('NotesFactory', function($http, $q, NotebookFactory) {
 		sideNavOpen = true;
 	
 	var notesAPI = {
-
+		resetNoteCache : function(){
+			notesCache = [];
+			tagsCache = [];
+			currentNote = undefined;
+			sideNavOpen = true;
+		},
 		getCurrentNote: function() {
 			if (currentNote) return $q.when(currentNote); 
 			else {

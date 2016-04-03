@@ -32,19 +32,21 @@
               <i class="fa fa-clock-o"></i>
               <i class="fa fa-caret-down"></i>
             </a>
-            <ul class="dropdown-menu dropdown-messages">
-              <div ng-repeat="note in notes | limitTo: 5 | orderBy: '-lastUpdate'" >
+            <ul class="dropdown-menu dropdown-messages notelist">
+              <div class="recentnotes" ng-repeat="note in notes | limitTo: 3 | orderBy: '-lastUpdate'" >
               <li ng-click = setCurrentNote(note)>
-                <div>
-                  <strong>{{note.subject}}</strong>
-                  <span class="pull-right text-muted">
-                  </span>
-                </div>
-                <div>{{note.body | trunc:true:80:' ...'}}</div>
-                <div style="font-size: 80%"><em>Last updated {{note.lastUpdate | date : 'short'}}</em></div>
-                <!-- </a> -->
+                <div class="recentNote">
+                  <div>
+                    <strong>{{note.subject}}</strong>
+                    <span class="pull-right text-muted">
+                    </span>
+                  </div>
+                  <div id="notebody">{{note.body | trunc:true:80:' ...'}}</div>
+                  <div style="font-size: 80%"><em>Last updated {{note.lastUpdate | date : 'short'}}</em></div> <!-- </a> -->
+              </div>
               </li>
-              <li class="divider"></li>
+              <hr />
+              <!-- <li class="divider"></li> -->
               </div>
             </ul> <!-- /.dropdown-messages -->
           </li> <!-- /.dropdown -->
