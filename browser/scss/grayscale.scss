@@ -126,6 +126,10 @@ input {
     /*color: #fff;*/
 }
 
+.navbar-static-top {
+    background-color: transparent !important;
+}
+
 
 #signup {
     padding-top: 100px;
@@ -186,8 +190,12 @@ input {
 }
 
 .intro .intro-body .intro-text {
-    font-size: 18px;
+    font-size: 20px !important;
     margin-top: 40px;
+}
+
+.intro-body h1 {
+    padding-bottom: 20px;
 }
 
 @media(min-width:768px) {
