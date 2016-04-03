@@ -5,7 +5,12 @@ app.factory('NotebookFactory', function($http, $q){
     notebookCache = [];
 
 	var notebookAPI = {
-	
+	  resetNotebookCache: function(){
+      currentNotebook = undefined;
+      sharedNotebookCache = [];
+      notebookCache = [];
+    },
+
 		getCurrentNotebook: function() {
 			if (currentNotebook) return $q.when(currentNotebook);
 			else {
@@ -16,9 +21,7 @@ app.factory('NotebookFactory', function($http, $q){
 				})
 			}
 		},
-
     getCurrentNotebookSync: function(){
-      // console.log("currentNotebook ID is", currentNotebook._id);
       return currentNotebook;
     },
 
@@ -97,13 +100,9 @@ app.factory('NotebookFactory', function($http, $q){
           }
         }
       }
-    },
-
-    // to be created
-    // deleteNotebook: function(notebook){}
+    }
 	
   }
 
   return notebookAPI;
-
 })

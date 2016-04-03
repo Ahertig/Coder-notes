@@ -1,4 +1,4 @@
-app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) {
+app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, NotebookFactory, NotesFactory) {
 
     return {
         restrict: 'E',
@@ -22,7 +22,9 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
 
             scope.logout = function () {
                 AuthService.logout().then(function () {
-                   $state.go('home');
+                    NotebookFactory.resetNotebookCache();
+                    NotesFactory.resetNoteCache();
+                    $state.go('home');
                 });
             };
 
