@@ -8,8 +8,8 @@
 
 			<a ng-class="{activenotebook: getCurrentNotebook()._id == notebook._id}" data-toggle="collapse" ng-href="#{{notebook._id}}" class="list-group-item clearfix" ng-click="setCurrentNotebook(notebook)"> {{notebook.title}} 
 
-				<i id="share-btn" data-toggle="modal" data-target="#trashNotebook{{notebook._id}}" data-toggle="tooltip" title="Trash notebook" class="fa fa-trash-o pull-right"></i> 
-
+				<i data-toggle="modal" data-target="#trashNotebook{{notebook._id}}" data-toggle="tooltip" title="Trash notebook" class="fa fa-trash-o pull-right margin-left"></i> 
+  		
 				<i data-toggle="modal" data-target="#shareNotebook{{notebook._id}}" class="pull-right fa fa-share-alt"  data-toggle="tooltip" title="Share notebook"></i>
 
 				<!-- <i data-toggle="modal" data-target="#editNotebook{{notebook._id}}" class="pull-right glyphicon glyphicon-cog"  data-toggle="tooltip" title="setting"></i> -->
