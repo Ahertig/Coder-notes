@@ -21,7 +21,7 @@ ultradarK: 242500
 a {
 	color: #330645;
 	&:hover {
-		text-decoration: underline;
+		text-decoration: none;
 	}
 }
 
@@ -93,11 +93,6 @@ code {
 	cursor:pointer;
 }
 
-/* delete buttons */
-i.glyphicon-minus-sign {
-	color: red;
-	margin-left: 1em
-}
 
 .tab-content span.muted {
 	margin: 0.5em;
@@ -168,12 +163,18 @@ a.navbar-brand {
 }
 
 .navbar-custom {
-	padding: 5px 0px 0px 0px !important;
+	padding: 30px 0px 0px 0px !important;
+}
+
+.navbar-custom.top-nav-collapse {
+	background-color: transparent !important;
+	border: none !important;
 }
 
 
 .navbar-fixed-top {
 	background-color: transparent; 
+
 }
 
 .navbar input {
@@ -343,13 +344,14 @@ i.margin-left {
 }
 
 #custom-btn {
-    background-color: transparent;
+    background-color: #F3F2F3;
     border-radius: 5px;
     font-size: 14px;
     margin-right: 10px;
     font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
     &:hover {
         background-color: #e1dde3;
+
     }	
 }
 
@@ -357,3 +359,9 @@ i.margin-left {
 	background-color: #E7E7E7;
 	color: #785978;
 }
+
+.fa-remove {
+	color: #785978;
+}
+
+
