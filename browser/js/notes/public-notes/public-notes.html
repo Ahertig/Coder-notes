@@ -2,9 +2,13 @@
 
   <h2 class="text-center">Results for "{{searchNotes}}"</h2>
 
-    <div class="list-group-item" ng-repeat="note in publicNotes | filter:searchNotes">
+	<h3 ng-if="(filterednotes.length < 1)">Sorry, no results found!</h3>
+
+    <div class="list-group-item" ng-repeat="note in filterednotes = (publicNotes | filter:searchNotes)">
       <h3><a ui-sref="note({id: note._id})">{{note.subject}}</a></h3>
       <div>{{note.body | trunc:true:300:' ...'}}</div>
-      <div><strong>Last updated</strong> {{note.lastUpdate | date: 'longDate'}}</div>
+      <div><strong>Last updated</strong> {{note.lastUpdate | date : 'shortDate'}}</div>
     </div>
+
+
 </div>

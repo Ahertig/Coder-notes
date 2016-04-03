@@ -122,6 +122,7 @@ app.factory('NotesFactory', function($http, $q, NotebookFactory) {
 		fetchPublicNotes: function() {
 			return $http.get('/api/public/notes')
 			.then(function(response) {
+				console.log("public notes", response.data)
 				return response.data;
 			})
 		},

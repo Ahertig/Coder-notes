@@ -1,10 +1,10 @@
 
 <input ng-model="searchNotebooktitle" width="25" type="text" class="form-control" placeholder="Search Notebooks">
+<div class="noresults muted" ng-show="filteredNotebooks.length == 0">Sorry, no notebooks found for that keyword!</div>
 <div class="outer-scroll">
 	<div class="list-group" id="side-menu-2">   						
 		
-
-			<div class="row" ng-repeat="notebook in getCachedNotebooks() | filter:{title: searchNotebooktitle} | filter: {trash: false} | orderBy: '-date'">
+			<div class="row" ng-repeat="notebook in filteredNotebooks = (getCachedNotebooks() | filter:{title: searchNotebooktitle} | filter: {trash: false} | orderBy: '-date')">
 
 				<div class="col-lg-6 col-md-6 col-sm-6" >
 

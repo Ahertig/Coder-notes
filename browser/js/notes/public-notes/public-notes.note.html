@@ -1,7 +1,9 @@
 <div class="container">
-  <h1>{{note.subject}}</h1>
-  <hr />
-  <div>{{note.dummy}}</div>
-  <div marked="note.body"></div>
-  <div><strong>Last updated</strong> {{note.dateCreated | date: 'longDate'}}</div>
+	<div class="list-group-item">
+		<h1>{{note.subject}}</h1>
+		<hr />
+		<div>{{note.dummy}}</div>
+		<div marked="note.body"></div>
+		<div><strong>Last updated</strong> {{note.lastUpdate | date : 'shortDate'}}</div>
+	</div>
 </div>
