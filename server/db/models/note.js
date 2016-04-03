@@ -54,7 +54,6 @@ noteSchema.post('save', function(next) {
         .findOneAndUpdate(
             {notes: {$elemMatch: {$eq : this._id}}},{$set: {date: this.lastUpdate}},{new: true})
         .then(function(notebook){
-            console.log("notebook, ",notebook)
         }, function(err){console.log("Error: ", err)});
     }
 })

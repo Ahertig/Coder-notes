@@ -80,6 +80,63 @@ userSchema.pre('save', function (next) {
 
 });
 
+userSchema.methods.createNotebook = function(body) {
+   var thisUser = this;
+   var notebook;
+   return mongoose.model('Notebook').create(body)
+   .then(function(_notebook) {
+        notebook = _notebook
+        thisUser.myNotebooks.push(notebook._id);
+        return thisUser.save();       
+   })
+   .then(function(){
+        return notebook;
+   })
+}
+userSchema.methods.getNotebooksInTrash = function() {
+    var res = _.filter(this.myNotebooks, {trash: true})
+    return res
+}
+
+userSchema.methods.getTrash = function () {
+    var notes, notebooks;
+    var self = this;
+    return self.getNotesInTrash()
+    .then(function(trashnotes) {
+        notes = trashnotes
+        return notes;
+    })
+    .then(function(notes) {
+        notebooks = self.getNotebooksInTrash()
+        return notebooks
+    })
+    .then(function(notebooks) {
+        return notebooks.concat(notes)
+    })
+}
+
+userSchema.methods.clearTrash = function() {
+    return this.getTrash()
+    .then(function(result) {
+        return Promise.map(result, function(item) {
+            return item.remove()
+        })
+    })
+}
+userSchema.methods.getNonTrashNotes = function(tags) {
+    return this.getAllNotes(tags)
+    .then(function(notes) {
+        return _.filter(notes, {trash: false})
+    })
+}
+
+userSchema.methods.getNotesInTrash = function(tags) {
+    return this.getAllNotes(tags)
+    .then(function(notes) {
+        return _.filter(notes, {trash: true})
+    })
+}
+
 userSchema.methods.getAllNotes = function(tags) {
     var multidimensionalArrayOfNodeIds = [], 
         arrayOfNoteIds = [], 
@@ -114,69 +171,6 @@ userSchema.methods.getAllNotes = function(tags) {
             }
         })       
     }
-}
-
-
-
-userSchema.methods.getNonTrashNotes = function(tags) {
-    return this.getAllNotes(tags)
-    .then(function(notes) {
-        return _.filter(notes, {trash: false})
-    })
-}
-
-userSchema.methods.getNotesInTrash = function(tags) {
-    return this.getAllNotes(tags)
-    .then(function(notes) {
-        return _.filter(notes, {trash: true})
-    })
-}
-
-userSchema.methods.getNotebooksInTrash = function() {
-    var res = _.filter(this.myNotebooks, {trash: true})
-    return res
-}
-
-userSchema.methods.getTrash = function () {
-    var notes, notebooks;
-    var self = this;
-    return self.getNotesInTrash()
-    .then(function(trashnotes) {
-        notes = trashnotes
-        return notes;
-    })
-    .then(function(notes) {
-        notebooks = self.getNotebooksInTrash()
-        return notebooks
-    })
-    .then(function(notebooks) {
-        return notebooks.concat(notes)
-    })
-}
-
-userSchema.methods.clearTrash = function() {
-    return this.getTrash()
-    .then(function(result) {
-        return Promise.map(result, function(item) {
-            return item.remove()
-        })
-    })
-}
-
-
-//bind didn't work,so I just passed values with variables here
-userSchema.methods.createNotebook = function(body) {
-   var thisUser = this;
-   var notebook;
-   return mongoose.model('Notebook').create(body)
-   .then(function(_notebook) {
-        notebook = _notebook
-        thisUser.myNotebooks.push(notebook._id);
-        return thisUser.save();       
-   })
-   .then(function(){
-        return notebook;
-   })
 }
 
 function makePromisifiedGithubClient() {

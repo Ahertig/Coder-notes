@@ -10,7 +10,6 @@ var Promise = require('bluebird');
 // Require in all models.
 require('../../../server/db/models');
 
-var User = mongoose.model('User');
 var Notebook = mongoose.model('Notebook');
 var Note = mongoose.model('Note');
 
@@ -32,7 +31,7 @@ describe('Note model', function () {
         var notebook = {title: "Express",notes:[]};
     	var note = {subject: "Express Tips and Tricks", body: "**nodemon** is a useful package to auto-restart node server!",size: 50,tags: ["express","javascript"]}; 
         var theNotebook, theNote;
-        beforeEach(function(){
+        beforeEach(function(done){
             Note.create(note)
             .then(function(_note){
                 theNote = _note;
@@ -41,8 +40,9 @@ describe('Note model', function () {
             })
             .then(function(_notebook){
                 theNotebook = _notebook;
+                done();
             })
-            .then(null, function(err){console.log("Error:", err)});
+            .then(null, done);
         })
         afterEach(function(){
             Notebook.remove();
