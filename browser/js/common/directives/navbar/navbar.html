@@ -17,10 +17,10 @@
             <button id="custom-btn" class="btn btn-default" ui-sref="usercontent">My notes</button>
           </li>
 
-          <li class="dropdown" ng-if="isLoggedIn() && !('home' | isState)"> 
+          <li class="dropdown" ng-if="!('home' | isState)"> 
             <form ng-submit="search(searchTerm)">
-        <input size="35" type="text" placeholder="Search public notes" ng-model="searchTerm">
-        <button type="submit" class="fa fa-search btn-invisible"></button>
+              <input size="35" type="text" placeholder="Search public notes" ng-model="searchTerm">
+              <button type="submit" class="fa fa-search btn-invisible"></button>
             </form>
           </li>
 
