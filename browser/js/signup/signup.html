@@ -1,9 +1,6 @@
 <div class="container">
-    <div class="col-lg-6 signup-form">
-        <div class="panel panel-gh">
-            <div class="panel-heading">
-                <h3>Sign up for Coder Notes</h3>
-            </div>
+    <div class="signup-form">
+<!--         <div class="panel panel-gh"> -->
             <div class="panel-body">
                 <form id="signup-form" name="signupForm" ng-submit="signupForm.$valid && sendSignup(signup)">
                     <uib-alert type="danger" ng-show="error">
@@ -46,14 +43,10 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-default" ng-disabled="!signupForm.$valid">Sign up</button>
+                    <button type="submit" class="btn btn-default" ng-disabled="!signupForm.$valid">Sign up</button>&nbsp; &nbsp; &nbsp; Already have an account? <a ui-sref="login">Login</a>
 
                 </form>
             </div>
-        </div>
-
-        <div class="text-center">
-            Already have an account? <a ui-sref="login">Login</a>
-        </div>
+        <!-- </div> -->
     </div>
 </div>

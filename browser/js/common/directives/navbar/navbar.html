@@ -2,20 +2,22 @@
 
 <nav class="navbar navbar-custom" ng-class="{'navbar-fixed-top': ('home' | isState), 'navbar-static-top': !('home' | isState)}" role="navigation">
     <!-- <div class="container"> -->
-        <div class="navbar-header">
+        <div class="navbar-header" ng-if="('home' | isState)">
+          <a ui-sref="home"><img class="logo" src="img/logo.png"></a>
+        </div>
+        <div class="navbar-header" ng-if="!('home' | isState)">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                 <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand page-scroll" href="/">
-                <span class="light">Coder</span> Notes
-            </a>
+
+            <a class="navbar-brand page-scroll" ui-sref="home">Coder Notes</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <ul class="nav navbar-top-links navbar-right">
 
           <li class="dropdown" ng-if="isLoggedIn() && (('community' | isState) || ('note' | isState) || ('home' | isState))">
-            <button class="btn btn-default" ui-sref="usercontent">My notes</button>
+            <button id="custom-btn" class="btn btn-default" ui-sref="usercontent">My notes</button>
           </li>
 
           <li class="dropdown" ng-if="isLoggedIn() && !('home' | isState)"> 
@@ -63,15 +65,16 @@
             </ul> <!-- /.dropdown-user -->
           </li> <!-- /.dropdown -->
 
-          <li ng-if="!isLoggedIn()">
-              <a class="page-scroll btn-default" ui-sref="login">Login</a>
-          </li>
+				<div id="login">
+					<li ng-if="!isLoggedIn()">
+            <a class="page-scroll btn-default" ui-sref="login">Login</a>
+        	</li>
 
-          <li ng-if="!isLoggedIn()">
-              <a class="page-scroll btn-default" ui-sref="signup">Sign up</a>
-          </li>
-    </ul> <!-- /.navbar-top-links -->
-  <!-- </div> /.container -->
+					<li ng-if="!isLoggedIn()">
+		         <a class="page-scroll btn-default" ui-sref="signup">Sign up</a>
+		      </li>
+		    </div>
+		</ul> <!-- /.navbar-top-links -->
 </nav>
 
 
