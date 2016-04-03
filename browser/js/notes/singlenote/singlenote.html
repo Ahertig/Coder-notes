@@ -7,6 +7,15 @@
 	</ul>
 
 	<div class="tab-content">
+
+	<!-- 	<label>
+		 <input type="radio" name="gridRadios" id="ispublic" ng-model="currentNote().type"  value="public" ng-change="change('public')"> Public 
+		</label>&nbsp; &nbsp; &nbsp;  
+		<label>
+		  <input type="radio" name="gridRadios" id="isprivate" ng-model="currentNote().type" value="private" ng-change="change('private')">Private
+		</label> -->
+
+
 		<span ng-if="currentNote().trash" class="muted pull-right"><i title="Note is in trash" class="glyphicon glyphicon-trash"></i></span>
 		<span class="muted small pull-right">Notebook: {{getCurrentNotebook().title}}</span>
 		<span class="muted small pull-right">Last updated: {{currentNote().lastUpdate | date : 'shortDate'}}</span>
@@ -29,6 +38,15 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<label for="notesubject" class="muted">Note title</label> 
+
+		<label class="pull-right margin-left">
+			 <input type="radio" name="gridRadios" id="ispublic" ng-model="currentNote().type"  value="public" ng-change="change('public')"> Public  &nbsp; &nbsp;
+		</label>&nbsp; &nbsp;
+		<label class="pull-right margin-left">
+			  <input type="radio" name="gridRadios" id="isprivate" ng-model="currentNote().type" value="private" ng-change="change('private')"> Private
+
+		</label>
+
 					<input ng-model="currentNote().subject" class="form-control" id="notesubject" placeholder="{{currentNote().subject}}">
 				</div>
 
@@ -73,12 +91,12 @@
 					<i class="fa fa-github" ng-click="createGist(currentNote())" type="button" class="btn btn-success" data-toggle="tooltip" title="Create gist"></i>&nbsp; &nbsp; &nbsp;
 
 					<!-- <div class="radio" > -->
-						<label>
+	<!-- 					<label>
 						 <input type="radio" name="gridRadios" id="ispublic" ng-model="currentNote().type"  value="public" ng-change="change('public')"> Public 
 						</label>&nbsp; &nbsp; &nbsp;  
 						<label>
 						  <input type="radio" name="gridRadios" id="isprivate" ng-model="currentNote().type" value="private" ng-change="change('private')">Private
-						</label>
+						</label> -->
 					<!-- </div>	 -->
 
 				</div>
