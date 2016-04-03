@@ -56,7 +56,7 @@ a.muted {
 		cursor: pointer;
 	}
 	i.glyphicon {
-		color: red;
+		color: grey;
 	}
 	.tiny {
 		font-size: 1%;
@@ -111,7 +111,6 @@ i.glyphicon-minus-sign {
 		display: inline-block;
 		margin-right: 2em;
 	}
-
 }
 
 input#notebook {
@@ -161,7 +160,10 @@ nav.navbar {
 }
 
 a.navbar-brand {
-	font-family: 'PT Mono', Monospace, sans-serif;
+	font-family: 'Courier New', Courier, Monospace, sans-serif;
+	font-size: 28px;
+	margin-left: 50px;
+	/* font-family: 'PT Mono', Monospace, sans-serif; */
 	font-size: 26px;
 }
 
@@ -249,11 +251,99 @@ button {
 
 @import 'sidenav';
 
+.navbar-right {
+	margin-right: 15px !important;
+}
 
 
+#login  {
+	margin-right: 50px;
+	margin-top: 10px;
+
+}
+
+#login  a {
+	border: none;
+	color: #f3f2f3;
+	background-color: transparent;
+	font-size: 16px;
+	font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+#log-form {
+	background-color: #f3f2f3;
+	border: #f3f2f3 !important;
+	margin-top: 100px;
+}
+
+#log-form button {
+    background-color: transparent;
+    border-radius: 5px;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    &:hover {
+        background-color: #dddddd;
+    }
+}
+
+#log-form a {
+	margin-left: 10px;
+}
+
+#social-buttons {
+	margin-bottom: 20px;
+}
+
+.signup-form {
+    background-color: #f3f2f3;
+    margin-top: 50px;
+}
+
+#signup-form button {
+    background-color: transparent;
+    border-radius: 5px;
+    margin-left: 15px;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    &:hover {
+        background-color: #dddddd;
+    }
+}
+
+#signup-form a {
+	margin-left: 10px;
+}
+
+.trash-modal {
+	text-align: center;
+	font-size: 30px;
+	color: #bbbbbb;
+}
+
+.trash-modal i {
+	margin-left: 120px;
+}
+
+#share-btn {
+	margin-left: 15px;
+}
+
+#restore-btn {
+	margin-right: 15px;
+}
 
 
+#my-element {
+	margin-top:40px;
+}
 
-
+#custom-btn {
+    background-color: transparent;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-right: 10px;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    &:hover {
+        background-color: #e1dde3;
+    }	
+}
 
 
