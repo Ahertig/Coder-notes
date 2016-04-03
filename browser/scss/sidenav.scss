@@ -113,7 +113,7 @@ sidenav button {
 	cursor:pointer;
 	color: #120019;
 	&:hover {
-		color: #330645;
+		color: #D3C2D9;
 		background-color: #8b639d;
 	}
 }
@@ -131,4 +131,8 @@ sidenav input {
 	border-radius: 20px !important; 
 	margin: 7px auto !important;
 	width: 98% !important;
+}
+
+input#notebook {
+	border-radius: 0;
 }
