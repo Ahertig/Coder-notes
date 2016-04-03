@@ -12,12 +12,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="jquery-1.12.2.min.js"></script>
     <script src="popup.js"></script>
+
+    <link href='https://fonts.googleapis.com/css?family=Cutive+Mono' rel='stylesheet' type='text/css'>
   </head>
   <body>
     <div>
       <div class="container background">
-        <img class="logo" src="img/coderNotes.png">
-        <h4 class="text-center">Add a note</h4>
+        <h4 class="header"><img class="logo" src="img/codernotesCEnew2.png"> Add a note</h4>
         <form id="saveNote">
           <div class="form-group">
             <input type="text" id="subject" name="subject" placeholder="Filename">
@@ -30,7 +31,7 @@
           <div class="form-group">
             <textarea id="body" value="grabSelectedText()"></textarea>
           </div>
-          <hr></hr>
+          <hr class="saveNote"></hr>
           <div class="form-group">
             <label for="tags">Tags</label>
             <input type="text" id="tags" name="tags">
@@ -39,13 +40,13 @@
             <button class="btn btn-block" type="submit" type="button">Save note</button>
           </div>
         </form>
-        <hr></hr>
-          <div class="text-right footer">
-            <form id="logoutCE">
-              <a href="http://codernotes.herokuapp.com/notes">Back to Notes</a> | 
-              <button class="btn btn-link" type="submit">Logout</button>
-            </form>
-          </div>
+        <hr class="saveNote"></hr>
+        <div class="text-right footer">
+          <form id="logoutCE">
+            <a class="btn btn-link" href="http://codernotes.herokuapp.com/notes">Back to Notes</a> | 
+            <button class="btn btn-link" type="submit">Logout</button>
+          </form>
+        </div>
       </div>
 
     </div>
