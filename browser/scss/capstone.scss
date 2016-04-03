@@ -1,5 +1,3 @@
-
-
 /*
 
 LIGHTER COLOR SCHEME:
@@ -120,7 +118,28 @@ input#notebook {
 	margin-bottom: 0.5em;
 }
 
+/* edit/preview area */
 
+.nav-tabs li a {
+	background: #D3C2D9;
+	cursor:pointer;
+	color: #120019;
+	&:hover {
+		color: #5D2971;
+		background-color: #8b639d;
+	}
+}
+
+#edit i {
+	cursor: pointer;
+	&:hover {
+		color: #5D2971;
+	}
+}
+
+#edit .radio input[type='radio']:checked {
+   background-color: #8b639d !important;
+}
 
 /* top navbar */
 
@@ -150,11 +169,22 @@ a.navbar-brand {
 	padding: 5px 0px 0px 0px !important;
 }
 
+
+.navbar-fixed-top {
+	background-color: transparent; 
+}
+
+.navbar input {
+	border-radius: 20px;
+	border: 1px solid #cccccc !important;
+}
+
 body,
 #sidenav,
-.navbar-custom {
-	background-color: transparent!important; 
+.navbar-static-top {
+	background-color: #f3f2f3 !important;
 }
+
 
 /* bootstrap columns */
 
