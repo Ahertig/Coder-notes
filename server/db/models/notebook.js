@@ -32,18 +32,29 @@ var notebookSchema = new mongoose.Schema({
 
 // HOOKS
 // Removing notebook from user.myNotebooks
-notebookSchema.post('remove', function(doc, next) {
-    return mongoose.model('User')
-        .findOneAndUpdate(
-            {myNotebooks: {$elemMatch: {$eq : doc._id}}},
-             {$pull: {myNotebooks: doc._id}})
-        .exec()
-        .then(function() {
-            next()
-        })
+notebookSchema.pre('remove', function(doc,next) {
+    var notebook = this;
+    mongoose.model('User').findOne({myNotebooks: {$elemMatch: {$eq : notebook._id}}})
+    .then(function(user){
+        user.myNotebooks.pull(notebook._id);
+        return user.save();
+    })
+    .then(function(user){
+        next();
+    })
+    .then(null, next)
+
+    // return mongoose.model('User')
+    //     .findOneAndUpdate(
+    //         {myNotebooks: {$elemMatch: {$eq : doc._id}}},
+    //          {$pull: {myNotebooks: doc._id}})
+    //     .exec()
+    //     .then(function() {
+    //         next()
+    //     })
 })
 
-// Removing notebook from user.sharedWithMeNotebooks - not tested!
+// // Removing notebook from user.sharedWithMeNotebooks - not tested!
 notebookSchema.post('remove', function(doc, next) {
     return mongoose.model('User')
         .findOneAndUpdate(
@@ -56,7 +67,7 @@ notebookSchema.post('remove', function(doc, next) {
 })
 
 notebookSchema.post('remove', function(doc, next) {
-    doc.populate('notes')
+    return doc.populate('notes')
     .then(function(notebook) {
         return Promise.map(doc.notes, function(note) {
             return note.remove()
