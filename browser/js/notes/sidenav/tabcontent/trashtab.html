@@ -5,12 +5,9 @@
 		<div ng-repeat="notebook in trashednotebooks = (getCachedNotebooks() | filter:searchNotebooks | filter: {trash: true})" > 
 			<a data-toggle="collapse" ng-href="#trash-{{notebook._id}}" class="list-group-item" ng-click="setCurrentNotebook(notebook)">{{notebook.title}}
 				&nbsp; &nbsp; &nbsp;
-		        <i ng-click="deleteNotebook(notebook)" type="button" class="fa fa-trash-o pull-right margin-left"  data-toggle="tooltip" title="Delete notebook">
-				</i>
+				<i ng-click="deleteNotebook(notebook)" type="button" class="fa fa-trash-o pull-right margin-left"  data-toggle="tooltip" title="Delete notebook">
 				&nbsp; &nbsp; &nbsp;
-		        <i ng-click="restoreNotebook(notebook)" type="button" class="fa fa-check-circle pull-right margin-left" data-toggle="tooltip" title="Restore notebook">
-				</i>
-
+				<i ng-click="restoreNotebook(notebook)" type="button" class="fa fa-check-circle pull-right margin-left" data-toggle="tooltip" title="Restore notebook">
 			</a>
 
 			<div class="panel-collapse collapse" id="trash-{{notebook._id}}">
@@ -38,6 +35,12 @@
 
 <div class="inner-scroll">
 	<div class='list-group'>
-	<a class="list-group-item" ng-repeat="note in trashnotes = (getnotes() | filter: searchNotes | filter: {trash: true})" ng-click="setCurrentNote(note)">{{note.subject}}</a>
+	<a class="list-group-item" ng-repeat="note in trashnotes = (getnotes() | filter: searchNotes | filter: {trash: true})" ng-click="setCurrentNote(note)">{{note.subject}}
+	&nbsp; &nbsp; &nbsp;
+ 		<i ng-click="deleteNote(note)" ng-if="note.trash" type="button" class="fa fa-trash-o pull-right  margin-left"  data-toggle="tooltip" title="Delete note">
+ 		</i>
+ 		&nbsp; &nbsp; &nbsp;
+ 		<i ng-click="restoreNote(note._id)" ng-if="note.trash" type="button" class="fa fa-check-circle pull-right"  data-toggle="tooltip" title="Restore note">
+ 		</i></a>
 	</div>
 </div>

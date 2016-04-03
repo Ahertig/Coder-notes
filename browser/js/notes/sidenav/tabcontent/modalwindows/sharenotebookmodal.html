@@ -1,0 +1,12 @@
+<div class="modal-dialog">
+	<div class="modal-content share-modal">
+		<div class="modal-body">
+			<form ng-submit="shareNotebook(notebook, shareEmail)">
+				<input ng-model="shareEmail" type="text" class="form-control" placeholder="Add friend's email to share or remove share"> 
+				<i ng-click="shareNotebook(notebook, shareEmail)" class="fa fa-share-alt" data-dismiss="modal"></i>
+				<i ng-click="removeNotebookShare(notebook, shareEmail)" class="fa fa-times" data-dismiss="modal"></i>
+			</form>	
+			<div class="alert alert-error" role="alert" ng-if="errormessage">{{errormessage}}</div>
+		</div>
+	</div>
+</div>
