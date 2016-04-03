@@ -35,6 +35,22 @@ module.exports = [
 		"lastUpdate": "2016-03-30T04:24:13-07:00"
 	},
 	{
+		"subject": "Intro to Mongoose",
+		"body": "Mongoose is MongoDB object modeling for NodeJS.\n###Example:\n     var mongoose = require('mongoose');\n     mongoose.connect('mongodb://localhost/test');\n     var Cat = mongoose.model('Cat', { name: String });\n     var kitty = new Cat({ name: 'Zildjian' });\n     kitty.save(function (err) {\n     \tif (err) {\n     \t\tconsole.log(err);\n     \t} else {\n     \t\tconsole.log('meow');\n     \t}\n     });",
+		"tags": ["node","javascript","mongoose","mongodb","ORM"],
+		"dateCreated": "2016-02-26T21:20:47-08:00",
+		"lastUpdate": "2016-03-20T12:13:09-07:00"
+
+	},
+	{
+		"subject": "Bubble Sort",
+		"body": "A simple sorting algorithm that repeatedly steps through the list to be sorted, compares each pair of adjacent items and swaps them if they are in the wrong order.",
+		"tags": ["REACTO","javascript","algorithms"],
+		"dateCreated": "2016-02-24T21:20:47-08:00",
+		"lastUpdate": "2016-03-22T12:13:09-07:00"
+
+	},
+	{
 		"subject": "Intro to NodeJS",
 		"body": "* node = \"runtime environment\"\n* Chrome is also a runtime environment\n* module.exports is a way to store properties & functions across files\n* `module` is a global variable in node\n\n### require\n\n* finds a file\n* executes it\n* imports its files\n\n\n      var someVar = require(\'.\')\n      console.log(someVar.x);\n      var x = {\"blah\"} \n      module.exports =  { x:x };\n\nOR\n\n      module.exports.x = x;\n\n\n     function(input) { doSomething(input)});\n    output = aSyncFunc(foo,func() { return bar; }) \n        var nonRepeating = lines.filter(function(line, index) {\n      return line!=lines[index - 1];\n        })",
 		"tags": ["node","javascript"],
