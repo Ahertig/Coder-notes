@@ -271,9 +271,10 @@ button {
 }
 
 #log-form {
-	background-color: #f3f2f3;
 	border: #f3f2f3 !important;
 	margin-top: 100px;
+  margin: auto;
+  width: 50%;
 }
 
 #log-form button {
@@ -296,6 +297,8 @@ button {
 .signup-form {
     background-color: #f3f2f3;
     margin-top: 50px;
+    margin: auto;
+    width: 50%;
 }
 
 #signup-form button {

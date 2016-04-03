@@ -12,7 +12,7 @@ require('../../../server/db/models');
 var User = mongoose.model('User');
 var Notebook = mongoose.model('Notebook');
 
-xdescribe('User model', function () {
+describe('User model', function () {
 
     beforeEach('Establish DB connection', function (done) {
         if (mongoose.connection.db) return done();
@@ -161,6 +161,7 @@ xdescribe('User model', function () {
             });
         });
     });   
+
     describe('hooks', function(){
         var  createuser1 = function () {
             return User.create({ email: 'gracehopper@gmail.com', password: 'potus' })
@@ -181,10 +182,75 @@ xdescribe('User model', function () {
             })
             .then(null, done);
         }) 
+        afterEach(function(){
+            User.remove();
+            Notebook.remove();
+        })
         it('should create first notebook when user is created', function(done){
             expect(user1.myNotebooks).to.have.length(1);
             expect(notebook1.title).to.equal('My First Notebook');
             done();
         });
     });
+
+    describe('methods', function(){
+        var  createuser = function () {
+            return User.create({ email: 'gracehopper@gmail.com', password: 'potus' })
+        };
+        var user, notebook, trashnotebook, note1,note2
+      
+        beforeEach('create a user', function(done){
+            createuser()
+            .then(function(_user){
+                user = _user;
+                done();
+            })
+        });
+        beforeEach('create the second notebook', function(done){
+                User.findById(user._id)
+                .then(function(user){
+                    return user.createNotebook({title:'second notebook', trash: true})
+                })
+                .then(function(_notebook){
+                    trashnotebook = _notebook;
+                    done();
+                }).then(null,done);
+        });
+
+        beforeEach('create notes to first notebook', function(done){
+            Notebook.findById(user.myNotebooks[0])
+            .then(function(_notebook){
+                return Promise.all([_notebook.createNote({subject:'node',trash: true}), _notebook.createNote({subject:'angular', trash: false})])
+            })
+            .spread(function(_note1,_note2){
+                note1 = _note1;
+                note2 = _note2;
+                done();
+            }).then(null,done)
+        })
+        
+        afterEach(function(){
+            User.remove();
+            Notebook.remove();
+        })
+    
+        it('should create notebook', function(done){
+             User.findById(user._id)
+             .then(function(user){
+                expect(user.myNotebooks.length).to.equal(2);
+                done();
+             })
+        })
+        it('should get trash notebooks', function(done){
+            User.findById(user._id)
+            .populate('myNotebooks')
+            .then(function(user){
+                return user.getNotebooksInTrash()
+            })
+            .then(function(trashnotebooks){
+                expect(trashnotebooks[0]._id.toString()).to.equal(trashnotebook._id.toString());
+                done();
+            })
+        })   
+    })
 });

@@ -2,12 +2,15 @@
 
 <nav class="navbar navbar-custom" ng-class="{'navbar-fixed-top': ('home' | isState), 'navbar-static-top': !('home' | isState)}" role="navigation">
     <!-- <div class="container"> -->
-        <div class="navbar-header">
+        <div class="navbar-header" ng-if="('home' | isState)">
+          <a ui-sref="home"><img class="logo" src="img/logo.png"></a>
+        </div>
+        <div class="navbar-header" ng-if="!('home' | isState)">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                 <i class="fa fa-bars"></i>
             </button>
 
-            <a class="navbar-brand page-scroll" ui-sref="home">Coder Notes </a>
+            <a class="navbar-brand page-scroll" ui-sref="home">Coder Notes</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -17,10 +20,10 @@
             <button id="custom-btn" class="btn btn-default" ui-sref="usercontent">My notes</button>
           </li>
 
-          <li class="dropdown" ng-if="isLoggedIn() && !('home' | isState)"> 
+          <li class="dropdown" ng-if="!('home' | isState)"> 
             <form ng-submit="search(searchTerm)">
-        <input size="35" type="text" placeholder="Search public notes" ng-model="searchTerm">
-        <button type="submit" class="fa fa-search btn-invisible"></button>
+              <input size="35" type="text" placeholder="Search public notes" ng-model="searchTerm">
+              <button type="submit" class="fa fa-search btn-invisible"></button>
             </form>
           </li>
 
@@ -29,19 +32,21 @@
               <i class="fa fa-clock-o"></i>
               <i class="fa fa-caret-down"></i>
             </a>
-            <ul class="dropdown-menu dropdown-messages">
-              <div ng-repeat="note in notes | limitTo: 5 | orderBy: '-lastUpdate'" >
+            <ul class="dropdown-menu dropdown-messages notelist">
+              <div class="recentnotes" ng-repeat="note in notes | limitTo: 3 | orderBy: '-lastUpdate'" >
               <li ng-click = setCurrentNote(note)>
-                <div>
-                  <strong>{{note.subject}}</strong>
-                  <span class="pull-right text-muted">
-                  </span>
-                </div>
-                <div>{{note.body | trunc:true:80:' ...'}}</div>
-                <div style="font-size: 80%"><em>Last updated {{note.lastUpdate | date : 'short'}}</em></div>
-                <!-- </a> -->
+                <div class="recentNote">
+                  <div>
+                    <strong>{{note.subject}}</strong>
+                    <span class="pull-right text-muted">
+                    </span>
+                  </div>
+                  <div id="notebody">{{note.body | trunc:true:80:' ...'}}</div>
+                  <div style="font-size: 80%"><em>Last updated {{note.lastUpdate | date : 'short'}}</em></div> <!-- </a> -->
+              </div>
               </li>
-              <li class="divider"></li>
+              <hr />
+              <!-- <li class="divider"></li> -->
               </div>
             </ul> <!-- /.dropdown-messages -->
           </li> <!-- /.dropdown -->

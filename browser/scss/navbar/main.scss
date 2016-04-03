@@ -1,0 +1,25 @@
+ul .notelist {
+	border-radius: 5px;
+}
+hr {
+	margin-bottom: 0;
+}
+ul .recentnotes {
+	margin-top: 0px;
+	&:hover {
+		background-color: #D3C2D9;
+	}
+}
+li .recentNote {
+	padding: 15px 10px 0 10px;
+	margin: 0;
+	color: #505050;
+	strong {
+		margin-bottom: 2px;
+		font-size: 12px;
+	} 
+	#notebody {
+		margin: 0 4px;
+	}
+	
+}
