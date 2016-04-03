@@ -322,14 +322,18 @@ button {
 	margin-left: 120px;
 }
 
-#share-btn {
-	margin-left: 15px;
+.share-modal {
+	font-size: 30px;
+	color: #bbbbbb;
+}
+.share-modal .fa-share-alt {
+	margin: 0 70px 0 220px
 }
 
-#restore-btn {
-	margin-right: 15px;
-}
 
+i.margin-left {
+	margin-left: 15px !important;
+}
 
 #my-element {
 	margin-top:40px;
@@ -346,4 +350,7 @@ button {
     }	
 }
 
-
+.panel-footer .nav-pills li:hover, .panel-footer .nav-pills li:active {
+	background-color: #E7E7E7;
+	color: #785978;
+}

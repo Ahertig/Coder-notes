@@ -12,26 +12,16 @@
 		<span class="muted small pull-right">Last updated: {{currentNote().lastUpdate | date : 'shortDate'}}</span>
 
 		<div class="tab-pane fade in active" id="preview">
-<!-- 			<h2>Preview Note</h2> -->
 			<div id="markdown-wrapper" class="panel panel-default">
 				<div class="panel-body" tabindex=0  enter-key="runTonic()">
-				<!-- <div class="panel-body" contenteditable enter-key="runTonic()"> -->
 					<h2>{{currentNote().subject}}</h2>
-					<div  marked="currentNote().body">
-					</div>
+					<div  marked="currentNote().body"></div>
 				</div>
 			</div>
-			<p class="code-instructions" ng-if="!currentNote().trash"><em>To run code, highlight text and press Ctrl-Enter</em></p>			
-		</div> <!-- end .tab-pane #preview -->
 
-		<div class="panel-body note-panel">
-			&nbsp; &nbsp; &nbsp;
-	        <i ng-click="deleteNote(currentNote())" ng-if="currentNote().trash" type="button" class="fa fa-trash-o"  data-toggle="tooltip" title="Delete note">
-			</i>
-			&nbsp; &nbsp; &nbsp;
-	        <i ng-click="restoreNote(currentNote()._id)" ng-if="currentNote().trash" type="button" class="fa fa-check-circle"  data-toggle="tooltip" title="Restore note">
-			</i>
-		</div>
+			<p class="code-instructions" ng-if="!currentNote().trash"><em>To run code, highlight text and press Ctrl-Enter</em></p>			
+		</div> <!-- end .tab-pane fade in active #preview -->
+
 
 		<div class="tab-pane fade" id="edit" ng-hide="currentNote().trash">
 
@@ -99,14 +89,9 @@
 				    <div class="modal-content">
 				      <div class="modal-body">
 						<div class="input-group" id="delete-note-confirmation"> 
-
 							<i class="fa fa-check" title="Confirm delete" ng-click="trashNote(currentNote()._id)" data-dismiss="modal"></i>
 					        <i class="fa fa-trash-o"></i>
 					        <i class="fa fa-times" title="Cancel delete" data-dismiss="modal"></i>
-
-					        <h4 class="modal-title">Are you sure you want to delete this note?</h4>
-							<span ng-click="trashNote(currentNote()._id)" class="btn btn-danger-new" data-dismiss="modal">Delete</span> 
-							<span class="btn btn-success-new" data-dismiss="modal">Cancel</span> 
 						</div>
 
 
