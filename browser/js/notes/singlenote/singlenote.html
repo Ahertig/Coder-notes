@@ -66,14 +66,14 @@
 						</div>
 				</form>  
 
-				<div class="radio" >
+<!-- 				<div class="radio" >
 					<label>
 					 <input type="radio" name="gridRadios" id="ispublic" ng-model="currentNote().type"  value="public" ng-change="change('public')"> Public 
 					</label>	      
 					<label>
 					  <input type="radio" name="gridRadios" id="isprivate" ng-model="currentNote().type" value="private" ng-change="change('private')">Private
 					</label>
-				</div>	
+				</div>	 -->
          </div>
 
 				<div class="panel-body">
@@ -89,7 +89,16 @@
 					<i ng-if="!tonic" class="fa fa-code" ng-click="closeTonic()" data-toggle="tooltip" title="Close Tonic window"></i>
 					<span ng-if="!tonic">&nbsp; &nbsp; &nbsp;</span>
 
-					<i class="fa fa-github" ng-click="createGist(currentNote())" type="button" class="btn btn-success" data-toggle="tooltip" title="Create gist"></i>
+					<i class="fa fa-github" ng-click="createGist(currentNote())" type="button" class="btn btn-success" data-toggle="tooltip" title="Create gist"></i>&nbsp; &nbsp; &nbsp;
+
+					<!-- <div class="radio" > -->
+						<label>
+						 <input type="radio" name="gridRadios" id="ispublic" ng-model="currentNote().type"  value="public" ng-change="change('public')"> Public 
+						</label>&nbsp; &nbsp; &nbsp;  
+						<label>
+						  <input type="radio" name="gridRadios" id="isprivate" ng-model="currentNote().type" value="private" ng-change="change('private')">Private
+						</label>
+					<!-- </div>	 -->
 
 				</div>
 
