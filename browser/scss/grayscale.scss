@@ -52,7 +52,7 @@ a {
 a:hover,
 a:focus {
     text-decoration: none;
-    color: #1d9b6c;
+    color: #330645;
 }
 
 input {
@@ -68,8 +68,7 @@ input {
     margin-bottom: 0;
     border-bottom: 1px solid rgba(255,255,255,.3);
     /*text-transform: uppercase;*/
-    font-family: 'courier new', monospace;
-    /*Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;*/
+    font-family: 'Share Tech Mono';
     background-color: #000;
 }
 
@@ -196,6 +195,8 @@ input {
 
 .intro-body h1 {
     padding-bottom: 20px;
+    font-size: 18px;
+    font-family: 'Cutive mono'
 }
 
 @media(min-width:768px) {
@@ -209,7 +210,7 @@ input {
     }
 
     .intro .intro-body .intro-text {
-        font-size: 20px;
+        font-size: 25px;
     }
 }
 

@@ -20,9 +20,6 @@ var noteSchema = new mongoose.Schema({
         type: Date, 
         default: Date.now
     },
-    size: {
-        type: Number
-    },
     lastUpdate: {
         type: Date,
         default: Date.now

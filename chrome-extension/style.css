@@ -1,54 +1,68 @@
 body {
-/*  border: 3px solid gray;*/
-  font-family: "Times New Roman";
+  font-family: 'Open Sans';
   width: 300px;
+  color: white;
+}
+
+.footer a, .footer button {
+  color: #A2A838;
+  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;;
+}
+
+.footer a:hover, .footer button:hover {
+  color: #626706;
+}
+
+label, b, strong {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #545454;
+  text-shadow: 1px 1px #D3D3D3;
 }
 
 html {
   width: 300px;
 }
 
-/*.background {
-  background-color: #E4ECF3;
-}*/
-
-h4 {
-  font-family: "Times New Roman";
-  font-size: 10px;
-  font-color: orange;
+.background {
+  background-color: #f3f2f3;
 }
 
-hr {
-  border: 1px;
-  border-color: black;
+.header {
+  font-family: "Cutive Mono";
+  font-size: 20px;
+  color: #333333;
+}
+
+.saveNote {
+  border-top: 1px solid #bfadbf;
+  border-bottom: 1px solid #fff;
 }
 
 textarea {
   width: 100%;
   height: 140px;
-  border: 4px solid #DAEEF5;
+  border: 0px;
   padding: 6px;
+  font-family: "Open Sans";
 }
 
 input {
   width: 100%;
-  border: 4px solid #DAEEF5;
+  border: 0px;
   padding: 6px;
+font-family: "Open Sans";
 }
 
 button {
   border: 0px;
   padding: 10px;
-  background-color: #DAEEF5;
+  background-color: #785978;
+  font-family: "Open Sans";
 }
 
 .form-group button {
-  color: black;
+  color: white;
 }
-
-/*input #submit {
-  background-color: #DAEEF5;
-}*/
 
 .footer {
   padding-bottom: 20px;
@@ -57,6 +71,13 @@ button {
 
 img.logo {
   margin: auto;
-  display: block;
+  width: 40px;
+}
+
+select {
+  background-color: white;
+  width: 100%;
+  padding: 10px;
+  border: solid white 1px;
 }
 

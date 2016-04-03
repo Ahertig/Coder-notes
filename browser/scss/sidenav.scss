@@ -73,12 +73,15 @@ sidenav ul.dropdown-menu.dropdown-messages li {
 		/*color: deepskyblue;*/
 
 		&:hover {
-		 	color: #1d9b6c;
+		 	color: #A2A838;
 		 	text-decoration: underline;
 		}
 	}
 }
 
+ul.nav-pills-purple {
+	background-color: #785978;
+}
 .nav-pills-purple > li.active > a {
 	background-color: #8e6b8e !important;
 	color: #fff;
@@ -110,7 +113,26 @@ sidenav button {
 	cursor:pointer;
 	color: #120019;
 	&:hover {
-		color: #330645;
+		color: #D3C2D9;
 		background-color: #8b639d;
 	}
+}
+
+.noteslist.list-group {
+	margin-bottom: 0;
+}
+
+.activenotebook {
+	background-color: #dedede !important;
+	font-weight: bold !important;
+}
+
+sidenav input {
+	border-radius: 20px !important; 
+	margin: 7px auto !important;
+	width: 98% !important;
+}
+
+input#notebook {
+	border-radius: 0;
 }

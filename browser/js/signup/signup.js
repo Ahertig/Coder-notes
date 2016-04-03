@@ -3,7 +3,7 @@
 app.controller('SignupCtrl', function($scope, UserFactory, AuthService, $state){
 
   $scope.sendSignup = function(signup){
-    var newLogin = {email: signup.email, password: signup.password};
+    var newLogin = {email: signup.email, password: signup.password, firstName: signup.firstName, lastName: signup.lastName};
     UserFactory.create(signup)
     .then(function(newUser){
       console.log('Here is new user', newUser);
