@@ -29,10 +29,26 @@ module.exports = [
 	},
 	{
 		"subject": "Stack of stacks",
-		"body": "* Start with a data structure of fixed size: set of stacks\n* Initialize with maximum value\n* If max value exceeded, create new stack\n *Implement as linked list\n\n     function Node(value) {\n     this.value = value;\n }\n\n     function Stack() {\n     this.top = null;\n     this.length = 0;\n}    \n    Stack.prototype.push = function(value) {\n     var newNode = new Node(value);\n     if(!this.top) {\n     this.top = newNode;\n    }\n     else {\n newNode.next = this.top;\n     this.top = newNode;\n    }",
+		"body": "Start with a data structure of fixed size: set of stacks and initialize with maximum value. If max value exceeded, create new stack\n\n### Possible solution \n \n     function Node(value) {\n     \tthis.value = value;\n     }\n\n     function Stack() {\n     \tthis.top = null;\n     \tthis.length = 0;\n     }\n     Stack.prototype.push = function(value) {\n     \tvar newNode = new Node(value);\n     \tif(!this.top) {\n     \t\tthis.top = newNode;\n     \t}\n     \telse {\n     \t\tnewNode.next = this.top;\n     \t\tthis.top = newNode;\n     \t}\n     }",
 		"tags": ["javascript","REACTO"],
 		"dateCreated": "2016-03-28T12:54:13-07:00",
 		"lastUpdate": "2016-03-30T04:24:13-07:00"
+	},
+	{
+		"subject": "Intro to Mongoose",
+		"body": "Mongoose is MongoDB object modeling for NodeJS.\n\n**Example:**\n      var mongoose = require('mongoose');\n     mongoose.connect('mongodb://localhost/test');\n     var Cat = mongoose.model('Cat', { name: String });\n     var kitty = new Cat({ name: 'Zildjian' });\n     kitty.save(function (err) {\n     \tif (err) {\n     \t\tconsole.log(err);\n     \t} else {\n     \t\tconsole.log('meow');\n     \t}\n     });",
+		"tags": ["node","javascript","mongoose","mongodb","ORM"],
+		"dateCreated": "2016-02-26T21:20:47-08:00",
+		"lastUpdate": "2016-03-20T12:13:09-07:00"
+
+	},
+	{
+		"subject": "Bubble Sort",
+		"body": "A simple sorting algorithm that repeatedly steps through the list to be sorted, compares each pair of adjacent items and swaps them if they are in the wrong order.",
+		"tags": ["REACTO","javascript","algorithms"],
+		"dateCreated": "2016-02-24T21:20:47-08:00",
+		"lastUpdate": "2016-03-22T12:13:09-07:00"
+
 	},
 	{
 		"subject": "Intro to NodeJS",
@@ -42,11 +58,11 @@ module.exports = [
 		"lastUpdate": "2016-03-18T12:13:09-07:00"
 	},
 	{
-		"subject": "Sequelize",
-		"body": "* **hasOne** * adds a foreign key to the target and singular association mixins to the source.\n* **belongsTo** * add a foreign key and singular association mixins to the source.\n* **hasMany** * adds a foreign key to target and plural association mixins to the source.\n* **belongsToMany** * creates an N:M association with a join table and adds plural association mixins to the source. The junction table is created with sourceId and targetId.",
-		"tags": ["databases"],
-		"dateCreated": "2016-03-13T20:31:26-07:00",
-		"lastUpdate": "2016-03-30T20:57:10-07:00"
+		"subject": "Lodash",
+		"body": "Lodash makes JavaScript easier by taking the hassle out of working with arrays,numbers, objects, strings, etc. Lodash’s modular methods are great for: iterating arrays, objects, & strings; manipulating & testing values; and creating composite functions. \n #### Test function\n\n     function hello() {\n     \treturn \"hello\"\n     }\n     hello()\n\n#### Lodash chunk function\n\n     var _ = require(\'lodash\')\n    \n     function testLodash() {\n            return _.chunk([\'a\', \'b\', \'c\', \'d\'], 2)\n     }\n    \n     testLodash()",
+		"tags": ["lodash","javascript"],
+		"dateCreated": "2016-02-09T10:23:05-08:00",
+		"lastUpdate": "2016-03-02T00:44:25-08:00"
 	},
 	{
 		"subject": "The JavaScript Engine",
@@ -56,10 +72,12 @@ module.exports = [
 		"lastUpdate": "2016-03-19T19:15:36-07:00"
 	},
 	{
-		"subject": "Lodash Note - Share with Ksenia!",
-		"body": "Lodash Note for Ksenia\n### Check out these functions!\n#### Hello function\n\n     function hello() {\n          return \"hello\"\n     }\n     hello()\n\n#### Lodash function\n\n     var _ = require(\'lodash\')\n    \n     function testLodash() {\n            return _.chunk([\'a\', \'b\', \'c\', \'d\'], 2)\n     }\n    \n     testLodash()",
-		"tags": ["lodash","javascript"],
-		"dateCreated": "2016-02-09T10:23:05-08:00",
-		"lastUpdate": "2016-03-02T00:44:25-08:00"
-	}
+		"subject": "Sequelize",
+		"body": "* **hasOne** * adds a foreign key to the target and singular association mixins to the source.\n* **belongsTo** * add a foreign key and singular association mixins to the source.\n* **hasMany** * adds a foreign key to target and plural association mixins to the source.\n* **belongsToMany** * creates an N:M association with a join table and adds plural association mixins to the source. The junction table is created with sourceId and targetId.",
+		"tags": ["databases"],
+		"dateCreated": "2016-03-13T20:31:26-07:00",
+		"lastUpdate": "2016-03-30T20:57:10-07:00"
+	},
+
+
 ]

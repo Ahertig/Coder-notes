@@ -19,15 +19,6 @@ app.controller('SidenavCtrl', function($scope, SideNavFactory, NotesFactory, $fi
 		NotebookFactory.setCurrentNotebook(notebook);
 	}
 
-
-	// was trying to set notes margin by calling this on index. did not work
-	// $scope.setMarginTop =  function(index) {
-	// 	console.log("setting margin top. index is", index)
-	// 	return {
-	// 		'margin-top': (-20 * index)
-	// 	}
-	// };
-
 	$scope.getCurrentNotebook = NotebookFactory.getCurrentNotebookSync;
 
 	$scope.getCurrentNote = NotesFactory.getCurrentNoteSync;

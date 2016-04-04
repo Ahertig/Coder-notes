@@ -1,15 +1,15 @@
-app.directive('deletemodal', function() {
+app.directive('deletenotebookmodal', function() {
 	return {
 		restrict: 'E',
-		templateUrl: 'js/notes/sidenav/tabcontent/modalwindows/deletemodal.html',
+		templateUrl: 'js/notes/sidenav/tabcontent/modalwindows/deletenotebookmodal.html',
 		controller: 'SidenavCtrl'
 	}
 });
 
-app.directive('sharemodal', function() {
+app.directive('sharenotebookmodal', function() {
 	return {
 		restrict: 'E',
-		templateUrl: 'js/notes/sidenav/tabcontent/modalwindows/sharemodal.html',
+		templateUrl: 'js/notes/sidenav/tabcontent/modalwindows/sharenotebookmodal.html',
 		controller: 'SidenavCtrl'
 	}
 });

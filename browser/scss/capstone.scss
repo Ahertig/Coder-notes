@@ -157,7 +157,8 @@ nav.navbar {
 a.navbar-brand {
 	font-family: 'Courier New', Courier, Monospace, sans-serif;
 	font-size: 28px;
-	margin-left: 50px;
+	/*margin-left: 50px;*/
+	margin-top: 5px;
 	/* font-family: 'PT Mono', Monospace, sans-serif; */
 	font-size: 26px;
 }
@@ -189,6 +190,10 @@ body,
 	background-color: #f3f2f3 !important;
 }
 
+.notes-page-logo {
+	display: inline-block;
+	float: left;
+}
 
 /* bootstrap columns */
 
@@ -321,9 +326,6 @@ button {
 	text-align: center;
 	font-size: 30px;
 	color: #bbbbbb;
-}
-
-.trash-modal i {
 	margin-left: 120px;
 }
 

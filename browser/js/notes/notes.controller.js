@@ -1,8 +1,5 @@
 app.controller('NotesCtrl', function($scope, AuthService, myNotebooks, NotesFactory, myTags, mySharedNotebooks, myNotes,NotebookFactory) {
 	$scope.user = null;
-    //$scope.notes = myNotes;
-
-    //$scope.tags = myTags;
     $scope.sharednotebooks = mySharedNotebooks;
     $scope.notebooks = myNotebooks;
 

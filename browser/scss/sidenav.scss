@@ -33,17 +33,17 @@ sidenav .form-inline .dropdown {
 /* sidenav scroll */
 
 .outer-scroll {
-	height: 500px;
+	max-height: 500px;
 	overflow: auto;
 }
 
 .inner-scroll {
-	height: 150px;
+	max-height: 150px;
 	overflow: auto;
 }
 
 .trash-scroll {
-	height: 161px;
+	max-height: 161px;
 	overflow: auto;
 }
 
@@ -127,12 +127,31 @@ sidenav button {
 	font-weight: bold !important;
 }
 
-sidenav input {
+#sidenav input {
 	border-radius: 20px !important; 
 	margin: 7px auto !important;
 	width: 98% !important;
+	&.note-notebook-search {
+		display: inline-block;
+		width: 75% !important;		
+	}
 }
 
+
+
 input#notebook {
-	border-radius: 0;
+	border-radius: 0 !important;
+	border: 1px solid #cdcdcd;
+}
+
+.noresults {
+	text-align: center;
+}
+
+#sidenav .dropdown {
+	display: inline-block;
+}
+
+.modal-dialog i {
+	cursor: pointer !important;
 }
