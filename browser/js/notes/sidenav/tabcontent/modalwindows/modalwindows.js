@@ -6,7 +6,7 @@ app.directive('deletenotebookmodal', function() {
 	}
 });
 
-app.directive('sharemodal', function() {
+app.directive('sharenotebookmodal', function() {
 	return {
 		restrict: 'E',
 		templateUrl: 'js/notes/sidenav/tabcontent/modalwindows/sharenotebookmodal.html',
