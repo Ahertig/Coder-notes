@@ -27,6 +27,11 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
                     $state.go('home');
                 });
             };
+            scope.gotoNotePage = function(){
+                NotebookFactory.resetNotebookCache();
+                NotesFactory.resetNoteCache();
+                $state.go('usercontent');
+            };
 
             var setUser = function () {
                 AuthService.getLoggedInUser().then(function (user) {
