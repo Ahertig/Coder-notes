@@ -167,15 +167,16 @@ a.navbar-brand {
 }
 
 .navbar-custom.top-nav-collapse {
-	background-color: transparent !important;
+	background-color: transparent!important;
 	border: none !important;
+	 a {
+	 color: #785978 !important
+	 }
 }
 
 
-.navbar-fixed-top {
-	background-color: transparent; 
 
-}
+
 
 .navbar input {
 	border-radius: 20px;
@@ -362,6 +363,16 @@ i.margin-left {
 
 .fa-remove {
 	color: #785978;
+}
+
+i  {
+	&:hover {
+		color: #785978;
+	}
+}
+
+.btn-social-icon {
+	color: #785978
 }
 
 
