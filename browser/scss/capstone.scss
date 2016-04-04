@@ -359,3 +359,16 @@ button {
 	background-color: #E7E7E7;
 	color: #785978;
 }
+
+#homepagesearch button.fa-search {
+	border: none !important;
+}
+
+.navbar-custom.top-nav-collapse {
+	border-bottom: none !important;
+	background-color: transparent !important;	
+}
+
+.panel-body:focus {
+	outline: none !important;
+}
