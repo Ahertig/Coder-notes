@@ -36,7 +36,7 @@ module.exports = [
 	},
 	{
 		"subject": "Intro to Mongoose",
-		"body": "Mongoose is MongoDB object modeling for NodeJS.\n###Example:\n     var mongoose = require('mongoose');\n     mongoose.connect('mongodb://localhost/test');\n     var Cat = mongoose.model('Cat', { name: String });\n     var kitty = new Cat({ name: 'Zildjian' });\n     kitty.save(function (err) {\n     \tif (err) {\n     \t\tconsole.log(err);\n     \t} else {\n     \t\tconsole.log('meow');\n     \t}\n     });",
+		"body": "Mongoose is MongoDB object modeling for NodeJS.\n\n**Example:**\n      var mongoose = require('mongoose');\n     mongoose.connect('mongodb://localhost/test');\n     var Cat = mongoose.model('Cat', { name: String });\n     var kitty = new Cat({ name: 'Zildjian' });\n     kitty.save(function (err) {\n     \tif (err) {\n     \t\tconsole.log(err);\n     \t} else {\n     \t\tconsole.log('meow');\n     \t}\n     });",
 		"tags": ["node","javascript","mongoose","mongodb","ORM"],
 		"dateCreated": "2016-02-26T21:20:47-08:00",
 		"lastUpdate": "2016-03-20T12:13:09-07:00"
