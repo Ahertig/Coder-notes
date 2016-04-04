@@ -1,7 +1,7 @@
 # README.md
 
 ## GHA Capstone project: "Coder Notes"
-Alyssa Hertig, Dorothy Moor, Ksenia Mikhailovskaya, Zhengshi Zhao.
+Alyssa Hertig, Dorothy Moore, Ksenia Mikhailovskaya, and Zhengshi Zhao
 
 ## Deployed at
 www.codernotes.us
