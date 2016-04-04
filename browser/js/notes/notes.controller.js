@@ -1,5 +1,4 @@
-app.controller('NotesCtrl', function($scope, AuthService, myNotebooks, NotesFactory, myTags, mySharedNotebooks, myNotes) {
-
+app.controller('NotesCtrl', function($scope, AuthService, myNotebooks, NotesFactory, myTags, mySharedNotebooks, myNotes,NotebookFactory) {
 	$scope.user = null;
     //$scope.notes = myNotes;
 
@@ -17,5 +16,7 @@ app.controller('NotesCtrl', function($scope, AuthService, myNotebooks, NotesFact
         });
     };
     setUser();
+
+
 });
 

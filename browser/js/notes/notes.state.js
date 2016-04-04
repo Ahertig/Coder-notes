@@ -27,6 +27,10 @@ app.config(function ($stateProvider) {
 			},
 			currentNote: function(NotesFactory) {
 				return NotesFactory.getCurrentNote();
+			},
+			reset:function(NotesFactory,NotebookFactory){
+				NotesFactory.resetNoteCache();
+    			NotebookFactory.resetNotebookCache();
 			}
     	}
 	});

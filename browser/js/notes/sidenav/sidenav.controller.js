@@ -62,14 +62,14 @@ app.controller('SidenavCtrl', function($scope, SideNavFactory, NotesFactory, $fi
 
 	$scope.newNote = function(notebook) {
 
-	NotesFactory.newNote(notebook._id)
-	.then(function(newNote){
-		NotesFactory.setCurrentNote(newNote);
-		NotebookFactory.setCurrentNotebook(notebook);
-	})
-	.then(null, function(err){
-		console.error("Error saving new note!", err);
-	});
+		NotesFactory.newNote(notebook._id)
+		.then(function(newNote){
+			NotesFactory.setCurrentNote(newNote);
+			NotebookFactory.setCurrentNotebook(notebook);
+		})
+		.then(null, function(err){
+			console.error("Error saving new note!", err);
+		});
 	}
 
 	$scope.newNotebook = function(notebookTitle) {
