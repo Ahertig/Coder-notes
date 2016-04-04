@@ -18,9 +18,9 @@
 		<div class="panel-collapse collapse" id="trash-{{notebook._id}}">
 			<div class="list-group">
 				<a ng-click="setCurrentNote(oneNote,notebook)" class="list-group-item" ng-repeat="oneNote in notebook.notes">{{oneNote.subject}}
-				<i ng-click="deleteNote(note)" ng-if="note.trash" type="button" class="fa fa-trash-o pull-right  margin-left"  data-toggle="tooltip" title="Delete note">
+				<i ng-click="deleteNote(note)" type="button" class="fa fa-trash-o pull-right  margin-left"  data-toggle="tooltip" title="Delete note">
 				</i>
-				<i ng-click="restoreNote(note._id)" ng-if="note.trash" type="button" class="fa fa-check-circle pull-right"  data-toggle="tooltip" title="Restore note">
+				<i ng-click="restoreNote(note._id)" type="button" class="fa fa-check-circle pull-right"  data-toggle="tooltip" title="Restore note">
 				</i>
 
 				</a>
@@ -38,10 +38,10 @@
 	<div class='list-group'>
 	<a class="list-group-item" ng-repeat="note in trashnotes = (getnotes() | filter: searchNotes | filter: {trash: true})" ng-click="setCurrentNote(note)">{{note.subject}}
 	&nbsp; &nbsp; &nbsp;
- 		<i ng-click="deleteNote(note)" ng-if="note.trash" type="button" class="fa fa-trash-o pull-right  margin-left"  data-toggle="tooltip" title="Delete note">
+ 		<i ng-click="deleteNote(note)" type="button" class="fa fa-trash-o pull-right  margin-left"  data-toggle="tooltip" title="Delete note">
  		</i>
  		&nbsp; &nbsp; &nbsp;
- 		<i ng-click="restoreNote(note._id)" ng-if="note.trash" type="button" class="fa fa-check-circle pull-right"  data-toggle="tooltip" title="Restore note">
+ 		<i ng-click="restoreNote(note._id)" type="button" class="fa fa-check-circle pull-right"  data-toggle="tooltip" title="Restore note">
  		</i></a>
 	</div>
 </div>
