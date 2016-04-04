@@ -17,7 +17,7 @@
         <ul class="nav navbar-top-links navbar-right">
 
           <li class="dropdown" ng-if="isLoggedIn() && (('community' | isState) || ('note' | isState) || ('home' | isState))">
-            <button id="custom-btn" class="btn btn-default" ui-sref="usercontent">My notes</button>
+            <button id="custom-btn" class="btn btn-default" ng-click="gotoNotePage()">My notes</button>
           </li>
 
           <li class="dropdown" ng-if="!('home' | isState)"> 
