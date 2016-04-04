@@ -1,0 +1,17 @@
+<div class="dropdown">
+	<a class="dropdown-toggle" data-toggle="dropdown">
+		<button type="button" class="btn align-right"  data-toggle="tooltip" title="Add a notebook">
+			<i class="fa fa-plus"></i><i class="fa fa-book"></i>
+		</button>
+	</a>
+	<ul class="dropdown-menu dropdown-messages">
+		<li>
+			<div class="input-group">
+				<form ng-submit="createNotebook(notebookTitle)">
+					<input id="notebook" type="text" ng-model="notebookTitle" placeholder="Enter notebook title">
+					<button class="btn btn-small btn-default" data-toggle="tooltip" title="Save Notebook" type="submit"><i class="fa fa-save"></i></button>
+				</form>
+			</div>
+		</li>
+	</ul> <!-- /.dropdown-messages -->
+</div> <!-- /.dropdown -->	
