@@ -345,7 +345,7 @@ button {
 }
 
 #custom-btn {
-    background-color: transparent;
+    background-color: #F3F2F3;
     border-radius: 5px;
     font-size: 14px;
     margin-right: 10px;
@@ -359,3 +359,30 @@ button {
 	background-color: #E7E7E7;
 	color: #785978;
 }
+
+i  {
+	&:hover {
+		color: #785978;
+	}
+}
+
+.btn-social-icon {
+	color: #785978
+}
+
+.fa-clock-o {
+	color: #black
+}
+
+.fa-user {
+	color: #black
+}
+
+.fa-caret-down {
+	color: #black
+}
+
+#my-element {
+	padding-left: 30px;
+}
+
