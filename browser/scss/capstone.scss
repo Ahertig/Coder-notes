@@ -345,7 +345,7 @@ button {
 }
 
 #custom-btn {
-    background-color: transparent;
+    background-color: #F3F2F3;
     border-radius: 5px;
     font-size: 14px;
     margin-right: 10px;
@@ -358,6 +358,58 @@ button {
 .panel-footer .nav-pills li:hover, .panel-footer .nav-pills li:active {
 	background-color: #E7E7E7;
 	color: #785978;
+}
+
+i  {
+	&:hover {
+		color: #785978;
+	}
+}
+
+.btn-social-icon {
+	color: #785978
+}
+
+.fa-clock-o {
+	color: #black
+}
+
+.fa-user {
+	color: #black
+}
+
+.fa-caret-down {
+	color: #black
+}
+
+#my-element {
+	padding-left: 50px;
+}
+
+#preview-tab a {
+	height: 39px;
+	margin-bottom: 2px;
+}
+
+#edit-tab a {
+	height: 39px;
+	margin-bottom: 2px;
+}
+
+#edit-tab {
+	display: inline;
+	float: left;
+}
+
+#tags {
+	margin-bottom: 10px;
+}
+
+#addTag form {
+	height: 100px !important;
+	display: inline;
+	float: right;
+ 	margin-bottom: 10px;
 }
 
 #homepagesearch button.fa-search {
