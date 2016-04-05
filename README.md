@@ -3,6 +3,10 @@
 ## GHA Capstone project: "Coder Notes"
 Ksenia, Zhengshi, Alyssa, Dorothy
 
+![Coder Notes logo](/img/logo.png)
+
+Coder Notes is a free, open-source notebook designed for coders.
+
 ## Additional NPM modules used
 * Font Awesome https://www.npmjs.com/package/font-awesome
 * Angular Markdown
