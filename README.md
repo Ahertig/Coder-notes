@@ -38,5 +38,4 @@ https://developer.chrome.com/extensions/getstarted
 
 ## Tips on markdown 
 
-* To start an isolated code snippet (inline), use a backtick: `\``
-* To start a code _block_, start each line of the block with four spaces: `
+Markdown Cheatsheet: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
