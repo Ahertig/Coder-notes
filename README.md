@@ -1,7 +1,7 @@
 # README.md
 
 ## GHA Capstone project: "Coder Notes"
-Ksenia, Zhengshi, Alyssa, Dorothy
+Alyssa Hertig, Dorothy Moore, Ksenia Mikhailovskaya, and Zhengshi Zhao
 
 ![Coder Notes](http://codernotes.herokuapp.com/img/logo.png)
 
@@ -21,14 +21,12 @@ www.codernotes.us
 - Export notes as Gists
 - Save code snippets from any website with the Coder Notes [Chrome Extension](https://chrome.google.com/webstore/detail/coder-notes/ajpkpmmiaofbkfchcombbcgjpibnpgfp?hl=en).
 
-## Additional NPM modules used
-* Font Awesome https://www.npmjs.com/package/font-awesome
-* Angular Markdown
-* Marked
-
-## Test user
-**Email:** grace@gracehopperacademy.com
-**Password:** 123
+## Additional NPM modules and dev tools used:
+* Marked: https://www.npmjs.com/package/marked
+* Angular Marked https://www.npmjs.com/package/angular-marked
+* Angular Highlight.js: https://www.npmjs.com/package/angular-highlightjs
+* Tonic https://tonicdev.com/
+* Font Awesome: https://www.npmjs.com/package/font-awesome
 
 ## Chrome Extension installation instructions
 
@@ -41,4 +39,4 @@ https://developer.chrome.com/extensions/getstarted
 ## Tips on markdown 
 
 * To start an isolated code snippet (inline), use a backtick: `\``
-* To start a code _block_, start each line of the block with four spaces: `    `
+* To start a code _block_, start each line of the block with four spaces: `
