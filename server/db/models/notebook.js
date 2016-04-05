@@ -3,7 +3,7 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
 var Promise = require('bluebird');
-
+22
 var notebookSchema = new mongoose.Schema({
     type:  { 
         type: String,
@@ -102,23 +102,19 @@ notebookSchema.methods.share = function(userEmail) {
     var thisNotebook = this;
     return mongoose.model('User').findOne({email: userEmail})
     .then(function (user) {
+        if (!user) return "user was not found"
         user.sharedWithMeNotebooks.addToSet(thisNotebook._id)
         return user.save();
     })
-    // .then(function() {
-    //     return thisNotebook;
-    // })
 }
 
 notebookSchema.methods.removeShare = function(userEmail) {
     var thisNotebook = this;
     return mongoose.model('User').findOne({email: userEmail})
     .then(function (user) {
+        if (!user) return "user was not found"
         user.sharedWithMeNotebooks.pull(thisNotebook._id)
         return user.save();
-    })
-    .then(function(user) {
-        return thisNotebook;
     })
 }
 

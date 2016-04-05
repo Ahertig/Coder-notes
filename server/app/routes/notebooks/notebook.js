@@ -35,6 +35,9 @@ router.delete('/', function(req, res, next){
 router.put('/share', function(req, res, next) {
 	req.currentNotebook.share(req.body.email)
 	.then(function(result) {
+		if(result === "user was not found") {
+			res.status(404)
+		}
 		res.json(result)
 	})
 })
@@ -42,6 +45,9 @@ router.put('/share', function(req, res, next) {
 router.put('/removeshare', function(req, res, next) {
 	req.currentNotebook.removeShare(req.body.email)
 	.then(function(result) {
+		if(result === "user was not found") {
+			res.status(404)
+		}
 		res.json(result)
 	})
 })
