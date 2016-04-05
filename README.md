@@ -1,20 +1,21 @@
 # README.md
 
 ## GHA Capstone project: "Coder Notes"
-Ksenia, Zhengshi, Alyssa, Dorothy
+Alyssa Hertig, Dorothy Moore, Ksenia Mikhailovskaya, and Zhengshi Zhao
 
 ![Coder Notes logo](/img/logo.png)
 
 Coder Notes is a free, open-source notebook designed for coders.
 
-## Additional NPM modules used
-* Font Awesome https://www.npmjs.com/package/font-awesome
-* Angular Markdown
-* Marked
+## Deployed at
+www.codernotes.us
 
-## Test user
-**Email:** grace@gracehopperacademy.com
-**Password:** 123
+## Additional NPM modules and dev tools used:
+* Marked: https://www.npmjs.com/package/marked
+* Angular Marked https://www.npmjs.com/package/angular-marked
+* Angular Highlight.js: https://www.npmjs.com/package/angular-highlightjs
+* Tonic https://tonicdev.com/
+* Font Awesome: https://www.npmjs.com/package/font-awesome
 
 ## Chrome Extension installation instructions
 
@@ -26,5 +27,4 @@ https://developer.chrome.com/extensions/getstarted
 
 ## Tips on markdown 
 
-* To start an isolated code snippet (inline), use a backtick: `\``
-* To start a code _block_, start each line of the block with four spaces: `    `
+Markdown Cheatsheet: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
