@@ -2,8 +2,8 @@ module.exports = {
   "DATABASE_URI": "mongodb://localhost:27017/evercode",
   "SESSION_SECRET": "Optimus Prime is my real dad",
   "GITHUB": {
-    "clientID": "7dc2651cdbd4cf465805",
-    "clientSecret": "7560a2f09893d033f331fb25956632abdc957504",
+    "clientID": "eec37a16cbe2cb5b42eb",
+    "clientSecret": "c63d7301b42fc46096507260fcc68ccd08e25b29",
     "callbackUrl": "http://127.0.0.1:1337/auth/github/callback"
   },
   "GOOGLE": {
