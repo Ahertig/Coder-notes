@@ -93,6 +93,39 @@ userSchema.methods.createNotebook = function(body) {
         return notebook;
    })
 }
+
+// userSchema.methods.getTags = function() {
+//     var tags = [];
+//     var tagsArray = [];
+//     var _tagObj;
+//     var tagCount = function(_tagObj){       
+//         for (var key in _tagObj){
+//             if (_tagObj.hasOwnProperty(key)) {
+//                 var tagobj={};
+//                 tagobj.tag = key.toString();
+//                 tagobj.count = _tagObj[key].length; 
+//                 tagsArray.push(tagobj);             
+//             }
+//         }
+//         return tagsArray;
+//     }
+//     var self = this;
+
+//     self.deepPopulate('myNotebooks.notes')
+//     .then(function(user) {
+//         user.myNotebooks.forEach(function(notebook){
+//             if(notebook.trash === false){
+//                 notebook.notes.forEach(function(note){
+//                     if (note.trash === false)
+//                     tags = tags.concat(note.tags);
+//                 })
+//             }
+//         })
+//         _tagObj = _.groupBy(tags);
+//     })
+//         return tagCount(_tagObj);
+// }
+
 userSchema.methods.getNotebooksInTrash = function() {
     var res = _.filter(this.myNotebooks, {trash: true})
     return res

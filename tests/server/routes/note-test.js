@@ -13,7 +13,7 @@ var supertest = require('supertest');
 var app = require('../../../server/app');
 var Promise = require('bluebird');
 
-xdescribe('Notebook Route', function () {
+describe('Notebook Route', function () {
 
 	beforeEach('Establish DB connection', function (done) {
 		if (mongoose.connection.db) return done();
