@@ -11,6 +11,7 @@ app.controller('SingleNoteCtrl', function($scope, NotesFactory, TonicFactory, Gi
 
 
     $scope.getCurrentNotebook = function(){
+      console.log("+ SingleNoteCtrl: getCurrentNotebook. $scope.currentNote is ", $scope.currentNote())
       var theNotebookID = NotebookFactory.findParentNotebook($scope.currentNote()._id);
       return NotebookFactory.findNotebookById(theNotebookID);
 
