@@ -7,6 +7,8 @@ app.factory('ShareFactory', function($http) {
 		return $http.put('/api/notebooks/' + notebook._id + '/share', {email: email} )
 		.then(function(res) {
 			return res.data
+		}, function (err) {
+			return err.data;
 		})
 	}
 
@@ -14,6 +16,8 @@ app.factory('ShareFactory', function($http) {
 		return $http.put('/api/notebooks/' + notebook._id + '/removeshare', {email: email} )
 		.then(function(res) {
 			return res.data
+		}, function (err) {
+			return err.data;
 		})
 	}
 

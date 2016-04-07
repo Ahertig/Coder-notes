@@ -84,13 +84,30 @@ app.controller('SidenavCtrl', function($scope, SideNavFactory, NotesFactory, $fi
 	}
 
 	// Manage Notebook Share
+	$scope.sharemessage = null;
 	$scope.shareNotebook = function(notebook, email) {
 		ShareFactory.shareNotebook(notebook, email)
+		.then(function (result) {
+			console.log(result)
+			if (result === 'user was not found') {
+				$scope.sharemessage = "User was not found. Please check the email and try again"
+			} else {
+				$scope.sharemessage = 'Notebook was shared!'
+			}
+		})
+		$scope.sharemessage = null;
 	}
 
 	$scope.removeNotebookShare = function(notebook, email) {
-		// console.log('in the controller: ', notebook, email)
 		ShareFactory.removeNotebookShare(notebook, email)
+		.then(function (result) {
+			if (result === 'user was not found') {
+				$scope.sharemessage = "User was not found. Please check the email and try again"
+			} else {
+				$scope.sharemessage = 'Share was removed!'
+			}
+		})
+		$scope.sharemessage = null;
 	}
 
 	$scope.filters = {};
