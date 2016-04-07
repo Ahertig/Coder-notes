@@ -13,25 +13,25 @@ app.factory('NotesFactory', function($http, $q, NotebookFactory) {
 			sideNavOpen = true;
 		},
 		getCurrentNote: function() {
-			console.log("* NotesFactory getCurrentNote start")
+			// console.log("* NotesFactory getCurrentNote start")
 			if (currentNote) return $q.when(currentNote); 
 			else {
-				console.log("* NotesFactory getCurrentNote > else")
+				// console.log("* NotesFactory getCurrentNote > else")
 				return NotebookFactory.getCurrentNotebook()
 				.then(function(currentNotebook){
 					if (currentNotebook.notes.length > 0) {
 						currentNote = currentNotebook.notes[0]
-						console.log("* NotesFactory getCurrentNote: setting current note to", currentNote);
+						// console.log("* NotesFactory getCurrentNote: setting current note to", currentNote);
 						}
 					else {
-						console.log("* NotesFactory getCurrentNote: else > currentNotebook is", currentNotebook);
+						// console.log("* NotesFactory getCurrentNote: else > currentNotebook is", currentNotebook);
 
 						// return notesAPI.newNote(currentNotebook._id)
 						notesAPI.newNote(currentNotebook._id)
 
 						.then(function(newnote){
 							currentNote = notesCache[0]
-							console.log("* NotesFactory getCurrentNote: setting current note to", currentNote);
+							// console.log("* NotesFactory getCurrentNote: setting current note to", currentNote);
 						},
 						function(err) {
 							console.error("error setting current note", err)
@@ -45,7 +45,7 @@ app.factory('NotesFactory', function($http, $q, NotebookFactory) {
 			return currentNote;
 		},
 		setCurrentNote: function(_currentNote) {
-			console.log("* NotesFactory setCurrentNote: currentNote is", _currentNote)
+			// console.log("* NotesFactory setCurrentNote: currentNote is", _currentNote)
 			currentNote = _currentNote;
 		},
 		getAllCacheNotes: function(){
@@ -92,8 +92,8 @@ app.factory('NotesFactory', function($http, $q, NotebookFactory) {
 				if(action === 'add'){ 
 					notebook.notes.unshift(note); 
 					notesCache.unshift(note);
-					console.log("* NotesFactory UNINC: notebook > notes cache is", notebook.notes);
-					console.log("* NotesFactory UNINC: notesCache is", notesCache);
+					// console.log("* NotesFactory UNINC: notebook > notes cache is", notebook.notes);
+					// console.log("* NotesFactory UNINC: notesCache is", notesCache);
 		 		}
 				else if(action === 'update'){
 					index = notesAPI.findNoteIndex(notebook,note._id);
@@ -161,23 +161,23 @@ app.factory('NotesFactory', function($http, $q, NotebookFactory) {
 		},
 
 		saveNote: function (notebookId, noteId,noteUpdate) {
-			console.log("* NotesFactory saveNote. notebookId is", notebookId,"noteId is", noteId,"noteUpdate", noteUpdate)
+			// console.log("* NotesFactory saveNote. notebookId is", notebookId,"noteId is", noteId,"noteUpdate", noteUpdate)
 			return $http.put('/api/notes/' + noteId, noteUpdate)
 			.then(function(response) {
-				console.log("* NotesFactory saveNote response", response.data)
+				// console.log("* NotesFactory saveNote response", response.data)
 				notesAPI.updateNoteInNotebookCache(notebookId,response.data,'update');
-				console.log("* NotesFactory saveNote. Just ran uNINC")
+				// console.log("* NotesFactory saveNote. Just ran uNINC")
 				return response.data;
 			})
 		},
 
 		newNote: function (notebookId) {
-			console.log("* NotesFactory newNote: notebookId is", notebookId)
+			// console.log("* NotesFactory newNote: notebookId is", notebookId)
 			return $http.post('/api/notebooks/' + notebookId + '/notes')
 			.then(function(response) {
-				console.log("* NotesFactory newNote response:", response.data)
+				// console.log("* NotesFactory newNote response:", response.data)
 				notesAPI.updateNoteInNotebookCache(notebookId, response.data, 'add');
-				console.log("* NotesFactory newNote. Just ran uNINC. notesCache is now", notesCache)
+				// console.log("* NotesFactory newNote. Just ran uNINC. notesCache is now", notesCache)
 				return response.data;
 			})	
 		},

@@ -12,13 +12,13 @@ app.factory('NotebookFactory', function($http, $q){
     },
 
 		getCurrentNotebook: function() {
-			console.log("## NotebookFactory getCurrentNotebook: in getCurrentNotebook")
+			// console.log("## NotebookFactory getCurrentNotebook: in getCurrentNotebook")
 			if (currentNotebook) return $q.when(currentNotebook);
 			else {
-				console.log("## NotebookFactory getCurrentNotebook: getCurrentNotebook > else")
+				// console.log("## NotebookFactory getCurrentNotebook: getCurrentNotebook > else")
 				return notebookAPI.fetchMyNotebooks()
 			.then(function(notebooks) {
-					console.log("## NotebookFactory getCurrentNotebook: notebooks is", notebooks)
+					// console.log("## NotebookFactory getCurrentNotebook: notebooks is", notebooks)
           currentNotebook = notebooks[0]
           return currentNotebook;
 				})
@@ -58,12 +58,12 @@ app.factory('NotebookFactory', function($http, $q){
     }, 
 
     fetchMyNotebooks: function() {
-      console.log("## NotebookFactory: fetchMyNotebooks")
+      // console.log("## NotebookFactory: fetchMyNotebooks")
       return $http.get('/api/notebooks')
       .then(function(response) {
-		console.log("## NotebookFactory: fetchMyNotebooks")
+		// console.log("## NotebookFactory: fetchMyNotebooks")
         notebookCache = response.data;
-        console.log("## NotebookFactory: fetchMyNotebooks. notebookCache:", notebookCache);
+        // console.log("## NotebookFactory: fetchMyNotebooks. notebookCache:", notebookCache);
         return notebookCache;
       })
     }, 
