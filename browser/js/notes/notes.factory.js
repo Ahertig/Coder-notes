@@ -118,10 +118,15 @@ app.factory('NotesFactory', function($http, $q, NotebookFactory) {
 			return NotebookFactory.fetchMyNotebooks()
 			.then(function(notebookCache){
 				for (var i = 0; i < notebookCache.length; i++) {
-				notesCache = notesCache.concat(notebookCache[i].notes);
-			}
+					notesCache = notesCache.concat(notebookCache[i].notes);
+				}
+			return NotebookFactory.fetchMySharedNotebooks()
+			}).then(function(sharedNotebook){
+				for (var i = 0; i < sharedNotebook.length; i++) {
+					notesCache = notesCache.concat(sharedNotebook[i].notes);
+				}
 				return notesCache;
-			})
+			}) 	
 		},
 
 		fetchPublicNotes: function() {
